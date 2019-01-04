@@ -1,0 +1,17 @@
+{
+    "HELLO": "Hello",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "LOGIN": "Login",
+    "FORGOT_PASSWORD?": "Forgot password?",
+    "DONT_HAVE_ACCOUNT?": "Don´t have an account?",
+    "HAVE_ACCOUNT?": "Have account already?",
+    "REGISTER_NOW": "Register now",
+    "REGISTER": "Register",
+    "FORBIDDEN": "Forbidden motherfucker",
+    "NAME": "Name",
+
+    "CODE_001": "Email or password is empty",
+    "CODE_002": "Invalid email or password",
+    "CODE_003": "User with that email already exists"
+}

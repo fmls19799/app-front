@@ -1,0 +1,20 @@
+<ion-content>
+  <form class="form" #myForm="ngForm" (ngSubmit)="doLogin()">
+    <ion-list>
+      <ion-item>
+        <ion-label><ion-icon name="ios-mail-outline"></ion-icon>{{'EMAIL' | translate}} </ion-label>
+        <ion-input name="email" type="email" required [(ngModel)]="user.email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label><ion-icon name="lock-outline"></ion-icon>{{'PASSWORD' | translate}} </ion-label>
+        <ion-input name="password" type="password" required [(ngModel)]="user.password"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button class="button" ion-button outline color="white" [disabled]="!myForm.valid">{{'LOGIN' | translate}}</button>
+    <span class="center" (click)="forgotPassword()">{{'FORGOT_PASSWORD?' | translate}}</span>
+  </form>
+  <div class="wrapper">
+    <span class="center">{{'DONT_HAVE_ACCOUNT?' | translate}}</span>
+    <button class="button" ion-button outline color="white" (click)="redirectToRegister()">{{'REGISTER_NOW' | translate}}</button>
+  </div>
+</ion-content>
