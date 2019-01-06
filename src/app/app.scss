@@ -1,5 +1,30 @@
-// http://ionicframework.com/docs/v2/theming/
+.error-container{
+    font-size: .7em !important;
+    text-align: left;
+    margin-left: 16px;
+    .error-item{
+        color: red !important;
+        font-weight: bold;
+    }
+}
 
-.toast-wrapper{
-    text-align: center;
+// Error colors on inputs white on login and register and red somewhere else
+page-login, page-register{
+    .error-container{
+        font-size: .9em;
+        text-align: left;
+        margin-left: 16px;
+        .error-item{
+            color: white !important;
+        }
+    }
+}
+
+ion-input.item-form-control{
+    &.has-error{
+        // border-bottom: 1px solid red;
+    }
+    &.has-success{
+        // border-bottom: 1px solid green !important;
+    }
 }

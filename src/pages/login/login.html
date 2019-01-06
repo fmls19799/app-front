@@ -1,26 +1,34 @@
 <ion-content>
-  <form class="form" #myForm="ngForm" (ngSubmit)="doLogin()">
+  <form [formGroup]="myForm" class="form" (ngSubmit)="doLogin()">
     <ion-list>
+      <!-- EMAIL ITEM-->
       <ion-item>
-        <ion-label><ion-icon name="ios-mail-outline"></ion-icon>{{'EMAIL' | translate}} </ion-label>
-        <ion-input name="email" type="email" required [(ngModel)]="user.email"></ion-input>
+        <ion-label floating>{{'EMAIL' | translate}} </ion-label>
+        <ion-input formControlName="email" name="email" type="email" required [(ngModel)]="user.email" class="item-form-control" [ngClass]="{'has-error': myForm.controls.email.invalid && !myForm.controls.email.pristine, 'has-success': !myForm.controls.email.pristine}"></ion-input>
       </ion-item>
+      <!-- Email item - validation errors -->
+      <div class="error-container" *ngIf="myForm.controls.email.invalid && !myForm.controls.password.pristine">
+        <div class="error-item" [hidden]="!myForm.controls['email'].errors.required">{{ 'ERROR_EMAIL_REQUIRED' | translate }}</div>
+        <div class="error-item" [hidden]="!myForm.controls['email'].errors.pattern">{{ 'ERROR_EMAIL_PATTERN' | translate }}</div>
+      </div>
+      
+      <!-- PASSWORD ITEM-->
       <ion-item>
-        <ion-label><ion-icon name="lock-outline"></ion-icon>{{'PASSWORD' | translate}} </ion-label>
-        <ion-input name="password" type="password" required [(ngModel)]="user.password"></ion-input>
+        <ion-label floating>{{'PASSWORD' | translate}} </ion-label>
+        <ion-input formControlName="password" name="password" type="password" required [(ngModel)]="user.password" class="item-form-control" [ngClass]="{'has-error': myForm.controls.password.invalid && !myForm.controls.password.pristine, 'has-success': !myForm.controls.password.pristine}"></ion-input>
       </ion-item>
+      <!-- Password item - validation errors -->
+      <div class="error-container" *ngIf="myForm.controls.password.invalid && !myForm.controls.password.pristine">
+        <div class="error-item" [hidden]="!myForm.controls['password'].errors.required">{{ 'ERROR_PASSWORD_REQUIRED' | translate }}</div>
+        <div class="error-item" [hidden]="!myForm.controls['password'].errors.pattern">{{ 'ERROR_PASSWORD_PATTERN' | translate }}</div>
+      </div>
     </ion-list>
     <button class="button" ion-button outline color="white" [disabled]="!myForm.valid">{{'LOGIN' | translate}}</button>
-    <span class="center" (click)="forgotPassword()">{{'FORGOT_PASSWORD?' | translate}}</span>
+    <span class="center" (cpplick)="forgotPassword()">{{'FORGOT_PASSWORD?' | translate}}</span>
   </form>
   <div class="wrapper">
     <span class="center">{{'DONT_HAVE_ACCOUNT?' | translate}}</span>
     <button class="button" ion-button outline color="white" (click)="redirectToRegister()">{{'REGISTER_NOW' | translate}}</button>
   </div>
-
-<<<<<<< HEAD
-<h1>LOGOUTT</h1>
-<h2>sfgsdfgs</h2>
-=======
->>>>>>> 49cf7595a733aab6c2bacd7651cf8bc60864897b
 </ion-content>
+

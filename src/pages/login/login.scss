@@ -6,7 +6,7 @@ page-login {
     }
 
     ion-content{
-        background-image: url('./../assets/img/bg.jpeg') !important;
+        background-image: url('./../assets/imgs/bg.jpeg') !important;
         background-size: cover;
         position: fixed;
     }
@@ -36,6 +36,7 @@ page-login {
         display: block;
         width: 70%;
         height: 40px;
+        border: 1px solid white;
     }
     .center{
         text-align: center;

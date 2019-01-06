@@ -1,12 +1,12 @@
 page-register {
-
+    
     *{
         color: white !important;
         font-weight: 200;
     }
-
+    
     ion-content{
-        background-image: url('./../assets/img/bg.jpeg') !important;
+        background-image: url('./../assets/imgs/bg.jpeg') !important;
         background-size: cover;
         position: fixed;
     }
@@ -36,13 +36,14 @@ page-register {
         display: block;
         width: 70%;
         height: 40px;
+        border: 1px solid white;
     }
     .center{
         text-align: center;
         display: block;
         margin-top: 5px;
     }
-
+    
     .wrapper{
         position: absolute;
         bottom: 0;
