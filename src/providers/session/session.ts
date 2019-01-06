@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../config/environment';
+import { CONFIG } from '../../config/config.int';
+// import { CONFIG } from '@environment';
 import { User } from '../../models/user';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SessionProvider {
   
-  private static readonly SESSION_ENDPOINT = `${environment.enpoint}`;
+  private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
   private static readonly defaultOptions = {
     headers: new HttpHeaders().set('Content-Type', 'application/json'),
     withCredentials: true
@@ -18,11 +19,13 @@ export class SessionProvider {
   }
 
   register(user: User){
-    return this.http.post<User>(`${SessionProvider.SESSION_ENDPOINT}/users`, user, SessionProvider.defaultOptions);
+    console.log(user);
+    
+    return this.http.post<User>(`${SessionProvider.ENDPOINT}/users`, user, SessionProvider.defaultOptions);
   }
   
   login(user: User){        
-    return this.http.post<User>(`${SessionProvider.SESSION_ENDPOINT}/sessions`, user, SessionProvider.defaultOptions);
+    return this.http.post<User>(`${SessionProvider.ENDPOINT}/sessions`, user, SessionProvider.defaultOptions);
   }
 
 }

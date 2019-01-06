@@ -6,7 +6,8 @@ import { User } from '../../models/user';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SessionProvider } from '../../providers/session/session';
 import { HttpResponse } from '@angular/common/http';
-import { RegisterPage } from '../register/register';
+// import { RegisterPage } from '../register/register';
+import { PATTERNS } from '../../shared/constants';
 
 @IonicPage()
 @Component({
@@ -15,44 +16,38 @@ import { RegisterPage } from '../register/register';
 })
 export class LoginPage implements OnInit{
   
-  @ViewChild('myForm') myForm: FormGroup;
-  user: User = new User();
-  formBuilder: FormBuilder;
+  user: User = new User();  
+  myForm: FormGroup;
   
-  constructor(public navCtrl: NavController, 
+  constructor(
+    public navCtrl: NavController, 
     public toastCtrl: ToastController, 
     public translateService: TranslateService, 
-    private platform: Platform,
     private sessionProvider: SessionProvider,
-    private alertCtrl: AlertController,
+    private formBuilder: FormBuilder,
     private translate: TranslateService,
+    private platform: Platform,
+    private alertCtrl: AlertController,
     private toast: ToastController) {
-      //  this.myForm = this.formBuilder.group({
-      //   email: new FormControl('', Validators.compose([
-      //     Validators.required,
-      //     Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-      //   ])),
-      //   password: new FormControl('', Validators.required)
-      // });
       
+      this.myForm = this.formBuilder.group({
+        email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(PATTERNS.PATTERN_EMAIL)]),
+        password: new FormControl('', [Validators.required, Validators.pattern(PATTERNS.PATTERN_PASSWORD)])
+      });      
     }
     
     
     ngOnInit(){
+      console.log(this.user);
+      
       // console.log(this.platform.is('cordova'));
     }
     
     doLogin(){
-      
-      if (this.myForm.valid) {
+      if (this.myForm.valid) { 
         this.sessionProvider.login(this.user).subscribe((res: any)=>{
           console.log(res);
-          // TO DO ===>>>
-          // if (res.body === 'KO') {
           
-          // } else{
-          
-          // }
         })
       } else{
         this.translate.get('FORBIDDEN').subscribe((data: string)=>{          
