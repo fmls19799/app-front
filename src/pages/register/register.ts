@@ -4,7 +4,7 @@ import { User } from '../../models/user';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { SessionProvider } from '../../providers/session/session';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ModuleLoader } from 'ionic-angular/umd/util/module-loader';
 import { PATTERNS } from '../../shared/constants';
 
@@ -18,7 +18,7 @@ export class RegisterPage {
   
   user: User = new User();
   myForm: FormGroup;
-
+  
   constructor(public navCtrl: NavController, 
     public toastCtrl: ToastController, 
     public translateService: TranslateService, 
@@ -33,8 +33,7 @@ export class RegisterPage {
         name: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(PATTERNS.PATTERN_EMAIL)]),
         password: new FormControl('', [Validators.required, Validators.pattern(PATTERNS.PATTERN_PASSWORD)])
-      });   
-      
+      });
     }
     
     redirectToLogin(){
@@ -42,11 +41,34 @@ export class RegisterPage {
     }
     
     doRegister(){
-      this.sessionProvider.register(this.user).subscribe((res: any)=>{
-        
-      })
+      
+      if (this.myForm.valid) { 
+        this.sessionProvider.register(this.user).subscribe((res: any)=>{
+          // if (res.message) {
+          console.log(22, res);
+          
+          // }
+        })
+      } else{
+        this.translate.get('FORBIDDEN').subscribe((data: string)=>{          
+          this.showToast(data);
+        })
+      }
+    }
+    
+    showToast(data: string){
+      this.toastCtrl.create({
+        message: data,
+        duration: 2000,
+        position: 'top',
+      }).present();      
+    }
+    
+    forgotPassword(){
+      console.log('forgot password');
     }
   }
+  
   
   
   

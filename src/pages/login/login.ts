@@ -37,16 +37,14 @@ export class LoginPage implements OnInit{
     }
     
     
-    ngOnInit(){
-      console.log(this.user);
-      
+    ngOnInit(){      
       // console.log(this.platform.is('cordova'));
     }
     
     doLogin(){
       if (this.myForm.valid) { 
         this.sessionProvider.login(this.user).subscribe((res: any)=>{
-          console.log(res);
+          // console.log(res);
           
         })
       } else{

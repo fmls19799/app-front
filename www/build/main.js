@@ -90,8 +90,21 @@ var SessionProvider = /** @class */ (function () {
     SessionProvider_1 = SessionProvider;
     SessionProvider.prototype.register = function (user) {
         console.log(user);
-        return this.http.post(SessionProvider_1.ENDPOINT + "/users", user, SessionProvider_1.defaultOptions);
+        return this.http.post(SessionProvider_1.ENDPOINT + "/users", user, SessionProvider_1.defaultOptions).map(function (res) {
+            console.log(11, res);
+        });
     };
+    // create(house: House): Observable<House | ApiError> {
+    //   return this.http.post<House>(`${HomeService.HOUSE_API}/users/${this.session.user.id}/houses`, house.asFormData(), { withCredentials: true })
+    //   .pipe(
+    //     map((house: House) => {
+    //       this.houses.push(house);
+    //       console.log(house);
+    //       return house;
+    //     }),
+    //     catchError(this.handleError)
+    //     )
+    //   }
     SessionProvider.prototype.login = function (user) {
         return this.http.post(SessionProvider_1.ENDPOINT + "/sessions", user, SessionProvider_1.defaultOptions);
     };
