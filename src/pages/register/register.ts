@@ -18,7 +18,7 @@ export class RegisterPage {
   
   user: User = new User();
   myForm: FormGroup;
-
+  
   constructor(public navCtrl: NavController, 
     public toastCtrl: ToastController, 
     public translateService: TranslateService, 
