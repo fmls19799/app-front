@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { TranslateService } from '@ngx-translate/core';
 import { SessionProvider } from '../../providers/session/session';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { ModuleLoader } from 'ionic-angular/umd/util/module-loader';
 import { PATTERNS } from '../../shared/constants';
 
 @IonicPage()

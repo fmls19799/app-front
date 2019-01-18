@@ -123,13 +123,29 @@ var RegisterPage = /** @class */ (function () {
     };
     RegisterPage.prototype.doRegister = function () {
         var _this = this;
+        if (this.myForm.valid) {
+            this.sessionProvider.register(this.user).subscribe(function (res) {
+                // if (res.message) {
+                console.log(22, res);
+                // }
+            });
+        }
+        else {
+            this.translate.get('FORBIDDEN').subscribe(function (data) {
+                _this.showToast(data);
+            });
+        }
+    };
+    RegisterPage.prototype.forgotPassword = function () {
+        var _this = this;
+        console.log('forgot password');
         this.sessionProvider.register(this.user).subscribe(function (res) {
             console.log(res);
             // poner errores
             _this.showToast();
         });
     };
-    RegisterPage.prototype.showToast = function () {
+    RegisterPage.prototype.showToast = function (data) {
         var _this = this;
         this.translate.get('USER_CREATED').subscribe(function (value) {
             _this.toastCtrl.create({

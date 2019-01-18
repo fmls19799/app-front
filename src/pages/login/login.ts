@@ -45,7 +45,7 @@ export class LoginPage implements OnInit{
     doLogin(){
       if (this.myForm.valid) { 
         this.sessionProvider.login(this.user).subscribe((res: any)=>{
-          // console.log(res);
+          console.log(res);
           
           this.userStorage = res;
           if (this.userStorage ) {
