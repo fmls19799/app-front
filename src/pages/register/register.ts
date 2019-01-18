@@ -46,7 +46,6 @@ export class RegisterPage {
         this.sessionProvider.register(this.user).subscribe((res: any)=>{
           // if (res.message) {
           console.log(22, res);
-          console.log('hola');
           
           // }
         })
