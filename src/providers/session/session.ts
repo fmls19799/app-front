@@ -21,11 +21,11 @@ export class SessionProvider {
   register(user: User){
     console.log(user);
     
-    return this.http.post<User>(`${SessionProvider.ENDPOINT}/users`, user, SessionProvider.defaultOptions);
+    return this.http.post<User>(`${SessionProvider.ENDPOINT}/users`, user).map((data: any)=> data);
   }
   
   login(user: User){        
-    return this.http.post<User>(`${SessionProvider.ENDPOINT}/sessions`, user, SessionProvider.defaultOptions);
+    return this.http.post<User>(`${SessionProvider.ENDPOINT}/sessions`, user).map((data: any)=>data);
   }
 
 }

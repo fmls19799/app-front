@@ -10,7 +10,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AppHttpInterceptorProvider } from '../providers/app-http-interceptor/app-http-interceptor';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -41,7 +42,8 @@ export function createTranslateLoader(http: HttpClient) {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SessionProvider
+    SessionProvider,
+    {provide: HTTP_INTERCEPTORS, useClass:AppHttpInterceptorProvider, multi: true}
   ]
 })
 export class AppModule {}

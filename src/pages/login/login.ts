@@ -18,6 +18,7 @@ export class LoginPage implements OnInit{
   
   user: User = new User();  
   myForm: FormGroup;
+  userStorage: User;
   
   constructor(
     public navCtrl: NavController, 
@@ -38,16 +39,20 @@ export class LoginPage implements OnInit{
     
     
     ngOnInit(){
-      console.log(this.user);
-      
-      // console.log(this.platform.is('cordova'));
+    //  this.user = JSON.parse(localStorage.getItem('user'))     
     }
     
     doLogin(){
       if (this.myForm.valid) { 
         this.sessionProvider.login(this.user).subscribe((res: any)=>{
           console.log(res);
+          // si es correcto ...
+          console.log();
           
+          this.userStorage = res;
+          if (this.userStorage ) {
+            this.saveInLocalStorage(this.userStorage)
+          }
         })
       } else{
         this.translate.get('FORBIDDEN').subscribe((data: string)=>{          
@@ -66,6 +71,11 @@ export class LoginPage implements OnInit{
     
     forgotPassword(){
       console.log('forgot password');
+    }
+
+    saveInLocalStorage(userStorage: User){
+      localStorage.setItem('user', JSON.stringify(userStorage));
+
     }
     
     redirectToRegister(){
