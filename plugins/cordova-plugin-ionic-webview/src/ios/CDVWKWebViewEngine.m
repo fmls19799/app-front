@@ -332,7 +332,10 @@ NSTimer *timer;
             self.handler = [[IONAssetHandler alloc] init];
             [self.handler setAssetPath:[self getStartPath]];
             [configuration setURLSchemeHandler:self.handler forURLScheme:@"ionic"];
+<<<<<<< HEAD
             [configuration setURLSchemeHandler:self.handler forURLScheme:@"ionic-asset"];
+=======
+>>>>>>> fase01
         }
     }
 
@@ -975,8 +978,13 @@ static void * KVOContext = &KVOContext;
     } else {
         [self.webServer addGETHandlerForBasePath:@"/" directoryPath:path indexFilename:((CDVViewController *)self.viewController).startPage cacheAge:0 allowRangeRequests:YES];
     }
+<<<<<<< HEAD
     [self.webServer addHandlerForMethod:@"GET" pathRegex:@"_file_/" requestClass:GCDWebServerFileRequest.class asyncProcessBlock:^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock) {
         NSString *urlToRemove = [serverUrl stringByAppendingString:@"/_file_"];
+=======
+    [self.webServer addHandlerForMethod:@"GET" pathRegex:@"_app_file_/" requestClass:GCDWebServerFileRequest.class asyncProcessBlock:^(__kindof GCDWebServerRequest * _Nonnull request, GCDWebServerCompletionBlock  _Nonnull completionBlock) {
+        NSString *urlToRemove = [serverUrl stringByAppendingString:@"/_app_file_"];
+>>>>>>> fase01
         NSString *absUrl = [[[request URL] absoluteString] stringByReplacingOccurrencesOfString:urlToRemove withString:@""];
 
         NSRange range = [absUrl rangeOfString:@"?"];

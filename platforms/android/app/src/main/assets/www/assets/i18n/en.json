@@ -18,5 +18,11 @@
 
     "CODE_001": "Email or password is empty",
     "CODE_002": "Invalid email or password",
+<<<<<<< HEAD
     "CODE_003": "User with that email already exists"
+=======
+    "CODE_003": "User with that email already exists",
+
+    "USER_CREATED": "User created successfully"
+>>>>>>> fase01
 }

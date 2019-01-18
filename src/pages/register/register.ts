@@ -56,17 +56,28 @@ export class RegisterPage {
       }
     }
     
-    showToast(data: string){
-      this.toastCtrl.create({
-        message: data,
-        duration: 2000,
-        position: 'top',
-      }).present();      
-    }
     
     forgotPassword(){
       console.log('forgot password');
+      this.sessionProvider.register(this.user).subscribe((res: any)=>{
+        console.log(res);
+       // poner errores
+        this.showToast();
+      })
     }
+
+    showToast(data?: string){
+      this.translate.get('USER_CREATED').subscribe((value: string)=>{
+        this.toastCtrl.create({
+          message: value,
+          duration: 2000,
+          position: 'top'
+        }).present();
+      })
+      //si es satisfacrorio llevalo a login
+      this.navCtrl.setRoot('LoginPage');
+    }
+    
   }
   
   

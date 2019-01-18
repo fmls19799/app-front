@@ -48,7 +48,7 @@ module.exports.metadata =
   "cordova-plugin-statusbar": "2.4.2",
   "cordova-plugin-device": "2.0.2",
   "cordova-plugin-splashscreen": "5.0.2",
-  "cordova-plugin-ionic-webview": "2.3.1",
+  "cordova-plugin-ionic-webview": "2.3.2",
   "cordova-plugin-ionic-keyboard": "2.1.3"
 };
 // BOTTOM OF METADATA

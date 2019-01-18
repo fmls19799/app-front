@@ -22,11 +22,15 @@ export class SessionProvider {
   register(user: User){
     console.log(user);
     
+<<<<<<< HEAD
     return this.http.post<User>(`${SessionProvider.ENDPOINT}/users`, user, SessionProvider.defaultOptions).map((res: any)=>{
       console.log(11, res);
       
     })
    
+=======
+    return this.http.post<User>(`${SessionProvider.ENDPOINT}/users`, user).map((data: any)=> data);
+>>>>>>> fase01
   }
 
 
@@ -49,7 +53,7 @@ export class SessionProvider {
 
   
   login(user: User){        
-    return this.http.post<User>(`${SessionProvider.ENDPOINT}/sessions`, user, SessionProvider.defaultOptions);
+    return this.http.post<User>(`${SessionProvider.ENDPOINT}/sessions`, user).map((data: any)=>data);
   }
   
 }

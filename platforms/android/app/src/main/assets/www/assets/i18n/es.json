@@ -18,5 +18,12 @@
 
     "CODE_001": "Email o contraseña faltan",
     "CODE_002": "Email o contraseña errónea",
+<<<<<<< HEAD
     "CODE_003": "El usuario con ese email ya existe"
+=======
+    "CODE_003": "El usuario con ese email ya existe",
+
+    "USER_CREATED": "Usuario creado satisfactoriamente"
+
+>>>>>>> fase01
 }
