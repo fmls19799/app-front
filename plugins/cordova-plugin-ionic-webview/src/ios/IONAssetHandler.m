@@ -14,17 +14,6 @@ API_AVAILABLE(ios(11.0)){
     NSString * stringToLoad = url.path;
     NSString * scheme = url.scheme;
     if ([scheme isEqualToString:@"ionic"]) {
-<<<<<<< HEAD
-        startPath = self.basePath;
-        if ([stringToLoad isEqualToString:@""] || !url.pathExtension) {
-            startPath = [startPath stringByAppendingString:@"/index.html"];
-        } else {
-            startPath = [startPath stringByAppendingString:stringToLoad];
-        }
-    } else {
-        if (![stringToLoad isEqualToString:@""]) {
-            startPath = stringToLoad;
-=======
         if ([stringToLoad hasPrefix:@"/_app_file_"]) {
             startPath = [stringToLoad stringByReplacingOccurrencesOfString:@"/_app_file_" withString:@""];
         } else {
@@ -34,7 +23,6 @@ API_AVAILABLE(ios(11.0)){
             } else {
                 startPath = [startPath stringByAppendingString:stringToLoad];
             }
->>>>>>> fase01
         }
     }
     
@@ -76,11 +64,7 @@ API_AVAILABLE(ios(11.0)){
 -(BOOL) isMediaExtension:(NSString *) pathExtension {
     NSArray * mediaExtensions = @[@"m4v", @"mov", @"mp4",
                            @"aac", @"ac3", @"aiff", @"au", @"flac", @"m4a", @"mp3", @"wav"];
-<<<<<<< HEAD
-    if ([mediaExtensions containsObject:pathExtension]) {
-=======
     if ([mediaExtensions containsObject:pathExtension.lowercaseString]) {
->>>>>>> fase01
         return YES;
     }
     return NO;

@@ -1,14 +1,8 @@
 {
   "_from": "cordova-plugin-ionic-webview@^2.0.0",
-<<<<<<< HEAD
-  "_id": "cordova-plugin-ionic-webview@2.3.1",
-  "_inBundle": false,
-  "_integrity": "sha512-tGKRp2iEYbOwZ2sT/uBU2C1YW1a43QI3YGi4WMH4LsgUdDjYGj4OZ8o7xQtRlxOKpdAjtSyLn1wz3Jip04elMg==",
-=======
   "_id": "cordova-plugin-ionic-webview@2.3.2",
   "_inBundle": false,
   "_integrity": "sha512-f7nXWTT93ZAJP4fMUxZWd8BacegTJNUK9Cocu0n2SH8gliAIjKzJtvSzEONSJ5b1Xp2osdUF6f5x+oWvyM90jQ==",
->>>>>>> fase01
   "_location": "/cordova-plugin-ionic-webview",
   "_phantomChildren": {},
   "_requested": {
@@ -25,17 +19,10 @@
     "#USER",
     "/"
   ],
-<<<<<<< HEAD
-  "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-2.3.1.tgz",
-  "_shasum": "13106cef1354b8aa8a4a6ef879f8759a2e707f49",
-  "_spec": "cordova-plugin-ionic-webview@^2.0.0",
-  "_where": "/Users/franciscomanriquedelara/FRAN/DEVELOPMENT/0_APP/front",
-=======
   "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-2.3.2.tgz",
   "_shasum": "f4b1d669cefe7d25cfe47cfc9c6fe820211b63fa",
   "_spec": "cordova-plugin-ionic-webview@^2.0.0",
   "_where": "/Users/franciscomanriquedelara/Desktop/front",
->>>>>>> fase01
   "author": {
     "name": "Ionic Team"
   },
@@ -111,9 +98,5 @@
     "sync_plugin_xml": "sync-cordova-xml package.json plugin.xml --output=plugin.xml",
     "version": "npm run sync_plugin_xml && git add plugin.xml"
   },
-<<<<<<< HEAD
-  "version": "2.3.1"
-=======
   "version": "2.3.2"
->>>>>>> fase01
 }

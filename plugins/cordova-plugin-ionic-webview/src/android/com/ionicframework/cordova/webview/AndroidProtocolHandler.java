@@ -26,23 +26,8 @@ public class AndroidProtocolHandler {
     this.context = context;
   }
 
-<<<<<<< HEAD
-  public InputStream openAsset(String path, String assetPath) throws IOException {
-    if (path.startsWith(assetPath + "/_file_")) {
-      if (path.contains("content://")) {
-        String contentPath = path.replace(assetPath + "/_file_/", "content://");
-        return context.getContentResolver().openInputStream(Uri.parse(contentPath));
-      } else {
-        String filePath = path.replace(assetPath + "/_file_/", "");
-        return new FileInputStream(new File(filePath));
-      }
-    } else {
-      return context.getAssets().open(path, AssetManager.ACCESS_STREAMING);
-    }
-=======
   public InputStream openAsset(String path) throws IOException {
     return context.getAssets().open(path, AssetManager.ACCESS_STREAMING);
->>>>>>> fase01
   }
 
   public InputStream openResource(Uri uri) {
@@ -83,12 +68,6 @@ public class AndroidProtocolHandler {
   }
 
   public InputStream openFile(String filePath) throws IOException  {
-<<<<<<< HEAD
-    File localFile = new File(filePath);
-    return new FileInputStream(localFile);
-  }
-
-=======
     String realPath = filePath.replace(WebViewLocalServer.fileStart, "");
     File localFile = new File(realPath);
     return new FileInputStream(localFile);
@@ -105,7 +84,6 @@ public class AndroidProtocolHandler {
     return stream;
   }
 
->>>>>>> fase01
   private static int getFieldId(Context context, String assetType, String assetName)
     throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
     Class<?> d = context.getClassLoader()

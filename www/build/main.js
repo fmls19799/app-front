@@ -22,19 +22,11 @@ webpackEmptyAsyncContext.id = 130;
 
 var map = {
 	"../pages/login/login.module": [
-<<<<<<< HEAD
-		318,
-		1
-	],
-	"../pages/register/register.module": [
-		319,
-=======
 		326,
 		1
 	],
 	"../pages/register/register.module": [
 		327,
->>>>>>> fase01
 		0
 	]
 };
@@ -98,13 +90,7 @@ var SessionProvider = /** @class */ (function () {
     SessionProvider_1 = SessionProvider;
     SessionProvider.prototype.register = function (user) {
         console.log(user);
-<<<<<<< HEAD
-        return this.http.post(SessionProvider_1.ENDPOINT + "/users", user, SessionProvider_1.defaultOptions).map(function (res) {
-            console.log(11, res);
-        });
-=======
         return this.http.post(SessionProvider_1.ENDPOINT + "/users", user).map(function (data) { return data; });
->>>>>>> fase01
     };
     // create(house: House): Observable<House | ApiError> {
     //   return this.http.post<House>(`${HomeService.HOUSE_API}/users/${this.session.user.id}/houses`, house.asFormData(), { withCredentials: true })
@@ -127,10 +113,10 @@ var SessionProvider = /** @class */ (function () {
     };
     SessionProvider = SessionProvider_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]) === "function" && _a || Object])
     ], SessionProvider);
     return SessionProvider;
-    var SessionProvider_1;
+    var SessionProvider_1, _a;
 }());
 
 //# sourceMappingURL=session.js.map

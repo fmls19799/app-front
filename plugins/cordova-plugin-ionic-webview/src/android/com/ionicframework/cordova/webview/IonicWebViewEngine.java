@@ -62,11 +62,7 @@ public class IonicWebViewEngine extends SystemWebViewEngine {
     CDV_LOCAL_SERVER = "http://localhost:" + port;
 
     localServer = new WebViewLocalServer(cordova.getActivity(), "localhost:" + port, true, parser);
-<<<<<<< HEAD
-    WebViewLocalServer.AssetHostingDetails ahd = localServer.hostAssets("www");
-=======
     localServer.hostAssets("www");
->>>>>>> fase01
 
     webView.setWebViewClient(new ServerClient(this, parser));
 

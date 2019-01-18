@@ -5,19 +5,6 @@ var WebView = {
     if (!url) {
       return url;
     }
-<<<<<<< HEAD
-    if (!url.startsWith('file://')) {
-      return url;
-    }
-    if (window.WEBVIEW_SERVER_URL.startsWith('ionic://')) {
-      return url.replace('file', 'ionic-asset');
-    }
-    url = url.substr(7); // len("file://") == 7
-    if (url.length === 0 || url[0] !== '/') { // ensure the new URL starts with /
-      url = '/' + url;
-    }
-    return window.WEBVIEW_SERVER_URL + '/_file_' + url;
-=======
     if (url.startsWith('/')) {
       return window.WEBVIEW_SERVER_URL + '/_app_file_' + url;
     }
@@ -28,7 +15,6 @@ var WebView = {
       return window.WEBVIEW_SERVER_URL + url.replace('content:/', '/_app_content_');
     }
     return url;
->>>>>>> fase01
   },
   setServerBasePath: function(path) {
     exec(null, null, 'IonicWebView', 'setServerBasePath', [path]);
