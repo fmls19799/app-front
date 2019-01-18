@@ -113,10 +113,10 @@ var SessionProvider = /** @class */ (function () {
     };
     SessionProvider = SessionProvider_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]) === "function" && _a || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]])
     ], SessionProvider);
     return SessionProvider;
-    var SessionProvider_1, _a;
+    var SessionProvider_1;
 }());
 
 //# sourceMappingURL=session.js.map
