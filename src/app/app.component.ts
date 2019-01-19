@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
 import { CONFIG } from '../config/config.int'; // AQUI DEFINO EL ENTORNO !!!
+import { Utils } from './../providers/utils';
 // import { CONFIG } from '@environment';
 
 @Component({
@@ -13,10 +14,18 @@ export class MyApp implements OnInit{
   //1. La primera vez, en app component pongo el root en html asi en lugar de setroot ya que no funcionaria
   rootPage: string;
   environment: string;
-  
+  isCordova: boolean;
+  versionWebOrPhone: string;
+
   @ViewChild(Nav) nav: Nav;
   
-  constructor(private translate: TranslateService, platform: Platform, private config: Config, private statusBar: StatusBar, private splashScreen: SplashScreen) {
+  constructor(private translate: TranslateService, 
+    private platform: Platform, 
+    private config: Config, 
+    private statusBar: StatusBar, 
+    private splashScreen: SplashScreen,
+    private utils: Utils) {
+
     platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
@@ -25,8 +34,19 @@ export class MyApp implements OnInit{
   }
   
   ngOnInit(){
+    // set root page at first load and environment
     this.rootPage = 'LoginPage';
     this.environment = CONFIG.ENV;
+
+    // check if its phone or web
+    this.isCordova = this.utils.isCordova();
+    if (this.isCordova) {
+      this.versionWebOrPhone = 'phone';
+    } else{
+      this.versionWebOrPhone = 'web';
+    }
+    console.log(this.versionWebOrPhone);
+    
   }
   
   
