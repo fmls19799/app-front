@@ -1,3 +1,21 @@
 <ion-nav [root]="rootPage"></ion-nav>
 <div class="version">{{ versionWebOrPhone }}</div>
 <div class="userAgent">{{ userAgent }}</div>
+
+<ion-footer class="flex" *ngIf="showTabs">
+    <ion-segment>
+      <ion-icon name="ios-contact"></ion-icon>
+    </ion-segment>
+    <ion-segment>
+      <ion-icon name="ios-reverse-camera"></ion-icon>
+    </ion-segment>
+    <ion-segment>
+      <ion-icon name="ios-map"></ion-icon>
+    </ion-segment>
+    <ion-segment>
+      <ion-icon name="ios-pricetag"></ion-icon>
+    </ion-segment>
+    <ion-segment>
+      <ion-icon name="ios-cog"></ion-icon>
+    </ion-segment>
+  </ion-footer>

@@ -44,8 +44,8 @@ export class LoginPage implements OnInit{
       // poner mejor esto ???
       // USER SAVED IN LOCAL STORAGE
       if(localStorage.getItem('user')){
-        let userStorage = JSON.parse(localStorage.getItem('user'));
-        this.user = userStorage;
+        this.userStorage = JSON.parse(localStorage.getItem('user'));
+        this.user = this.userStorage;
       } 
       
       //CHECK PLATFORM TO CHANGE HTML VIEW

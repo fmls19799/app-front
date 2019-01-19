@@ -13,6 +13,7 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { AppHttpInterceptorProvider } from '../providers/app-http-interceptor';
 import { Utils } from './../providers/utils';
 import { AuthProvider } from '../providers/auth/auth';
+import { CustomComponentsModule } from './../components/components.module';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -33,7 +34,8 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    CustomComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

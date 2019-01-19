@@ -1,25 +1,27 @@
 // VERSION DIV (web/mobile)
 .version{
-    border: 1px solid white;
-    width: 60px;
-    height: 20px;
+    font-size: 10px;
+    border: 1px solid black;
+    // width: 60px;
+    // height: 20px;
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
-    color: white;
+    color: black;
     text-align: center;
     margin: 5px;
 }
 
 
 .userAgent{
-    border: 1px solid white;
-    width: 60px;
-    height: 20px;
+    font-size: 10px;
+    border: 1px solid black;
+    // width: 60px;
+    // height: 20px;
     position: absolute;
-    bottom: 0;
+    top: 0;
     right: 0;
-    color: white;
+    color: black;
     text-align: center;
     margin: 5px;
 }
@@ -52,5 +54,17 @@ ion-input.item-form-control{
     }
     &.has-success{
         // border-bottom: 1px solid green !important;
+    }
+}
+
+.flex{
+    display: flex;
+    height: 50px;
+    ion-segment{
+        margin: 2px !important;
+        
+        ion-icon{
+            font-size: 30px;
+        }
     }
 }
