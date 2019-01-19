@@ -25676,6 +25676,8 @@ ion-navbar.toolbar {
 
 .version {
   border: 1px solid white;
+  width: 60px;
+  height: 20px;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -25686,6 +25688,8 @@ ion-navbar.toolbar {
 
 .userAgent {
   border: 1px solid white;
+  width: 60px;
+  height: 20px;
   position: absolute;
   bottom: 0;
   right: 0;
@@ -25718,10 +25722,6 @@ page-login .error-container .error-item, page-register .error-container .error-i
 page-login * {
   color: white !important;
   font-weight: 200;
-}
-
-page-login .a {
-  border: 100px solid black !important;
 }
 
 page-login ion-content {

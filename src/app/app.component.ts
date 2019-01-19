@@ -53,6 +53,7 @@ export class MyApp implements OnInit{
       } else if(/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)){
         this.userAgent = 'chrome';        
       }
+      console.log(this.userAgent)
       
     }
     
