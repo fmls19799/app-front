@@ -8,6 +8,7 @@ import { SessionProvider } from '../../providers/session/session';
 import { HttpResponse } from '@angular/common/http';
 // import { RegisterPage } from '../register/register';
 import { PATTERNS } from '../../shared/constants';
+import { ApiError } from 'src/models/ApiError';
 
 @IonicPage()
 @Component({
@@ -19,6 +20,7 @@ export class LoginPage implements OnInit{
   user: User = new User();  
   myForm: FormGroup;
   userStorage: User;
+  apiError: ApiError;
   
   constructor(
     public navCtrl: NavController, 
@@ -39,24 +41,36 @@ export class LoginPage implements OnInit{
     
     
     ngOnInit(){
-    //  this.user = JSON.parse(localStorage.getItem('user'))     
+      console.log('init');
+      this.user = JSON.parse(localStorage.getItem('user'));
+      console.log(this.user);
+      this.user.password = 'Berna134';
+      
+      
     }
     
     doLogin(){
-      if (this.myForm.valid) { 
-        this.sessionProvider.login(this.user).subscribe((res: any)=>{
-          console.log(res);
-          
-          this.userStorage = res;
-          if (this.userStorage ) {
-            this.saveInLocalStorage(this.userStorage)
+      if (this.myForm.valid) {
+        this.sessionProvider.login(this.user).subscribe((user: User)=>{          
+          this.userStorage = user;
+          if (this.userStorage) {
+            this.saveInLocalStorage(this.userStorage) 
           }
+        },
+        (error: ApiError) => {
+          this.apiError = error;
+          this.translator(this.apiError.error.message);
+          console.log('error:', this.apiError.error.message);
         })
       } else{
-        this.translate.get('FORBIDDEN').subscribe((data: string)=>{          
-          this.showToast(data);
-        })
+        this.translator('FORBIDDEN');
       }
+    }
+    
+    translator(messageToTranslate: string){
+      this.translate.get(messageToTranslate).subscribe((data: string)=>{          
+        this.showToast(data);
+      })
     }
     
     showToast(data: string){
@@ -70,10 +84,10 @@ export class LoginPage implements OnInit{
     forgotPassword(){
       console.log('forgot password');
     }
-
+    
     saveInLocalStorage(userStorage: User){
       localStorage.setItem('user', JSON.stringify(userStorage));
-
+      
     }
     
     redirectToRegister(){
