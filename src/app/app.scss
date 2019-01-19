@@ -4,18 +4,17 @@
     background-color: grey;
     color: white;
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     text-align: center;
 }
-
 
 .userAgent{
     font-size: 12px;
     background-color: grey;
     color: white;
     position: absolute;
-    bottom: 0;
+    top: 0;
     right: 0;
     text-align: center;
 }
@@ -51,20 +50,21 @@ ion-input.item-form-control{
     }
 }
 
-.flex{
+ion-footer{
     display: flex;
     height: 50px;
+    margin-bottom: 5px;
     ion-segment{
-        margin: 2px !important;
         display: flex;
         flex-direction: column;
         ion-icon{
-            font-size: 30px;
+            font-size: 35px;
         }
         span{
-            font-size: 8px;
+            font-size: 9.2px;
+            font-weight: bold;
         }
     }
-
+    
     
 }

@@ -1,7 +1,12 @@
 page-home {
+    background-color: #ececec;
     ion-header{
         ion-navbar{
+            .toolbar-background{
+                background-color: #c5c201 !important;
+            }
             .flex{
+                display: flex;
                 div{
                     position: relative;
                     width: 50px;
@@ -14,9 +19,6 @@ page-home {
                     }
                 }
             }
-            .toolbar-background{
-                background-color: #c5c201 !important;
-            }
             ion-searchbar{
                 padding: 0 !important;
                 position: relative;
@@ -24,15 +26,16 @@ page-home {
                     width: 90%;
                     margin-left: 8px;
                     .searchbar-search-icon{
-                        background-size: 20px;
+                        background-size: 15px;
                         position: absolute;
-                        top: 5px;
-                        left: 5px;
+                        top: 7px;
+                        left: 11px;
                     }
                     .searchbar-input{
                         height: 27px;
                         padding-left: 30px;
                         border-radius: 30px;
+                        background: rgba(0, 0, 0, 0.08) !important;
                     }
                 }
             }
@@ -40,6 +43,24 @@ page-home {
     }
     
     ion-content{
+        .showAllProducts{
+            margin: 10px 10px 0 10px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            div:first-child{
+                h4{
+                    margin: 0;
+                }
+            }
+            div:last-child{
+                font-weight: 600;
+                ion-icon{
+                    font-size: 12px;
+                    font-weight: bold;
+                }
+            }
+        }
         .listOfProductsToChooseFrom{
             margin-top: 10px;
             height: 60px;
@@ -47,16 +68,16 @@ page-home {
             justify-content: space-between;
             overflow-x: scroll;
             div{
-                margin: 0 5px;
-                padding: 0 5px;
+                margin: 0 11px;
+                padding: 0 11px;
                 display: flex;
                 flex-direction: column;
-                font-size: 10px;
-                font-weight: 100;
+                font-size: 14px;
+                font-weight: 300;
                 white-space: nowrap;
             }
             ion-icon{
-                font-size: 30px;
+                font-size: 40px;
                 text-align: center;
             }
         }

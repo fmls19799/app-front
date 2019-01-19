@@ -25679,7 +25679,7 @@ ion-navbar.toolbar {
   background-color: grey;
   color: white;
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   text-align: center;
 }
@@ -25689,7 +25689,7 @@ ion-navbar.toolbar {
   background-color: grey;
   color: white;
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
   text-align: center;
 }
@@ -25715,16 +25715,16 @@ page-login .error-container .error-item, page-register .error-container .error-i
   color: white !important;
 }
 
-.flex {
+ion-footer {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   height: 50px;
+  margin-bottom: 5px;
 }
 
-.flex ion-segment {
-  margin: 2px !important;
+ion-footer ion-segment {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -25736,12 +25736,28 @@ page-login .error-container .error-item, page-register .error-container .error-i
   flex-direction: column;
 }
 
-.flex ion-segment ion-icon {
-  font-size: 30px;
+ion-footer ion-segment ion-icon {
+  font-size: 35px;
 }
 
-.flex ion-segment span {
-  font-size: 8px;
+ion-footer ion-segment span {
+  font-size: 9.2px;
+  font-weight: bold;
+}
+
+page-home {
+  background-color: #ececec;
+}
+
+page-home ion-header ion-navbar .toolbar-background {
+  background-color: #c5c201 !important;
+}
+
+page-home ion-header ion-navbar .flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 page-home ion-header ion-navbar .flex div {
@@ -25758,10 +25774,6 @@ page-home ion-header ion-navbar .flex div ion-icon {
   font-size: 20px;
 }
 
-page-home ion-header ion-navbar .toolbar-background {
-  background-color: #c5c201 !important;
-}
-
 page-home ion-header ion-navbar ion-searchbar {
   padding: 0 !important;
   position: relative;
@@ -25773,16 +25785,47 @@ page-home ion-header ion-navbar ion-searchbar .searchbar-input-container {
 }
 
 page-home ion-header ion-navbar ion-searchbar .searchbar-input-container .searchbar-search-icon {
-  background-size: 20px;
+  background-size: 15px;
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 7px;
+  left: 11px;
 }
 
 page-home ion-header ion-navbar ion-searchbar .searchbar-input-container .searchbar-input {
   height: 27px;
   padding-left: 30px;
   border-radius: 30px;
+  background: rgba(0, 0, 0, 0.08) !important;
+}
+
+page-home ion-content .showAllProducts {
+  margin: 10px 10px 0 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+page-home ion-content .showAllProducts div:first-child h4 {
+  margin: 0;
+}
+
+page-home ion-content .showAllProducts div:last-child {
+  font-weight: 600;
+}
+
+page-home ion-content .showAllProducts div:last-child ion-icon {
+  font-size: 12px;
+  font-weight: bold;
 }
 
 page-home ion-content .listOfProductsToChooseFrom {
@@ -25800,8 +25843,8 @@ page-home ion-content .listOfProductsToChooseFrom {
 }
 
 page-home ion-content .listOfProductsToChooseFrom div {
-  margin: 0 5px;
-  padding: 0 5px;
+  margin: 0 11px;
+  padding: 0 11px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -25811,13 +25854,13 @@ page-home ion-content .listOfProductsToChooseFrom div {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  font-size: 10px;
-  font-weight: 100;
+  font-size: 14px;
+  font-weight: 300;
   white-space: nowrap;
 }
 
 page-home ion-content .listOfProductsToChooseFrom ion-icon {
-  font-size: 30px;
+  font-size: 40px;
   text-align: center;
 }
 

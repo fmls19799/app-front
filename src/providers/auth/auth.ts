@@ -38,5 +38,6 @@ export class AuthProvider {
   rememberMe():boolean{
     return localStorage.getItem('rememberMe') ? true : false;
   }
+  
 
 }
