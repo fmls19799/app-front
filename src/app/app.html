@@ -1,21 +1,31 @@
 <ion-nav [root]="rootPage"></ion-nav>
-<div class="version">{{ versionWebOrPhone }}</div>
-<div class="userAgent">{{ userAgent }}</div>
+<!-- <div class="version">{{ versionWebOrPhone }}</div>
+<div class="userAgent">{{ userAgent }}</div> -->
 
 <ion-footer class="flex" *ngIf="showTabs">
     <ion-segment>
       <ion-icon name="ios-contact"></ion-icon>
+      <!-- <span>{{ 'PROFILE' | translate }}</span> -->
     </ion-segment>
     <ion-segment>
       <ion-icon name="ios-reverse-camera"></ion-icon>
+      <!-- <span>{{ 'UPLOAD_PHOTO' | translate }}</span> -->
     </ion-segment>
     <ion-segment>
       <ion-icon name="ios-map"></ion-icon>
+      <!-- <span>{{ 'AROUND_YOU' | translate }}</span> -->
     </ion-segment>
     <ion-segment>
       <ion-icon name="ios-pricetag"></ion-icon>
+      <!-- <span>{{ 'YOUR_ITEMS' | translate }}</span> -->
+    </ion-segment>
+    <ion-segment>
+        <ion-icon name="chatbubbles"></ion-icon>
+        <!-- <span>{{ 'CHAT' | translate }}</span> -->
+
     </ion-segment>
     <ion-segment>
       <ion-icon name="ios-cog"></ion-icon>
+      <!-- <span>{{ 'SETTINGS' | translate }}</span> -->
     </ion-segment>
   </ion-footer>

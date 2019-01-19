@@ -1,26 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <div class="flex">
+      <ion-searchbar></ion-searchbar>
+      <div>
+        <ion-icon name="md-funnel"></ion-icon>
+      </div>
+    </div>
+  </ion-navbar>
+</ion-header>
 
-<header>
-  ADS
-</header>
-
-<ion-content padding>
+<ion-content>
+  
+  <!-- QUE ESTO SE PONGA DINAMICO A MEDIA QUE LOS USUARIOS VAN CREANDO COSAS -->
+  <div class="listOfProductsToChooseFrom">
+    <div>
+      <ion-icon name="ios-home-outline"></ion-icon>
+      <span>{{'REAL_STATE' | translate }}</span>
+    </div>
+    <div>
+      <ion-icon name="ios-car-outline"></ion-icon>
+      <span>{{'CARS' | translate }}</span>
+    </div>
+    <div>
+      <ion-icon name="ios-game-controller-b-outline"></ion-icon>
+      <span>{{'GAMING' | translate }}</span>
+    </div>
+    <div>
+      <ion-icon name="bicycle"></ion-icon>
+      <span>{{'CYCLING' | translate }}</span>
+    </div>
+    <div>
+      <ion-icon name="ios-american-football-outline"></ion-icon>
+      <span>{{'SPORTS' | translate }}</span>
+    </div>
+    <div>
+      <ion-icon name="ios-phone-portrait-outline"></ion-icon>
+      <span>{{'PHONES' | translate }}</span>
+    </div>
+    <div>
+      <ion-icon name="ios-shirt-outline"></ion-icon>
+      <span>{{'CLOTHING' | translate }}</span>
+    </div>
+    <div>
+      <ion-icon name="ios-boat-outline"></ion-icon>
+      <span>{{'BOATS' | translate }}</span>
+    </div>
+  </div>
+  
 </ion-content>
-
-<!-- que esto aparezca siempre, en app si esta en cualquier sitio que no sea login/register -->
-<!-- <ion-footer class="flex">
-  <ion-segment>
-    <ion-icon name="ios-contact"></ion-icon>
-  </ion-segment>
-  <ion-segment>
-    <ion-icon name="ios-reverse-camera"></ion-icon>
-  </ion-segment>
-  <ion-segment>
-    <ion-icon name="ios-contact"></ion-icon>
-  </ion-segment>
-  <ion-segment>
-    <ion-icon name="ios-contact"></ion-icon>
-  </ion-segment>
-  <ion-segment>
-    <ion-icon name="ios-cog"></ion-icon>
-  </ion-segment>
-</ion-footer> -->

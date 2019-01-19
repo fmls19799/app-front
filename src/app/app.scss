@@ -1,29 +1,23 @@
 // VERSION DIV (web/mobile)
 .version{
-    font-size: 10px;
-    border: 1px solid black;
-    // width: 60px;
-    // height: 20px;
+    font-size: 12px;
+    background-color: grey;
+    color: white;
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
-    color: black;
     text-align: center;
-    margin: 5px;
 }
 
 
 .userAgent{
-    font-size: 10px;
-    border: 1px solid black;
-    // width: 60px;
-    // height: 20px;
+    font-size: 12px;
+    background-color: grey;
+    color: white;
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
-    color: black;
     text-align: center;
-    margin: 5px;
 }
 
 .error-container{
@@ -62,9 +56,15 @@ ion-input.item-form-control{
     height: 50px;
     ion-segment{
         margin: 2px !important;
-        
+        display: flex;
+        flex-direction: column;
         ion-icon{
             font-size: 30px;
         }
+        span{
+            font-size: 8px;
+        }
     }
+
+    
 }

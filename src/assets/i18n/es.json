@@ -22,5 +22,20 @@
 
     "USER_CREATED": "Usuario creado satisfactoriamente, valide el link de su bandeja de entrada",
     "LOGIN_ERROR": "No se ha podido iniciar session",
-    "REMEMBER_ME": "Remember password"
+    "REMEMBER_ME": "Remember password",
+    "PROFILE": "Perfil",
+    "UPLOAD_PHOTO": "Subir producto",
+    "AROUND_YOU": "Mapa",
+    "YOUR_ITEMS": "Tus productos",
+    "CHAT": "Chat",
+    "SETTINGS": "Ajustes",
+
+    "CARS": "Coches",
+    "REAL_STATE": "Inmobiliaria",
+    "GAMING": "Videojuegos",
+    "CYCLING": "Ciclismo",
+    "SPORTS": "Deportes",
+    "PHONES": "Telefonía",
+    "CLOTHING": "Ropa",
+    "BOATS": "Barcos"
 }

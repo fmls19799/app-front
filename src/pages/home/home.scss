@@ -1,16 +1,64 @@
 page-home {
-//  .flex{
-//      display: flex;
-//      border: 1px solid red;
-//      height: 50px;
-//      ion-segment{
-//          border: 1px solid blue;
-//          margin: 2px !important;
-
-//          ion-icon{
-//             border: 1px solid orange;
-//             font-size: 30px;
-//          }
-//      }
-//  }
+    ion-header{
+        ion-navbar{
+            .flex{
+                div{
+                    position: relative;
+                    width: 50px;
+                    ion-icon{
+                        position: absolute;
+                        top: 50% !important;
+                        left: 50% !important;
+                        transform: translate(-50%, -50%);
+                        font-size: 20px;
+                    }
+                }
+            }
+            .toolbar-background{
+                background-color: #c5c201 !important;
+            }
+            ion-searchbar{
+                padding: 0 !important;
+                position: relative;
+                .searchbar-input-container{
+                    width: 90%;
+                    margin-left: 8px;
+                    .searchbar-search-icon{
+                        background-size: 20px;
+                        position: absolute;
+                        top: 5px;
+                        left: 5px;
+                    }
+                    .searchbar-input{
+                        height: 27px;
+                        padding-left: 30px;
+                        border-radius: 30px;
+                    }
+                }
+            }
+        }
+    }
+    
+    ion-content{
+        .listOfProductsToChooseFrom{
+            margin-top: 10px;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            overflow-x: scroll;
+            div{
+                margin: 0 5px;
+                padding: 0 5px;
+                display: flex;
+                flex-direction: column;
+                font-size: 10px;
+                font-weight: 100;
+                white-space: nowrap;
+            }
+            ion-icon{
+                font-size: 30px;
+                text-align: center;
+            }
+        }
+    }
 }

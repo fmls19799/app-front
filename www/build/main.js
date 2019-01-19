@@ -122,11 +122,11 @@ var map = {
 		2
 	],
 	"../pages/login/login.module": [
-		330,
+		331,
 		1
 	],
 	"../pages/register/register.module": [
-		331,
+		330,
 		0
 	]
 };
@@ -271,8 +271,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_12__components_components_module__["a" /* CustomComponentsModule */]
@@ -466,15 +466,21 @@ var MyApp = /** @class */ (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["i" /* Nav */]),
-        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["i" /* Nav */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["i" /* Nav */]) === "function" && _a || Object)
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["i" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n<div class="version">{{ versionWebOrPhone }}</div>\n<div class="userAgent">{{ userAgent }}</div>\n\n<ion-footer class="flex" *ngIf="showTabs">\n    <ion-segment>\n      <ion-icon name="ios-contact"></ion-icon>\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-reverse-camera"></ion-icon>\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-map"></ion-icon>\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-pricetag"></ion-icon>\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-cog"></ion-icon>\n    </ion-segment>\n  </ion-footer>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n<!-- <div class="version">{{ versionWebOrPhone }}</div>\n<div class="userAgent">{{ userAgent }}</div> -->\n\n<ion-footer class="flex" *ngIf="showTabs">\n    <ion-segment>\n      <ion-icon name="ios-contact"></ion-icon>\n      <!-- <span>{{ \'PROFILE\' | translate }}</span> -->\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-reverse-camera"></ion-icon>\n      <!-- <span>{{ \'UPLOAD_PHOTO\' | translate }}</span> -->\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-map"></ion-icon>\n      <!-- <span>{{ \'AROUND_YOU\' | translate }}</span> -->\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-pricetag"></ion-icon>\n      <!-- <span>{{ \'YOUR_ITEMS\' | translate }}</span> -->\n    </ion-segment>\n    <ion-segment>\n        <ion-icon name="chatbubbles"></ion-icon>\n        <!-- <span>{{ \'CHAT\' | translate }}</span> -->\n\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-cog"></ion-icon>\n      <!-- <span>{{ \'SETTINGS\' | translate }}</span> -->\n    </ion-segment>\n  </ion-footer>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/app/app.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["l" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["l" /* Platform */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["b" /* Config */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["b" /* Config */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_6__providers_utils__["a" /* Utils */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__providers_utils__["a" /* Utils */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_7__providers_auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__providers_auth_auth__["a" /* AuthProvider */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["m" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["m" /* ToastController */]) === "function" && _j || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */],
+            __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["l" /* Platform */],
+            __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["b" /* Config */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */],
+            __WEBPACK_IMPORTED_MODULE_1__ionic_native_splash_screen__["a" /* SplashScreen */],
+            __WEBPACK_IMPORTED_MODULE_6__providers_utils__["a" /* Utils */],
+            __WEBPACK_IMPORTED_MODULE_7__providers_auth_auth__["a" /* AuthProvider */],
+            __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["m" /* ToastController */]])
     ], MyApp);
     return MyApp;
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 }());
 
 //# sourceMappingURL=app.component.js.map

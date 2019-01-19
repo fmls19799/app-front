@@ -22,5 +22,21 @@
 
     "USER_CREATED": "User created successfully, validate the link we sent you to your email",
     "LOGIN_ERROR": "Unable to sign in",
-    "REMEMBER_ME": "Remember password"
+    "REMEMBER_ME": "Remember password",
+    
+    "PROFILE": "Profile",
+    "UPLOAD_PHOTO": "Upload item",
+    "AROUND_YOU": "Map",
+    "YOUR_ITEMS": "Your items",
+    "CHAT": "Chat",
+    "SETTINGS": "Ajustes",
+
+    "CARS": "Cars",
+    "REAL_STATE": "Real state",
+    "GAMING": "Gaming",
+    "CYCLING": "Cycling",
+    "SPORTS": "Sports",
+    "PHONES": "Phones",
+    "CLOTHING": "Clothing",
+    "BOATS": "Boats"
 }
