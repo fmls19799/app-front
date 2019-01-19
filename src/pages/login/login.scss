@@ -16,13 +16,27 @@ page-login {
         transform: translate(-50%, -50%);
         width: 90%;
         
-        ion-item{
+        ion-item:not(.container-checkbox){
             border: none !important;
             background-color: transparent !important;
             
             .item-inner{
                 border: none !important;
-                border-bottom: 0.1px solid white !important;
+                border-bottom: .1px solid white !important;
+            }
+        }
+        ion-item.container-checkbox{
+            border: none !important;
+            background-color: transparent !important;
+            
+            .item-inner{
+                border: none !important;
+                border-bottom: none !important;
+                .input-wrapper{
+                    .label{
+                        font-size: 13px;
+                    }
+                }
             }
         }
         ion-icon{
@@ -52,6 +66,11 @@ page-login {
         span{
             margin-bottom: 5px;
         }
+    }
+
+    
+    .container-checkbox > ion-label{
+        font-size: 10px !important;
     }
     
     

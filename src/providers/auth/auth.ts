@@ -7,30 +7,36 @@ import { Observable, Subject } from 'rxjs';
 
 
 @Injectable()
-export class SessionProvider implements OnInit {
-  
+export class AuthProvider {
+
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
   private static readonly defaultOptions = {
     headers: new HttpHeaders().set('Content-Type', 'application/json'),
     withCredentials: true
   };
-  
-  constructor(public http: HttpClient) {
-    
-  }
-  
+
+  constructor(public http: HttpClient) { }
+
   ngOnInit() {
     
   }
   
   //quitar any???
   register(user: User): Observable<User | HttpErrorResponse> {
-    return this.http.post<User>(`${SessionProvider.ENDPOINT}/users`, user).map((data: any) => data);
+    return this.http.post<User>(`${AuthProvider.ENDPOINT}/users`, user).map((data: any) => data);
   }
   
   //quitar any???
   login(user: User): Observable<User | HttpErrorResponse> {
-    return this.http.post<User>(`${SessionProvider.ENDPOINT}/sessions`, user).map((data: any) => data);
+    return this.http.post<User>(`${AuthProvider.ENDPOINT}/sessions`, user).map((data: any) => data);
   }
-  
+
+  isLoggedIn():boolean{
+    return localStorage.getItem('user') ? true : false;
+  }
+
+  rememberMe():boolean{
+    return localStorage.getItem('rememberMe') ? true : false;
+  }
+
 }

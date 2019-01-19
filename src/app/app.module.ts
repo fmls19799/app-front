@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { SessionProvider } from '../providers/session/session';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -13,6 +12,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppHttpInterceptorProvider } from '../providers/app-http-interceptor';
 import { Utils } from './../providers/utils';
+import { AuthProvider } from '../providers/auth/auth';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -44,8 +44,8 @@ export function createTranslateLoader(http: HttpClient) {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: HTTP_INTERCEPTORS, useClass:AppHttpInterceptorProvider, multi: true},
-    SessionProvider,
-    Utils
+    Utils,
+    AuthProvider
   ]
 })
 export class AppModule {}

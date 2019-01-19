@@ -3,10 +3,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController, Platform, AlertController } from 'ionic-angular';
 import { User } from '../../models/user';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { SessionProvider } from '../../providers/session/session';
 import { PATTERNS } from '../../shared/constants';
 import { ApiError } from 'src/models/ApiError';
 import { Utils } from './../../providers/utils';
+import { AuthProvider } from './../../providers/auth/auth';
+// var encrypter = require('object-encrypter');
+// var engine = encrypter('your secret', {ttl: true});
 
 @IonicPage()
 @Component({
@@ -20,12 +22,13 @@ export class LoginPage implements OnInit{
   userStorage: User;
   apiError: ApiError;
   isCordova: boolean;
-  
+  rememberMeCheckbox: boolean = false;
+
   constructor(
     public navCtrl: NavController, 
     public toastCtrl: ToastController, 
     public translateService: TranslateService, 
-    private sessionProvider: SessionProvider,
+    private auth: AuthProvider,
     private formBuilder: FormBuilder,
     private translate: TranslateService,
     private utils: Utils) {
@@ -41,12 +44,9 @@ export class LoginPage implements OnInit{
       // poner mejor esto ???
       // USER SAVED IN LOCAL STORAGE
       if(localStorage.getItem('user')){
-        this.user = JSON.parse(localStorage.getItem('user'));
-      } else{
-        this.user.email = 'fmls1989@gmail.com'
-        this.user.password = 'Berna134';
-      }
-      console.log(this.user)
+        let userStorage = JSON.parse(localStorage.getItem('user'));
+        this.user = userStorage;
+      } 
       
       //CHECK PLATFORM TO CHANGE HTML VIEW
       this.isCordova = this.utils.isCordova();        
@@ -54,10 +54,11 @@ export class LoginPage implements OnInit{
     
     doLogin(){
       if (this.myForm.valid) {
-        this.sessionProvider.login(this.user).subscribe((user: User)=>{          
+        this.auth.login(this.user).subscribe((user: User)=>{                   
           this.userStorage = user;
           if (this.userStorage) {
-            this.saveInLocalStorage(this.userStorage) 
+            this.saveInLocalStorage(this.userStorage);
+            this.navCtrl.setRoot('HomePage')
           }
         },
         (error: ApiError) => {
@@ -90,7 +91,6 @@ export class LoginPage implements OnInit{
     
     saveInLocalStorage(userStorage: User){
       localStorage.setItem('user', JSON.stringify(userStorage));
-      
     }
     
     redirectToRegister(){

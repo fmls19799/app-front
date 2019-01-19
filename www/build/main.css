@@ -25739,14 +25739,28 @@ page-login .form {
   width: 90%;
 }
 
-page-login .form ion-item {
+page-login .form ion-item:not(.container-checkbox) {
   border: none !important;
   background-color: transparent !important;
 }
 
-page-login .form ion-item .item-inner {
+page-login .form ion-item:not(.container-checkbox) .item-inner {
   border: none !important;
-  border-bottom: 0.1px solid white !important;
+  border-bottom: .1px solid white !important;
+}
+
+page-login .form ion-item.container-checkbox {
+  border: none !important;
+  background-color: transparent !important;
+}
+
+page-login .form ion-item.container-checkbox .item-inner {
+  border: none !important;
+  border-bottom: none !important;
+}
+
+page-login .form ion-item.container-checkbox .item-inner .input-wrapper .label {
+  font-size: 13px;
 }
 
 page-login .form ion-icon {
@@ -25779,6 +25793,10 @@ page-login .wrapper {
 
 page-login .wrapper span {
   margin-bottom: 5px;
+}
+
+page-login .container-checkbox > ion-label {
+  font-size: 10px !important;
 }
 
 page-register * {

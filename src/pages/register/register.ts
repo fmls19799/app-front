@@ -3,10 +3,10 @@ import { IonicPage, NavController, NavParams, ToastController, Platform, AlertCo
 import { User } from '../../models/user';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { SessionProvider } from '../../providers/session/session';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { PATTERNS } from '../../shared/constants';
 import { ApiError } from 'src/models/ApiError';
+import { AuthProvider } from './../../providers/auth/auth';
 
 @IonicPage()
 @Component({
@@ -22,7 +22,7 @@ export class RegisterPage implements OnInit{
   constructor(public navCtrl: NavController, 
     public toastCtrl: ToastController, 
     public translateService: TranslateService, 
-    private sessionProvider: SessionProvider,
+    private auth: AuthProvider,
     private platform: Platform,
     private formBuilder: FormBuilder,
     private alertCtrl: AlertController,
@@ -50,7 +50,8 @@ export class RegisterPage implements OnInit{
     
     doRegister(){
       if (this.myForm.valid) { 
-        this.sessionProvider.register(this.user).subscribe((user: User)=>{
+        
+        this.auth.register(this.user).subscribe((user: User)=>{
           this.translator('USER_CREATED', true);
         },
         (error: ApiError) =>{
@@ -64,6 +65,8 @@ export class RegisterPage implements OnInit{
     }
     
     translator(messageToTranslate: string, goToLogin?: boolean){
+      console.log(messageToTranslate);
+      
       this.translate.get(messageToTranslate).subscribe((data: string)=>{          
         this.showToast(data, goToLogin);
       })
@@ -71,7 +74,7 @@ export class RegisterPage implements OnInit{
     
     showToast(data: string, goToLogin?: boolean){
       if(goToLogin){
-        let timing = 3000;
+        var timing = 3000;
       } else{
         timing = 2000
       }
