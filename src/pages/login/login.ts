@@ -44,9 +44,7 @@ export class LoginPage implements OnInit{
       this.user.password = 'Berna134';
       
       //CHECK PLATFORM TO CHANGE HTML VIEW
-        this.isCordova = this.utils.isCordova();
-        console.log(this.isCordova);
-        
+      this.isCordova = this.utils.isCordova();        
     }
     
     doLogin(){
