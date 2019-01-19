@@ -70,9 +70,14 @@ export class RegisterPage implements OnInit{
     }
     
     showToast(data: string, goToLogin?: boolean){
+      if(goToLogin){
+        let timing = 3000;
+      } else{
+        timing = 2000
+      }
       let toast = this.toastCtrl.create({
         message: data,
-        duration: 2000,
+        duration: timing,
         position: 'top',
       });
       
