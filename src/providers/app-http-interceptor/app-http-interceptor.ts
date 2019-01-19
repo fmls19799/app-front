@@ -1,26 +1,3 @@
-// import { HttpClient, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-// import { Observable } from 'rxjs/Observable';
-// import { Loading } from 'ionic-angular';
-
-// @Injectable()
-// export class AppHttpInterceptorProvider {
-  
-//   private loader: Loading;
-  
-//   constructor(public http: HttpClient) {
-//     console.log('Hello AppHttpInterceptorProvider Provider');
-//   }
-  
-//   intercept(req: HttpRequest<any>, next: HttpHandler): string{
-//     this.loader.present();
-//     return 'hola';
-//   }
-  
-  
-// }
-
-
 
 
 import { LoadingController, Loading, Events, ToastController } from 'ionic-angular';
