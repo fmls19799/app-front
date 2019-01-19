@@ -20,5 +20,5 @@
     "CODE_002": "Invalid email or password",
     "CODE_003": "User with that email already exists",
 
-    "USER_CREATED": "User created successfully"
+    "USER_CREATED": "User created successfully, validate the link we sent you to your email"
 }

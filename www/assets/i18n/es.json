@@ -20,6 +20,6 @@
     "CODE_002": "Email o contraseña errónea",
     "CODE_003": "El usuario con ese email ya existe",
 
-    "USER_CREATED": "Usuario creado satisfactoriamente"
+    "USER_CREATED": "Usuario creado satisfactoriamente, valide el link de su bandeja de entrada"
 
 }

@@ -40,8 +40,13 @@ export class LoginPage implements OnInit{
     ngOnInit(){
       // poner mejor esto ???
       // USER SAVED IN LOCAL STORAGE
-      this.user = JSON.parse(localStorage.getItem('user'));
-      this.user.password = 'Berna134';
+      if(localStorage.getItem('user')){
+        this.user = JSON.parse(localStorage.getItem('user'));
+      } else{
+        this.user.email = 'fmls1989@gmail.com'
+        this.user.password = 'Berna134';
+      }
+      console.log(this.user)
       
       //CHECK PLATFORM TO CHANGE HTML VIEW
       this.isCordova = this.utils.isCordova();        

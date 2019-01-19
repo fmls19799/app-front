@@ -25720,6 +25720,10 @@ page-login * {
   font-weight: 200;
 }
 
+page-login .a {
+  border: 100px solid black !important;
+}
+
 page-login ion-content {
   background-image: url("./../assets/imgs/bg.jpeg") !important;
   background-size: cover;
