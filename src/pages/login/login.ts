@@ -2,12 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController, Platform, AlertController } from 'ionic-angular';
 import { User } from '../../models/user';
-
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SessionProvider } from '../../providers/session/session';
-import { HttpResponse } from '@angular/common/http';
-// import { RegisterPage } from '../register/register';
 import { PATTERNS } from '../../shared/constants';
+import { ApiError } from 'src/models/ApiError';
+import { Utils } from './../../providers/utils';
 
 @IonicPage()
 @Component({
@@ -19,6 +18,8 @@ export class LoginPage implements OnInit{
   user: User = new User();  
   myForm: FormGroup;
   userStorage: User;
+  apiError: ApiError;
+  isCordova: boolean;
   
   constructor(
     public navCtrl: NavController, 
@@ -27,9 +28,7 @@ export class LoginPage implements OnInit{
     private sessionProvider: SessionProvider,
     private formBuilder: FormBuilder,
     private translate: TranslateService,
-    private platform: Platform,
-    private alertCtrl: AlertController,
-    private toast: ToastController) {
+    private utils: Utils) {
       
       this.myForm = this.formBuilder.group({
         email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(PATTERNS.PATTERN_EMAIL)]),
@@ -39,24 +38,39 @@ export class LoginPage implements OnInit{
     
     
     ngOnInit(){
-    //  this.user = JSON.parse(localStorage.getItem('user'))     
+      // poner mejor esto ???
+      // USER SAVED IN LOCAL STORAGE
+      this.user = JSON.parse(localStorage.getItem('user'));
+      this.user.password = 'Berna134';
+      
+      //CHECK PLATFORM TO CHANGE HTML VIEW
+        this.isCordova = this.utils.isCordova();
+        console.log(this.isCordova);
+        
     }
     
     doLogin(){
-      if (this.myForm.valid) { 
-        this.sessionProvider.login(this.user).subscribe((res: any)=>{
-          // console.log(res);
-          
-          this.userStorage = res;
-          if (this.userStorage ) {
-            this.saveInLocalStorage(this.userStorage)
+      if (this.myForm.valid) {
+        this.sessionProvider.login(this.user).subscribe((user: User)=>{          
+          this.userStorage = user;
+          if (this.userStorage) {
+            this.saveInLocalStorage(this.userStorage) 
           }
+        },
+        (error: ApiError) => {
+          this.apiError = error;
+          this.translator(this.apiError.error.message);
+          console.log('error:', this.apiError.error.message);
         })
       } else{
-        this.translate.get('FORBIDDEN').subscribe((data: string)=>{          
-          this.showToast(data);
-        })
+        this.translator('FORBIDDEN');
       }
+    }
+    
+    translator(messageToTranslate: string){
+      this.translate.get(messageToTranslate).subscribe((data: string)=>{          
+        this.showToast(data);
+      })
     }
     
     showToast(data: string){
@@ -70,10 +84,10 @@ export class LoginPage implements OnInit{
     forgotPassword(){
       console.log('forgot password');
     }
-
+    
     saveInLocalStorage(userStorage: User){
       localStorage.setItem('user', JSON.stringify(userStorage));
-
+      
     }
     
     redirectToRegister(){

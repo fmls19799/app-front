@@ -25674,6 +25674,15 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+.version {
+  height: 20px;
+  border: 1px solid white;
+  position: absolute;
+  bottom: 0;
+  color: white;
+  text-align: center;
+}
+
 .error-container {
   font-size: .7em !important;
   text-align: left;

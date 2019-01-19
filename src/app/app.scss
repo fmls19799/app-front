@@ -1,3 +1,15 @@
+// VERSION DIV (web/mobile)
+.version{
+    // width: 100px;
+    height: 20px;
+    border: 1px solid white;
+    position: absolute;
+    bottom: 0;
+    color: white;
+    text-align: center;
+    // opacity: .3;
+}
+
 .error-container{
     font-size: .7em !important;
     text-align: left;
@@ -27,4 +39,5 @@ ion-input.item-form-control{
     &.has-success{
         // border-bottom: 1px solid green !important;
     }
+    
 }

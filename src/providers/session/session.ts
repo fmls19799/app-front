@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { CONFIG } from '../../config/config.int';
-// import { CONFIG } from '@environment';
 import { User } from '../../models/user';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operator/map';
+import { map, catchError } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+
 
 @Injectable()
-export class SessionProvider {
+export class SessionProvider implements OnInit {
   
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
   private static readonly defaultOptions = {
@@ -19,33 +19,18 @@ export class SessionProvider {
     
   }
   
-  register(user: User){
-    console.log(user);
+  ngOnInit() {
     
-    return this.http.post<User>(`${SessionProvider.ENDPOINT}/users`, user).map((data: any)=> data);
   }
-
-
   
-
-  // create(house: House): Observable<House | ApiError> {
-  //   return this.http.post<House>(`${HomeService.HOUSE_API}/users/${this.session.user.id}/houses`, house.asFormData(), { withCredentials: true })
-  //   .pipe(
-  //     map((house: House) => {
-  //       this.houses.push(house);
-  //       console.log(house);
-        
-  //       return house;
-  //     }),
-  //     catchError(this.handleError)
-  //     )
-  //   }
-
-
-
+  //quitar any???
+  register(user: User): Observable<User | HttpErrorResponse> {
+    return this.http.post<User>(`${SessionProvider.ENDPOINT}/users`, user).map((data: any) => data);
+  }
   
-  login(user: User){        
-    return this.http.post<User>(`${SessionProvider.ENDPOINT}/sessions`, user).map((data: any)=>data);
+  //quitar any???
+  login(user: User): Observable<User | HttpErrorResponse> {
+    return this.http.post<User>(`${SessionProvider.ENDPOINT}/sessions`, user).map((data: any) => data);
   }
   
 }
