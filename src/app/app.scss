@@ -1,13 +1,22 @@
 // VERSION DIV (web/mobile)
 .version{
-    // width: 100px;
-    height: 20px;
     border: 1px solid white;
     position: absolute;
     bottom: 0;
+    left: 0;
     color: white;
     text-align: center;
-    // opacity: .3;
+    margin: 5px;
+}
+
+.userAgent{
+    border: 1px solid white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: white;
+    text-align: center;
+    margin: 5px;
 }
 
 .error-container{

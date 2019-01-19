@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/finally';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-// import { UtilsProvider } from '../shared/utils/utils';
 
 interface LoaderModel {
     text?: string;
