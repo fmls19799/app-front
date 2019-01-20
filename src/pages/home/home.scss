@@ -5,26 +5,12 @@ page-home {
             .toolbar-background{
                 background-color: #c5c201 !important;
             }
-            .flex{
-                display: flex;
-                div{
-                    position: relative;
-                    width: 50px;
-                    ion-icon{
-                        position: absolute;
-                        top: 50% !important;
-                        left: 50% !important;
-                        transform: translate(-50%, -50%);
-                        font-size: 20px;
-                    }
-                }
-            }
             ion-searchbar{
                 padding: 0 !important;
                 position: relative;
                 .searchbar-input-container{
-                    width: 90%;
-                    margin-left: 8px;
+                    width: 85%;
+                    margin-left: 50px;
                     .searchbar-search-icon{
                         background-size: 15px;
                         position: absolute;
@@ -33,7 +19,7 @@ page-home {
                     }
                     .searchbar-input{
                         height: 27px;
-                        padding-left: 30px;
+                        padding-left: 40px !important;
                         border-radius: 30px;
                         background: rgba(0, 0, 0, 0.08) !important;
                     }

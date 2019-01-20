@@ -1,0 +1,43 @@
+page-search-product {
+    ion-header{
+        ion-navbar{
+            .toolbar-background{
+                background-color: #c5c201 !important;
+            }
+            .flex{
+                display: flex;
+                div{
+                    position: relative;
+                    width: 50px;
+                    ion-icon{
+                        position: absolute;
+                        top: 50% !important;
+                        left: 50% !important;
+                        transform: translate(-50%, -50%);
+                        font-size: 30px;
+                    }
+                }
+            }
+            ion-searchbar{
+                padding: 0 !important;
+                position: relative;
+                .searchbar-input-container{
+                    width: 100%;
+                    margin-left: 10px;
+                    .searchbar-search-icon{
+                        background-size: 15px;
+                        position: absolute;
+                        top: 7px;
+                        left: 11px;
+                    }
+                    .searchbar-input{
+                        height: 37px;
+                        padding-left: 40px !important;
+                        border-radius: 30px;
+                        background: rgba(0, 0, 0, 0.08) !important;
+                    }
+                }
+            }
+        }
+    }
+}

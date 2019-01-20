@@ -25753,35 +25753,14 @@ page-home ion-header ion-navbar .toolbar-background {
   background-color: #c5c201 !important;
 }
 
-page-home ion-header ion-navbar .flex {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-page-home ion-header ion-navbar .flex div {
-  position: relative;
-  width: 50px;
-}
-
-page-home ion-header ion-navbar .flex div ion-icon {
-  position: absolute;
-  top: 50% !important;
-  left: 50% !important;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  font-size: 20px;
-}
-
 page-home ion-header ion-navbar ion-searchbar {
   padding: 0 !important;
   position: relative;
 }
 
 page-home ion-header ion-navbar ion-searchbar .searchbar-input-container {
-  width: 90%;
-  margin-left: 8px;
+  width: 85%;
+  margin-left: 50px;
 }
 
 page-home ion-header ion-navbar ion-searchbar .searchbar-input-container .searchbar-search-icon {
@@ -25793,7 +25772,7 @@ page-home ion-header ion-navbar ion-searchbar .searchbar-input-container .search
 
 page-home ion-header ion-navbar ion-searchbar .searchbar-input-container .searchbar-input {
   height: 27px;
-  padding-left: 30px;
+  padding-left: 40px !important;
   border-radius: 30px;
   background: rgba(0, 0, 0, 0.08) !important;
 }
@@ -26004,4 +25983,53 @@ page-register .wrapper {
 
 page-register .wrapper span {
   margin-bottom: 5px;
+}
+
+page-search-product ion-header ion-navbar .toolbar-background {
+  background-color: #c5c201 !important;
+}
+
+page-search-product ion-header ion-navbar .flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+page-search-product ion-header ion-navbar .flex div {
+  position: relative;
+  width: 50px;
+}
+
+page-search-product ion-header ion-navbar .flex div ion-icon {
+  position: absolute;
+  top: 50% !important;
+  left: 50% !important;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+}
+
+page-search-product ion-header ion-navbar ion-searchbar {
+  padding: 0 !important;
+  position: relative;
+}
+
+page-search-product ion-header ion-navbar ion-searchbar .searchbar-input-container {
+  width: 100%;
+  margin-left: 10px;
+}
+
+page-search-product ion-header ion-navbar ion-searchbar .searchbar-input-container .searchbar-search-icon {
+  background-size: 15px;
+  position: absolute;
+  top: 7px;
+  left: 11px;
+}
+
+page-search-product ion-header ion-navbar ion-searchbar .searchbar-input-container .searchbar-input {
+  height: 37px;
+  padding-left: 40px !important;
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.08) !important;
 }

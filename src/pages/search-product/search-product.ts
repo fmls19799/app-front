@@ -1,0 +1,43 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { ApiError } from './../../models/apiError';
+import { AuthProvider } from './../../providers/auth/auth';
+import { User } from './../../models/user';
+
+
+@IonicPage()
+@Component({
+  selector: 'page-search-product',
+  templateUrl: 'search-product.html',
+})
+export class SearchProductPage {
+  
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams,
+    private auth: AuthProvider) {
+
+    }
+    
+    findProducts(pattern: string){       
+      
+      //DEBERIA CARGAR TODO LA PRIMERA VEZ QUE SE ENTRA EN HOME Y QUE AHORA NO SE HAGA LLAMADA SINO HACER UN PIPE LOCALMENTE ???
+      if (pattern.length % 3 === 0 && pattern.length !== 0) {
+        var user: User = {
+          name: 'francisco',
+          email: 'fmls1989@gmail.com',
+          password: 'Berna123'
+        }
+        this.auth.login(user).subscribe((user: User)=>{                   
+          if (user) {
+            console.log('good');
+          }
+        },
+        (error: ApiError) => {
+          console.log('error', error);
+        })
+      }
+
+    }
+    
+  }
+  
