@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { ApiError } from './../../models/apiError';
 import { AuthProvider } from './../../providers/auth/auth';
 import { User } from './../../models/user';
@@ -14,8 +14,9 @@ export class SearchProductPage {
   
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
-    private auth: AuthProvider) {
-
+    private auth: AuthProvider,
+    private toastCtrl: ToastController) {
+      
     }
     
     findProducts(pattern: string){       
@@ -30,13 +31,28 @@ export class SearchProductPage {
         this.auth.login(user).subscribe((user: User)=>{                   
           if (user) {
             console.log('good');
+            this.showToast('we have found 3 items');
           }
         },
         (error: ApiError) => {
           console.log('error', error);
         })
       }
-
+      
+    }
+    
+    // translator(messageToTranslate: string){
+    //   this.translate.get(messageToTranslate).subscribe((data: string)=>{          
+    //     this.showToast(data);
+    //   })
+    // }
+    
+    showToast(data: string){
+      this.toastCtrl.create({
+        message: data,
+        duration: 2000,
+        position: 'top',
+      }).present();      
     }
     
   }

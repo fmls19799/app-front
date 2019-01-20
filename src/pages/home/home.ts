@@ -29,7 +29,8 @@ export class HomePage implements OnInit{
     ngOnInit(){ }
     
     searchingProduct(pattern: string){   
-      this.modal.create('SearchProductPage').present();
+      // this.modal.create('SearchProductPage').present();
+      this.navCtrl.push('SearchProductPage');
     }
     
     doRefresh(refresher) {

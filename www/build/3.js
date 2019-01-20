@@ -59,12 +59,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var SearchProductPage = /** @class */ (function () {
-    function SearchProductPage(navCtrl, navParams, auth) {
+    function SearchProductPage(navCtrl, navParams, auth, toastCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.auth = auth;
+        this.toastCtrl = toastCtrl;
     }
     SearchProductPage.prototype.findProducts = function (pattern) {
+        var _this = this;
         //DEBERIA CARGAR TODO LA PRIMERA VEZ QUE SE ENTRA EN HOME Y QUE AHORA NO SE HAGA LLAMADA SINO HACER UN PIPE LOCALMENTE ???
         if (pattern.length % 3 === 0 && pattern.length !== 0) {
             var user = {
@@ -75,20 +77,35 @@ var SearchProductPage = /** @class */ (function () {
             this.auth.login(user).subscribe(function (user) {
                 if (user) {
                     console.log('good');
+                    _this.showToast('we have found 3 items');
                 }
             }, function (error) {
                 console.log('error', error);
             });
         }
     };
+    // translator(messageToTranslate: string){
+    //   this.translate.get(messageToTranslate).subscribe((data: string)=>{          
+    //     this.showToast(data);
+    //   })
+    // }
+    SearchProductPage.prototype.showToast = function (data) {
+        this.toastCtrl.create({
+            message: data,
+            duration: 2000,
+            position: 'top',
+        }).present();
+    };
     SearchProductPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-search-product',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/search-product/search-product.html"*/'<ion-header>\n    <ion-navbar>\n      <div class="flex">\n        <ion-searchbar (ionChange)="findProducts(pattern)" [(ngModel)]="pattern"></ion-searchbar>\n        <div>\n          <ion-icon name="md-funnel"></ion-icon>\n        </div>\n      </div>\n    </ion-navbar>\n  </ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/search-product/search-product.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__["a" /* AuthProvider */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__["a" /* AuthProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */]])
     ], SearchProductPage);
     return SearchProductPage;
-    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=search-product.js.map

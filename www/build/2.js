@@ -96,23 +96,8 @@ var HomePage = /** @class */ (function () {
     };
     HomePage.prototype.ngOnInit = function () { };
     HomePage.prototype.searchingProduct = function (pattern) {
-        this.modal.create('SearchProductPage').present();
-        //DEBERIA CARGAR TODO LA PRIMERA VEZ QUE SE ENTRA EN HOME Y QUE AHORA NO SE HAGA LLAMADA SINO HACER UN PIPE LOCALMENTE ???
-        // if (pattern.length % 3 === 0 && pattern.length !== 0) {
-        //   var user: User = {
-        //     name: 'francisco',
-        //     email: 'fmls1989@gmail.com',
-        //     password: 'Berna123'
-        //   }
-        //   this.auth.login(user).subscribe((user: User)=>{                   
-        //     if (user) {
-        //       console.log('good');
-        //     }
-        //   },
-        //   (error: ApiError) => {
-        //     console.log('error', error);
-        //   })
-        // }
+        // this.modal.create('SearchProductPage').present();
+        this.navCtrl.push('SearchProductPage');
     };
     HomePage.prototype.doRefresh = function (refresher) {
         var user = {
