@@ -2,10 +2,11 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Config, Nav, Platform, NavController, ViewController, ToastController } from 'ionic-angular';
+import { Config, Nav, Platform, NavController, ViewController, ToastController, Modal, ModalController } from 'ionic-angular';
 import { CONFIG } from '../config/config.int'; // AQUI DEFINO EL ENTORNO !!!
 import { Utils } from './../providers/utils';
 import { AuthProvider } from './../providers/auth/auth';
+import { ModalComponentChooseCategory } from '../components/modal-choose-category/modal-choose-category';
 // import { CONFIG } from '@environment';
 
 @Component({
@@ -30,7 +31,8 @@ export class MyApp implements OnInit{
     private splashScreen: SplashScreen,
     private utils: Utils,
     private auth: AuthProvider,
-    private toast: ToastController) {
+    private toast: ToastController,
+    private modalCtrl: ModalController) {
       
       platform.ready().then(() => {
         this.statusBar.styleDefault();
@@ -50,7 +52,7 @@ export class MyApp implements OnInit{
       
       //check user agent
       console.log(navigator.userAgent);
-
+      
       if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
         this.userAgent = 'firefox';        
       } else if(/Mozilla/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)){
@@ -64,7 +66,7 @@ export class MyApp implements OnInit{
           //set current page
           this.currentPage = view.id;
           console.log(view.id);
-
+          
           // console.log('current page =>:', this.currentPage);
           if (this.currentPage === 'login' || this.currentPage === 'register' || this.currentPage === 'LoginPage' || this.currentPage === 'RegisterPage') {
             this.showTabs = false;
@@ -132,5 +134,10 @@ export class MyApp implements OnInit{
         this.config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT);
       });
     }
+    
+    uploadItem(){
+      this.modalCtrl.create(ModalComponentChooseCategory).present();
+    }
   }
+  
   

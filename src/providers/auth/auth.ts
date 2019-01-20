@@ -23,11 +23,13 @@ export class AuthProvider {
   
   //quitar any???
   register(user: User): Observable<User | HttpErrorResponse> {
-    return this.http.post<User>(`${AuthProvider.ENDPOINT}/users`, user).map((data: any) => data);
+    return this.http.post<User>(`${AuthProvider.ENDPOINT}/register`, user).map((data: any) => data);
   }
   
   //quitar any???
   login(user: User): Observable<User | HttpErrorResponse> {
+    console.log(user);
+    
     return this.http.post<User>(`${AuthProvider.ENDPOINT}/sessions`, user).map((data: any) => data);
   }
 

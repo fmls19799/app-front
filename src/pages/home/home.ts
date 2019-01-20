@@ -30,7 +30,7 @@ export class HomePage implements OnInit{
     
     searchingProduct(pattern: string){   
       // this.modal.create('SearchProductPage').present();
-      this.navCtrl.push('SearchProductPage');
+      this.navCtrl.push('SearchProductPage'); // mediante el push puedo pasar info a otra pagina o si no quiero pasar y pasar usar behaviour subject???
     }
     
     doRefresh(refresher) {

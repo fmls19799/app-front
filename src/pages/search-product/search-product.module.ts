@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SearchProductPage } from './search-product';
+import { TranslateModule } from '@ngx-translate/core';
+import { CustomComponentsModule } from 'src/components/components.module';
 
 @NgModule({
   declarations: [
@@ -8,6 +10,8 @@ import { SearchProductPage } from './search-product';
   ],
   imports: [
     IonicPageModule.forChild(SearchProductPage),
+    TranslateModule.forChild(),
+    CustomComponentsModule
   ],
 })
 export class SearchProductPageModule {}

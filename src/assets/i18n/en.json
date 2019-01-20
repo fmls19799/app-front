@@ -38,5 +38,9 @@
     "SPORTS": "Sports",
     "PHONES": "Phones",
     "CLOTHING": "Clothing",
-    "BOATS": "Boats"
+    "BOATS": "Boats",
+
+    "SEARCH_IN": "Search in...",
+    "SEE_ALL": "See all",
+    "CHOOSE_CATEGORY": "Choose category"
 }

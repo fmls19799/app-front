@@ -1,0 +1,36 @@
+modal-choose-category{
+    .modal{
+        background-color: white;
+        width: 100vw;
+        height: 100vh;
+        border-radius: 10px 10px 0 0;
+        position: absolute;
+        top: 52%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        .top{
+            margin-top: 10px;
+            display: flex;
+            flex-direction: row;
+            .close{
+                margin-left: 10px;
+                ion-icon{
+                    font-size: 20px;
+                }
+            }
+            h6{
+                margin: 0 auto;
+                text-align: center;
+                ion-icon{
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+    .opacity03{
+        opacity: 0.92 !important;
+        z-index: -9999;
+        background-color: #a29797;
+        color: black;
+    }
+}
