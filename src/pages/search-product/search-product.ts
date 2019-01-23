@@ -15,9 +15,11 @@ export class SearchProductPage {
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private auth: AuthProvider,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    ) {
       
     }
+    
     
     findProducts(pattern: string){       
       

@@ -34,7 +34,10 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      tabsPlacement: 'top',
+      backButtonText: ''
+    }),
     CustomComponentsModule
   ],
   bootstrap: [IonicApp],

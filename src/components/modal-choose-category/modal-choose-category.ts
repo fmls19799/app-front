@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewController, NavController, ModalController } from 'ionic-angular';
 import { Subscription, Subject, Observable } from 'rxjs';
-import { ModalComponentCategoryIcons } from '../modal-component-category-icons/modal-component-category-icons';
 
 @Component({
   selector: 'modal-choose-category',
@@ -11,20 +10,38 @@ export class ModalComponentChooseCategory implements OnInit {
   
   text: string;
   turnOpacity: boolean = false;
+  categoriesArray: Array<string> = [];
+  categories: any = { //esto cambiar el any y que sea dinamico dependiendo de las etiquetas que vayan creando los usuarios ok?????
+    real_state: 'ios-home-outline',
+    car: 'ios-car-outline',
+    gaming: 'ios-game-controller-b-outline',
+    bycicle: 'bicycle',
+    sports: 'ios-american-football-outline',
+    phones: 'ios-phone-portrait-outline',
+    // cloghing: 'ios-shirt-outline'    
+  }
   
   constructor(private viewCtrl: ViewController, private modalCtrl: ModalController) {
     
   }
   
   ngOnInit(){
-    this.turnOpacity = true;
-    console.log('aaa');
-    setTimeout(()=>{
-      console.log('bbb');
-      
-      this.modalCtrl.create(ModalComponentCategoryIcons, this.viewCtrl).present(); // en componentes no puedo usar '' lazy loading ???
-    },100)
+  }
+
+  getIcons(){
+    // this.categoriesArray = Object.values(this.categories);
+    // console.log(this.categoriesArray.length);
     
+    // if (this.categoriesArray.length % 3 === 0) {
+    //   console.log(true);
+      
+    // } else{
+    //   console.log(false);
+      
+    // }
+    // console.log(this.categoriesArray);
+    
+    return this.categoriesArray;
   }
   
   closeModal(){

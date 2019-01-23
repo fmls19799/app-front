@@ -10,7 +10,7 @@ import { ModalComponentChooseCategory } from '../components/modal-choose-categor
 // import { CONFIG } from '@environment';
 
 @Component({
-  templateUrl: 'app.html' 
+  templateUrl: 'app.html',
 })
 export class MyApp implements OnInit{
   //1. La primera vez, en app component pongo el root en html asi en lugar de setroot ya que no funcionaria
@@ -32,7 +32,9 @@ export class MyApp implements OnInit{
     private utils: Utils,
     private auth: AuthProvider,
     private toast: ToastController,
-    private modalCtrl: ModalController) {
+    private modalCtrl: ModalController,
+    // private viewCtrl: ViewController
+    ) {
       
       platform.ready().then(() => {
         this.statusBar.styleDefault();
@@ -41,6 +43,13 @@ export class MyApp implements OnInit{
       this.initTranslate();
     }
     
+
+
+    ionViewWillEnter() {      
+      // console.log(this.viewCtrl);
+      
+    }
+
     ngOnInit(){
       // set root page at first load and environment
       this.rootPage = 'LoginPage';
@@ -61,7 +70,7 @@ export class MyApp implements OnInit{
       
       //global guardas in here (NAV is the whole nav, not like using ionviewwilleneter,
       //  VIEW CONTROLLER is the view that is going to load) 
-      this.nav.viewWillEnter.subscribe((view: ViewController)=>{
+      this.nav.viewWillEnter.subscribe((view: any)=>{
         if (this.currentPage !== view.id) {
           //set current page
           this.currentPage = view.id;

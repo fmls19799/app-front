@@ -1,18 +1,15 @@
 modal-choose-category{
+    overflow-y: scroll;
+    
     .modal{
         background-color: white;
-        width: 100vw;
-        height: 100vh;
-        border-radius: 10px 10px 0 0;
-        position: absolute;
-        top: 52%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        border-radius: 10px;
         .top{
-            margin-top: 10px;
+            margin-top: 20px;
             display: flex;
             flex-direction: row;
             .close{
+                cursor: pointer;
                 margin-left: 10px;
                 ion-icon{
                     font-size: 20px;
@@ -26,11 +23,23 @@ modal-choose-category{
                 }
             }
         }
-    }
-    .opacity03{
-        opacity: 0.92 !important;
-        z-index: -9999;
-        background-color: #a29797;
-        color: black;
+        .bottom{
+            margin-top: 40px;
+            height: 90vh;
+            ion-row{
+                margin-bottom: 30px;
+                ion-col{
+                    ion-icon{
+                        text-align: center;
+                        display: block;
+                        font-size: 44px;
+                    }
+                    span{
+                        text-align: center;
+                        display: block;
+                    }
+                }
+            }
+        }
     }
 }

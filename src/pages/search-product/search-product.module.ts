@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SearchProductPage } from './search-product';
 import { TranslateModule } from '@ngx-translate/core';
-import { CustomComponentsModule } from 'src/components/components.module';
+import { CustomComponentsModule } from './../../components/components.module';
 
 @NgModule({
   declarations: [

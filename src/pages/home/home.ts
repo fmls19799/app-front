@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, Loading, LoadingController, ModalC
 import { AuthProvider } from './../../providers/auth/auth';
 import { User } from './../../models/user';
 import { ApiError } from './../../models/ApiError';
-import { SearchProductPage } from '../search-product/search-product';
+import { SearchProductPage } from './../search-product/search-product';
 
 @IonicPage()
 @Component({

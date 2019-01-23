@@ -65,7 +65,7 @@ var AuthProvider = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Utils; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(30);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -119,7 +119,7 @@ webpackEmptyAsyncContext.id = 132;
 
 var map = {
 	"../pages/home/home.module": [
-		331,
+		330,
 		2
 	],
 	"../pages/login/login.module": [
@@ -127,11 +127,11 @@ var map = {
 		1
 	],
 	"../pages/register/register.module": [
-		333,
+		331,
 		0
 	],
 	"../pages/search-product/search-product.module": [
-		334,
+		333,
 		3
 	]
 };
@@ -174,8 +174,7 @@ var CONFIG = {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ModalComponentChooseCategory; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modal_component_category_icons_modal_component_category_icons__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(30);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -185,7 +184,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 var ModalComponentChooseCategory = /** @class */ (function () {
@@ -193,97 +191,61 @@ var ModalComponentChooseCategory = /** @class */ (function () {
         this.viewCtrl = viewCtrl;
         this.modalCtrl = modalCtrl;
         this.turnOpacity = false;
+        this.categoriesArray = [];
+        this.categories = {
+            real_state: 'ios-home-outline',
+            car: 'ios-car-outline',
+            gaming: 'ios-game-controller-b-outline',
+            bycicle: 'bicycle',
+            sports: 'ios-american-football-outline',
+            phones: 'ios-phone-portrait-outline',
+        };
     }
     ModalComponentChooseCategory.prototype.ngOnInit = function () {
-        var _this = this;
-        this.turnOpacity = true;
-        console.log('aaa');
-        setTimeout(function () {
-            console.log('bbb');
-            _this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_2__modal_component_category_icons_modal_component_category_icons__["a" /* ModalComponentCategoryIcons */], _this.viewCtrl).present(); // en componentes no puedo usar '' lazy loading ???
-        }, 100);
+    };
+    ModalComponentChooseCategory.prototype.getIcons = function () {
+        // this.categoriesArray = Object.values(this.categories);
+        // console.log(this.categoriesArray.length);
+        // if (this.categoriesArray.length % 3 === 0) {
+        //   console.log(true);
+        // } else{
+        //   console.log(false);
+        // }
+        // console.log(this.categoriesArray);
+        return this.categoriesArray;
     };
     ModalComponentChooseCategory.prototype.closeModal = function () {
         this.viewCtrl.dismiss();
     };
     ModalComponentChooseCategory = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'modal-choose-category',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/'  <div class="modal" [ngClass]="{\'opacity03\': turnOpacity}">\n    <div class="top">\n      <div class="close">\n        <ion-icon name="close" (click)="closeModal()"></ion-icon>\n      </div>\n      <h6>{{ \'CHOOSE_CATEGORY\' | translate}} \n        <ion-icon name="arrow-down"></ion-icon>\n      </h6>\n      <!-- POR QUE NO SE PUEDEN PONER ICONOS EN COMPONENTES DE ANGULAR/ SOLO ENPAGES??? -->\n\n    </div>\n  </div>\n  '/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/
+            selector: 'modal-choose-category',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/'  <div class="modal" [ngClass]="{\'opacity03\': turnOpacity}">\n    <div class="top">\n      <div class="close">\n        <ion-icon name="close" (click)="closeModal()"></ion-icon>\n      </div>\n      <h6>{{ \'CHOOSE_CATEGORY\' | translate}} \n        <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n      </h6>\n    </div>\n    <div class="bottom">\n\n      <ion-row>\n        <ion-col>\n          <ion-icon name="ios-home-outline"></ion-icon>\n          <span>{{\'REAL_STATE\' | translate }}</span>\n        </ion-col>\n        <ion-col>\n          <ion-icon name="ios-car-outline"></ion-icon>\n          <span>{{\'CARS\' | translate }}</span>\n        </ion-col>\n        <ion-col>\n          <ion-icon name="ios-game-controller-b-outline"></ion-icon>\n          <span>{{\'GAMING\' | translate }}</span>\n        </ion-col>\n      </ion-row>\n      \n      <ion-row>\n        <ion-col>\n          <ion-icon name="bicycle"></ion-icon>\n          <span>{{\'CYCLING\' | translate }}</span>\n        </ion-col>\n        <ion-col>\n          <ion-icon name="ios-american-football-outline"></ion-icon>\n          <span>{{\'SPORTS\' | translate }}</span>\n        </ion-col>\n        <ion-col>\n          <ion-icon name="ios-phone-portrait-outline"></ion-icon>\n          <span>{{\'PHONES\' | translate }}</span>\n        </ion-col>\n      </ion-row>\n      \n      <ion-row>\n        <ion-col>\n          <ion-icon name="ios-shirt-outline"></ion-icon>\n          <span>{{\'CLOTHING\' | translate }}</span>\n        </ion-col>\n        <ion-col>\n          <ion-icon name="ios-boat-outline"></ion-icon>\n          <span>{{\'BOATS\' | translate }}</span>\n        </ion-col>\n        <ion-col>\n          <ion-icon name="ios-boat-outline"></ion-icon>\n          <span>{{\'BOATS\' | translate }}</span>\n        </ion-col>\n      </ion-row>\n      \n      <ion-row>\n        <ion-col>\n          <ion-icon name="ios-home-outline"></ion-icon>\n          <span>{{\'REAL_STATE\' | translate }}</span>\n        </ion-col>\n        <ion-col>\n          <ion-icon name="ios-car-outline"></ion-icon>\n          <span>{{\'CARS\' | translate }}</span>\n        </ion-col>\n        <ion-col>\n          <ion-icon name="ios-game-controller-b-outline"></ion-icon>\n          <span>{{\'GAMING\' | translate }}</span>\n        </ion-col>\n      </ion-row>\n      \n      <ion-row>\n        <ion-col>\n          <ion-icon name="bicycle"></ion-icon>\n          <span>{{\'CYCLING\' | translate }}</span>\n        </ion-col>\n        <ion-col>\n          <ion-icon name="ios-american-football-outline"></ion-icon>\n          <span>{{\'SPORTS\' | translate }}</span>\n        </ion-col>\n        <ion-col>\n          <ion-icon name="ios-phone-portrait-outline"></ion-icon>\n          <span>{{\'PHONES\' | translate }}</span>\n        </ion-col>\n      </ion-row>\n      \n      <ion-row>\n        <ion-col>\n          <ion-icon name="ios-shirt-outline"></ion-icon>\n          <span>{{\'CLOTHING\' | translate }}</span>\n        </ion-col>\n        <ion-col>\n          <ion-icon name="ios-boat-outline"></ion-icon>\n          <span>{{\'BOATS\' | translate }}</span>\n        </ion-col>\n        <ion-col>\n          <ion-icon name="ios-boat-outline"></ion-icon>\n          <span>{{\'BOATS\' | translate }}</span>\n        </ion-col>\n      </ion-row>\n      \n\n\n\n    </div>\n  </div>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ViewController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]])
     ], ModalComponentChooseCategory);
     return ModalComponentChooseCategory;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=modal-choose-category.js.map
 
 /***/ }),
 
-/***/ 177:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ModalComponentCategoryIcons; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(25);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var ModalComponentCategoryIcons = /** @class */ (function () {
-    function ModalComponentCategoryIcons(viewCtrl, navParams) {
-        this.viewCtrl = viewCtrl;
-        this.navParams = navParams;
-    }
-    ModalComponentCategoryIcons.prototype.ngOnInit = function () {
-        this.dataFromPreviewsModal = this.navParams.get('data');
-        console.log(this.dataFromPreviewsModal);
-        console.log(this.viewCtrl);
-        console.log(this.viewCtrl._cmp);
-    };
-    ModalComponentCategoryIcons.prototype.closeModal = function () {
-        this.viewCtrl.dismiss();
-    };
-    ModalComponentCategoryIcons = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'modal-component-category-icons',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-component-category-icons/modal-component-category-icons.html"*/'<div>\n  <div class="modal">\n    <div class="top">\n      <h6>{{\'CHOOSE_CATEGORY\' | translate}}</h6>\n      <!-- POR QUE NO SE PUEDEN PONER ICONOS EN COMPONENTES DE ANGULAR/ SOLO ENPAGES??? -->\n    </div>\n  </div>\n</div>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-component-category-icons/modal-component-category-icons.html"*/
-        }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ViewController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */]) === "function" && _b || Object])
-    ], ModalComponentCategoryIcons);
-    return ModalComponentCategoryIcons;
-    var _a, _b;
-}());
-
-//# sourceMappingURL=modal-component-category-icons.js.map
-
-/***/ }),
-
-/***/ 225:
+/***/ 224:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CustomComponentsModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__header_header__ = __webpack_require__(267);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__header_header__ = __webpack_require__(266);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__ = __webpack_require__(176);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modal_component_category_icons_modal_component_category_icons__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(30);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -297,7 +259,6 @@ var CustomComponentsModule = /** @class */ (function () {
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_1__header_header__["a" /* HeaderComponent */],
                 __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
-                __WEBPACK_IMPORTED_MODULE_5__modal_component_category_icons_modal_component_category_icons__["a" /* ModalComponentCategoryIcons */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["b" /* TranslateModule */],
@@ -306,12 +267,10 @@ var CustomComponentsModule = /** @class */ (function () {
             exports: [
                 __WEBPACK_IMPORTED_MODULE_1__header_header__["a" /* HeaderComponent */],
                 __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
-                __WEBPACK_IMPORTED_MODULE_5__modal_component_category_icons_modal_component_category_icons__["a" /* ModalComponentCategoryIcons */]
             ],
             entryComponents: [
                 __WEBPACK_IMPORTED_MODULE_1__header_header__["a" /* HeaderComponent */],
                 __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
-                __WEBPACK_IMPORTED_MODULE_5__modal_component_category_icons_modal_component_category_icons__["a" /* ModalComponentCategoryIcons */]
             ]
         })
     ], CustomComponentsModule);
@@ -322,13 +281,13 @@ var CustomComponentsModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 226:
+/***/ 225:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(238);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -336,7 +295,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 239:
+/***/ 238:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -344,17 +303,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(221);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(224);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(320);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(319);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ngx_translate_http_loader__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ngx_translate_http_loader__ = __webpack_require__(320);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_common_http__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_app_http_interceptor__ = __webpack_require__(323);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_app_http_interceptor__ = __webpack_require__(322);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_utils__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_auth_auth__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_components_module__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_components_module__ = __webpack_require__(224);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -395,11 +354,14 @@ var AppModule = /** @class */ (function () {
                         deps: [__WEBPACK_IMPORTED_MODULE_8__angular_common_http__["b" /* HttpClient */]]
                     }
                 }),
-                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
+                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {
+                    tabsPlacement: 'top',
+                    backButtonText: ''
+                }, {
                     links: [
                         { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/search-product/search-product.module#SearchProductPageModule', name: 'SearchProductPage', segment: 'search-product', priority: 'low', defaultHistory: [] }
                     ]
                 }),
@@ -426,7 +388,7 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 267:
+/***/ 266:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -460,16 +422,16 @@ var HeaderComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 320:
+/***/ 319:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_splash_screen__ = __webpack_require__(221);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_splash_screen__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config_config_int__ = __webpack_require__(175);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_utils__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_auth_auth__ = __webpack_require__(115);
@@ -512,6 +474,9 @@ var MyApp = /** @class */ (function () {
         });
         this.initTranslate();
     }
+    MyApp.prototype.ionViewWillEnter = function () {
+        // console.log(this.viewCtrl);
+    };
     MyApp.prototype.ngOnInit = function () {
         var _this = this;
         // set root page at first load and environment
@@ -603,7 +568,7 @@ var MyApp = /** @class */ (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["j" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n<!-- <div class="version">{{ versionWebOrPhone }}</div>\n<div class="userAgent">{{ userAgent }}</div> -->\n\n<!-- TABS IN ALL PAGES -->\n<ion-footer *ngIf="showTabs">\n    <ion-segment>\n      <ion-icon name="ios-contact-outline"></ion-icon>\n      <span>{{ \'PROFILE\' | translate }}</span>\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-reverse-camera-outline" (click)="uploadItem()"></ion-icon>\n      <span>{{ \'UPLOAD_PHOTO\' | translate }}</span>\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-map-outline"></ion-icon>\n      <span>{{ \'AROUND_YOU\' | translate }}</span>\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-pricetag-outline"></ion-icon>\n      <span>{{ \'YOUR_ITEMS\' | translate }}</span>\n    </ion-segment>\n    <ion-segment>\n        <ion-icon name="ios-chatbubbles-outline"></ion-icon>\n        <span>{{ \'CHAT\' | translate }}</span>\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-cog-outline"></ion-icon>\n      <span>{{ \'SETTINGS\' | translate }}</span>\n    </ion-segment>\n  </ion-footer>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/app/app.html"*/
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n<!-- <div class="version">{{ versionWebOrPhone }}</div>\n<div class="userAgent">{{ userAgent }}</div> -->\n\n<!-- TABS IN ALL PAGES -->\n<ion-footer *ngIf="showTabs">\n    <ion-segment>\n      <ion-icon name="ios-contact-outline"></ion-icon>\n      <span>{{ \'PROFILE\' | translate }}</span>\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-reverse-camera-outline" (click)="uploadItem()"></ion-icon>\n      <span>{{ \'UPLOAD_PHOTO\' | translate }}</span>\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-map-outline"></ion-icon>\n      <span>{{ \'AROUND_YOU\' | translate }}</span>\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-pricetag-outline"></ion-icon>\n      <span>{{ \'YOUR_ITEMS\' | translate }}</span>\n    </ion-segment>\n    <ion-segment>\n        <ion-icon name="ios-chatbubbles-outline"></ion-icon>\n        <span>{{ \'CHAT\' | translate }}</span>\n    </ion-segment>\n    <ion-segment>\n      <ion-icon name="ios-cog-outline"></ion-icon>\n      <span>{{ \'SETTINGS\' | translate }}</span>\n    </ion-segment>\n  </ion-footer>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/app/app.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */],
             __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["m" /* Platform */],
@@ -622,19 +587,19 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 323:
+/***/ 322:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppHttpInterceptorProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(87);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(324);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(323);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_finally__ = __webpack_require__(327);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_finally__ = __webpack_require__(326);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_finally___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_finally__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__ = __webpack_require__(330);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__ = __webpack_require__(329);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -794,5 +759,5 @@ var AppHttpInterceptorProvider = /** @class */ (function () {
 
 /***/ })
 
-},[226]);
+},[225]);
 //# sourceMappingURL=main.js.map
