@@ -8,15 +8,17 @@ import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class AuthProvider {
-
+  
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
-  private static readonly defaultOptions = {
-    headers: new HttpHeaders().set('Content-Type', 'application/json'),
-    withCredentials: true
-  };
-
+  // LO PUEDO QUITAR??? PROBAR YA QUE LO TENGO EN INTERCEPTOR???
+  
+  // private static readonly defaultOptions = {
+  //   headers: new HttpHeaders().set('Content-Type', 'application/json'),
+  //   withCredentials: true
+  // };
+  
   constructor(public http: HttpClient) { }
-
+  
   ngOnInit() {
     
   }
@@ -32,14 +34,18 @@ export class AuthProvider {
     
     return this.http.post<User>(`${AuthProvider.ENDPOINT}/sessions`, user).map((data: any) => data);
   }
-
+  
   isLoggedIn():boolean{
     return localStorage.getItem('user') ? true : false;
   }
-
+  
+  getUserFromLocalStorage():any{
+    return localStorage.getItem('user');
+  }
+  
   rememberMe():boolean{
     return localStorage.getItem('rememberMe') ? true : false;
   }
   
-
+  
 }

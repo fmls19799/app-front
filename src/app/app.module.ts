@@ -14,6 +14,7 @@ import { AppHttpInterceptorProvider } from '../providers/app-http-interceptor';
 import { Utils } from './../providers/utils';
 import { AuthProvider } from '../providers/auth/auth';
 import { CustomComponentsModule } from './../components/components.module';
+import { ProductsProvider } from './../providers/products/products';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -36,7 +37,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     IonicModule.forRoot(MyApp, {
       tabsPlacement: 'top',
-      backButtonText: ''
+      backButtonText: 'Back'
     }),
     CustomComponentsModule
   ],
@@ -50,7 +51,8 @@ export function createTranslateLoader(http: HttpClient) {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     {provide: HTTP_INTERCEPTORS, useClass:AppHttpInterceptorProvider, multi: true},
     Utils,
-    AuthProvider
+    AuthProvider,
+    ProductsProvider
   ]
 })
 export class AppModule {}

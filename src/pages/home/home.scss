@@ -1,23 +1,37 @@
 page-home {
+    
     background-color: #ececec;
     ion-header{
+        
         ion-navbar{
+            .burger{
+                button{
+                    color: black !important; 
+                    
+                }
+            }
             .toolbar-background{
+                
                 background-color: #c5c201 !important;
             }
             ion-searchbar{
+                
                 padding: 0 !important;
                 position: relative;
                 .searchbar-input-container{
+                    
                     width: 85%;
                     margin-left: 50px;
+                    
                     .searchbar-search-icon{
+                        
                         background-size: 15px;
                         position: absolute;
                         top: 7px;
                         left: 11px;
                     }
                     .searchbar-input{
+                        
                         height: 27px;
                         padding-left: 40px !important;
                         border-radius: 30px;
@@ -29,42 +43,93 @@ page-home {
     }
     
     ion-content{
-        .showAllProducts{
-            margin: 10px 10px 0 10px;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: row;
-            div:first-child{
-                h4{
-                    margin: 0;
+        ion-refresher{
+        }
+        .fixedTop{
+            // border: 4px solid blue;          
+            // background-color: white;
+            // position: fixed;
+            // top: 100px;
+            // left: 100px;
+            .searchIn{
+                
+                margin: 10px 10px 0 10px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                div:first-child{
+                    
+                    h4{
+                        
+                        margin: 0;
+                    }
+                }
+                div:last-child{
+                    
+                    font-weight: 600;
+                    ion-icon{
+                        
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
                 }
             }
-            div:last-child{
-                font-weight: 600;
+            .listOfProductsToChooseFrom{
+                
+                margin-top: 10px;
+                height: 60px;
+                display: flex;
+                justify-content: space-between;
+                overflow-x: scroll;
+                div{
+                    
+                    margin: 0 11px;
+                    padding: 0 11px;
+                    display: flex;
+                    flex-direction: column;
+                    font-size: 14px;
+                    font-weight: 300;
+                    white-space: nowrap;
+                }
                 ion-icon{
-                    font-size: 12px;
-                    font-weight: bold;
+                    font-size: 40px;
+                    text-align: center;
                 }
             }
         }
-        .listOfProductsToChooseFrom{
-            margin-top: 10px;
-            height: 60px;
-            display: flex;
-            justify-content: space-between;
-            overflow-x: scroll;
-            div{
-                margin: 0 11px;
-                padding: 0 11px;
-                display: flex;
-                flex-direction: column;
-                font-size: 14px;
-                font-weight: 300;
-                white-space: nowrap;
-            }
-            ion-icon{
-                font-size: 40px;
-                text-align: center;
+        .productsList{                
+            // border: 1px solid blue;
+            // height: 100px;
+            
+            ion-row{
+                // border: 1px solid red;
+                
+                // margin-bottom: 30px;
+                ion-col{
+                    overflow-y: scroll;
+                    height: calc(100vh - 156px);
+                    // width: 33%;
+                    // border: 1px solid red;
+                    div{
+                        div{
+                            margin: 3px;
+                            padding: 50px 0;
+                            border: 1px solid black;
+                            border-radius: 5px;
+                            ion-icon{
+                                // border: 1px solid red;
+                                text-align: center;
+                                display: block;
+                                font-size: 44px;
+                            }
+                            span{
+                                // border: 1px solid red;
+                                text-align: center;
+                                display: block;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

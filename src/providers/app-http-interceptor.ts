@@ -34,12 +34,12 @@ export class AppHttpInterceptorProvider implements HttpInterceptor {
                             // dismissOnPageChange: true
                         });
                         // this.loader.onDidDismiss(() => this.pendingCalls = 0)
-                        console.log('Show loader', 'loader:', this.loader, 'data show loader:', data.showLoader);
+                        // console.log('Show loader', 'loader:', this.loader, 'data show loader:', data.showLoader);
                         this.loader.present();
                         
                     } else if (this.loader && !data.showLoader) {
                         
-                        console.log('Hide loader');
+                        // console.log('Hide loader');
                         this.loader.dismiss()
                         .then((success) => this.loader = null)
                         .catch((error) => { });
@@ -54,7 +54,7 @@ export class AppHttpInterceptorProvider implements HttpInterceptor {
                 this.updatePendingRequests(1);
                 
                 const noLoaderHeader = req.headers.get('No-Loader');
-                console.log(noLoaderHeader);
+                // console.log(noLoaderHeader);
                 
                 this.isLoading.next({
                     text: req.headers.get('Loader-Text') || '',

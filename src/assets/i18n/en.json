@@ -15,11 +15,11 @@
     "ERROR_PASSWORD_REQUIRED":"Password is required",
     "ERROR_EMAIL_PATTERN": "Wrong email pattern",
     "ERROR_PASSWORD_PATTERN": "Password must have 1 capital letter and at least one number",
-
+    
     "CODE_001": "Email or password is empty",
     "CODE_002": "Invalid email or password",
     "CODE_003": "User with that email already exists",
-
+    
     "USER_CREATED": "User created successfully, validate the link we sent you to your email",
     "LOGIN_ERROR": "Unable to sign in",
     "REMEMBER_ME": "Remember password",
@@ -30,7 +30,7 @@
     "YOUR_ITEMS": "Your items",
     "CHAT": "Chat",
     "SETTINGS": "Ajustes",
-
+    
     "CARS": "Cars",
     "REAL_STATE": "Real state",
     "GAMING": "Gaming",
@@ -39,8 +39,9 @@
     "PHONES": "Phones",
     "CLOTHING": "Clothing",
     "BOATS": "Boats",
-
+    
     "SEARCH_IN": "Search in...",
     "SEE_ALL": "See all",
-    "CHOOSE_CATEGORY": "Choose category"
+    "CHOOSE_CATEGORY": "Choose category",
+    "PUBLISHING_IN": "Publishing in"
 }

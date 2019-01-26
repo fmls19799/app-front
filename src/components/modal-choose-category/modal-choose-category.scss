@@ -1,14 +1,16 @@
 modal-choose-category{
     overflow-y: scroll;
     
-    .modal{
+    .modalChooseProduct{
         background-color: white;
         border-radius: 10px;
         .top{
+            // border: 1px solid red;
             margin-top: 20px;
             display: flex;
             flex-direction: row;
             .close{
+                // border: 1px solid red;
                 cursor: pointer;
                 margin-left: 10px;
                 ion-icon{
@@ -16,25 +18,35 @@ modal-choose-category{
                 }
             }
             h6{
+                // border: 1px solid red;
                 margin: 0 auto;
+                height: 30px;;
                 text-align: center;
                 ion-icon{
+                    // border: 1px solid red;
                     font-size: 13px;
                 }
             }
         }
         .bottom{
+            // border: 1px solid red;
             margin-top: 40px;
             height: 90vh;
             ion-row{
+                // border: 1px solid red;
                 margin-bottom: 30px;
                 ion-col{
+                    padding: 40px;
+                    width: 53%;
+                    // border: 1px solid red;
                     ion-icon{
+                        // border: 1px solid red;
                         text-align: center;
                         display: block;
                         font-size: 44px;
                     }
                     span{
+                        // border: 1px solid red;
                         text-align: center;
                         display: block;
                     }

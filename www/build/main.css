@@ -25715,16 +25715,24 @@ page-login .error-container .error-item, page-register .error-container .error-i
   color: white !important;
 }
 
-ion-footer {
+ion-menu ion-header ion-toolbar {
+  height: 60px;
+}
+
+ion-menu ion-header ion-toolbar .flex {
+  border: 1px solid red;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 50px;
-  margin-bottom: 5px;
 }
 
-ion-footer ion-segment {
+ion-menu ion-header ion-toolbar .flex img {
+  width: 40px;
+  height: 40px;
+}
+
+ion-menu ion-header ion-toolbar .flex .flex2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -25734,27 +25742,31 @@ ion-footer ion-segment {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  border: 1px solid red;
 }
 
-ion-footer ion-segment ion-icon {
-  font-size: 35px;
+ion-menu ion-header ion-toolbar .flex .flex2 .toolbar-title {
+  border: 1px solid blue;
 }
 
-ion-footer ion-segment span {
-  font-size: 9.2px;
-  font-weight: bold;
+ion-menu ion-content ion-list ion-item .item-inner {
+  border: none !important;
+}
+
+ion-menu ion-content ion-list ion-item div {
+  padding: 7px;
 }
 
 modal-choose-category {
   overflow-y: scroll;
 }
 
-modal-choose-category .modal {
+modal-choose-category .modalChooseProduct {
   background-color: white;
   border-radius: 10px;
 }
 
-modal-choose-category .modal .top {
+modal-choose-category .modalChooseProduct .top {
   margin-top: 20px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -25767,46 +25779,56 @@ modal-choose-category .modal .top {
   flex-direction: row;
 }
 
-modal-choose-category .modal .top .close {
+modal-choose-category .modalChooseProduct .top .close {
   cursor: pointer;
   margin-left: 10px;
 }
 
-modal-choose-category .modal .top .close ion-icon {
+modal-choose-category .modalChooseProduct .top .close ion-icon {
   font-size: 20px;
 }
 
-modal-choose-category .modal .top h6 {
+modal-choose-category .modalChooseProduct .top h6 {
   margin: 0 auto;
+  height: 30px;
   text-align: center;
 }
 
-modal-choose-category .modal .top h6 ion-icon {
+modal-choose-category .modalChooseProduct .top h6 ion-icon {
   font-size: 13px;
 }
 
-modal-choose-category .modal .bottom {
+modal-choose-category .modalChooseProduct .bottom {
   margin-top: 40px;
   height: 90vh;
 }
 
-modal-choose-category .modal .bottom ion-row {
+modal-choose-category .modalChooseProduct .bottom ion-row {
   margin-bottom: 30px;
 }
 
-modal-choose-category .modal .bottom ion-row ion-col ion-icon {
+modal-choose-category .modalChooseProduct .bottom ion-row ion-col {
+  padding: 40px;
+  width: 53%;
+}
+
+modal-choose-category .modalChooseProduct .bottom ion-row ion-col ion-icon {
   text-align: center;
   display: block;
   font-size: 44px;
 }
 
-modal-choose-category .modal .bottom ion-row ion-col span {
+modal-choose-category .modalChooseProduct .bottom ion-row ion-col span {
   text-align: center;
   display: block;
 }
 
 page-home {
   background-color: #ececec;
+}
+
+page-home ion-header ion-navbar .burger button {
+  color: black !important;
 }
 
 page-home ion-header ion-navbar .toolbar-background {
@@ -25837,7 +25859,7 @@ page-home ion-header ion-navbar ion-searchbar .searchbar-input-container .search
   background: rgba(0, 0, 0, 0.08) !important;
 }
 
-page-home ion-content .showAllProducts {
+page-home ion-content .fixedTop .searchIn {
   margin: 10px 10px 0 10px;
   display: -webkit-box;
   display: -webkit-flex;
@@ -25854,20 +25876,20 @@ page-home ion-content .showAllProducts {
   flex-direction: row;
 }
 
-page-home ion-content .showAllProducts div:first-child h4 {
+page-home ion-content .fixedTop .searchIn div:first-child h4 {
   margin: 0;
 }
 
-page-home ion-content .showAllProducts div:last-child {
+page-home ion-content .fixedTop .searchIn div:last-child {
   font-weight: 600;
 }
 
-page-home ion-content .showAllProducts div:last-child ion-icon {
+page-home ion-content .fixedTop .searchIn div:last-child ion-icon {
   font-size: 12px;
   font-weight: bold;
 }
 
-page-home ion-content .listOfProductsToChooseFrom {
+page-home ion-content .fixedTop .listOfProductsToChooseFrom {
   margin-top: 10px;
   height: 60px;
   display: -webkit-box;
@@ -25881,7 +25903,7 @@ page-home ion-content .listOfProductsToChooseFrom {
   overflow-x: scroll;
 }
 
-page-home ion-content .listOfProductsToChooseFrom div {
+page-home ion-content .fixedTop .listOfProductsToChooseFrom div {
   margin: 0 11px;
   padding: 0 11px;
   display: -webkit-box;
@@ -25898,9 +25920,32 @@ page-home ion-content .listOfProductsToChooseFrom div {
   white-space: nowrap;
 }
 
-page-home ion-content .listOfProductsToChooseFrom ion-icon {
+page-home ion-content .fixedTop .listOfProductsToChooseFrom ion-icon {
   font-size: 40px;
   text-align: center;
+}
+
+page-home ion-content .productsList ion-row ion-col {
+  overflow-y: scroll;
+  height: calc(100vh - 156px);
+}
+
+page-home ion-content .productsList ion-row ion-col div div {
+  margin: 3px;
+  padding: 50px 0;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+page-home ion-content .productsList ion-row ion-col div div ion-icon {
+  text-align: center;
+  display: block;
+  font-size: 44px;
+}
+
+page-home ion-content .productsList ion-row ion-col div div span {
+  text-align: center;
+  display: block;
 }
 
 page-login * {

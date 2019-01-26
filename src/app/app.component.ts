@@ -21,6 +21,40 @@ export class MyApp implements OnInit{
   versionWebOrPhone: string;
   userAgent: string;
   showTabs: boolean = false;
+  isLogged: boolean;
+  userLocalStorage: any;
+  icons: Array<any> = [
+    {
+      name: 'profile',
+      icon: 'ios-contact-outline',
+      active: false
+    },
+    {
+      name: 'upload',
+      icon: 'ios-reverse-camera-outline',
+      active: false
+    },
+    {
+      name: 'map',
+      icon: 'ios-map-outline',
+      active: false
+    },
+    {
+      name: 'items',
+      icon: 'ios-pricetag-outline',
+      active: false
+    },
+    {
+      name: 'chat',
+      icon: 'ios-chatbubbles-outline',
+      active: false
+    },
+    {
+      name: 'settings',
+      icon: 'ios-cog-outline',
+      active: false
+    },
+  ]
   
   @ViewChild(Nav) nav: Nav;
   
@@ -43,13 +77,13 @@ export class MyApp implements OnInit{
       this.initTranslate();
     }
     
-
-
+    
+    
     ionViewWillEnter() {      
       // console.log(this.viewCtrl);
       
     }
-
+    
     ngOnInit(){
       // set root page at first load and environment
       this.rootPage = 'LoginPage';
@@ -60,51 +94,53 @@ export class MyApp implements OnInit{
       this.versionWebOrPhone = this.isCordova ? 'phone' : 'web';
       
       //check user agent
-      console.log(navigator.userAgent);
+      // console.log(navigator.userAgent);
       
-      if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-        this.userAgent = 'firefox';        
-      } else if(/Mozilla/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)){
-        this.userAgent = 'chrome';        
-      }
+      // if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+      //   this.userAgent = 'firefox';        
+      // } else if(/Mozilla/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)){
+      //   this.userAgent = 'chrome';        
+      // }
+      
       
       //global guardas in here (NAV is the whole nav, not like using ionviewwilleneter,
       //  VIEW CONTROLLER is the view that is going to load) 
       this.nav.viewWillEnter.subscribe((view: any)=>{
         if (this.currentPage !== view.id) {
-          //set current page
+          //set current page ????
           this.currentPage = view.id;
-          console.log(view.id);
           
           // console.log('current page =>:', this.currentPage);
-          if (this.currentPage === 'login' || this.currentPage === 'register' || this.currentPage === 'LoginPage' || this.currentPage === 'RegisterPage') {
+          if (this.currentPage === 'LoginPage' || this.currentPage === 'login' || this.currentPage === 'register' || this.currentPage === 'RegisterPage') {
             this.showTabs = false;
           } else{
             this.showTabs = true;
-            console.log(this.currentPage);
-            console.log(this.showTabs);
-            
           }
-          const publicPagesRegex = /login|register/;
+          const publicPagesRegex = /login|register|LoginPage|RegisterPage/;
+          
           //check user is logged in          
-          // if (this.auth.isLoggedIn() && !this.auth.rememberMe()) {
-          //   console.log('is logged and has remember me');
-          //   // this.nav.setRoot('HomePage')
+          // if (this.auth.isLoggedIn()) {
+          //   this.isLogged = true;
+          //   this.userLocalStorage = this.auth.getUserFromLocalStorage;
+          //   this.nav.setRoot('HomePage');
+          //   console.log('auth');
+          
           // } else{
-          //   console.log('not logged');
+          //   console.log('not auth');
+          
           // }
-          // if current page is not login, set login as root
-          // if (!/login/.test(this.currentPage)) {
+          // console.log(1, !publicPagesRegex.test(this.currentPage) && (!this.isLogged));
+          // console.log(2, (!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged);
+          
+          // if current page is not login / register, set login as root
+          // if ((!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged) {
+          //   this.nav.setRoot('LoginPage');
           //   this.translate.get('LOGIN_ERROR').subscribe((value: string)=>{
-          //     let toast = this.toast.create({
+          //     this.toast.create({
           //       message: value,
           //       duration: 3000,
           //       position: 'top'
-          //     });
-          //     toast.onDidDismiss(()=>{
-          //       this.nav.setRoot('LoginPage')
-          //     })
-          //     toast.present();
+          //     }).present()
           //   })
           
           // }
@@ -139,14 +175,41 @@ export class MyApp implements OnInit{
         this.translate.use('en'); // Set your language here
       }
       
-      this.translate.get(['BACK_BUTTON_TEXT']).subscribe(values => {
-        this.config.set('ios', 'backButtonText', values.BACK_BUTTON_TEXT);
+    }
+    
+    colorIcons(nameOfTab: string){
+      
+      // COLOR ICON IF SELECTED
+      this.icons.forEach(icon => {
+        icon.active = (nameOfTab === icon.name) ? true : false;
+        
+        if (icon.active) {
+          // icon.icon = icon.icon.substring(0, icon.icon.indexOf('-outline'));
+          this.goToSelectedTab(icon);
+        } 
+        
+        // if (!(icon.icon.includes('-outline')) && !icon.active) {
+        //   icon.icon = icon.icon.concat('-outline');
+        // }
+        
       });
     }
     
-    uploadItem(){
-      this.modalCtrl.create(ModalComponentChooseCategory).present();
+    // GO TO SELECTED SEGMENT
+    goToSelectedTab(icon: any){
+      console.log('goto', icon);
+      
+      switch (icon.name) {
+        case 'upload': this.modalCtrl.create(ModalComponentChooseCategory).present(); 
+        
+        break;
+        
+        default:
+        break;
+      }
     }
+    
+    
   }
   
   

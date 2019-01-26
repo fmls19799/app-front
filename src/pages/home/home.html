@@ -1,58 +1,62 @@
+<!-- HEADER -->
 <ion-header>
   <ion-navbar>
+    <!-- MENU TOGGLE -->
+    <ion-buttons start class="burger">
+      <button ion-button icon-only menuToggle (click)="menuClick($event)">
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <!-- SEARCH BAR -->
     <div class="flex">
       <ion-searchbar (click)="searchingProduct(pattern)" [(ngModel)]="pattern"></ion-searchbar>
     </div>
   </ion-navbar>
 </ion-header>
-
+<!-- ION CONTENT -->
 <ion-content>
+  <!-- REFRESHER -->
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>
-  </ion-refresher>    
-  
-  <!-- QUE ESTO SE PONGA DINAMICO A MEDIDA QUE LOS USUARIOS VAN CREANDO COSAS -->
-  <div class="showAllProducts">
-    <div>
-      <h4>{{ 'SEARCH_IN' | translate }}</h4>
+  </ion-refresher>  
+  <!-- TOP PART -->
+  <div class="fixedTop">
+    <!-- SEARCH IN... -->
+    <div class="searchIn">
+      <div>
+        <h4>{{ 'SEARCH_IN' | translate }}</h4>
+      </div>
+      <div>
+        <span>{{ 'SEE_ALL' | translate }}<ion-icon name="arrow-forward"></ion-icon></span>
+      </div>
     </div>
-    <div>
-      <span>{{ 'SEE_ALL' | translate }}<ion-icon name="arrow-forward"></ion-icon></span>
-    </div>
-  </div>
-  <div class="listOfProductsToChooseFrom">
-    <div>
-      <ion-icon name="ios-home-outline"></ion-icon>
-      <span>{{'REAL_STATE' | translate }}</span>
-    </div>
-    <div>
-      <ion-icon name="ios-car-outline"></ion-icon>
-      <span>{{'CARS' | translate }}</span>
-    </div>
-    <div>
-      <ion-icon name="ios-game-controller-b-outline"></ion-icon>
-      <span>{{'GAMING' | translate }}</span>
-    </div>
-    <div>
-      <ion-icon name="bicycle"></ion-icon>
-      <span>{{'CYCLING' | translate }}</span>
-    </div>
-    <div>
-      <ion-icon name="ios-american-football-outline"></ion-icon>
-      <span>{{'SPORTS' | translate }}</span>
-    </div>
-    <div>
-      <ion-icon name="ios-phone-portrait-outline"></ion-icon>
-      <span>{{'PHONES' | translate }}</span>
-    </div>
-    <div>
-      <ion-icon name="ios-shirt-outline"></ion-icon>
-      <span>{{'CLOTHING' | translate }}</span>
-    </div>
-    <div>
-      <ion-icon name="ios-boat-outline"></ion-icon>
-      <span>{{'BOATS' | translate }}</span>
+    <!-- SEARCH BY ICON -->
+    <div class="listOfProductsToChooseFrom">
+      <div *ngFor="let category of categories">
+        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>
+        <span>{{category.name | translate }}</span>
+      </div>
     </div>
   </div>
-  
+  <!-- MAIN CONTENT -->
+  <div class="productsList">
+    <ion-row>
+      <ion-col>
+        <div *ngFor="let product of productColumn1">
+          <div [style]="product.randomHeight">
+            <ion-icon name="ios-car-outline"></ion-icon>
+            <span>{{ product.name }}</span>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div *ngFor="let product of productColumn1">
+          <div [style]="product.randomHeight">
+            <ion-icon name="ios-car-outline"></ion-icon>
+            <span>{{ product.name }}</span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
 </ion-content>

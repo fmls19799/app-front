@@ -1,106 +1,36 @@
-  <div class="modal" [ngClass]="{'opacity03': turnOpacity}">
-    <div class="top">
-      <div class="close">
-        <ion-icon name="close" (click)="closeModal()"></ion-icon>
-      </div>
-      <h6>{{ 'CHOOSE_CATEGORY' | translate}} 
-        <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->
-      </h6>
+<!-- CHOOSE PRODUCT -->
+<div *ngIf="!isProductChosen" class="modalChooseProduct">
+  <div class="top">
+    <div class="close">
+      <ion-icon name="close" (click)="closeModal()"></ion-icon>
     </div>
-    <div class="bottom">
-
-      <ion-row>
-        <ion-col>
-          <ion-icon name="ios-home-outline"></ion-icon>
-          <span>{{'REAL_STATE' | translate }}</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-car-outline"></ion-icon>
-          <span>{{'CARS' | translate }}</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-game-controller-b-outline"></ion-icon>
-          <span>{{'GAMING' | translate }}</span>
-        </ion-col>
-      </ion-row>
-      
-      <ion-row>
-        <ion-col>
-          <ion-icon name="bicycle"></ion-icon>
-          <span>{{'CYCLING' | translate }}</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-american-football-outline"></ion-icon>
-          <span>{{'SPORTS' | translate }}</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-phone-portrait-outline"></ion-icon>
-          <span>{{'PHONES' | translate }}</span>
-        </ion-col>
-      </ion-row>
-      
-      <ion-row>
-        <ion-col>
-          <ion-icon name="ios-shirt-outline"></ion-icon>
-          <span>{{'CLOTHING' | translate }}</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-boat-outline"></ion-icon>
-          <span>{{'BOATS' | translate }}</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-boat-outline"></ion-icon>
-          <span>{{'BOATS' | translate }}</span>
-        </ion-col>
-      </ion-row>
-      
-      <ion-row>
-        <ion-col>
-          <ion-icon name="ios-home-outline"></ion-icon>
-          <span>{{'REAL_STATE' | translate }}</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-car-outline"></ion-icon>
-          <span>{{'CARS' | translate }}</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-game-controller-b-outline"></ion-icon>
-          <span>{{'GAMING' | translate }}</span>
-        </ion-col>
-      </ion-row>
-      
-      <ion-row>
-        <ion-col>
-          <ion-icon name="bicycle"></ion-icon>
-          <span>{{'CYCLING' | translate }}</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-american-football-outline"></ion-icon>
-          <span>{{'SPORTS' | translate }}</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-phone-portrait-outline"></ion-icon>
-          <span>{{'PHONES' | translate }}</span>
-        </ion-col>
-      </ion-row>
-      
-      <ion-row>
-        <ion-col>
-          <ion-icon name="ios-shirt-outline"></ion-icon>
-          <span>{{'CLOTHING' | translate }}</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-boat-outline"></ion-icon>
-          <span>{{'BOATS' | translate }}</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-boat-outline"></ion-icon>
-          <span>{{'BOATS' | translate }}</span>
-        </ion-col>
-      </ion-row>
-      
-
-
-
-    </div>
+    <h6 (click)="closeModal()">{{ MODALTITLE | translate}} 
+      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->
+    </h6>
   </div>
+  <div class="bottom">
+    <ion-row>
+      <ion-col *ngFor="let category of categories">
+        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>
+        <span>{{category.name | translate }}</span>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+
+
+<!-- PRODUCT CHOSEN -->
+<div *ngIf="isProductChosen" class="modalChooseProduct">
+  <div class="top">
+    <div class="close">
+      <ion-icon name="close" (click)="closeModal()"></ion-icon>
+    </div>
+    <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} {{ productChosen.name }}
+      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->
+    </h6>
+  </div>
+  <div class="bottom">
+    
+    
+  </div>
+</div>
