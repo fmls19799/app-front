@@ -24,10 +24,12 @@
     <!-- SEARCH IN... -->
     <div class="searchIn">
       <div>
-        <h4>{{ 'SEARCH_IN' | translate }}</h4>
+        <h6>{{ 'SEARCH_IN' | translate }}</h6>
       </div>
       <div>
-        <span>{{ 'SEE_ALL' | translate }}<ion-icon name="arrow-forward"></ion-icon></span>
+        <span>{{ 'SEE_ALL' | translate }}
+          <!-- <ion-icon name="arrow-forward"></ion-icon> -->
+        </span>
       </div>
     </div>
     <!-- SEARCH BY ICON -->
@@ -43,17 +45,25 @@
     <ion-row>
       <ion-col>
         <div *ngFor="let product of productColumn1">
-          <div [style]="product.randomHeight">
-            <ion-icon name="ios-car-outline"></ion-icon>
-            <span>{{ product.name }}</span>
+          <div class="container" [style]="product.randomHeight">
+            <img [src]="product.photos[0]" alt="">
+            <!-- <ion-icon name="ios-car-outline"></ion-icon> -->
+            <div class="infoWrapper">
+              <h6 class="price">{{ product.price }} €</h6>
+              <span class="name">{{ product.name | titlecase}}</span>
+            </div>
           </div>
         </div>
       </ion-col>
       <ion-col>
         <div *ngFor="let product of productColumn1">
-          <div [style]="product.randomHeight">
-            <ion-icon name="ios-car-outline"></ion-icon>
-            <span>{{ product.name }}</span>
+          <div class="container" [style]="product.randomHeight">
+            <img [src]="product.photos[0]" alt="">
+            <!-- <ion-icon name="ios-car-outline"></ion-icon> -->
+            <div class="infoWrapper">
+              <h6 class="price">{{ product.price }} €</h6>
+              <span class="name">{{ product.name | titlecase}}</span>
+            </div>
           </div>
         </div>
       </ion-col>

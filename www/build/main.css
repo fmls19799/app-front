@@ -25720,7 +25720,6 @@ ion-menu ion-header ion-toolbar {
 }
 
 ion-menu ion-header ion-toolbar .flex {
-  border: 1px solid red;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -25742,11 +25741,6 @@ ion-menu ion-header ion-toolbar .flex .flex2 {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  border: 1px solid red;
-}
-
-ion-menu ion-header ion-toolbar .flex .flex2 .toolbar-title {
-  border: 1px solid blue;
 }
 
 ion-menu ion-content ion-list ion-item .item-inner {
@@ -25859,8 +25853,12 @@ page-home ion-header ion-navbar ion-searchbar .searchbar-input-container .search
   background: rgba(0, 0, 0, 0.08) !important;
 }
 
+page-home ion-content {
+  background-color: #ecebeb;
+}
+
 page-home ion-content .fixedTop .searchIn {
-  margin: 10px 10px 0 10px;
+  margin: 5px 10px 0 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -25876,7 +25874,7 @@ page-home ion-content .fixedTop .searchIn {
   flex-direction: row;
 }
 
-page-home ion-content .fixedTop .searchIn div:first-child h4 {
+page-home ion-content .fixedTop .searchIn div:first-child h6 {
   margin: 0;
 }
 
@@ -25884,14 +25882,8 @@ page-home ion-content .fixedTop .searchIn div:last-child {
   font-weight: 600;
 }
 
-page-home ion-content .fixedTop .searchIn div:last-child ion-icon {
-  font-size: 12px;
-  font-weight: bold;
-}
-
 page-home ion-content .fixedTop .listOfProductsToChooseFrom {
-  margin-top: 10px;
-  height: 60px;
+  margin: 5px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -25920,32 +25912,39 @@ page-home ion-content .fixedTop .listOfProductsToChooseFrom div {
   white-space: nowrap;
 }
 
-page-home ion-content .fixedTop .listOfProductsToChooseFrom ion-icon {
-  font-size: 40px;
+page-home ion-content .fixedTop .listOfProductsToChooseFrom div ion-icon {
+  font-size: 25px;
   text-align: center;
+}
+
+page-home ion-content .fixedTop .listOfProductsToChooseFrom div span {
+  font-size: 12px;
 }
 
 page-home ion-content .productsList ion-row ion-col {
   overflow-y: scroll;
-  height: calc(100vh - 156px);
+  height: calc(100vh - 132px);
 }
 
-page-home ion-content .productsList ion-row ion-col div div {
+page-home ion-content .productsList ion-row ion-col div .container {
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 30px;
+  position: relative;
   margin: 3px;
-  padding: 50px 0;
-  border: 1px solid black;
-  border-radius: 5px;
 }
 
-page-home ion-content .productsList ion-row ion-col div div ion-icon {
-  text-align: center;
-  display: block;
-  font-size: 44px;
+page-home ion-content .productsList ion-row ion-col div .container img {
+  border-radius: 10px;
 }
 
-page-home ion-content .productsList ion-row ion-col div div span {
-  text-align: center;
-  display: block;
+page-home ion-content .productsList ion-row ion-col div .container .infoWrapper {
+  padding-left: 10px;
+}
+
+page-home ion-content .productsList ion-row ion-col div .container .infoWrapper .price {
+  margin: 0;
+  font-weight: bold;
 }
 
 page-login * {

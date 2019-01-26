@@ -86,7 +86,7 @@ export class MyApp implements OnInit{
     
     ngOnInit(){
       // set root page at first load and environment
-      this.rootPage = 'LoginPage';
+      this.rootPage = 'HomePage';
       this.environment = CONFIG.ENV;
       
       // check phone or web

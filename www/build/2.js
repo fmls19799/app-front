@@ -128,15 +128,18 @@ var HomePage = /** @class */ (function () {
         ];
     }
     HomePage.prototype.ionViewDidLoad = function () {
-        // this.productsProvider.getAllProducts().subscribe((products: any)=>{
-        //   this.products = products;
-        // })
     };
     HomePage.prototype.ngOnInit = function () {
+        this.getAllProducts();
+    };
+    HomePage.prototype.getAllProducts = function (refresher) {
         var _this = this;
         this.productsProvider.getAllProducts().subscribe(function (products) {
             _this.products = products;
-            _this.populateProductsList(_this.products);
+            if (refresher) {
+                refresher.complete();
+            }
+            _this.populateProductsList(_this.products); // split products in 3 columns
         });
     };
     HomePage.prototype.populateProductsList = function (products) {
@@ -164,19 +167,7 @@ var HomePage = /** @class */ (function () {
         this.navCtrl.push('SearchProductPage'); // mediante el push puedo pasar info a otra pagina o si no quiero pasar y pasar usar behaviour subject???
     };
     HomePage.prototype.doRefresh = function (refresher) {
-        var user = {
-            name: 'francisco',
-            email: 'fmls1989@gmail.com',
-            password: 'Berna123'
-        };
-        this.auth.login(user).subscribe(function (user) {
-            if (user) {
-                console.log('good');
-                refresher.complete();
-            }
-        }, function (error) {
-            console.log('error', error);
-        });
+        this.getAllProducts(refresher);
     };
     HomePage.prototype.close = function () {
         console.log('CLOSED');
@@ -191,11 +182,11 @@ var HomePage = /** @class */ (function () {
         console.log('did close');
     };
     HomePage.prototype.menuClick = function (a) {
-        console.log('menu', a);
+        // console.log('menu', a);
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/home/home.html"*/'<!-- HEADER -->\n<ion-header>\n  <ion-navbar>\n    <!-- MENU TOGGLE -->\n    <ion-buttons start class="burger">\n      <button ion-button icon-only menuToggle (click)="menuClick($event)">\n        <ion-icon name="menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <!-- SEARCH BAR -->\n    <div class="flex">\n      <ion-searchbar (click)="searchingProduct(pattern)" [(ngModel)]="pattern"></ion-searchbar>\n    </div>\n  </ion-navbar>\n</ion-header>\n<!-- ION CONTENT -->\n<ion-content>\n  <!-- REFRESHER -->\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>\n  </ion-refresher>  \n  <!-- TOP PART -->\n  <div class="fixedTop">\n    <!-- SEARCH IN... -->\n    <div class="searchIn">\n      <div>\n        <h4>{{ \'SEARCH_IN\' | translate }}</h4>\n      </div>\n      <div>\n        <span>{{ \'SEE_ALL\' | translate }}<ion-icon name="arrow-forward"></ion-icon></span>\n      </div>\n    </div>\n    <!-- SEARCH BY ICON -->\n    <div class="listOfProductsToChooseFrom">\n      <div *ngFor="let category of categories">\n        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>\n        <span>{{category.name | translate }}</span>\n      </div>\n    </div>\n  </div>\n  <!-- MAIN CONTENT -->\n  <div class="productsList">\n    <ion-row>\n      <ion-col>\n        <div *ngFor="let product of productColumn1">\n          <div [style]="product.randomHeight">\n            <ion-icon name="ios-car-outline"></ion-icon>\n            <span>{{ product.name }}</span>\n          </div>\n        </div>\n      </ion-col>\n      <ion-col>\n        <div *ngFor="let product of productColumn1">\n          <div [style]="product.randomHeight">\n            <ion-icon name="ios-car-outline"></ion-icon>\n            <span>{{ product.name }}</span>\n          </div>\n        </div>\n      </ion-col>\n    </ion-row>\n  </div>\n</ion-content>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/home/home.html"*/,
+            selector: 'page-home',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/home/home.html"*/'<!-- HEADER -->\n<ion-header>\n  <ion-navbar>\n    <!-- MENU TOGGLE -->\n    <ion-buttons start class="burger">\n      <button ion-button icon-only menuToggle (click)="menuClick($event)">\n        <ion-icon name="menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <!-- SEARCH BAR -->\n    <div class="flex">\n      <ion-searchbar (click)="searchingProduct(pattern)" [(ngModel)]="pattern"></ion-searchbar>\n    </div>\n  </ion-navbar>\n</ion-header>\n<!-- ION CONTENT -->\n<ion-content>\n  <!-- REFRESHER -->\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>\n  </ion-refresher>  \n  <!-- TOP PART -->\n  <div class="fixedTop">\n    <!-- SEARCH IN... -->\n    <div class="searchIn">\n      <div>\n        <h6>{{ \'SEARCH_IN\' | translate }}</h6>\n      </div>\n      <div>\n        <span>{{ \'SEE_ALL\' | translate }}\n          <!-- <ion-icon name="arrow-forward"></ion-icon> -->\n        </span>\n      </div>\n    </div>\n    <!-- SEARCH BY ICON -->\n    <div class="listOfProductsToChooseFrom">\n      <div *ngFor="let category of categories">\n        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>\n        <span>{{category.name | translate }}</span>\n      </div>\n    </div>\n  </div>\n  <!-- MAIN CONTENT -->\n  <div class="productsList">\n    <ion-row>\n      <ion-col>\n        <div *ngFor="let product of productColumn1">\n          <div class="container" [style]="product.randomHeight">\n            <img [src]="product.photos[0]" alt="">\n            <!-- <ion-icon name="ios-car-outline"></ion-icon> -->\n            <div class="infoWrapper">\n              <h6 class="price">{{ product.price }} €</h6>\n              <span class="name">{{ product.name | titlecase}}</span>\n            </div>\n          </div>\n        </div>\n      </ion-col>\n      <ion-col>\n        <div *ngFor="let product of productColumn1">\n          <div class="container" [style]="product.randomHeight">\n            <img [src]="product.photos[0]" alt="">\n            <!-- <ion-icon name="ios-car-outline"></ion-icon> -->\n            <div class="infoWrapper">\n              <h6 class="price">{{ product.price }} €</h6>\n              <span class="name">{{ product.name | titlecase}}</span>\n            </div>\n          </div>\n        </div>\n      </ion-col>\n    </ion-row>\n  </div>\n</ion-content>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/home/home.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],

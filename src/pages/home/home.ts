@@ -63,21 +63,24 @@ export class HomePage implements OnInit{
     }
     
     ionViewDidLoad() {
-      // this.productsProvider.getAllProducts().subscribe((products: any)=>{
-      //   this.products = products;
-      // })
       
     }
     
     
     ngOnInit(){
-      this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{
-        this.products = products;
-        this.populateProductsList(this.products);
-        
-      })
+      this.getAllProducts();
     }
     
+    getAllProducts(refresher?: any){
+      this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{
+        this.products = products;
+        
+        if (refresher) { // stop refresher after i got resuls
+          refresher.complete();
+        }
+        this.populateProductsList(this.products); // split products in 3 columns
+      })
+    }
     populateProductsList(products: Array<Product>){
       products.forEach((product, i) => {
         if (i % 2 === 0) {
@@ -107,20 +110,8 @@ export class HomePage implements OnInit{
     }
     
     doRefresh(refresher) {
-      var user: User = {
-        name: 'francisco',
-        email: 'fmls1989@gmail.com',
-        password: 'Berna123'
-      }
-      this.auth.login(user).subscribe((user: User)=>{                   
-        if (user) {
-          console.log('good');
-          refresher.complete();
-        }
-      },
-      (error: ApiError) => {
-        console.log('error', error);
-      })
+      this.getAllProducts(refresher);
+      
     }
     
     close(){
@@ -142,9 +133,9 @@ export class HomePage implements OnInit{
       console.log('did close');
       
     }
-
+    
     menuClick(a){
-      console.log('menu', a);
+      // console.log('menu', a);
       
     }
   }
