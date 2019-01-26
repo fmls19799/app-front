@@ -46,8 +46,8 @@
       <!-- LEFT COLUMN -->
       <ion-col>
         <div class="product" *ngFor="let product of productColumn1">
-          <div class="container" [style]="product.randomHeight" (click)="productDetail(product)" [ngClass]="{'increasesizeContainer': product.opacity}">
-            <img [src]="product.photos[0]" alt="image" [ngClass]="{'opacity03': product.opacity}">
+          <div class="container" [style]="product.randomHeight" [ngClass]="{'increasesizeContainer': product.opacity}">
+            <img [src]="product.photos[0]" (click)="productDetail(product)" alt="image" [ngClass]="{'opacity03': product.opacity}">
             <div class="infoWrapper">
               <h6 class="price">{{ product.price }} €</h6>
               <span class="name">{{ product.name | titlecase}}</span>
@@ -59,6 +59,7 @@
               </div>
               <small class="description">{{product.description}}</small>
               <ion-icon [name]="product.icon"></ion-icon>
+              <h4 class="goToProduct">Ir a producto</h4>
             </div>
             <!-- FIN IF CLICKED -->
           </div>
@@ -67,8 +68,8 @@
       <!-- RIGHT COLUMN -->
       <ion-col>
         <div class="product" *ngFor="let product of productColumn2">
-          <div class="container" [style]="product.randomHeight" (click)="productDetail(product)" [ngClass]="{'increasesizeContainer': product.opacity}">
-            <img [src]="product.photos[0]" alt="image" [ngClass]="{'opacity03': product.opacity}">
+          <div class="container" [style]="product.randomHeight" [ngClass]="{'increasesizeContainer': product.opacity}">
+            <img [src]="product.photos[0]" (click)="productDetail(product)" alt="image" [ngClass]="{'opacity03': product.opacity}">
             <div class="infoWrapper">
               <h6 class="price">{{ product.price }} €</h6>
               <span class="name">{{ product.name | titlecase}}</span>
@@ -80,6 +81,7 @@
               </div>
               <small class="description">{{product.description}}</small>
               <ion-icon [name]="product.icon"></ion-icon>
+              <h4 class="goToProduct">Ir a producto</h4>
             </div>
             <!-- FIN IF CLICKED -->
           </div>

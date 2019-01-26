@@ -25933,7 +25933,6 @@ page-home ion-content .productsList ion-row ion-col .product {
 page-home ion-content .productsList ion-row ion-col .product .container {
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  padding-bottom: 30px;
   position: relative;
   margin: 3px;
 }
@@ -25996,9 +25995,16 @@ page-home ion-content .productsList ion-row ion-col .product .container .showHid
   font-weight: 100;
 }
 
+page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent .goToProduct {
+  font-size: 12px;
+  color: #6ec2f2;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+}
+
 page-home ion-content .productsList ion-row ion-col .product .container.increasesizeContainer {
   border: 2px solid black;
-  height: 300px;
 }
 
 page-login * {
