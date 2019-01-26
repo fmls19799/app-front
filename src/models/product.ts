@@ -1,4 +1,5 @@
 export class Product {
+    id?: number; // CUANDO LO CREO NO TIENE ID???
     name: string;
     icon: string;
     description: string;
@@ -6,4 +7,5 @@ export class Product {
     km: number;
     category: string;
     randomHeight?: any;
+    opacity?: boolean; // NO SIEMPRE TENEMOS OPACTIDAD???
 }

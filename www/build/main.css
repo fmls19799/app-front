@@ -25926,7 +25926,11 @@ page-home ion-content .productsList ion-row ion-col {
   height: calc(100vh - 132px);
 }
 
-page-home ion-content .productsList ion-row ion-col div .container {
+page-home ion-content .productsList ion-row ion-col .product {
+  padding-bottom: 20px;
+}
+
+page-home ion-content .productsList ion-row ion-col .product .container {
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding-bottom: 30px;
@@ -25934,17 +25938,67 @@ page-home ion-content .productsList ion-row ion-col div .container {
   margin: 3px;
 }
 
-page-home ion-content .productsList ion-row ion-col div .container img {
+page-home ion-content .productsList ion-row ion-col .product .container img {
   border-radius: 10px;
 }
 
-page-home ion-content .productsList ion-row ion-col div .container .infoWrapper {
-  padding-left: 10px;
+page-home ion-content .productsList ion-row ion-col .product .container img.opacity03 {
+  position: relative;
+  opacity: .2 !important;
+  background-color: black !important;
 }
 
-page-home ion-content .productsList ion-row ion-col div .container .infoWrapper .price {
+page-home ion-content .productsList ion-row ion-col .product .container .infoWrapper {
+  padding-left: 5px;
+}
+
+page-home ion-content .productsList ion-row ion-col .product .container .infoWrapper .price {
   margin: 0;
   font-weight: bold;
+}
+
+page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent {
+  padding-top: 10px;
+  padding-left: 5px;
+}
+
+page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent .imagesGallery {
+  overflow-x: scroll;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent .imagesGallery img {
+  display: inline-block;
+  height: 50px;
+  margin: 1px;
+  border-radius: 0;
+}
+
+page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent .description {
+  font-size: 10px;
+  line-height: 1px;
+  font-weight: 500;
+}
+
+page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent ion-icon {
+  position: absolute;
+  right: 5%;
+  top: 0;
+  font-size: 30px;
+  font-weight: 100;
+}
+
+page-home ion-content .productsList ion-row ion-col .product .container.increasesizeContainer {
+  border: 2px solid black;
+  height: 300px;
 }
 
 page-login * {

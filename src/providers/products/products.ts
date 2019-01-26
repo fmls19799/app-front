@@ -15,6 +15,6 @@ export class ProductsProvider {
     //QUITAR EL MOCK???
   
     // return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products`).map((products: Array<Product>)=> products);
-    return this.http.get<Array<Product>>(`http://www.mocky.io/v2/5c4c64183700002e00b0425d`).map((products: Array<Product>)=> products);
+    return this.http.get<Array<Product>>(`http://www.mocky.io/v2/5c4ca12e3700006201b042b1`).map((products: Array<Product>)=> products);
   }
 }

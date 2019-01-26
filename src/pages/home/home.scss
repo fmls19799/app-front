@@ -1,30 +1,47 @@
-page-home {
+page-home { 
+    // border: 1px solid red;       
     
     background-color: #ececec;
     ion-header{
         
+            // border: 1px solid red;       
+
         ion-navbar{
+                // border: 1px solid red;       
+
             .burger{
+                    // border: 1px solid red;       
+
                 button{
+                        // border: 1px solid red;       
+
                     color: black !important; 
                     
                 }
             }
             .toolbar-background{
+                    // border: 1px solid red;       
+
                 
                 background-color: #c5c201 !important;
             }
             ion-searchbar{
                 
+                    // border: 1px solid red;       
+
                 padding: 0 !important;
                 position: relative;
                 .searchbar-input-container{
                     
+                        // border: 1px solid red;       
+
                     width: 85%;
                     margin-left: 50px;
                     
                     .searchbar-search-icon{
                         
+                            // border: 1px solid red;       
+
                         background-size: 15px;
                         position: absolute;
                         top: 7px;
@@ -32,6 +49,8 @@ page-home {
                     }
                     .searchbar-input{
                         
+                            // border: 1px solid red;       
+
                         height: 27px;
                         padding-left: 40px !important;
                         border-radius: 30px;
@@ -43,16 +62,24 @@ page-home {
     }
     
     ion-content{
+            // border: 1px solid red;       
+
         background-color: #ecebeb;
         ion-refresher{
+                // border: 1px solid red;       
+
         }
         .fixedTop{
-            // border: 4px solid blue;          
+                // border: 1px solid red;       
+
+            // border: 1px solid blue;          
             // background-color: white;
             // position: fixed;
             // top: 100px;
             // left: 100px;
             .searchIn{
+                    // border: 1px solid red;       
+
                 // border: 1px solid red;
                 margin: 5px 10px 0 10px;
                 // margin: 10px 10px 0 10px;
@@ -60,13 +87,19 @@ page-home {
                 justify-content: space-between;
                 flex-direction: row;
                 div:first-child{
+                        // border: 1px solid red;       
+
                     
                     h6{
+                            // border: 1px solid red;       
+
                         
                         margin: 0;
                     }
                 }
                 div:last-child{
+                        // border: 1px solid red;       
+
                     
                     font-weight: 600;
                     // ion-icon{
@@ -77,6 +110,7 @@ page-home {
                     }
                 }
                 .listOfProductsToChooseFrom{
+                        // border: 1px solid red;       
                     
                     margin: 5px;
                     // height: 50px;
@@ -85,6 +119,8 @@ page-home {
                     overflow-x: scroll;
                     div{
                         
+                            // border: 1px solid red;       
+
                         margin: 0 11px;
                         padding: 0 11px;
                         display: flex;
@@ -93,30 +129,46 @@ page-home {
                         font-weight: 300;
                         white-space: nowrap;
                         ion-icon{
+                                // border: 1px solid red;       
+
                             font-size: 25px;
                             text-align: center;
                         }
                         span{
+                                // border: 1px solid red;       
                             font-size: 12px;
                         }
                     }
                 }
             }
-            .productsList{                
+            .productsList{     
+                    // border: 1px solid red;       
+           
                 // border: 1px solid blue;
                 // height: 100px;
                 
                 ion-row{
+                        // border: 1px solid red;       
+
                     // border: 1px solid red;
                     
                     // margin-bottom: 30px;
                     ion-col{
+                            // border: 1px solid red;       
+
                         overflow-y: scroll;
                         height: calc(100vh - 132px);
                         // width: 33%;
                         // border: 1px solid red;
-                        div{
+                        .product{
+                                // border: 1px solid red;       
+
+                            // border: 10px solid blue !important;
+                            padding-bottom: 20px;
+
                             .container{
+                                    // border: 1px solid red;       
+
                                 border-radius: 10px;
                                 border: 1px solid rgba(0,0,0, 0.1);
                                 // padding: 1px;
@@ -124,7 +176,16 @@ page-home {
                                 position: relative;
                                 margin: 3px;
                                 img{
+                                        // border: 1px solid red;       
+
                                     border-radius: 10px;
+                                }
+                                img.opacity03{
+                                        // border: 1px solid red;       
+                                    position: relative;
+                                    // border: 10px solid blue;
+                                    opacity: .2 !important;
+                                    background-color: black !important;
                                 }
                                 // border: 1px solid red;
                                 
@@ -136,14 +197,18 @@ page-home {
                                     //     position: absolute;
                                     //     top: 0;
                                     //     left: 0;
-                                    //     // border: 1px solid red;
+                                        // border: 1px solid red;
                                     //     text-align: center;
                                     //     display: block;
                                     //     font-size: 44px;
                                     // }
                                     .infoWrapper{
-                                        padding-left: 10px;
+                                            // border: 1px solid blue;       
+
+                                        padding-left: 5px;
                                         .price{
+                                                // border: 1px solid red;       
+
                                             // border: 1px solid red;
                                             margin: 0;
                                             font-weight: bold;
@@ -151,10 +216,51 @@ page-home {
                                             // display: block;
                                         }
                                         .name{
+                                                // border: 1px solid red;       
+
                                             // border: 1px solid red;
                                             
                                         }
                                     }
+                                    .showHiddenContent{
+                                        padding-top: 10px;
+                                        padding-left: 5px;
+                                        // border: 2px solid orange;
+                                        .imagesGallery{
+                                            overflow-x: scroll;
+                                            display: flex;
+                                            flex-direction: row;
+                                            // border: 1px solid blue;
+                                            img{
+                                                display: inline-block;
+                                                // width: 50px;
+                                                height: 50px;
+                                                margin: 1px;
+                                                border-radius: 0;
+                                                // border: 1px solid red;
+                                            }
+                                        }
+                                        .description{
+                                            font-size: 10px;
+                                            line-height: 1px;
+                                            font-weight: 500;
+                                        }
+                                        ion-icon{
+                                            position: absolute;
+                                            // border: 1px solid red;
+                                            right: 5%;
+                                            top: 0;
+                                            font-size: 30px;
+                                            font-weight: 100;
+                                        }
+                                    }
+                                }
+                                .container.increasesizeContainer{
+                                        // border: 1px solid red;       
+
+                                    // border: 1px solid red;
+                                    border: 2px solid black;
+                                    height: 300px;
                                 }
                             }
                         }

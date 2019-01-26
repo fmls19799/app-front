@@ -83,20 +83,25 @@ export class HomePage implements OnInit{
     }
     populateProductsList(products: Array<Product>){
       products.forEach((product, i) => {
-        if (i % 2 === 0) {
-          product.randomHeight = this.randomStyleHeightDiv();
+        // console.log(i);
+        if (i <= products.length / 2) {
+          // product.randomHeight = this.randomStyleHeightDiv();          
           this.productColumn1.push(product);
-          // console.log(this.productColumn1);
-          
         } else{
-          product.randomHeight = this.randomStyleHeightDiv(); 
+          // product.randomHeight = this.randomStyleHeightDiv(); 
           this.productColumn2.push(product);
-          // console.log(this.productColumn2);
-          
-          // console.log(this.productColumn2);
         }
       });
-      // console.log(products);
+      // console.log(this.productColumn1);
+      // console.log(this.productColumn2);
+      this.productColumn1.forEach((el)=>{
+        console.log(el.id);
+        
+      })
+      this.productColumn2.forEach((el)=>{
+        console.log(el.id);
+        
+      })
       
     }
     
@@ -113,6 +118,28 @@ export class HomePage implements OnInit{
       this.getAllProducts(refresher);
       
     }
+    
+    productDetail(productClicked: Product){
+      console.log('dsa', productClicked.id);
+      
+      return this.products.forEach(product => {
+        if (product.id === productClicked.id) {// HACERLO PERO CON EL ID PARA QUE SEA UNICO????
+          return this.turnOpacity(product);
+        }
+      });
+    }
+    
+    turnOpacity(product: Product){      
+      if (!product.opacity) {
+        product.opacity = true;
+      } else{
+        product.opacity = false;
+      }
+      
+      // product.opacity = !product.opacity ? true : false;
+    }
+    
+    
     
     close(){
       console.log('CLOSED');

@@ -16,7 +16,7 @@
 <!-- ION CONTENT -->
 <ion-content>
   <!-- REFRESHER -->
-  <ion-refresher (ionRefresh)="doRefresh($event)">
+  <ion-refresher pullMin="200" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>
   </ion-refresher>  
   <!-- TOP PART -->
@@ -43,27 +43,45 @@
   <!-- MAIN CONTENT -->
   <div class="productsList">
     <ion-row>
+      <!-- LEFT COLUMN -->
       <ion-col>
-        <div *ngFor="let product of productColumn1">
-          <div class="container" [style]="product.randomHeight">
-            <img [src]="product.photos[0]" alt="">
-            <!-- <ion-icon name="ios-car-outline"></ion-icon> -->
+        <div class="product" *ngFor="let product of productColumn1">
+          <div class="container" [style]="product.randomHeight" (click)="productDetail(product)" [ngClass]="{'increasesizeContainer': product.opacity}">
+            <img [src]="product.photos[0]" alt="image" [ngClass]="{'opacity03': product.opacity}">
             <div class="infoWrapper">
               <h6 class="price">{{ product.price }} €</h6>
               <span class="name">{{ product.name | titlecase}}</span>
             </div>
+            <!-- IF CLICKED -->
+            <div class="showHiddenContent" *ngIf="product.opacity">
+              <div class="imagesGallery">
+                <img [src]="image" alt="image" *ngFor="let image of product.photos">
+              </div>
+              <small class="description">{{product.description}}</small>
+              <ion-icon [name]="product.icon"></ion-icon>
+            </div>
+            <!-- FIN IF CLICKED -->
           </div>
         </div>
       </ion-col>
+      <!-- RIGHT COLUMN -->
       <ion-col>
-        <div *ngFor="let product of productColumn1">
-          <div class="container" [style]="product.randomHeight">
-            <img [src]="product.photos[0]" alt="">
-            <!-- <ion-icon name="ios-car-outline"></ion-icon> -->
+        <div class="product" *ngFor="let product of productColumn2">
+          <div class="container" [style]="product.randomHeight" (click)="productDetail(product)" [ngClass]="{'increasesizeContainer': product.opacity}">
+            <img [src]="product.photos[0]" alt="image" [ngClass]="{'opacity03': product.opacity}">
             <div class="infoWrapper">
               <h6 class="price">{{ product.price }} €</h6>
               <span class="name">{{ product.name | titlecase}}</span>
             </div>
+            <!-- IF CLICKED -->
+            <div class="showHiddenContent" *ngIf="product.opacity">
+              <div class="imagesGallery">
+                <img [src]="image" alt="image" *ngFor="let image of product.photos">
+              </div>
+              <small class="description">{{product.description}}</small>
+              <ion-icon [name]="product.icon"></ion-icon>
+            </div>
+            <!-- FIN IF CLICKED -->
           </div>
         </div>
       </ion-col>
