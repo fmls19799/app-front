@@ -1,7 +1,7 @@
 modal-choose-category{
     overflow-y: scroll;
     
-    .modalChooseProduct{
+    .modalChooseProduct, .modalProductChosen{
         background-color: white;
         border-radius: 10px;
         .top{
@@ -22,9 +22,13 @@ modal-choose-category{
                 margin: 0 auto;
                 height: 30px;;
                 text-align: center;
+                font-weight: 300;
                 ion-icon{
                     // border: 1px solid red;
                     font-size: 13px;
+                }
+                .strong{
+                    font-weight: 400;
                 }
             }
         }
@@ -54,4 +58,28 @@ modal-choose-category{
             }
         }
     }
+    
+    .modalProductChosen{
+        .bottom{
+            margin-top: 7px;
+            .imagesWrapper{
+                margin: 10px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                ion-icon{
+                    width: calc(20% - 6px);
+                    text-align: center;
+                    font-size: 40px;
+                    padding: 4px;
+                    border: 1px solid #dadae0;
+                    color: #dadae0;
+                    margin: 3px;
+                    border-radius: 20px;
+                }
+            }
+            
+        }
+    }
+    
 }

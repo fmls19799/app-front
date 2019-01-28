@@ -15,6 +15,7 @@ export class ModalComponentChooseCategory implements OnInit {
   isProductChosen: boolean = false;
   productChosen: Product = new Product();
   MODALTITLE: string = '';
+  imagesToUpload = new Array(10).fill('camera-outline');
   
   categories: Array<any> = [
     {
@@ -119,8 +120,7 @@ export class ModalComponentChooseCategory implements OnInit {
     
   }
   
-  ngOnInit(){   
-    // console.log(!this.productChosen === true);
+  ngOnInit(){  
      
     if (this.productChosen) {
       this.MODALTITLE = 'CHOOSE_CATEGORY';

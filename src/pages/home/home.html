@@ -3,7 +3,8 @@
   <ion-navbar>
     <!-- MENU TOGGLE -->
     <ion-buttons start class="burger">
-      <button ion-button icon-only menuToggle (click)="menuClick($event)">
+      <!-- ESTE CLICK PARA QUE???? -->
+      <button ion-button icon-only menuToggle (click)="menuClick($event)"> 
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
@@ -16,7 +17,7 @@
 <!-- ION CONTENT -->
 <ion-content>
   <!-- REFRESHER -->
-  <ion-refresher pullMin="200" (ionRefresh)="doRefresh($event)">
+  <ion-refresher pullMin="100" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>
   </ion-refresher>  
   <!-- TOP PART -->
@@ -47,7 +48,13 @@
       <ion-col>
         <div class="product" *ngFor="let product of productColumn1">
           <div class="container" [style]="product.randomHeight" [ngClass]="{'increasesizeContainer': product.opacity}">
-            <img [src]="product.photos[0]" (click)="productDetail(product)" alt="image" [ngClass]="{'opacity03': product.opacity}">
+            {{ product.id }}
+            <div class="relative">
+              <img [src]="product.photos[0]" (click)="showSmallDetail(product)" alt="image" [ngClass]="{'opacity03': product.opacity}">
+              <!-- if clicked -->
+              <h6 class="goToProduct" *ngIf="product.opacity" (click)="goToProduct($event)">{{'SEE' | translate}} {{ product.name }}</h6>
+              <!-- fin if clicked -->
+            </div>
             <div class="infoWrapper">
               <h6 class="price">{{ product.price }} €</h6>
               <span class="name">{{ product.name | titlecase}}</span>
@@ -59,7 +66,6 @@
               </div>
               <small class="description">{{product.description}}</small>
               <ion-icon [name]="product.icon"></ion-icon>
-              <h4 class="goToProduct">Ir a producto</h4>
             </div>
             <!-- FIN IF CLICKED -->
           </div>
@@ -69,7 +75,13 @@
       <ion-col>
         <div class="product" *ngFor="let product of productColumn2">
           <div class="container" [style]="product.randomHeight" [ngClass]="{'increasesizeContainer': product.opacity}">
-            <img [src]="product.photos[0]" (click)="productDetail(product)" alt="image" [ngClass]="{'opacity03': product.opacity}">
+            {{ product.id }}
+            <div class="relative">
+              <img [src]="product.photos[0]" (click)="showSmallDetail(product)" alt="image" [ngClass]="{'opacity03': product.opacity}">
+              <!-- if clicked -->
+              <h6 class="goToProduct" *ngIf="product.opacity" (click)="goToProduct(product)">{{'SEE' | translate}} {{ product.name }}</h6>
+              <!-- fin if clicked -->
+            </div>
             <div class="infoWrapper">
               <h6 class="price">{{ product.price }} €</h6>
               <span class="name">{{ product.name | titlecase}}</span>
@@ -81,12 +93,12 @@
               </div>
               <small class="description">{{product.description}}</small>
               <ion-icon [name]="product.icon"></ion-icon>
-              <h4 class="goToProduct">Ir a producto</h4>
             </div>
             <!-- FIN IF CLICKED -->
           </div>
         </div>
       </ion-col>
     </ion-row>
+    <!-- <ion-fab-button color="primary">Primary</ion-fab-button> -->
   </div>
 </ion-content>

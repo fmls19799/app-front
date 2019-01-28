@@ -20,17 +20,19 @@
 
 
 <!-- PRODUCT CHOSEN -->
-<div *ngIf="isProductChosen" class="modalChooseProduct">
+<div *ngIf="isProductChosen" class="modalProductChosen">
   <div class="top">
     <div class="close">
       <ion-icon name="close" (click)="closeModal()"></ion-icon>
     </div>
-    <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} {{ productChosen.name }}
+    <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.name }}</span>
       <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->
     </h6>
   </div>
-  <div class="bottom">
-    
-    
-  </div>
+  <section class="bottom">
+    <div class="imagesWrapper">
+      <!-- {{ image }} -->
+        <ion-icon *ngFor="let image of imagesToUpload" [name]="image"></ion-icon>
+    </div>
+  </section>
 </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, ModalController, ToastController } from 'ionic-angular';
 import { AuthProvider } from './../../providers/auth/auth';
 import { User } from './../../models/user';
 import { ApiError } from './../../models/ApiError';
@@ -19,10 +19,10 @@ export class HomePage implements OnInit{
   products: any = [];
   productColumn1: Array<any> = [];
   productColumn2: Array<any> = [];
-  productColumn3: Array<any> = [];
+  newOnesAfterRefresh: Array<Product> = [];
   randomStyleColumn1: number;
   randomStyleColumn2: number;
-  a: any;
+  addedOnes: number = null;
   categories: Array<any> = [
     {
       icon: 'ios-home-outline',
@@ -50,15 +50,14 @@ export class HomePage implements OnInit{
     }
   ]
   
-  
-  
   constructor(public navCtrl: NavController,
     public navParams: NavParams, 
     public loadingCtrl: LoadingController, 
     private auth: AuthProvider,
     private modal: ModalController,
     private productsProvider: ProductsProvider,
-    private _sanitizer: DomSanitizer) {
+    private _sanitizer: DomSanitizer,
+    private toastCtrl: ToastController) {
       
     }
     
@@ -72,37 +71,83 @@ export class HomePage implements OnInit{
     }
     
     getAllProducts(refresher?: any){
+      this.closeOpenedOnes(); // close detail of opened ones
+      
       this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{
-        this.products = products;
         
-        if (refresher) { // stop refresher after i got resuls
+        if (refresher) { // stop refresher after i got resuls, if im doing refresher, only include new ones instead adding them all ???
+          // this.productsProvider.getAllProducts2().subscribe((products: Array<Product>)=>{            
+          this.mergeArraysAndUniquifyThem(products);
+          console.log(1);
+          
           refresher.complete();
-        }
-        this.populateProductsList(this.products); // split products in 3 columns
-      })
-    }
-    populateProductsList(products: Array<Product>){
-      products.forEach((product, i) => {
-        // console.log(i);
-        if (i <= products.length / 2) {
-          // product.randomHeight = this.randomStyleHeightDiv();          
-          this.productColumn1.push(product);
+          // })
         } else{
-          // product.randomHeight = this.randomStyleHeightDiv(); 
-          this.productColumn2.push(product);
+          this.products = products;           
         }
-      });
-      // console.log(this.productColumn1);
-      // console.log(this.productColumn2);
-      this.productColumn1.forEach((el)=>{
-        console.log(el.id);
-        
-      })
-      this.productColumn2.forEach((el)=>{
-        console.log(el.id);
-        
+        this.populateProductsList(); // split products in 3 columns
       })
       
+      // this.populateProductsList(); // split products in 3 columns
+      
+      console.log(this.products);
+      
+    }
+    
+    
+    
+    
+    
+    mergeArraysAndUniquifyThem(newProducts: Array<Product>){
+      let allIncludingNew = this.products.concat(newProducts);
+      let uniqueonesaftermerge = this.getUnique(allIncludingNew,'id');
+      if (uniqueonesaftermerge.length > this.products.length) {                            
+        this.addedOnes = Number(uniqueonesaftermerge.length) - Number(this.products.length)              
+        this.showToast(`${this.addedOnes.toString()} products new`);
+      } else{
+        this.showToast('No new products');
+      }
+      this.products = uniqueonesaftermerge;    
+      this.populateProductsList();
+    }
+    
+    showToast(message: string){
+      
+      this.toastCtrl.create({
+        message: message,
+        duration: 2000,
+        position: 'top',
+      }).present();
+    }
+    
+    
+    getUnique(arr, comp) {
+      const unique = arr
+      .map(e => e[comp])
+      // store the keys of the unique objects
+      .map((e, i, final) => final.indexOf(e) === i && i)
+      // eliminate the dead keys & store unique objects
+      .filter(e => arr[e]).map(e => arr[e]);
+      return unique;
+    }
+    
+    
+    closeOpenedOnes(){
+      this.products.forEach(product => {
+        product.opacity = false;                
+      });
+    }
+    
+    populateProductsList(){  
+      this.productColumn1 = [];
+      this.productColumn2 = [];
+      this.products.forEach((product, i) => {  
+        if (i <= this.products.length / 2) {
+          this.productColumn1.push(product);          
+        } else{
+          this.productColumn2.push(product);
+        }
+      });      
     }
     
     randomStyleHeightDiv(){      
@@ -116,53 +161,33 @@ export class HomePage implements OnInit{
     
     doRefresh(refresher) {
       this.getAllProducts(refresher);
-      
     }
     
-    productDetail(productClicked: Product){
-      console.log('dsa', productClicked.id);
-      
+    showSmallDetail(productClicked: Product){
       return this.products.forEach(product => {
-        if (product.id === productClicked.id) {// HACERLO PERO CON EL ID PARA QUE SEA UNICO????
+        if (product.id === productClicked.id) {
           return this.turnOpacity(product);
         }
       });
     }
     
-    turnOpacity(product: Product){      
+    turnOpacity(product: Product){          
       if (!product.opacity) {
         product.opacity = true;
       } else{
         product.opacity = false;
       }
-      
-      // product.opacity = !product.opacity ? true : false;
     }
     
-    
-    
-    close(){
-      console.log('CLOSED');
-      
+    goToProduct(product: Product){    
+      // PONER ESTO CON SUBJECT ASI APRENDO??? AUNQUE SOLO PRA ESTO NO HARIA FALTA
+      console.log(product);
+      this.navCtrl.push('ProductDetailPage', product)
     }
     
-    isActive(){
-      console.log('ACTIVE');
-      
-    }
-    
-    ionWillClose(){
-      console.log('will close');
-      
-    }
-    
-    ionDidClose(){
-      console.log('did close');
-      
-    }
-    
-    menuClick(a){
-      // console.log('menu', a);
+    menuClick(event: any){
+      // ESTO PARA QUE???
+      // console.log(event); 
       
     }
   }
