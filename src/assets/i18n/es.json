@@ -10,6 +10,8 @@
     "REGISTER": "Registrarse",
     "FORBIDDEN": "Prohibido cabron",
     "NAME": "Nombre",
+    "DESCRIPTION": "Descripción",
+    "PRICE": "Precio",
     "ERROR_NAME_REQUIRED": "El nombre es requerido",
     "ERROR_EMAIL_REQUIRED":"El email es requerido",
     "ERROR_PASSWORD_REQUIRED":"La contraseña es requerida",
@@ -43,5 +45,7 @@
     "SEE_ALL": "Ver todo",
     "CHOOSE_CATEGORY": "Elige una categoría",
     "PUBLISHING_IN": "Publicando en",
-    "SEE": "Ver"
+    "SEE": "Ver",
+
+    "UPLOAD_PRODUCT": "Subir producto"
 }

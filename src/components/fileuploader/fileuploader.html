@@ -1,0 +1,4 @@
+<div class="file-container" #fileContainer>
+  <input class="file" type="file" (change)="fileChangeEvent($event)" #file>
+  <ion-icon *ngIf="icon" [name]="iconName" (click)="clickButtonToOpenFile()"></ion-icon>
+</div>

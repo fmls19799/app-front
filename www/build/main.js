@@ -123,23 +123,23 @@ webpackEmptyAsyncContext.id = 133;
 
 var map = {
 	"../pages/home/home.module": [
-		332,
+		333,
 		2
 	],
 	"../pages/login/login.module": [
-		333,
+		334,
 		1
 	],
 	"../pages/product-detail/product-detail.module": [
-		334,
+		335,
 		4
 	],
 	"../pages/register/register.module": [
-		335,
+		336,
 		0
 	],
 	"../pages/search-product/search-product.module": [
-		336,
+		337,
 		3
 	]
 };
@@ -167,6 +167,7 @@ module.exports = webpackAsyncContext;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_product__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(14);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -179,15 +180,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ModalComponentChooseCategory = /** @class */ (function () {
-    function ModalComponentChooseCategory(viewCtrl, modalCtrl) {
+    function ModalComponentChooseCategory(viewCtrl, modalCtrl, formBuilder) {
         this.viewCtrl = viewCtrl;
         this.modalCtrl = modalCtrl;
+        this.formBuilder = formBuilder;
         this.turnOpacity = false;
         this.categoriesArray = [];
         this.isProductChosen = false;
         this.productChosen = new __WEBPACK_IMPORTED_MODULE_2__models_product__["a" /* Product */]();
         this.MODALTITLE = '';
+        this.previewImagesFromChildren = [];
         this.imagesToUpload = new Array(10).fill('camera-outline');
         this.categories = [
             {
@@ -205,105 +209,19 @@ var ModalComponentChooseCategory = /** @class */ (function () {
             {
                 icon: 'bicycle',
                 name: 'Bicycle',
-            },
-            {
-                icon: 'ios-american-football-outline',
-                name: 'Sports',
-            },
-            {
-                icon: 'ios-phone-portrait-outline',
-                name: 'Phones',
-            },
-            {
-                icon: 'ios-shirt-outline',
-                name: 'Clothing',
-            },
-            {
-                icon: 'ios-game-controller-b-outline',
-                name: 'Gaming',
-            },
-            {
-                icon: 'bicycle',
-                name: 'Bicycle',
-            },
-            {
-                icon: 'ios-american-football-outline',
-                name: 'Sports',
-            },
-            {
-                icon: 'ios-phone-portrait-outline',
-                name: 'Phones',
-            },
-            {
-                icon: 'ios-shirt-outline',
-                name: 'Clothing',
-            },
-            {
-                icon: 'ios-home-outline',
-                name: 'House',
-            },
-            {
-                icon: 'ios-car-outline',
-                name: 'Car',
-            },
-            {
-                icon: 'ios-game-controller-b-outline',
-                name: 'Gaming',
-            },
-            {
-                icon: 'bicycle',
-                name: 'Bicycle',
-            },
-            {
-                icon: 'ios-american-football-outline',
-                name: 'Sports',
-            },
-            {
-                icon: 'ios-phone-portrait-outline',
-                name: 'Phones',
-            },
-            {
-                icon: 'ios-shirt-outline',
-                name: 'Clothing',
-            },
-            {
-                icon: 'ios-game-controller-b-outline',
-                name: 'Gaming',
-            },
-            {
-                icon: 'bicycle',
-                name: 'Bicycle',
-            },
-            {
-                icon: 'ios-american-football-outline',
-                name: 'Sports',
-            },
-            {
-                icon: 'ios-phone-portrait-outline',
-                name: 'Phones',
-            },
-            {
-                icon: 'ios-shirt-outline',
-                name: 'Clothing',
             }
         ];
+        this.myForm = this.formBuilder.group({
+            name: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].maxLength(10)]),
+            description: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].maxLength(10)]),
+            price: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required])
+        });
     }
     ModalComponentChooseCategory.prototype.ngOnInit = function () {
         if (this.productChosen) {
             this.MODALTITLE = 'CHOOSE_CATEGORY';
             console.log(this.MODALTITLE);
         }
-    };
-    ModalComponentChooseCategory.prototype.getIcons = function () {
-        // this.categoriesArray = Object.values(this.categories);
-        // console.log(this.categoriesArray.length);
-        // if (this.categoriesArray.length % 3 === 0) {
-        //   console.log(true);
-        // } else{
-        //   console.log(false);
-        // }
-        // console.log(this.categoriesArray);
-        return this.categoriesArray;
     };
     ModalComponentChooseCategory.prototype.chooseProduct = function (nameProduct) {
         this.isProductChosen = true;
@@ -317,16 +235,36 @@ var ModalComponentChooseCategory = /** @class */ (function () {
     ModalComponentChooseCategory.prototype.chooseAgain = function () {
         this.MODALTITLE = 'CHOOSE_CATEGORY';
         this.isProductChosen = false;
-        // this.productChosen ;
     };
+    ModalComponentChooseCategory.prototype.submitProductCreation = function () {
+        console.log(this.myForm);
+        if (this.myForm.valid && this.imagesToUpload.length > 0) {
+            console.log(this.myForm.valid);
+        }
+    };
+    ModalComponentChooseCategory.prototype.receiveImageFromChildren = function (imageReceived) {
+        this.renderPreviewImg(imageReceived); // to render in the view
+    };
+    ModalComponentChooseCategory.prototype.renderPreviewImg = function (imageReceived) {
+        var _this = this;
+        var reader = new FileReader(); // si pones const no va ya que esta busy reading blobs???
+        reader.readAsDataURL(imageReceived);
+        reader.onload = function () {
+            // this.imgPreview = reader.result;
+            _this.previewImagesFromChildren.push(reader.result);
+            console.log(_this.previewImagesFromChildren);
+        };
+    };
+    ModalComponentChooseCategory.IMG_PREVIEW = 'http://www.nfscars.net/static/img/not-found.png';
     ModalComponentChooseCategory = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'modal-choose-category',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/'<!-- CHOOSE PRODUCT -->\n<div *ngIf="!isProductChosen" class="modalChooseProduct">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="closeModal()">{{ MODALTITLE | translate}} \n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  <div class="bottom">\n    <ion-row>\n      <ion-col *ngFor="let category of categories">\n        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>\n        <span>{{category.name | translate }}</span>\n      </ion-col>\n    </ion-row>\n  </div>\n</div>\n\n\n<!-- PRODUCT CHOSEN -->\n<div *ngIf="isProductChosen" class="modalProductChosen">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.name }}</span>\n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  <section class="bottom">\n    <div class="imagesWrapper">\n      <!-- {{ image }} -->\n        <ion-icon *ngFor="let image of imagesToUpload" [name]="image"></ion-icon>\n    </div>\n  </section>\n</div>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/
+            selector: 'modal-choose-category',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/'<!-- CHOOSE PRODUCT -->\n<div *ngIf="!isProductChosen" class="modalChooseProduct">\n    <div class="top">\n      <div class="close">\n        <ion-icon name="close" (click)="closeModal()"></ion-icon>\n      </div>\n      <h6 (click)="closeModal()">{{ MODALTITLE | translate}} \n        <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n      </h6>\n    </div>\n    <div class="bottom">\n      <ion-row>\n        <ion-col *ngFor="let category of categories">\n          <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>\n          <span>{{category.name | translate }}</span>\n        </ion-col>\n      </ion-row>\n    </div>\n  </div>\n  \n  <!-- PRODUCT CHOSEN -->\n  <div *ngIf="isProductChosen" class="modalProductChosen">\n    <div class="top">\n      <div class="close">\n        <ion-icon name="close" (click)="closeModal()"></ion-icon>\n      </div>\n      <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.name }}</span>\n        <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n      </h6>\n    </div>\n    <section class="bottom">\n      \n      \n      \n      \n      \n      \n      <!-- <fileuploader [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader> -->\n  \n      \n      <!-- <img style="width: 50px;" [src]="imgPreview" (error)="onImgPreviewError()" class="img-preview"/> -->\n      \n      \n        <!-- <ion-icon *ngFor="let image of imagesToUpload" [name]="image"></ion-icon> -->\n  \n        <div class="fileList">\n            <fileuploader *ngFor="let image of [1,2,3,4,5,6,7,8,9,10]" [iconName]="\'camera\'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>\n        </div>\n       \n  \n      <div class="mainWrapper">\n        <form [formGroup]="myForm" class="myForm" (ngSubmit)="submitProductCreation()">\n          <ion-list>\n            <ion-item>\n              <ion-label floating>{{ \'NAME\' | translate }}*</ion-label>\n              <ion-input formControlName="name" type="text">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item>\n              <ion-label floating>{{ \'DESCRIPTION\' | translate }}*</ion-label>\n              <ion-input formControlName="description" type="text">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item>\n              <ion-label floating>{{ \'PRICE\' | translate }}*</ion-label>\n              <ion-input formControlName="price" type="number">\n                \n              </ion-input>\n            </ion-item>\n            \n            <button type="submit" ion-button color="red" block>{{\'UPLOAD_PRODUCT\' | translate}}</button>\n            \n          </ion-list>\n        </form>\n      </div>\n    </section>\n  </div>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ViewController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ViewController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */]])
     ], ModalComponentChooseCategory);
     return ModalComponentChooseCategory;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=modal-choose-category.js.map
@@ -399,12 +337,14 @@ var ProductsProvider = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__ = __webpack_require__(176);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__fileuploader_fileuploader__ = __webpack_require__(297);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -418,6 +358,7 @@ var CustomComponentsModule = /** @class */ (function () {
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_1__header_header__["a" /* HeaderComponent */],
                 __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
+                __WEBPACK_IMPORTED_MODULE_5__fileuploader_fileuploader__["a" /* FileuploaderComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["b" /* TranslateModule */],
@@ -426,6 +367,7 @@ var CustomComponentsModule = /** @class */ (function () {
             exports: [
                 __WEBPACK_IMPORTED_MODULE_1__header_header__["a" /* HeaderComponent */],
                 __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
+                __WEBPACK_IMPORTED_MODULE_5__fileuploader_fileuploader__["a" /* FileuploaderComponent */],
             ],
             entryComponents: [
                 __WEBPACK_IMPORTED_MODULE_1__header_header__["a" /* HeaderComponent */],
@@ -480,11 +422,11 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(220);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(322);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ngx_translate_http_loader__ = __webpack_require__(322);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ngx_translate_http_loader__ = __webpack_require__(323);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_common_http__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_app_http_interceptor__ = __webpack_require__(324);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_app_http_interceptor__ = __webpack_require__(325);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_utils__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_auth_auth__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_components_module__ = __webpack_require__(225);
@@ -600,7 +542,89 @@ var HeaderComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 321:
+/***/ 297:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FileuploaderComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var FileuploaderComponent = /** @class */ (function () {
+    function FileuploaderComponent() {
+        this.uploadFileFromChildrenToParent = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */];
+    }
+    FileuploaderComponent.prototype.ngOnInit = function () {
+        // console.log(this.hideInput);
+        // console.log(this.icon);
+        // console.log(this.iconName);
+        // console.log(this.widthOfDivContainer);
+        // console.log(this.file);
+        // console.log(this.fileContainer);
+        this.fileContainer.nativeElement.style.width = this.widthOfDivContainer;
+        // this.file.nativeElement.style.border = '1px solid red';
+    };
+    FileuploaderComponent.prototype.clickButtonToOpenFile = function () {
+        this.file.nativeElement.click(); // desde un icono ejecuto apertura del file
+    };
+    // a(){
+    //   this.eee.emit({'a': 'b'})
+    // }
+    FileuploaderComponent.prototype.fileChangeEvent = function ($event) {
+        console.log('aa');
+        this.imagePicked = $event.target.files[0];
+        this.uploadFileFromChildrenToParent.emit(this.imagePicked); // le envio la imagen al padre
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        __metadata("design:type", Boolean)
+    ], FileuploaderComponent.prototype, "hideInput", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        __metadata("design:type", Boolean)
+    ], FileuploaderComponent.prototype, "icon", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        __metadata("design:type", String)
+    ], FileuploaderComponent.prototype, "iconName", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
+        __metadata("design:type", String)
+    ], FileuploaderComponent.prototype, "widthOfDivContainer", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Output */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */])
+    ], FileuploaderComponent.prototype, "uploadFileFromChildrenToParent", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('file'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */])
+    ], FileuploaderComponent.prototype, "file", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])('fileContainer'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */])
+    ], FileuploaderComponent.prototype, "fileContainer", void 0);
+    FileuploaderComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'fileuploader',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/fileuploader/fileuploader.html"*/'<div class="file-container" #fileContainer>\n  <input class="file" type="file" (change)="fileChangeEvent($event)" #file>\n  <ion-icon *ngIf="icon" [name]="iconName" (click)="clickButtonToOpenFile()"></ion-icon>\n</div>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/fileuploader/fileuploader.html"*/
+        }),
+        __metadata("design:paramtypes", [])
+    ], FileuploaderComponent);
+    return FileuploaderComponent;
+}());
+
+//# sourceMappingURL=fileuploader.js.map
+
+/***/ }),
+
+/***/ 322:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -812,7 +836,7 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 324:
+/***/ 325:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -820,11 +844,11 @@ var MyApp = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(325);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(326);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_finally__ = __webpack_require__(328);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_finally__ = __webpack_require__(329);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_finally___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_finally__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__ = __webpack_require__(331);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__ = __webpack_require__(332);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
