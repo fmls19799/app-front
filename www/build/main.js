@@ -1,13 +1,14 @@
 webpackJsonp([5],{
 
-/***/ 116:
+/***/ 117:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(50);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductsProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_config_int__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_config_int__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__auth_auth__ = __webpack_require__(57);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,50 +21,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var AuthProvider = /** @class */ (function () {
-    // LO PUEDO QUITAR??? PROBAR YA QUE LO TENGO EN INTERCEPTOR???
-    // private static readonly defaultOptions = {
-    //   headers: new HttpHeaders().set('Content-Type', 'application/json'),
-    //   withCredentials: true
-    // };
-    function AuthProvider(http) {
+
+var ProductsProvider = /** @class */ (function () {
+    function ProductsProvider(http, auth) {
         this.http = http;
+        this.auth = auth;
     }
-    AuthProvider_1 = AuthProvider;
-    AuthProvider.prototype.ngOnInit = function () {
+    ProductsProvider_1 = ProductsProvider;
+    ProductsProvider.prototype.createProduct = function (product) {
+        var user = JSON.parse(localStorage.getItem('user')).id;
+        console.log(ProductsProvider_1.ENDPOINT + "/products/" + user + "/create");
+        console.log(product.asFormData());
+        return this.http.post(ProductsProvider_1.ENDPOINT + "/products/" + user + "/create", product.asFormData(), { withCredentials: true }).map(function (product) { return product; });
     };
-    //quitar any???
-    AuthProvider.prototype.register = function (user) {
-        return this.http.post(AuthProvider_1.ENDPOINT + "/register", user).map(function (data) { return data; });
+    ProductsProvider.prototype.getAllProducts = function () {
+        //QUITAR EL MOCK???
+        // return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products`).map((products: Array<Product>)=> products);
+        return this.http.get("http://www.mocky.io/v2/5c4ced6d3700002b0bb042ef").map(function (products) { return products; });
     };
-    //quitar any???
-    AuthProvider.prototype.login = function (user) {
-        console.log(user);
-        return this.http.post(AuthProvider_1.ENDPOINT + "/sessions", user).map(function (data) { return data; });
+    ProductsProvider.prototype.getAllProducts2 = function () {
+        //QUITAR EL MOCK???
+        // return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products`).map((products: Array<Product>)=> products);
+        return this.http.get("http://www.mocky.io/v2/5c4de7133100008d00c41bcb").map(function (products) { return products; });
     };
-    AuthProvider.prototype.isLoggedIn = function () {
-        return localStorage.getItem('user') ? true : false;
+    ProductsProvider.prototype.likeProduct = function (product) {
+        console.log(product);
+        return this.http.put(ProductsProvider_1.ENDPOINT + "/products/" + product.id + "/like", product).map(function (product) { return product; });
     };
-    AuthProvider.prototype.getUserFromLocalStorage = function () {
-        return localStorage.getItem('user');
+    ProductsProvider.prototype.unlikeProduct = function (product) {
+        console.log(product);
+        return this.http.put(ProductsProvider_1.ENDPOINT + "/products/" + product.id + "/unlike", product).map(function (product) { return product; });
     };
-    AuthProvider.prototype.rememberMe = function () {
-        return localStorage.getItem('rememberMe') ? true : false;
-    };
-    AuthProvider.ENDPOINT = "" + __WEBPACK_IMPORTED_MODULE_2__config_config_int__["a" /* CONFIG */].API_ENDPOINT;
-    AuthProvider = AuthProvider_1 = __decorate([
+    ProductsProvider.ENDPOINT = "" + __WEBPACK_IMPORTED_MODULE_2__config_config_int__["a" /* CONFIG */].API_ENDPOINT;
+    ProductsProvider = ProductsProvider_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]])
-    ], AuthProvider);
-    return AuthProvider;
-    var AuthProvider_1;
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__auth_auth__["a" /* AuthProvider */]) === "function" && _b || Object])
+    ], ProductsProvider);
+    return ProductsProvider;
+    var ProductsProvider_1, _a, _b;
 }());
 
-//# sourceMappingURL=auth.js.map
+//# sourceMappingURL=products.js.map
 
 /***/ }),
 
-/***/ 117:
+/***/ 118:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -101,7 +103,7 @@ var Utils = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 133:
+/***/ 134:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -114,11 +116,11 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 133;
+webpackEmptyAsyncContext.id = 134;
 
 /***/ }),
 
-/***/ 175:
+/***/ 176:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -154,12 +156,12 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 175;
+webpackAsyncContext.id = 176;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 176:
+/***/ 177:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -168,6 +170,8 @@ module.exports = webpackAsyncContext;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_product__ = __webpack_require__(226);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_products_products__ = __webpack_require__(117);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -181,34 +185,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var ModalComponentChooseCategory = /** @class */ (function () {
-    function ModalComponentChooseCategory(viewCtrl, modalCtrl, formBuilder) {
+    function ModalComponentChooseCategory(viewCtrl, modalCtrl, formBuilder, translate, toastCtrl, productsProvider) {
         this.viewCtrl = viewCtrl;
         this.modalCtrl = modalCtrl;
         this.formBuilder = formBuilder;
+        this.translate = translate;
+        this.toastCtrl = toastCtrl;
+        this.productsProvider = productsProvider;
         this.turnOpacity = false;
         this.categoriesArray = [];
         this.isProductChosen = false;
         this.productChosen = new __WEBPACK_IMPORTED_MODULE_2__models_product__["a" /* Product */]();
         this.MODALTITLE = '';
-        this.previewImagesFromChildren = [];
-        this.imagesToUpload = new Array(10).fill('camera-outline');
+        this.previewImages = [];
         this.categories = [
             {
                 icon: 'ios-home-outline',
-                name: 'House',
+                type: 'House',
             },
             {
                 icon: 'ios-car-outline',
-                name: 'Car',
+                type: 'Car',
             },
             {
                 icon: 'ios-game-controller-b-outline',
-                name: 'Gaming',
+                type: 'Gaming',
             },
             {
                 icon: 'bicycle',
-                name: 'Bicycle',
+                type: 'Bicycle',
             }
         ];
         this.myForm = this.formBuilder.group({
@@ -218,6 +226,7 @@ var ModalComponentChooseCategory = /** @class */ (function () {
         });
     }
     ModalComponentChooseCategory.prototype.ngOnInit = function () {
+        console.log(this.productChosen);
         if (this.productChosen) {
             this.MODALTITLE = 'CHOOSE_CATEGORY';
             console.log(this.MODALTITLE);
@@ -236,94 +245,70 @@ var ModalComponentChooseCategory = /** @class */ (function () {
         this.MODALTITLE = 'CHOOSE_CATEGORY';
         this.isProductChosen = false;
     };
-    ModalComponentChooseCategory.prototype.submitProductCreation = function () {
-        console.log(this.myForm);
-        if (this.myForm.valid && this.imagesToUpload.length > 0) {
-            console.log(this.myForm.valid);
+    ModalComponentChooseCategory.prototype.receiveImageFromChildren = function (imagesReceived) {
+        // if (imagesReceived.length <= 5) {
+        this.renderPreviewImg(imagesReceived); // to render in the view
+        // } else{   
+        // this.translator('MAXIMUM_IMAGE_STACK_EXCEEDED');
+        // }
+    };
+    ModalComponentChooseCategory.prototype.renderPreviewImg = function (imagesReceived) {
+        var _this = this;
+        if (this.previewImages.length >= 5) {
+            this.translator('MAXIMUM_IMAGE_STACK_EXCEEDED');
+        }
+        Array.from(imagesReceived).forEach(function (file) {
+            var reader = new FileReader(); // si pones const no va ya que esta busy reading blobs???
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                if (_this.previewImages.length < 5) {
+                    _this.previewImages.push(reader.result);
+                }
+            };
+        });
+    };
+    ModalComponentChooseCategory.prototype.uploadProduct = function () {
+        if (this.previewImages.length <= 0) {
+            this.translator('ONE_IMAGE_REQUIRED');
+        }
+        else if (this.myForm.valid) {
+            this.productChosen.photos = this.previewImages; // le igualo lo que tenia en preview???
+            this.productsProvider.createProduct(this.productChosen).subscribe(function (product) {
+                console.log(product);
+            });
+        }
+        else {
+            this.translator('FORGOT_SOMETHING_VALIDATION');
         }
     };
-    ModalComponentChooseCategory.prototype.receiveImageFromChildren = function (imageReceived) {
-        this.renderPreviewImg(imageReceived); // to render in the view
-    };
-    ModalComponentChooseCategory.prototype.renderPreviewImg = function (imageReceived) {
+    ModalComponentChooseCategory.prototype.translator = function (messageToTranslate) {
         var _this = this;
-        var reader = new FileReader(); // si pones const no va ya que esta busy reading blobs???
-        reader.readAsDataURL(imageReceived);
-        reader.onload = function () {
-            // this.imgPreview = reader.result;
-            _this.previewImagesFromChildren.push(reader.result);
-            console.log(_this.previewImagesFromChildren);
-        };
+        this.translate.get(messageToTranslate).subscribe(function (data) {
+            _this.showToast(data);
+        });
     };
-    ModalComponentChooseCategory.IMG_PREVIEW = 'http://www.nfscars.net/static/img/not-found.png';
+    ModalComponentChooseCategory.prototype.showToast = function (data) {
+        this.toastCtrl.create({
+            message: data,
+            duration: 2000,
+            position: 'top',
+        }).present();
+    };
     ModalComponentChooseCategory = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'modal-choose-category',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/'<!-- CHOOSE PRODUCT -->\n<div *ngIf="!isProductChosen" class="modalChooseProduct">\n    <div class="top">\n      <div class="close">\n        <ion-icon name="close" (click)="closeModal()"></ion-icon>\n      </div>\n      <h6 (click)="closeModal()">{{ MODALTITLE | translate}} \n        <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n      </h6>\n    </div>\n    <div class="bottom">\n      <ion-row>\n        <ion-col *ngFor="let category of categories">\n          <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>\n          <span>{{category.name | translate }}</span>\n        </ion-col>\n      </ion-row>\n    </div>\n  </div>\n  \n  <!-- PRODUCT CHOSEN -->\n  <div *ngIf="isProductChosen" class="modalProductChosen">\n    <div class="top">\n      <div class="close">\n        <ion-icon name="close" (click)="closeModal()"></ion-icon>\n      </div>\n      <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.name }}</span>\n        <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n      </h6>\n    </div>\n    <section class="bottom">\n      \n      \n      \n      \n      \n      \n      <!-- <fileuploader [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader> -->\n  \n      \n      <!-- <img style="width: 50px;" [src]="imgPreview" (error)="onImgPreviewError()" class="img-preview"/> -->\n      \n      \n        <!-- <ion-icon *ngFor="let image of imagesToUpload" [name]="image"></ion-icon> -->\n  \n        <div class="fileList">\n            <fileuploader *ngFor="let image of [1,2,3,4,5,6,7,8,9,10]" [iconName]="\'camera\'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>\n        </div>\n       \n  \n      <div class="mainWrapper">\n        <form [formGroup]="myForm" class="myForm" (ngSubmit)="submitProductCreation()">\n          <ion-list>\n            <ion-item>\n              <ion-label floating>{{ \'NAME\' | translate }}*</ion-label>\n              <ion-input formControlName="name" type="text">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item>\n              <ion-label floating>{{ \'DESCRIPTION\' | translate }}*</ion-label>\n              <ion-input formControlName="description" type="text">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item>\n              <ion-label floating>{{ \'PRICE\' | translate }}*</ion-label>\n              <ion-input formControlName="price" type="number">\n                \n              </ion-input>\n            </ion-item>\n            \n            <button type="submit" ion-button color="red" block>{{\'UPLOAD_PRODUCT\' | translate}}</button>\n            \n          </ion-list>\n        </form>\n      </div>\n    </section>\n  </div>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/
+            selector: 'modal-choose-category',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/'<!-- CHOOSE PRODUCT -->\n<div *ngIf="!isProductChosen" class="modalChooseProduct">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="closeModal()">{{ MODALTITLE | translate}} \n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  <div class="bottom">\n    <ion-row>\n      <ion-col *ngFor="let category of categories">\n        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>\n        <span>{{category.type | translate }}</span>\n      </ion-col>\n    </ion-row>\n  </div>\n</div>\n\n<!-- PRODUCT CHOSEN -->\n<div *ngIf="isProductChosen" class="modalProductChosen">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.type }}</span>\n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  \n  <section class="bottom">\n\n    <!-- <div class="imagesContainer" *ngFor="let previewImage of previewImages"> -->\n      <div class="imagesContainer">\n          <img [src]="previewImage" *ngFor="let previewImage of previewImages" alt="image">\n      </div>\n    <!-- </div> -->\n\n    <div class="mainWrapper">\n      <form [formGroup]="myForm" class="myForm" (ngSubmit)="uploadProduct()">\n        <ion-list>\n          <ion-item class="item-form-control" [ngClass]="{\'has-error\': myForm.controls.name.invalid && myForm.controls.name.touched}">\n            <ion-label floating>{{ \'NAME\' | translate }}*</ion-label>\n            <ion-input formControlName="name" type="text" [(ngModel)]="productChosen.name">\n              \n            </ion-input>\n          </ion-item>\n          <ion-item class="item-form-control" [ngClass]="{\'has-error\': myForm.controls.description.invalid && myForm.controls.description.touched}">\n            <ion-label floating>{{ \'DESCRIPTION\' | translate }}*</ion-label>\n            <ion-input formControlName="description" type="text" [(ngModel)]="productChosen.description">\n              \n            </ion-input>\n          </ion-item>\n          <ion-item class="item-form-control" [ngClass]="{\'has-error\': myForm.controls.price.invalid && myForm.controls.price.touched}">\n            <ion-label floating>{{ \'PRICE\' | translate }}*</ion-label>\n            <ion-input formControlName="price" type="number" [(ngModel)]="productChosen.price">\n              \n            </ion-input>\n          </ion-item>\n          \n          <button type="submit" ion-button color="red" block>{{\'UPLOAD_PRODUCT\' | translate}}</button>\n          \n        </ion-list>\n      </form>\n    </div>\n  </section>\n  \n  <div class="upload">\n    <fileuploader [multipleImages]="true" [iconName]="\'camera-outline\'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>\n  </div>\n</div>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ViewController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */],
-            __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */]])
+            __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */],
+            __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_5__providers_products_products__["a" /* ProductsProvider */]])
     ], ModalComponentChooseCategory);
     return ModalComponentChooseCategory;
 }());
 
 //# sourceMappingURL=modal-choose-category.js.map
-
-/***/ }),
-
-/***/ 224:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductsProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_config_int__ = __webpack_require__(89);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var ProductsProvider = /** @class */ (function () {
-    function ProductsProvider(http) {
-        this.http = http;
-    }
-    ProductsProvider_1 = ProductsProvider;
-    ProductsProvider.prototype.getAllProducts = function () {
-        //QUITAR EL MOCK???
-        // return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products`).map((products: Array<Product>)=> products);
-        return this.http.get("http://www.mocky.io/v2/5c4ced6d3700002b0bb042ef").map(function (products) { return products; });
-    };
-    ProductsProvider.prototype.getAllProducts2 = function () {
-        //QUITAR EL MOCK???
-        // return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products`).map((products: Array<Product>)=> products);
-        return this.http.get("http://www.mocky.io/v2/5c4de7133100008d00c41bcb").map(function (products) { return products; });
-    };
-    ProductsProvider.prototype.likeProduct = function (product) {
-        console.log(product);
-        return this.http.put(ProductsProvider_1.ENDPOINT + "/products/" + product.id + "/like", product).map(function (product) { return product; });
-    };
-    ProductsProvider.prototype.unlikeProduct = function (product) {
-        console.log(product);
-        return this.http.put(ProductsProvider_1.ENDPOINT + "/products/" + product.id + "/unlike", product).map(function (product) { return product; });
-    };
-    ProductsProvider.ENDPOINT = "" + __WEBPACK_IMPORTED_MODULE_2__config_config_int__["a" /* CONFIG */].API_ENDPOINT;
-    ProductsProvider = ProductsProvider_1 = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]])
-    ], ProductsProvider);
-    return ProductsProvider;
-    var ProductsProvider_1;
-}());
-
-//# sourceMappingURL=products.js.map
 
 /***/ }),
 
@@ -334,8 +319,8 @@ var ProductsProvider = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CustomComponentsModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__header_header__ = __webpack_require__(268);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__ = __webpack_require__(176);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__ = __webpack_require__(177);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__fileuploader_fileuploader__ = __webpack_require__(297);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -390,6 +375,19 @@ var CustomComponentsModule = /** @class */ (function () {
 var Product = /** @class */ (function () {
     function Product() {
     }
+    Product.prototype.asFormData = function () {
+        var data = new FormData();
+        data.append('name', this.name);
+        data.append('icon', this.icon);
+        data.append('description', this.description);
+        data.append('price', (this.price).toString());
+        data.append('type', this.type);
+        for (var _i = 0, _a = this.photos; _i < _a.length; _i++) {
+            var photo = _a[_i];
+            data.append('photos', photo);
+        }
+        return data;
+    };
     return Product;
 }());
 
@@ -420,17 +418,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(220);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(224);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(322);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ngx_translate_http_loader__ = __webpack_require__(323);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_common_http__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_common_http__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_app_http_interceptor__ = __webpack_require__(325);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_utils__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_auth_auth__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_utils__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_auth_auth__ = __webpack_require__(57);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_components_module__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_products_products__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_products_products__ = __webpack_require__(117);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -561,27 +559,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var FileuploaderComponent = /** @class */ (function () {
     function FileuploaderComponent() {
         this.uploadFileFromChildrenToParent = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */];
+        this.imagesPicked = [];
     }
     FileuploaderComponent.prototype.ngOnInit = function () {
-        // console.log(this.hideInput);
-        // console.log(this.icon);
-        // console.log(this.iconName);
-        // console.log(this.widthOfDivContainer);
-        // console.log(this.file);
-        // console.log(this.fileContainer);
-        this.fileContainer.nativeElement.style.width = this.widthOfDivContainer;
-        // this.file.nativeElement.style.border = '1px solid red';
+        // console.log('hide input : ',this.hideInput);
+        // console.log('icon: ',this.icon);
+        // console.log('icon name : ',this.iconName);
+        // console.log('file : ',this.file);
+        // console.log('file container : ',this.fileContainer);
     };
     FileuploaderComponent.prototype.clickButtonToOpenFile = function () {
-        this.file.nativeElement.click(); // desde un icono ejecuto apertura del file
+        this.file.nativeElement.click(); // desde un icono ejecuto apertura del file y se ejecuta en la funcion de abajo
     };
-    // a(){
-    //   this.eee.emit({'a': 'b'})
-    // }
     FileuploaderComponent.prototype.fileChangeEvent = function ($event) {
-        console.log('aa');
-        this.imagePicked = $event.target.files[0];
-        this.uploadFileFromChildrenToParent.emit(this.imagePicked); // le envio la imagen al padre
+        this.imagesPicked = $event.target.files;
+        this.uploadFileFromChildrenToParent.emit(this.imagesPicked); // le envio la imagen al padre
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
@@ -597,8 +589,8 @@ var FileuploaderComponent = /** @class */ (function () {
     ], FileuploaderComponent.prototype, "iconName", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
-        __metadata("design:type", String)
-    ], FileuploaderComponent.prototype, "widthOfDivContainer", void 0);
+        __metadata("design:type", Boolean)
+    ], FileuploaderComponent.prototype, "multipleImages", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["O" /* Output */])(),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */])
@@ -613,7 +605,7 @@ var FileuploaderComponent = /** @class */ (function () {
     ], FileuploaderComponent.prototype, "fileContainer", void 0);
     FileuploaderComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'fileuploader',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/fileuploader/fileuploader.html"*/'<div class="file-container" #fileContainer>\n  <input class="file" type="file" (change)="fileChangeEvent($event)" #file>\n  <ion-icon *ngIf="icon" [name]="iconName" (click)="clickButtonToOpenFile()"></ion-icon>\n</div>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/fileuploader/fileuploader.html"*/
+            selector: 'fileuploader',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/fileuploader/fileuploader.html"*/'<div class="file-container" #fileContainer>\n  <input class="file" type="file" (change)="fileChangeEvent($event)" #file multiple>\n  <ion-icon *ngIf="icon" [name]="iconName" (click)="clickButtonToOpenFile()"></ion-icon>\n</div>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/fileuploader/fileuploader.html"*/
         }),
         __metadata("design:paramtypes", [])
     ], FileuploaderComponent);
@@ -630,14 +622,14 @@ var FileuploaderComponent = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_splash_screen__ = __webpack_require__(220);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ionic_native_splash_screen__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config_config_int__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_utils__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_auth_auth__ = __webpack_require__(116);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_modal_choose_category_modal_choose_category__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config_config_int__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_utils__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_auth_auth__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_modal_choose_category_modal_choose_category__ = __webpack_require__(177);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -740,17 +732,18 @@ var MyApp = /** @class */ (function () {
                     _this.showTabs = true;
                 }
                 var publicPagesRegex = /login|register|LoginPage|RegisterPage/;
-                //check user is logged in          
-                // if (this.auth.isLoggedIn()) {
-                //   this.isLogged = true;
-                //   this.userLocalStorage = this.auth.getUserFromLocalStorage;
-                //   this.nav.setRoot('HomePage');
-                //   console.log('auth');
-                // } else{
-                //   console.log('not auth');
-                // }
-                // console.log(1, !publicPagesRegex.test(this.currentPage) && (!this.isLogged));
-                // console.log(2, (!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged);
+                // check user is logged in          
+                if (_this.auth.isLoggedIn()) {
+                    _this.isLogged = true;
+                    _this.userLocalStorage = _this.auth.getUserFromLocalStorage;
+                    _this.nav.setRoot('HomePage');
+                    console.log('auth');
+                }
+                else {
+                    console.log('not auth');
+                }
+                console.log(1, !publicPagesRegex.test(_this.currentPage) && (!_this.isLogged));
+                console.log(2, (!publicPagesRegex.test(_this.currentPage) && !/LoginPage/.test(_this.currentPage)) && (!/register/.test(_this.currentPage) && !/RegisterPage/.test(_this.currentPage)) && !_this.isLogged);
                 // if current page is not login / register, set login as root
                 // if ((!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged) {
                 //   this.nav.setRoot('LoginPage');
@@ -842,7 +835,7 @@ var MyApp = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppHttpInterceptorProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(326);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
@@ -1008,7 +1001,75 @@ var AppHttpInterceptorProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 89:
+/***/ 57:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config_config_int__ = __webpack_require__(90);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AuthProvider = /** @class */ (function () {
+    // LO PUEDO QUITAR??? PROBAR YA QUE LO TENGO EN INTERCEPTOR???
+    // private static readonly defaultOptions = {
+    //   headers: new HttpHeaders().set('Content-Type', 'application/json'),
+    //   withCredentials: true
+    // };
+    function AuthProvider(http) {
+        this.http = http;
+    }
+    AuthProvider_1 = AuthProvider;
+    AuthProvider.prototype.ngOnInit = function () {
+    };
+    //quitar any???
+    AuthProvider.prototype.register = function (user) {
+        return this.http.post(AuthProvider_1.ENDPOINT + "/register", user).map(function (data) { return data; });
+    };
+    //quitar any???
+    AuthProvider.prototype.login = function (user) {
+        var _this = this;
+        return this.http.post(AuthProvider_1.ENDPOINT + "/sessions", user).map(function (data) {
+            // PONER TODO ESTO BIEN ORDENADO QUE EL USER LO COJA DEL SERVICIO NO GUARDARLO EN EL LOGIN???
+            _this.user = data;
+            return data;
+        });
+    };
+    AuthProvider.prototype.isLoggedIn = function () {
+        return localStorage.getItem('user') ? true : false;
+    };
+    AuthProvider.prototype.getUserFromLocalStorage = function () {
+        return localStorage.getItem('user');
+    };
+    AuthProvider.prototype.rememberMe = function () {
+        return localStorage.getItem('rememberMe') ? true : false;
+    };
+    // localStorageUser: User;
+    AuthProvider.ENDPOINT = "" + __WEBPACK_IMPORTED_MODULE_2__config_config_int__["a" /* CONFIG */].API_ENDPOINT;
+    AuthProvider = AuthProvider_1 = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]])
+    ], AuthProvider);
+    return AuthProvider;
+    var AuthProvider_1;
+}());
+
+//# sourceMappingURL=auth.js.map
+
+/***/ }),
+
+/***/ 90:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

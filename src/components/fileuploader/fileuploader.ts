@@ -10,43 +10,32 @@ export class FileuploaderComponent implements OnInit{
   @Input() hideInput: boolean;
   @Input() icon: boolean;
   @Input() iconName: string;
-  @Input() widthOfDivContainer: string;
+  @Input() multipleImages: boolean; // NO LO ESTOY USANDO???
   @Output() uploadFileFromChildrenToParent: EventEmitter<any> = new EventEmitter;
   @ViewChild('file') file: ElementRef;
   @ViewChild('fileContainer') fileContainer: ElementRef;
   
-  imagePicked: any;
+  imagesPicked: Array<File> = [];
   
   constructor() {
     
   }
   
   ngOnInit(){
-    // console.log(this.hideInput);
-    // console.log(this.icon);
-    // console.log(this.iconName);
-    // console.log(this.widthOfDivContainer);
-    // console.log(this.file);
-    // console.log(this.fileContainer);
-    
-    this.fileContainer.nativeElement.style.width = this.widthOfDivContainer;
-    // this.file.nativeElement.style.border = '1px solid red';
-    
+    // console.log('hide input : ',this.hideInput);
+    // console.log('icon: ',this.icon);
+    // console.log('icon name : ',this.iconName);
+    // console.log('file : ',this.file);
+    // console.log('file container : ',this.fileContainer);
   }
-
+  
   clickButtonToOpenFile(){
-    this.file.nativeElement.click(); // desde un icono ejecuto apertura del file
+    this.file.nativeElement.click(); // desde un icono ejecuto apertura del file y se ejecuta en la funcion de abajo
   }
   
-  // a(){
-  //   this.eee.emit({'a': 'b'})
-  // }
-  
-  fileChangeEvent($event: any){
-    console.log('aa');
-    
-    this.imagePicked = $event.target.files[0];
-    this.uploadFileFromChildrenToParent.emit(this.imagePicked); // le envio la imagen al padre
+  fileChangeEvent($event: any){        
+    this.imagesPicked = $event.target.files;
+    this.uploadFileFromChildrenToParent.emit(this.imagesPicked); // le envio la imagen al padre
   }
   
 }

@@ -17,11 +17,11 @@
     "ERROR_PASSWORD_REQUIRED":"La contraseña es requerida",
     "ERROR_EMAIL_PATTERN": "Formato de email incorrecto",
     "ERROR_PASSWORD_PATTERN": "La contraseña debe tener ua mayúscula y al menos un numero",
-
+    
     "CODE_001": "Email o contraseña faltan",
     "CODE_002": "Email o contraseña errónea",
     "CODE_003": "El usuario con ese email ya existe",
-
+    
     "USER_CREATED": "Usuario creado satisfactoriamente, valide el link de su bandeja de entrada",
     "LOGIN_ERROR": "No se ha podido iniciar session",
     "REMEMBER_ME": "Remember password",
@@ -31,7 +31,7 @@
     "YOUR_ITEMS": "Tus productos",
     "CHAT": "Chat",
     "SETTINGS": "Ajustes",
-
+    
     "CARS": "Coches",
     "REAL_STATE": "Inmobiliaria",
     "GAMING": "Videojuegos",
@@ -40,12 +40,15 @@
     "PHONES": "Telefonía",
     "CLOTHING": "Ropa",
     "BOATS": "Barcos",
-
+    
     "SEARCH_IN": "Buscar en...",
     "SEE_ALL": "Ver todo",
     "CHOOSE_CATEGORY": "Elige una categoría",
     "PUBLISHING_IN": "Publicando en",
     "SEE": "Ver",
-
-    "UPLOAD_PRODUCT": "Subir producto"
+    
+    "UPLOAD_PRODUCT": "Subir producto",
+    "FORGOT_SOMETHING_VALIDATION": "Te has dejado algo, algunos campos son requeridos",
+    "MAXIMUM_IMAGE_STACK_EXCEEDED": "El máximo de fotos para subir es 5",
+    "ONE_IMAGE_REQUIRED": "Al menos una imagen es requerida"
 }

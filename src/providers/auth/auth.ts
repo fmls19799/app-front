@@ -8,7 +8,8 @@ import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class AuthProvider {
-  
+  user: User;
+  // localStorageUser: User;
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
   // LO PUEDO QUITAR??? PROBAR YA QUE LO TENGO EN INTERCEPTOR???
   
@@ -29,10 +30,12 @@ export class AuthProvider {
   }
   
   //quitar any???
-  login(user: User): Observable<User | HttpErrorResponse> {
-    console.log(user);
-    
-    return this.http.post<User>(`${AuthProvider.ENDPOINT}/sessions`, user).map((data: any) => data);
+  login(user: User): Observable<User | HttpErrorResponse> {    
+    return this.http.post<User>(`${AuthProvider.ENDPOINT}/sessions`, user).map((data: any)=>{
+      // PONER TODO ESTO BIEN ORDENADO QUE EL USER LO COJA DEL SERVICIO NO GUARDARLO EN EL LOGIN???
+      this.user = data;
+      return data;
+    });
   }
   
   isLoggedIn():boolean{

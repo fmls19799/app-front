@@ -118,19 +118,19 @@ export class MyApp implements OnInit{
           }
           const publicPagesRegex = /login|register|LoginPage|RegisterPage/;
           
-          //check user is logged in          
-          // if (this.auth.isLoggedIn()) {
-          //   this.isLogged = true;
-          //   this.userLocalStorage = this.auth.getUserFromLocalStorage;
-          //   this.nav.setRoot('HomePage');
-          //   console.log('auth');
+          // check user is logged in          
+          if (this.auth.isLoggedIn()) {
+            this.isLogged = true;
+            this.userLocalStorage = this.auth.getUserFromLocalStorage;
+            this.nav.setRoot('HomePage');
+            console.log('auth');
           
-          // } else{
-          //   console.log('not auth');
+          } else{
+            console.log('not auth');
           
-          // }
-          // console.log(1, !publicPagesRegex.test(this.currentPage) && (!this.isLogged));
-          // console.log(2, (!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged);
+          }
+          console.log(1, !publicPagesRegex.test(this.currentPage) && (!this.isLogged));
+          console.log(2, (!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged);
           
           // if current page is not login / register, set login as root
           // if ((!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged) {

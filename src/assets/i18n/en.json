@@ -48,5 +48,8 @@
     "PUBLISHING_IN": "Publishing in",
     "SEE": "See",
 
-    "UPLOAD_PRODUCT": "Upload product"
+    "UPLOAD_PRODUCT": "Upload product",
+    "FORGOT_SOMETHING_VALIDATION": "Forgot something, some information is required",
+    "MAXIMUM_IMAGE_STACK_EXCEEDED": "The maximum images to upload are 5",
+    "ONE_IMAGE_REQUIRED": "One image at least is required"
 }

@@ -48,7 +48,7 @@
       <ion-col>
         <div class="product" *ngFor="let product of productColumn1">
           <div class="container" [style]="product.randomHeight" [ngClass]="{'increasesizeContainer': product.opacity}">
-            {{ product.id }}
+            <!-- {{ product.id }} -->
             <div class="relative">
               <img [src]="product.photos[0]" (click)="showSmallDetail(product)" alt="image" [ngClass]="{'opacity03': product.opacity}">
               <!-- if clicked -->
@@ -75,7 +75,7 @@
       <ion-col>
         <div class="product" *ngFor="let product of productColumn2">
           <div class="container" [style]="product.randomHeight" [ngClass]="{'increasesizeContainer': product.opacity}">
-            {{ product.id }}
+            <!-- {{ product.id }} -->
             <div class="relative">
               <img [src]="product.photos[0]" (click)="showSmallDetail(product)" alt="image" [ngClass]="{'opacity03': product.opacity}">
               <!-- if clicked -->

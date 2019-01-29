@@ -161,13 +161,12 @@ page-home {
 }
 
 .toast-wrapper{
-    transform: translateY(80px) !important;
-    // border: 1px solid red;
+    left: -10px;
+    right: -10px;
+    max-width: none !important;
+    border-radius: 0 !important;
     text-align: center;
-    background: white !important;
     .toast-message{
-        color: red;
-        // color: black;
         font-size: 15px;
     }
 }

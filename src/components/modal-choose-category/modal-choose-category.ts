@@ -1,8 +1,10 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ViewController, NavController, ModalController } from 'ionic-angular';
+import { ViewController, NavController, ModalController, ToastController } from 'ionic-angular';
 import { Subscription, Subject, Observable } from 'rxjs';
 import { Product } from './../../models/product';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
+import { ProductsProvider } from './../../providers/products/products';
 
 @Component({
   selector: 'modal-choose-category',
@@ -10,42 +12,43 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class ModalComponentChooseCategory implements OnInit {
   
-  private static readonly IMG_PREVIEW: string = 'http://www.nfscars.net/static/img/not-found.png';
   text: string;
   turnOpacity: boolean = false;
   categoriesArray: Array<string> = [];
   isProductChosen: boolean = false;
   productChosen: Product = new Product();
   MODALTITLE: string = '';
-  previewImagesFromChildren: Array<any> = [];
+  previewImages: any = [];
   
   
-  
-  imagesToUpload = new Array(10).fill('camera-outline');
   myForm: FormGroup;
   
   categories: Array<any> = [
     {
       icon: 'ios-home-outline',
-      name: 'House',
+      type: 'House',
     },
     {
       icon: 'ios-car-outline',
-      name: 'Car',
+      type: 'Car',
     },
     {
       icon: 'ios-game-controller-b-outline',
-      name: 'Gaming',
+      type: 'Gaming',
     },
     {
       icon: 'bicycle',
-      name: 'Bicycle',
+      type: 'Bicycle',
     }
   ]
   
   constructor(private viewCtrl: ViewController, 
     private modalCtrl: ModalController,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private translate: TranslateService,
+    private toastCtrl: ToastController,
+    private productsProvider: ProductsProvider) {
+      
       this.myForm = this.formBuilder.group({
         name: new FormControl('',[Validators.required, Validators.maxLength(10)]),
         description: new FormControl('',[Validators.required, Validators.maxLength(10)]),
@@ -54,6 +57,7 @@ export class ModalComponentChooseCategory implements OnInit {
     }
     
     ngOnInit(){        
+      console.log(this.productChosen);
       
       if (this.productChosen) {
         this.MODALTITLE = 'CHOOSE_CATEGORY';
@@ -62,7 +66,7 @@ export class ModalComponentChooseCategory implements OnInit {
       }
       
     }
-
+    
     chooseProduct(nameProduct: Product){
       this.isProductChosen = true;
       this.MODALTITLE = 'PUBLISHING_IN';
@@ -80,28 +84,58 @@ export class ModalComponentChooseCategory implements OnInit {
       this.isProductChosen = false;
     }
     
-    submitProductCreation(){
-      console.log(this.myForm);
-      if (this.myForm.valid && this.imagesToUpload.length > 0) { // que haya mas de una foto
-        console.log(this.myForm.valid);
-        
+    
+    receiveImageFromChildren(imagesReceived: Array<File>){            
+      // if (imagesReceived.length <= 5) {
+      this.renderPreviewImg(imagesReceived); // to render in the view
+      // } else{   
+      // this.translator('MAXIMUM_IMAGE_STACK_EXCEEDED');
+      // }
+    }
+    
+    renderPreviewImg(imagesReceived: Array<File>){      
+      if (this.previewImages.length >= 5) {        
+        this.translator('MAXIMUM_IMAGE_STACK_EXCEEDED');
       }
-    }
-    
-    receiveImageFromChildren(imageReceived: File){
-      this.renderPreviewImg(imageReceived); // to render in the view
-    }
-    
-    renderPreviewImg(imageReceived: File){
-      var reader = new FileReader(); // si pones const no va ya que esta busy reading blobs???
-      reader.readAsDataURL(imageReceived);
       
-      reader.onload = () =>{
-        // this.imgPreview = reader.result;
-        this.previewImagesFromChildren.push(reader.result);
-        console.log(this.previewImagesFromChildren);
-        
+      Array.from(imagesReceived).forEach(file => { 
+        var reader = new FileReader(); // si pones const no va ya que esta busy reading blobs???
+        reader.readAsDataURL(file);
+        reader.onload = () =>{
+          if (this.previewImages.length < 5) {
+            this.previewImages.push(reader.result);  
+          } 
+        }
+      });
+    }
+    
+    uploadProduct(){
+      if (this.previewImages.length <= 0) {
+        this.translator('ONE_IMAGE_REQUIRED');
+      } else if(this.myForm.valid){
+        this.productChosen.photos = this.previewImages; // le igualo lo que tenia en preview???
+        this.productsProvider.createProduct(this.productChosen).subscribe((product: Product)=>{
+          console.log(product);
+          
+        })
+      } else{
+        this.translator('FORGOT_SOMETHING_VALIDATION');
       }
+    }
+    
+    translator(messageToTranslate: string){
+      this.translate.get(messageToTranslate).subscribe((data: string)=>{          
+        this.showToast(data);
+      })
+    }
+    
+    
+    showToast(data: string){
+      this.toastCtrl.create({
+        message: data,
+        duration: 2000,
+        position: 'top',
+      }).present();      
     }
   }
   

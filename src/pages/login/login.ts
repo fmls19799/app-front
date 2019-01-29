@@ -27,7 +27,6 @@ export class LoginPage implements OnInit{
   constructor(
     public navCtrl: NavController, 
     public toastCtrl: ToastController, 
-    public translateService: TranslateService, 
     private auth: AuthProvider,
     private formBuilder: FormBuilder,
     private translate: TranslateService,
@@ -54,8 +53,8 @@ export class LoginPage implements OnInit{
     
     doLogin(){
       if (this.myForm.valid) {
-        this.auth.login(this.user).subscribe((user: User)=>{                   
-          this.userStorage = user;
+        this.auth.login(this.user).subscribe((user: User)=>{  
+          this.userStorage = user;                                     
           if (this.userStorage) {
             this.saveInLocalStorage(this.userStorage);
             this.navCtrl.setRoot('HomePage')

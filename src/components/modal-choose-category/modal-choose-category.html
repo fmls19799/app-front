@@ -1,79 +1,72 @@
 <!-- CHOOSE PRODUCT -->
 <div *ngIf="!isProductChosen" class="modalChooseProduct">
-    <div class="top">
-      <div class="close">
-        <ion-icon name="close" (click)="closeModal()"></ion-icon>
-      </div>
-      <h6 (click)="closeModal()">{{ MODALTITLE | translate}} 
-        <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->
-      </h6>
+  <div class="top">
+    <div class="close">
+      <ion-icon name="close" (click)="closeModal()"></ion-icon>
     </div>
-    <div class="bottom">
-      <ion-row>
-        <ion-col *ngFor="let category of categories">
-          <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>
-          <span>{{category.name | translate }}</span>
-        </ion-col>
-      </ion-row>
+    <h6 (click)="closeModal()">{{ MODALTITLE | translate}} 
+      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->
+    </h6>
+  </div>
+  <div class="bottom">
+    <ion-row>
+      <ion-col *ngFor="let category of categories">
+        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>
+        <span>{{category.type | translate }}</span>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+
+<!-- PRODUCT CHOSEN -->
+<div *ngIf="isProductChosen" class="modalProductChosen">
+  <div class="top">
+    <div class="close">
+      <ion-icon name="close" (click)="closeModal()"></ion-icon>
     </div>
+    <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.type }}</span>
+      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->
+    </h6>
   </div>
   
-  <!-- PRODUCT CHOSEN -->
-  <div *ngIf="isProductChosen" class="modalProductChosen">
-    <div class="top">
-      <div class="close">
-        <ion-icon name="close" (click)="closeModal()"></ion-icon>
+  <section class="bottom">
+
+    <!-- <div class="imagesContainer" *ngFor="let previewImage of previewImages"> -->
+      <div class="imagesContainer">
+          <img [src]="previewImage" *ngFor="let previewImage of previewImages" alt="image">
       </div>
-      <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.name }}</span>
-        <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->
-      </h6>
+    <!-- </div> -->
+
+    <div class="mainWrapper">
+      <form [formGroup]="myForm" class="myForm" (ngSubmit)="uploadProduct()">
+        <ion-list>
+          <ion-item class="item-form-control" [ngClass]="{'has-error': myForm.controls.name.invalid && myForm.controls.name.touched}">
+            <ion-label floating>{{ 'NAME' | translate }}*</ion-label>
+            <ion-input formControlName="name" type="text" [(ngModel)]="productChosen.name">
+              
+            </ion-input>
+          </ion-item>
+          <ion-item class="item-form-control" [ngClass]="{'has-error': myForm.controls.description.invalid && myForm.controls.description.touched}">
+            <ion-label floating>{{ 'DESCRIPTION' | translate }}*</ion-label>
+            <ion-input formControlName="description" type="text" [(ngModel)]="productChosen.description">
+              
+            </ion-input>
+          </ion-item>
+          <ion-item class="item-form-control" [ngClass]="{'has-error': myForm.controls.price.invalid && myForm.controls.price.touched}">
+            <ion-label floating>{{ 'PRICE' | translate }}*</ion-label>
+            <ion-input formControlName="price" type="number" [(ngModel)]="productChosen.price">
+              
+            </ion-input>
+          </ion-item>
+          
+          <button type="submit" ion-button color="red" block>{{'UPLOAD_PRODUCT' | translate}}</button>
+          
+        </ion-list>
+      </form>
     </div>
-    <section class="bottom">
-      
-      
-      
-      
-      
-      
-      <!-- <fileuploader [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader> -->
+  </section>
   
-      
-      <!-- <img style="width: 50px;" [src]="imgPreview" (error)="onImgPreviewError()" class="img-preview"/> -->
-      
-      
-        <!-- <ion-icon *ngFor="let image of imagesToUpload" [name]="image"></ion-icon> -->
-  
-        <div class="fileList">
-            <fileuploader *ngFor="let image of [1,2,3,4,5,6,7,8,9,10]" [iconName]="'camera'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>
-        </div>
-       
-  
-      <div class="mainWrapper">
-        <form [formGroup]="myForm" class="myForm" (ngSubmit)="submitProductCreation()">
-          <ion-list>
-            <ion-item>
-              <ion-label floating>{{ 'NAME' | translate }}*</ion-label>
-              <ion-input formControlName="name" type="text">
-                
-              </ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label floating>{{ 'DESCRIPTION' | translate }}*</ion-label>
-              <ion-input formControlName="description" type="text">
-                
-              </ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label floating>{{ 'PRICE' | translate }}*</ion-label>
-              <ion-input formControlName="price" type="number">
-                
-              </ion-input>
-            </ion-item>
-            
-            <button type="submit" ion-button color="red" block>{{'UPLOAD_PRODUCT' | translate}}</button>
-            
-          </ion-list>
-        </form>
-      </div>
-    </section>
+  <div class="upload">
+    <fileuploader [multipleImages]="true" [iconName]="'camera-outline'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>
   </div>
+</div>

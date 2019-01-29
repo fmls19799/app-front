@@ -41,14 +41,11 @@ page-login, page-register{
     }
 }
 
-ion-input.item-form-control{
-    &.has-error{
-        // border-bottom: 1px solid red;
+// ion-item.item-form-control > .item-inner{
+    .has-error > .item-inner{
+        border-bottom: 1px solid #ff9090 !important;
     }
-    &.has-success{
-        // border-bottom: 1px solid green !important;
-    }
-}
+// }
 
 ion-menu{
     
