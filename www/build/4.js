@@ -109,8 +109,8 @@ var ProductDetailPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-product-detail',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/'\n<ion-header>\n  \n  <ion-navbar>\n    <div class="flex" right>\n      <ion-icon class="like" (click)="addOrRemoveLikeToThisProduct()" [name]="likingIcon"></ion-icon>\n      <ion-icon class="share" name="share-outline"></ion-icon>\n    </div>\n  </ion-navbar>\n  \n</ion-header>\n\n\n<ion-content padding>\n  <!-- <div class="wrapper" *ngIf="productToShow">\n    <div class="imgWrapper">\n      <img [src]="productToShow.photos[0]" alt="image">\n      <div class="counterWrapper">\n        <ion-icon class="likeSmall" name="heart-outline">\n          <span class="counter">{{productCounterLikes}}</span>\n        </ion-icon>\n      </div>\n    </div>\n    <div class="info">\n      <h2 class="price">\n        {{productToShow.price}}\n      </h2>\n      <h4 class="title">\n        {{productToShow.name}}\n      </h4>\n      <p class="summary">\n        {{productToShow.description}}\n      </p>\n    </div>\n  </div> -->\n</ion-content>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_3__providers_products_products__["a" /* ProductsProvider */]])
     ], ProductDetailPage);
     return ProductDetailPage;

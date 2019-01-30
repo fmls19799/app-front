@@ -64,7 +64,7 @@ modal-choose-category{
             // border: 1px solid blue;
             .imagesContainer{
                 padding: 10px;
-                border: 2px solid blue;
+                // border: 2px solid blue;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
@@ -75,7 +75,8 @@ modal-choose-category{
                     border: 1px solid #bfbfbf;
                     padding: 3px;
                     // width: 50px;
-                    height: 50px;
+                    // border: 1px solid blue;
+                    height: 80px;
                     border-radius: 5px;
                 }
             }

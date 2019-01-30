@@ -49,6 +49,10 @@
     
     "UPLOAD_PRODUCT": "Subir producto",
     "FORGOT_SOMETHING_VALIDATION": "Te has dejado algo, algunos campos son requeridos",
-    "MAXIMUM_IMAGE_STACK_EXCEEDED": "El máximo de fotos para subir es 5",
-    "ONE_IMAGE_REQUIRED": "Al menos una imagen es requerida"
+    "MAXIMUM_IMAGE_STACK_EXCEEDED": "El máximo de fotos para subir es 15",
+    "ONE_IMAGE_REQUIRED": "Al menos una imagen es requerida",
+    "PRODUCTS_NEW_AFTER_REFRESH": "productos nuevos",
+    "NO_NEW_PRODUCTS_AFTER_REFRESH": "No hay productos nuevos",
+    "PRODUCT_CREATED": "Producto creado satisfactoriamente"
+
 }

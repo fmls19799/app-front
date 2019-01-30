@@ -106,10 +106,10 @@ var SearchProductPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-search-product',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/search-product/search-product.html"*/'<ion-header>\n    <ion-navbar>\n      <div class="flex">\n        <ion-searchbar (ionChange)="findProducts(pattern)" [(ngModel)]="pattern"></ion-searchbar>\n        <div>\n          <ion-icon name="md-funnel"></ion-icon>\n        </div>\n      </div>\n    </ion-navbar>\n  </ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/search-product/search-product.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__["a" /* AuthProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */]])
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]])
     ], SearchProductPage);
     return SearchProductPage;
 }());

@@ -50,6 +50,9 @@
 
     "UPLOAD_PRODUCT": "Upload product",
     "FORGOT_SOMETHING_VALIDATION": "Forgot something, some information is required",
-    "MAXIMUM_IMAGE_STACK_EXCEEDED": "The maximum images to upload are 5",
-    "ONE_IMAGE_REQUIRED": "One image at least is required"
+    "MAXIMUM_IMAGE_STACK_EXCEEDED": "The maximum images to upload are 15",
+    "ONE_IMAGE_REQUIRED": "One image at least is required",
+    "PRODUCTS_NEW_AFTER_REFRESH": "new products",
+    "NO_NEW_PRODUCTS_AFTER_REFRESH": "No new products",
+    "PRODUCT_CREATED": "Product created successfully"
 }

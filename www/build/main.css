@@ -25836,7 +25836,6 @@ modal-choose-category .modalProductChosen .bottom {
 
 modal-choose-category .modalProductChosen .bottom .imagesContainer {
   padding: 10px;
-  border: 2px solid blue;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -25855,7 +25854,7 @@ modal-choose-category .modalProductChosen .bottom .imagesContainer img {
   margin: 3px;
   border: 1px solid #bfbfbf;
   padding: 3px;
-  height: 50px;
+  height: 80px;
   border-radius: 5px;
 }
 

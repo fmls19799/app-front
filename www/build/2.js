@@ -70,6 +70,7 @@ var User = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_user__ = __webpack_require__(338);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_products_products__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__ = __webpack_require__(43);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -85,8 +86,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var HomePage = /** @class */ (function () {
-    function HomePage(navCtrl, navParams, loadingCtrl, auth, modal, productsProvider, _sanitizer, toastCtrl) {
+    function HomePage(navCtrl, navParams, loadingCtrl, auth, modal, productsProvider, _sanitizer, toastCtrl, translate) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.loadingCtrl = loadingCtrl;
@@ -95,6 +97,7 @@ var HomePage = /** @class */ (function () {
         this.productsProvider = productsProvider;
         this._sanitizer = _sanitizer;
         this.toastCtrl = toastCtrl;
+        this.translate = translate;
         this.loader = null;
         this.user = new __WEBPACK_IMPORTED_MODULE_3__models_user__["a" /* User */]();
         this.products = [];
@@ -139,32 +142,25 @@ var HomePage = /** @class */ (function () {
         this.closeOpenedOnes(); // close detail of opened ones
         this.productsProvider.getAllProducts().subscribe(function (products) {
             if (refresher) {
-                // this.productsProvider.getAllProducts2().subscribe((products: Array<Product>)=>{            
-                _this.mergeArraysAndUniquifyThem(products);
-                console.log(1);
+                if (products.length > _this.products.length) {
+                    _this.showToast((Number(products.length) - Number(_this.products.length)).toString() + " products new");
+                    console.log('nuevos');
+                }
+                else {
+                    _this.translator('NO_NEW_PRODUCTS_AFTER_REFRESH');
+                    console.log('no');
+                }
                 refresher.complete();
-                // })
             }
-            else {
-                _this.products = products;
-            }
+            _this.products = products;
             _this.populateProductsList(); // split products in 3 columns
         });
-        // this.populateProductsList(); // split products in 3 columns
-        console.log(this.products);
     };
-    HomePage.prototype.mergeArraysAndUniquifyThem = function (newProducts) {
-        var allIncludingNew = this.products.concat(newProducts);
-        var uniqueonesaftermerge = this.getUnique(allIncludingNew, 'id');
-        if (uniqueonesaftermerge.length > this.products.length) {
-            this.addedOnes = Number(uniqueonesaftermerge.length) - Number(this.products.length);
-            this.showToast(this.addedOnes.toString() + " products new");
-        }
-        else {
-            this.showToast('No new products');
-        }
-        this.products = uniqueonesaftermerge;
-        this.populateProductsList();
+    HomePage.prototype.translator = function (textToTranslate) {
+        var _this = this;
+        this.translate.get(textToTranslate).subscribe(function (data) {
+            _this.showToast(data);
+        });
     };
     HomePage.prototype.showToast = function (message) {
         this.toastCtrl.create({
@@ -211,7 +207,7 @@ var HomePage = /** @class */ (function () {
     HomePage.prototype.showSmallDetail = function (productClicked) {
         var _this = this;
         return this.products.forEach(function (product) {
-            if (product.id === productClicked.id) {
+            if (product._id === productClicked._id) {
                 return _this.turnOpacity(product);
             }
         });
@@ -231,22 +227,16 @@ var HomePage = /** @class */ (function () {
     };
     HomePage.prototype.menuClick = function (event) {
         // ESTO PARA QUE???
-        // console.log(event); 
+        console.log(event);
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/home/home.html"*/'<!-- HEADER -->\n<ion-header>\n  <ion-navbar>\n    <!-- MENU TOGGLE -->\n    <ion-buttons start class="burger">\n      <!-- ESTE CLICK PARA QUE???? -->\n      <button ion-button icon-only menuToggle (click)="menuClick($event)"> \n        <ion-icon name="menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <!-- SEARCH BAR -->\n    <div class="flex">\n      <ion-searchbar (click)="searchingProduct(pattern)" [(ngModel)]="pattern"></ion-searchbar>\n    </div>\n  </ion-navbar>\n</ion-header>\n<!-- ION CONTENT -->\n<ion-content>\n  <!-- REFRESHER -->\n  <ion-refresher pullMin="100" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>\n  </ion-refresher>  \n  <!-- TOP PART -->\n  <div class="fixedTop">\n    <!-- SEARCH IN... -->\n    <div class="searchIn">\n      <div>\n        <h6>{{ \'SEARCH_IN\' | translate }}</h6>\n      </div>\n      <div>\n        <span>{{ \'SEE_ALL\' | translate }}\n          <!-- <ion-icon name="arrow-forward"></ion-icon> -->\n        </span>\n      </div>\n    </div>\n    <!-- SEARCH BY ICON -->\n    <div class="listOfProductsToChooseFrom">\n      <div *ngFor="let category of categories">\n        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>\n        <span>{{category.name | translate }}</span>\n      </div>\n    </div>\n  </div>\n  <!-- MAIN CONTENT -->\n  <div class="productsList">\n    <ion-row>\n      <!-- LEFT COLUMN -->\n      <ion-col>\n        <div class="product" *ngFor="let product of productColumn1">\n          <div class="container" [style]="product.randomHeight" [ngClass]="{\'increasesizeContainer\': product.opacity}">\n            <!-- {{ product.id }} -->\n            <div class="relative">\n              <img [src]="product.photos[0]" (click)="showSmallDetail(product)" alt="image" [ngClass]="{\'opacity03\': product.opacity}">\n              <!-- if clicked -->\n              <h6 class="goToProduct" *ngIf="product.opacity" (click)="goToProduct($event)">{{\'SEE\' | translate}} {{ product.name }}</h6>\n              <!-- fin if clicked -->\n            </div>\n            <div class="infoWrapper">\n              <h6 class="price">{{ product.price }} €</h6>\n              <span class="name">{{ product.name | titlecase}}</span>\n            </div>\n            <!-- IF CLICKED -->\n            <div class="showHiddenContent" *ngIf="product.opacity">\n              <div class="imagesGallery">\n                <img [src]="image" alt="image" *ngFor="let image of product.photos">\n              </div>\n              <small class="description">{{product.description}}</small>\n              <ion-icon [name]="product.icon"></ion-icon>\n            </div>\n            <!-- FIN IF CLICKED -->\n          </div>\n        </div>\n      </ion-col>\n      <!-- RIGHT COLUMN -->\n      <ion-col>\n        <div class="product" *ngFor="let product of productColumn2">\n          <div class="container" [style]="product.randomHeight" [ngClass]="{\'increasesizeContainer\': product.opacity}">\n            <!-- {{ product.id }} -->\n            <div class="relative">\n              <img [src]="product.photos[0]" (click)="showSmallDetail(product)" alt="image" [ngClass]="{\'opacity03\': product.opacity}">\n              <!-- if clicked -->\n              <h6 class="goToProduct" *ngIf="product.opacity" (click)="goToProduct(product)">{{\'SEE\' | translate}} {{ product.name }}</h6>\n              <!-- fin if clicked -->\n            </div>\n            <div class="infoWrapper">\n              <h6 class="price">{{ product.price }} €</h6>\n              <span class="name">{{ product.name | titlecase}}</span>\n            </div>\n            <!-- IF CLICKED -->\n            <div class="showHiddenContent" *ngIf="product.opacity">\n              <div class="imagesGallery">\n                <img [src]="image" alt="image" *ngFor="let image of product.photos">\n              </div>\n              <small class="description">{{product.description}}</small>\n              <ion-icon [name]="product.icon"></ion-icon>\n            </div>\n            <!-- FIN IF CLICKED -->\n          </div>\n        </div>\n      </ion-col>\n    </ion-row>\n    <!-- <ion-fab-button color="primary">Primary</ion-fab-button> -->\n  </div>\n</ion-content>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/home/home.html"*/,
+            selector: 'page-home',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/home/home.html"*/'<!-- HEADER -->\n<ion-header>\n  <ion-navbar>\n    <!-- MENU TOGGLE -->\n    <ion-buttons start class="burger">\n      <!-- ESTE CLICK PARA QUE???? -->\n      <button ion-button icon-only menuToggle (click)="menuClick($event)"> \n        <ion-icon name="menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <!-- SEARCH BAR -->\n    <div class="flex">\n      <ion-searchbar (click)="searchingProduct(pattern)" [(ngModel)]="pattern"></ion-searchbar>\n    </div>\n  </ion-navbar>\n</ion-header>\n<!-- ION CONTENT -->\n<ion-content>\n  <!-- REFRESHER -->\n  <ion-refresher pullMin="100" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>\n  </ion-refresher>  \n  <!-- TOP PART -->\n  <div class="fixedTop">\n    <!-- SEARCH IN... -->\n    <div class="searchIn">\n      <div>\n        <h6>{{ \'SEARCH_IN\' | translate }}</h6>\n      </div>\n      <div>\n        <span>{{ \'SEE_ALL\' | translate }}\n          <!-- <ion-icon name="arrow-forward"></ion-icon> -->\n        </span>\n      </div>\n    </div>\n    <!-- SEARCH BY ICON -->\n    <div class="listOfProductsToChooseFrom">\n      <div *ngFor="let category of categories">\n        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>\n        <span>{{category.name | translate }}</span>\n      </div>\n    </div>\n  </div>\n  <!-- MAIN CONTENT -->\n  <div class="productsList">\n    <ion-row>\n      <!-- LEFT COLUMN -->\n      <ion-col>\n        <div class="product" *ngFor="let product of productColumn1">\n          <div class="container" [style]="product.randomHeight" [ngClass]="{\'increasesizeContainer\': product.opacity}">\n            <div class="relative">\n              <img [src]="product.photos[0]" (click)="showSmallDetail(product)" alt="image" [ngClass]="{\'opacity03\': product.opacity}">\n              <!-- if clicked -->\n              <h6 class="goToProduct" *ngIf="product.opacity" (click)="goToProduct($event)">{{\'SEE\' | translate}} {{ product.name }}</h6>\n              <!-- fin if clicked -->\n            </div>\n            <div class="infoWrapper">\n              <h6 class="price">{{ product.price }} €</h6>\n              <span class="name">{{ product.name | titlecase}}</span>\n            </div>\n            <!-- IF CLICKED -->\n            <div class="showHiddenContent" *ngIf="product.opacity">\n              <div class="imagesGallery">\n                <img [src]="image" alt="image" *ngFor="let image of product.photos">\n              </div>\n              <small class="description">{{product.description}}</small>\n              <ion-icon [name]="product.icon"></ion-icon>\n            </div>\n            <!-- FIN IF CLICKED -->\n          </div>\n        </div>\n      </ion-col>\n      <!-- RIGHT COLUMN -->\n      <ion-col>\n        <div class="product" *ngFor="let product of productColumn2">\n          <div class="container" [style]="product.randomHeight" [ngClass]="{\'increasesizeContainer\': product.opacity}">\n            <div class="relative">\n              <img [src]="product.photos[0]" (click)="showSmallDetail(product)" alt="image" [ngClass]="{\'opacity03\': product.opacity}">\n              <!-- if clicked -->\n              <h6 class="goToProduct" *ngIf="product.opacity" (click)="goToProduct(product)">{{\'SEE\' | translate}} {{ product.name }}</h6>\n              <!-- fin if clicked -->\n            </div>\n            <div class="infoWrapper">\n              <h6 class="price">{{ product.price }} €</h6>\n              <span class="name">{{ product.name | titlecase}}</span>\n            </div>\n            <!-- IF CLICKED -->\n            <div class="showHiddenContent" *ngIf="product.opacity">\n              <div class="imagesGallery">\n                <img [src]="image" alt="image" *ngFor="let image of product.photos">\n              </div>\n              <small class="description">{{product.description}}</small>\n              <ion-icon [name]="product.icon"></ion-icon>\n            </div>\n            <!-- FIN IF CLICKED -->\n          </div>\n        </div>\n      </ion-col>\n    </ion-row>\n    <!-- <ion-fab-button color="primary">Primary</ion-fab-button> -->\n  </div>\n</ion-content>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/home/home.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */],
-            __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__["a" /* AuthProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* ModalController */],
-            __WEBPACK_IMPORTED_MODULE_4__providers_products_products__["a" /* ProductsProvider */],
-            __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["c" /* DomSanitizer */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* LoadingController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__["a" /* AuthProvider */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__providers_products_products__["a" /* ProductsProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_products_products__["a" /* ProductsProvider */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["c" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["c" /* DomSanitizer */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__["c" /* TranslateService */]) === "function" && _j || Object])
     ], HomePage);
     return HomePage;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 }());
 
 //# sourceMappingURL=home.js.map

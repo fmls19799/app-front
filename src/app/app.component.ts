@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Config, Nav, Platform, NavController, ViewController, ToastController, Modal, ModalController } from 'ionic-angular';
+import { Config, Nav, Platform, NavController, ViewController, ToastController, Modal, ModalController, MenuController } from 'ionic-angular';
 import { CONFIG } from '../config/config.int'; // AQUI DEFINO EL ENTORNO !!!
 import { Utils } from './../providers/utils';
 import { AuthProvider } from './../providers/auth/auth';
@@ -57,6 +57,7 @@ export class MyApp implements OnInit{
   ]
   
   @ViewChild(Nav) nav: Nav;
+  @ViewChild('menutoggle') menutoggle: any;
   
   constructor(private translate: TranslateService, 
     private platform: Platform, 
@@ -67,6 +68,7 @@ export class MyApp implements OnInit{
     private auth: AuthProvider,
     private toast: ToastController,
     private modalCtrl: ModalController,
+    private menuController: MenuController
     // private viewCtrl: ViewController
     ) {
       
@@ -83,8 +85,15 @@ export class MyApp implements OnInit{
       // console.log(this.viewCtrl);
       
     }
+
+    closeMenu(){
+      this.menuController.close();
+    }
     
     ngOnInit(){
+      console.log(this.menutoggle);
+      console.log('dasdassad');
+      
       // set root page at first load and environment
       this.rootPage = 'HomePage';
       this.environment = CONFIG.ENV;
@@ -123,14 +132,14 @@ export class MyApp implements OnInit{
             this.isLogged = true;
             this.userLocalStorage = this.auth.getUserFromLocalStorage;
             this.nav.setRoot('HomePage');
-            console.log('auth');
+            // console.log('auth');
           
           } else{
-            console.log('not auth');
+            // console.log('not auth');
           
           }
-          console.log(1, !publicPagesRegex.test(this.currentPage) && (!this.isLogged));
-          console.log(2, (!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged);
+          // console.log(1, !publicPagesRegex.test(this.currentPage) && (!this.isLogged));
+          // console.log(2, (!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged);
           
           // if current page is not login / register, set login as root
           // if ((!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged) {
@@ -185,6 +194,7 @@ export class MyApp implements OnInit{
         
         if (icon.active) {
           // icon.icon = icon.icon.substring(0, icon.icon.indexOf('-outline'));
+          this.closeMenu();
           this.goToSelectedTab(icon);
         } 
         
@@ -197,7 +207,7 @@ export class MyApp implements OnInit{
     
     // GO TO SELECTED SEGMENT
     goToSelectedTab(icon: any){
-      console.log('goto', icon);
+      // console.log('goto', icon);
       
       switch (icon.name) {
         case 'upload': this.modalCtrl.create(ModalComponentChooseCategory).present(); 

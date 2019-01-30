@@ -47,7 +47,8 @@ export class ModalComponentChooseCategory implements OnInit {
     private formBuilder: FormBuilder,
     private translate: TranslateService,
     private toastCtrl: ToastController,
-    private productsProvider: ProductsProvider) {
+    private productsProvider: ProductsProvider,
+    private navCtrl: NavController) {
       
       this.myForm = this.formBuilder.group({
         name: new FormControl('',[Validators.required, Validators.maxLength(10)]),
@@ -94,15 +95,15 @@ export class ModalComponentChooseCategory implements OnInit {
     }
     
     renderPreviewImg(imagesReceived: Array<File>){      
-      if (this.previewImages.length >= 5) {        
-        this.translator('MAXIMUM_IMAGE_STACK_EXCEEDED');
+      if (this.previewImages.length >= 15) {        
+        this.translator('MAXIMUM_IMAGE_STACK_EXCEEDED', null);
       }
       
       Array.from(imagesReceived).forEach(file => { 
         var reader = new FileReader(); // si pones const no va ya que esta busy reading blobs???
         reader.readAsDataURL(file);
         reader.onload = () =>{
-          if (this.previewImages.length < 5) {
+          if (this.previewImages.length < 15) {
             this.previewImages.push(reader.result);  
           } 
         }
@@ -111,32 +112,45 @@ export class ModalComponentChooseCategory implements OnInit {
     
     uploadProduct(){
       if (this.previewImages.length <= 0) {
-        this.translator('ONE_IMAGE_REQUIRED');
+        this.translator('ONE_IMAGE_REQUIRED', null);
       } else if(this.myForm.valid){
-        this.productChosen.photos = this.previewImages; // le igualo lo que tenia en preview???
-        this.productsProvider.createProduct(this.productChosen).subscribe((product: Product)=>{
-          console.log(product);
+        // this.productChosen.photos = this.previewImages; // le igualo lo que tenia en preview???  DESCOMENTAR ESTO????       
+        this.productsProvider.createProduct(this.productChosen).subscribe((res: any)=>{
+          if (res.error === null) {  // por ejemplo, HACER ESTO???
+            // ERROR
+          } else{
+            this.translator('PRODUCT_CREATED', true);
+          
+          }
           
         })
       } else{
-        this.translator('FORGOT_SOMETHING_VALIDATION');
+        this.translator('FORGOT_SOMETHING_VALIDATION', null);
       }
     }
     
-    translator(messageToTranslate: string){
+    translator(messageToTranslate: string, closeAfterDismissedToast: boolean){
       this.translate.get(messageToTranslate).subscribe((data: string)=>{          
-        this.showToast(data);
+        this.showToast(data, closeAfterDismissedToast);
       })
     }
     
     
-    showToast(data: string){
-      this.toastCtrl.create({
+    showToast(data: string, closeAfterDismissedToast: boolean){
+      let toast = this.toastCtrl.create({
         message: data,
         duration: 2000,
         position: 'top',
-      }).present();      
+      })
+      toast.present();
+      if (closeAfterDismissedToast) {
+        toast.onDidDismiss(()=>{
+          this.viewCtrl.dismiss();
+          this.navCtrl.setRoot('HomePage'); //NO ME DEJA HABRIR EL MENU DE NUEVO VER ESTO ??????  NO DEBERIA HACERLO ASI SINO UN SIMPLE GET DEL PROVIDER DE HOME AGAIN????
+        })
+      }
     }
   }
+  
   
   

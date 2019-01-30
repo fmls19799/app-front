@@ -61,7 +61,10 @@ export class AppHttpInterceptorProvider implements HttpInterceptor {
                     showLoader: !noLoaderHeader || (noLoaderHeader && noLoaderHeader !== 'true')
                 });
                 
+                // let a = false;
                 if (req.headers.get('Content-Type') && req.headers.get('Content-Type') === 'multipart/form-data') {
+                    console.log('TIPO FOTO');
+                    
                     req = req.clone({
                         headers: req.headers
                         .delete('Loader-Text')
@@ -73,6 +76,8 @@ export class AppHttpInterceptorProvider implements HttpInterceptor {
                         // .append('env', CONFIG.ENV)
                     });
                 } else {
+                    console.log('TIPO JSON');
+                    
                     req = req.clone({
                         headers: req.headers
                         .delete('Loader-Text')

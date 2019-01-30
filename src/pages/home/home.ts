@@ -7,6 +7,7 @@ import { SearchProductPage } from './../search-product/search-product';
 import { ProductsProvider } from './../../providers/products/products';
 import { Product } from './../../models/product';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 @IonicPage()
 @Component({
@@ -57,7 +58,8 @@ export class HomePage implements OnInit{
     private modal: ModalController,
     private productsProvider: ProductsProvider,
     private _sanitizer: DomSanitizer,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private translate: TranslateService) {
       
     }
     
@@ -66,7 +68,7 @@ export class HomePage implements OnInit{
     }
     
     
-    ngOnInit(){
+    ngOnInit(){      
       this.getAllProducts();
     }
     
@@ -76,41 +78,29 @@ export class HomePage implements OnInit{
       this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{
         
         if (refresher) { // stop refresher after i got resuls, if im doing refresher, only include new ones instead adding them all ???
-          // this.productsProvider.getAllProducts2().subscribe((products: Array<Product>)=>{            
-          this.mergeArraysAndUniquifyThem(products);
-          console.log(1);
-          
+          if (products.length > this.products.length) {
+            this.showToast(`${(Number(products.length) - Number(this.products.length)).toString()} products new`);
+            console.log('nuevos');
+            
+          } else{
+            this.translator('NO_NEW_PRODUCTS_AFTER_REFRESH');
+            console.log('no');
+            
+          }
           refresher.complete();
-          // })
-        } else{
-          this.products = products;           
-        }
+        } 
+        this.products = products;           
         this.populateProductsList(); // split products in 3 columns
       })
-      
-      // this.populateProductsList(); // split products in 3 columns
-      
-      console.log(this.products);
-      
+    }
+
+    translator(textToTranslate: string){
+      this.translate.get(textToTranslate).subscribe((data: string)=>{        
+        this.showToast(data);
+      })
     }
     
-    
-    
-    
-    
-    mergeArraysAndUniquifyThem(newProducts: Array<Product>){
-      let allIncludingNew = this.products.concat(newProducts);
-      let uniqueonesaftermerge = this.getUnique(allIncludingNew,'id');
-      if (uniqueonesaftermerge.length > this.products.length) {                            
-        this.addedOnes = Number(uniqueonesaftermerge.length) - Number(this.products.length)              
-        this.showToast(`${this.addedOnes.toString()} products new`);
-      } else{
-        this.showToast('No new products');
-      }
-      this.products = uniqueonesaftermerge;    
-      this.populateProductsList();
-    }
-    
+
     showToast(message: string){
       
       this.toastCtrl.create({
@@ -163,9 +153,9 @@ export class HomePage implements OnInit{
       this.getAllProducts(refresher);
     }
     
-    showSmallDetail(productClicked: Product){
-      return this.products.forEach(product => {
-        if (product.id === productClicked.id) {
+    showSmallDetail(productClicked: Product){            
+      return this.products.forEach(product => {        
+        if (product._id === productClicked._id) {
           return this.turnOpacity(product);
         }
       });
@@ -187,7 +177,7 @@ export class HomePage implements OnInit{
     
     menuClick(event: any){
       // ESTO PARA QUE???
-      // console.log(event); 
+      console.log(event); 
       
     }
   }
