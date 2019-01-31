@@ -32,8 +32,8 @@ export class AuthProvider {
   //quitar any???
   login(user: User): Observable<User | HttpErrorResponse> {    
     return this.http.post<User>(`${AuthProvider.ENDPOINT}/sessions`, user).map((data: any)=>{
-      // PONER TODO ESTO BIEN ORDENADO QUE EL USER LO COJA DEL SERVICIO NO GUARDARLO EN EL LOGIN???
-      this.user = data;
+      this.user = data; // IF GOOD???
+      this.saveInLocalStorage(this.user)
       return data;
     });
   }
@@ -42,13 +42,17 @@ export class AuthProvider {
     return localStorage.getItem('user') ? true : false;
   }
   
-  getUserFromLocalStorage():any{
+  saveInLocalStorage(user: User){
+    localStorage.setItem('user', JSON.stringify(user));    
+  }
+  
+  getUserFromLocalStorage():any{    
     return localStorage.getItem('user');
   }
   
-  rememberMe():boolean{
-    return localStorage.getItem('rememberMe') ? true : false;
-  }
+  // rememberMe():boolean{
+  //   return localStorage.getItem('rememberMe') ? true : false;
+  // }
   
   
 }

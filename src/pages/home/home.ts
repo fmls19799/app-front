@@ -79,13 +79,9 @@ export class HomePage implements OnInit{
         
         if (refresher) { // stop refresher after i got resuls, if im doing refresher, only include new ones instead adding them all ???
           if (products.length > this.products.length) {
-            this.showToast(`${(Number(products.length) - Number(this.products.length)).toString()} products new`);
-            console.log('nuevos');
-            
+            this.showToast(`${(Number(products.length) - Number(this.products.length)).toString()} products new`);            
           } else{
-            this.translator('NO_NEW_PRODUCTS_AFTER_REFRESH');
-            console.log('no');
-            
+            this.translator('NO_NEW_PRODUCTS_AFTER_REFRESH');            
           }
           refresher.complete();
         } 
@@ -93,14 +89,14 @@ export class HomePage implements OnInit{
         this.populateProductsList(); // split products in 3 columns
       })
     }
-
+    
     translator(textToTranslate: string){
       this.translate.get(textToTranslate).subscribe((data: string)=>{        
         this.showToast(data);
       })
     }
     
-
+    
     showToast(message: string){
       
       this.toastCtrl.create({
@@ -109,18 +105,6 @@ export class HomePage implements OnInit{
         position: 'top',
       }).present();
     }
-    
-    
-    getUnique(arr, comp) {
-      const unique = arr
-      .map(e => e[comp])
-      // store the keys of the unique objects
-      .map((e, i, final) => final.indexOf(e) === i && i)
-      // eliminate the dead keys & store unique objects
-      .filter(e => arr[e]).map(e => arr[e]);
-      return unique;
-    }
-    
     
     closeOpenedOnes(){
       this.products.forEach(product => {

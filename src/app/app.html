@@ -19,7 +19,7 @@
     <ion-content>
       <ion-list>
         <ion-item *ngFor="let icon of icons">
-          <div (click)="colorIcons(icon.name)">
+          <div (click)="goToSelectedTab(icon.name)">
             <span>{{ icon.name | translate | titlecase}}</span>
           </div>
         </ion-item>

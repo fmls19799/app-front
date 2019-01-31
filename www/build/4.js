@@ -1,14 +1,16 @@
 webpackJsonp([4],{
 
-/***/ 335:
+/***/ 332:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProductDetailPageModule", function() { return ProductDetailPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SearchProductPageModule", function() { return SearchProductPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__product_detail__ = __webpack_require__(342);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__search_product__ = __webpack_require__(343);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(224);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,35 +20,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ProductDetailPageModule = /** @class */ (function () {
-    function ProductDetailPageModule() {
+
+
+var SearchProductPageModule = /** @class */ (function () {
+    function SearchProductPageModule() {
     }
-    ProductDetailPageModule = __decorate([
+    SearchProductPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__product_detail__["a" /* ProductDetailPage */],
+                __WEBPACK_IMPORTED_MODULE_2__search_product__["a" /* SearchProductPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__product_detail__["a" /* ProductDetailPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__search_product__["a" /* SearchProductPage */]),
+                __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["b" /* TranslateModule */].forChild(),
+                __WEBPACK_IMPORTED_MODULE_4__components_components_module__["a" /* CustomComponentsModule */]
             ],
         })
-    ], ProductDetailPageModule);
-    return ProductDetailPageModule;
+    ], SearchProductPageModule);
+    return SearchProductPageModule;
 }());
 
-//# sourceMappingURL=product-detail.module.js.map
+//# sourceMappingURL=search-product.module.js.map
 
 /***/ }),
 
-/***/ 342:
+/***/ 343:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductDetailPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchProductPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_product__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_products_products__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__ = __webpack_require__(56);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -59,64 +64,57 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
-var ProductDetailPage = /** @class */ (function () {
-    function ProductDetailPage(navCtrl, navParams, productsProvider) {
+var SearchProductPage = /** @class */ (function () {
+    function SearchProductPage(navCtrl, navParams, auth, toastCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.productsProvider = productsProvider;
-        this.productToShow = new __WEBPACK_IMPORTED_MODULE_2__models_product__["a" /* Product */]();
-        this.productCounterLikes = 0; // QUE SEA DINAMICO PONER EN SU MODELO???
+        this.auth = auth;
+        this.toastCtrl = toastCtrl;
     }
-    ProductDetailPage.prototype.ngOnInit = function () {
-        this.productToShow = this.navParams.data;
-        this.isLiking();
-    };
-    ProductDetailPage.prototype.isLiking = function () {
-        if (!this.liking) {
-            this.likingIcon = 'heart-outline';
-            this.liking = false;
-            console.log(1, this.likingIcon);
-            console.log(2.1, this.liking);
+    SearchProductPage.prototype.findProducts = function (pattern) {
+        var _this = this;
+        //DEBERIA CARGAR TODO LA PRIMERA VEZ QUE SE ENTRA EN HOME Y QUE AHORA NO SE HAGA LLAMADA SINO HACER UN PIPE LOCALMENTE ???
+        if (pattern.length % 3 === 0 && pattern.length !== 0) {
+            var user = {
+                name: 'francisco',
+                email: 'fmls1989@gmail.com',
+                password: 'Berna123'
+            };
+            this.auth.login(user).subscribe(function (user) {
+                if (user) {
+                    console.log('good');
+                    _this.showToast('we have found 3 items');
+                }
+            }, function (error) {
+                console.log('error', error);
+            });
         }
-        else {
-            this.likingIcon = 'heart';
-            this.liking = true;
-            console.log(2, this.likingIcon);
-            console.log(2.1, this.liking);
-        }
     };
-    // PONER ESTO CON SUBJECT ASI APRENDO??? SI FUESE ENTRAR MAS ADETRO SI HARIA FALTA SUBJECT???
-    ProductDetailPage.prototype.ionViewDidLoad = function () {
-        this.productToShow = this.navParams.data;
-        console.log(this.productToShow);
+    // translator(messageToTranslate: string){
+    //   this.translate.get(messageToTranslate).subscribe((data: string)=>{          
+    //     this.showToast(data);
+    //   })
+    // }
+    SearchProductPage.prototype.showToast = function (data) {
+        this.toastCtrl.create({
+            message: data,
+            duration: 2000,
+            position: 'top',
+        }).present();
     };
-    ProductDetailPage.prototype.addOrRemoveLikeToThisProduct = function () {
-        // this.liking = !this.liking;
-        this.likingIcon = 'heart-outline';
-        this.isLiking();
-        // if (condition) {
-        //   this.productsProvider.likeProduct(this.productToShow).subscribe((product: Product)=>{
-        //     console.log(product);
-        //   })
-        // } else{
-        //   this.productsProvider.unlikeProduct(this.productToShow).subscribe((product: Product)=>{
-        //     console.log(product);
-        //   })
-        // }
-    };
-    ProductDetailPage = __decorate([
+    SearchProductPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-product-detail',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/'\n<ion-header>\n  \n  <ion-navbar>\n    <div class="flex" right>\n      <ion-icon class="like" (click)="addOrRemoveLikeToThisProduct()" [name]="likingIcon"></ion-icon>\n      <ion-icon class="share" name="share-outline"></ion-icon>\n    </div>\n  </ion-navbar>\n  \n</ion-header>\n\n\n<ion-content padding>\n  <!-- <div class="wrapper" *ngIf="productToShow">\n    <div class="imgWrapper">\n      <img [src]="productToShow.photos[0]" alt="image">\n      <div class="counterWrapper">\n        <ion-icon class="likeSmall" name="heart-outline">\n          <span class="counter">{{productCounterLikes}}</span>\n        </ion-icon>\n      </div>\n    </div>\n    <div class="info">\n      <h2 class="price">\n        {{productToShow.price}}\n      </h2>\n      <h4 class="title">\n        {{productToShow.name}}\n      </h4>\n      <p class="summary">\n        {{productToShow.description}}\n      </p>\n    </div>\n  </div> -->\n</ion-content>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/,
+            selector: 'page-search-product',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/search-product/search-product.html"*/'<ion-header>\n    <ion-navbar>\n      <div class="flex">\n        <ion-searchbar (ionChange)="findProducts(pattern)" [(ngModel)]="pattern"></ion-searchbar>\n        <div>\n          <ion-icon name="md-funnel"></ion-icon>\n        </div>\n      </div>\n    </ion-navbar>\n  </ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/search-product/search-product.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_3__providers_products_products__["a" /* ProductsProvider */]])
-    ], ProductDetailPage);
-    return ProductDetailPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__["a" /* AuthProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* ToastController */]])
+    ], SearchProductPage);
+    return SearchProductPage;
 }());
 
-//# sourceMappingURL=product-detail.js.map
+//# sourceMappingURL=search-product.js.map
 
 /***/ })
 

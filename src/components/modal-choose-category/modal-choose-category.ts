@@ -114,7 +114,7 @@ export class ModalComponentChooseCategory implements OnInit {
       if (this.previewImages.length <= 0) {
         this.translator('ONE_IMAGE_REQUIRED', null);
       } else if(this.myForm.valid){
-        // this.productChosen.photos = this.previewImages; // le igualo lo que tenia en preview???  DESCOMENTAR ESTO????       
+        this.productChosen.photos = this.previewImages; // le igualo lo que tenia en preview???  DESCOMENTAR ESTO????       
         this.productsProvider.createProduct(this.productChosen).subscribe((res: any)=>{
           if (res.error === null) {  // por ejemplo, HACER ESTO???
             // ERROR

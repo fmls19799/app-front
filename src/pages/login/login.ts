@@ -40,12 +40,11 @@ export class LoginPage implements OnInit{
     
     
     ngOnInit(){
-      // poner mejor esto ???
-      // USER SAVED IN LOCAL STORAGE
-      if(localStorage.getItem('user')){
-        this.userStorage = JSON.parse(localStorage.getItem('user'));
-        this.user = this.userStorage;
-      } 
+
+      this.user = {
+        email: 'fmls1989@gmail.com',
+        password: 'Berna123'
+      }
       
       //CHECK PLATFORM TO CHANGE HTML VIEW
       this.isCordova = this.utils.isCordova();        
@@ -56,7 +55,6 @@ export class LoginPage implements OnInit{
         this.auth.login(this.user).subscribe((user: User)=>{  
           this.userStorage = user;                                     
           if (this.userStorage) {
-            this.saveInLocalStorage(this.userStorage);
             this.navCtrl.setRoot('HomePage')
           }
         },
@@ -86,10 +84,6 @@ export class LoginPage implements OnInit{
     
     forgotPassword(){
       console.log('forgot password');
-    }
-    
-    saveInLocalStorage(userStorage: User){
-      localStorage.setItem('user', JSON.stringify(userStorage));
     }
     
     redirectToRegister(){

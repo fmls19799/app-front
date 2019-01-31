@@ -7,6 +7,7 @@ import { CONFIG } from '../config/config.int'; // AQUI DEFINO EL ENTORNO !!!
 import { Utils } from './../providers/utils';
 import { AuthProvider } from './../providers/auth/auth';
 import { ModalComponentChooseCategory } from '../components/modal-choose-category/modal-choose-category';
+import { ChatPage } from 'src/pages/chat/chat';
 // import { CONFIG } from '@environment';
 
 @Component({
@@ -69,7 +70,6 @@ export class MyApp implements OnInit{
     private toast: ToastController,
     private modalCtrl: ModalController,
     private menuController: MenuController
-    // private viewCtrl: ViewController
     ) {
       
       platform.ready().then(() => {
@@ -85,15 +85,12 @@ export class MyApp implements OnInit{
       // console.log(this.viewCtrl);
       
     }
-
+    
     closeMenu(){
       this.menuController.close();
     }
     
     ngOnInit(){
-      console.log(this.menutoggle);
-      console.log('dasdassad');
-      
       // set root page at first load and environment
       this.rootPage = 'HomePage';
       this.environment = CONFIG.ENV;
@@ -125,18 +122,20 @@ export class MyApp implements OnInit{
           } else{
             this.showTabs = true;
           }
+
           const publicPagesRegex = /login|register|LoginPage|RegisterPage/;
           
           // check user is logged in          
-          if (this.auth.isLoggedIn()) {
+          if (this.auth.isLoggedIn()) {            
             this.isLogged = true;
-            this.userLocalStorage = this.auth.getUserFromLocalStorage;
+            this.userLocalStorage = this.auth.getUserFromLocalStorage();
+            
             this.nav.setRoot('HomePage');
             // console.log('auth');
-          
+            
           } else{
-            // console.log('not auth');
-          
+            console.log('not auth');
+            
           }
           // console.log(1, !publicPagesRegex.test(this.currentPage) && (!this.isLogged));
           // console.log(2, (!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged);
@@ -186,40 +185,24 @@ export class MyApp implements OnInit{
       
     }
     
-    colorIcons(nameOfTab: string){
-      
-      // COLOR ICON IF SELECTED
-      this.icons.forEach(icon => {
-        icon.active = (nameOfTab === icon.name) ? true : false;
-        
-        if (icon.active) {
-          // icon.icon = icon.icon.substring(0, icon.icon.indexOf('-outline'));
-          this.closeMenu();
-          this.goToSelectedTab(icon);
-        } 
-        
-        // if (!(icon.icon.includes('-outline')) && !icon.active) {
-        //   icon.icon = icon.icon.concat('-outline');
-        // }
-        
-      });
-    }
-    
     // GO TO SELECTED SEGMENT
-    goToSelectedTab(icon: any){
-      // console.log('goto', icon);
-      
-      switch (icon.name) {
+    goToSelectedTab(icon: any){                
+      switch (icon) {
         case 'upload': this.modalCtrl.create(ModalComponentChooseCategory).present(); 
-        
+        break;
+        case 'profile': this.nav.push('ProfilePage'); 
+        break;
+        case 'map': this.nav.push('MapPage');  
+        break;
+        case 'chat': this.nav.push('ChatPage');
+        break;
+        case 'settings': this.nav.push('SettingsPage');
         break;
         
         default:
         break;
       }
+      this.menuController.close();
     }
-    
-    
   }
-  
   
