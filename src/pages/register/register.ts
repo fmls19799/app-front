@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { TranslateService } from '@ngx-translate/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { PATTERNS } from '../../shared/constants';
-import { ApiError } from 'src/models/ApiError';
+import { ApiError } from './../../models/ApiError';
 import { AuthProvider } from './../../providers/auth/auth';
 
 @IonicPage()

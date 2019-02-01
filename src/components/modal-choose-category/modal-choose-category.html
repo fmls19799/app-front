@@ -32,7 +32,7 @@
   <section class="bottom">
 
     <!-- <div class="imagesContainer" *ngFor="let previewImage of previewImages"> -->
-      <div class="imagesContainer">
+      <div class="imagesContainer" [ngClass]="{'increaseDivWtapper': increaseImageWrapperHeight}">
           <img [src]="previewImage" *ngFor="let previewImage of previewImages" alt="image">
       </div>
     <!-- </div> -->

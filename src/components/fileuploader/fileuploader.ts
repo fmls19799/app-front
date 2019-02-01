@@ -33,7 +33,7 @@ export class FileuploaderComponent implements OnInit{
     this.file.nativeElement.click(); // desde un icono ejecuto apertura del file y se ejecuta en la funcion de abajo
   }
   
-  fileChangeEvent($event: any){        
+  fileChangeEvent(images: HTMLInputElement,$event: any){  
     this.imagesPicked = $event.target.files;
     this.uploadFileFromChildrenToParent.emit(this.imagesPicked); // le envio la imagen al padre
   }

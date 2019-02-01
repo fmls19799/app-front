@@ -5,7 +5,7 @@ export class Product {
     description: string;
     price: number;
     type: string;
-    photos: Array<File>;
+    photos: Array<File> = [];
     
     km: number;
     randomHeight?: any;

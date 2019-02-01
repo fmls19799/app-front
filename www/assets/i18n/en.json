@@ -54,5 +54,7 @@
     "ONE_IMAGE_REQUIRED": "One image at least is required",
     "PRODUCTS_NEW_AFTER_REFRESH": "new products",
     "NO_NEW_PRODUCTS_AFTER_REFRESH": "No new products",
-    "PRODUCT_CREATED": "Product created successfully"
+    "PRODUCT_CREATED": "Product created successfully",
+    "LOGGED_OUT": "Logged out successfully"
+
 }

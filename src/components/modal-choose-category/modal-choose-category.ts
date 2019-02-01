@@ -5,6 +5,7 @@ import { Product } from './../../models/product';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { ProductsProvider } from './../../providers/products/products';
+import { ApiError } from './../../models/ApiError';
 
 @Component({
   selector: 'modal-choose-category',
@@ -19,7 +20,7 @@ export class ModalComponentChooseCategory implements OnInit {
   productChosen: Product = new Product();
   MODALTITLE: string = '';
   previewImages: any = [];
-  
+  increaseImageWrapperHeight: boolean;
   
   myForm: FormGroup;
   
@@ -52,28 +53,21 @@ export class ModalComponentChooseCategory implements OnInit {
       
       this.myForm = this.formBuilder.group({
         name: new FormControl('',[Validators.required, Validators.maxLength(10)]),
-        description: new FormControl('',[Validators.required, Validators.maxLength(10)]),
+        description: new FormControl('',[Validators.required, Validators.maxLength(200)]),
         price: new FormControl('',[Validators.required])
       })
     }
     
-    ngOnInit(){        
-      console.log(this.productChosen);
-      
+    ngOnInit(){              
       if (this.productChosen) {
-        this.MODALTITLE = 'CHOOSE_CATEGORY';
-        console.log(this.MODALTITLE);
-        
+        this.MODALTITLE = 'CHOOSE_CATEGORY';        
       }
-      
     }
     
     chooseProduct(nameProduct: Product){
       this.isProductChosen = true;
       this.MODALTITLE = 'PUBLISHING_IN';
-      this.productChosen = nameProduct;
-      console.log(nameProduct);
-      
+      this.productChosen = nameProduct;      
     }
     
     closeModal(){
@@ -86,15 +80,22 @@ export class ModalComponentChooseCategory implements OnInit {
     }
     
     
-    receiveImageFromChildren(imagesReceived: Array<File>){            
-      // if (imagesReceived.length <= 5) {
+    receiveImageFromChildren(imagesReceived: Array<File>){  
+      this.productChosen.photos = []; // cada vez que pongo fotos lo vacio para que entre limpio???  
+      
+      Array.from(imagesReceived).forEach(file => { 
+        this.productChosen.photos.push(file)
+      });
+      
       this.renderPreviewImg(imagesReceived); // to render in the view
-      // } else{   
-      // this.translator('MAXIMUM_IMAGE_STACK_EXCEEDED');
-      // }
+      
     }
     
-    renderPreviewImg(imagesReceived: Array<File>){      
+    renderPreviewImg(imagesReceived: Array<File>){   
+      if(imagesReceived.length > 5){
+        this.increaseImgWrapper();        
+      }   
+      
       if (this.previewImages.length >= 15) {        
         this.translator('MAXIMUM_IMAGE_STACK_EXCEEDED', null);
       }
@@ -111,22 +112,28 @@ export class ModalComponentChooseCategory implements OnInit {
     }
     
     uploadProduct(){
+      
       if (this.previewImages.length <= 0) {
         this.translator('ONE_IMAGE_REQUIRED', null);
-      } else if(this.myForm.valid){
-        this.productChosen.photos = this.previewImages; // le igualo lo que tenia en preview???  DESCOMENTAR ESTO????       
-        this.productsProvider.createProduct(this.productChosen).subscribe((res: any)=>{
-          if (res.error === null) {  // por ejemplo, HACER ESTO???
-            // ERROR
-          } else{
-            this.translator('PRODUCT_CREATED', true);
-          
-          }
+      }
+      else if(this.myForm.valid){        
+        this.productsProvider.createProduct(this.productChosen).subscribe((product: Product)=>{
+          this.translator('PRODUCT_CREATED', true)
+        },
+        
+        (error: ApiError)=>{
+          console.log(333, error);
           
         })
-      } else{
+        
+      } 
+      else{
         this.translator('FORGOT_SOMETHING_VALIDATION', null);
       }
+    }
+    
+    increaseImgWrapper(){
+      this.increaseImageWrapperHeight = true;
     }
     
     translator(messageToTranslate: string, closeAfterDismissedToast: boolean){
@@ -145,7 +152,7 @@ export class ModalComponentChooseCategory implements OnInit {
       toast.present();
       if (closeAfterDismissedToast) {
         toast.onDidDismiss(()=>{
-          this.viewCtrl.dismiss();
+          this.closeModal();
           this.navCtrl.setRoot('HomePage'); //NO ME DEJA HABRIR EL MENU DE NUEVO VER ESTO ??????  NO DEBERIA HACERLO ASI SINO UN SIMPLE GET DEL PROVIDER DE HOME AGAIN????
         })
       }

@@ -4,7 +4,7 @@ import { IonicPage, NavController, ToastController, Platform, AlertController } 
 import { User } from '../../models/user';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PATTERNS } from '../../shared/constants';
-import { ApiError } from 'src/models/ApiError';
+import { ApiError } from './../../models/ApiError';
 import { Utils } from './../../providers/utils';
 import { AuthProvider } from './../../providers/auth/auth';
 // var encrypter = require('object-encrypter');
@@ -40,18 +40,12 @@ export class LoginPage implements OnInit{
     
     
     ngOnInit(){
-
-      this.user = {
-        email: 'fmls1989@gmail.com',
-        password: 'Berna123'
-      }
-      
       //CHECK PLATFORM TO CHANGE HTML VIEW
       this.isCordova = this.utils.isCordova();        
     }
     
     doLogin(){
-      if (this.myForm.valid) {
+      if (this.myForm.valid) {        
         this.auth.login(this.user).subscribe((user: User)=>{  
           this.userStorage = user;                                     
           if (this.userStorage) {
@@ -66,6 +60,10 @@ export class LoginPage implements OnInit{
       } else{
         this.translator('FORBIDDEN');
       }
+    }
+
+    rememberMe(){
+      this.user.rememberMe = !this.user.rememberMe;      
     }
     
     translator(messageToTranslate: string){
@@ -82,9 +80,9 @@ export class LoginPage implements OnInit{
       }).present();      
     }
     
-    forgotPassword(){
-      console.log('forgot password');
-    }
+    // forgotPassword(){
+    //   console.log('forgot password');
+    // }
     
     redirectToRegister(){
       this.navCtrl.setRoot('RegisterPage');

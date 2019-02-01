@@ -21,7 +21,7 @@ export class MyApp implements OnInit{
   isCordova: boolean;
   versionWebOrPhone: string;
   userAgent: string;
-  showTabs: boolean = false;
+  // showTabs: boolean = false;
   isLogged: boolean;
   userLocalStorage: any;
   icons: Array<any> = [
@@ -67,7 +67,7 @@ export class MyApp implements OnInit{
     private splashScreen: SplashScreen,
     private utils: Utils,
     private auth: AuthProvider,
-    private toast: ToastController,
+    private toastCtrl: ToastController,
     private modalCtrl: ModalController,
     private menuController: MenuController
     ) {
@@ -92,7 +92,7 @@ export class MyApp implements OnInit{
     
     ngOnInit(){
       // set root page at first load and environment
-      this.rootPage = 'HomePage';
+      // this.rootPage = 'HomePage';
       this.environment = CONFIG.ENV;
       
       // check phone or web
@@ -111,55 +111,41 @@ export class MyApp implements OnInit{
       
       //global guardas in here (NAV is the whole nav, not like using ionviewwilleneter,
       //  VIEW CONTROLLER is the view that is going to load) 
-      this.nav.viewWillEnter.subscribe((view: any)=>{
+      this.nav.viewWillEnter.subscribe((view: ViewController)=>{
+  
         if (this.currentPage !== view.id) {
-          //set current page ????
           this.currentPage = view.id;
           
-          // console.log('current page =>:', this.currentPage);
-          if (this.currentPage === 'LoginPage' || this.currentPage === 'login' || this.currentPage === 'register' || this.currentPage === 'RegisterPage') {
-            this.showTabs = false;
-          } else{
-            this.showTabs = true;
+          const publicPagesRegex = /login|register|LoginPage|RegisterPage/;
+          if (!/login/.test(this.currentPage.toLowerCase()) && !this.auth.isLoggedIn()) {
+            console.log('no estas logueado y la vista no es login');
+            this.nav.setRoot('LoginPage'); // si no paso siempre por login los subjects fallaran????
+            this.translator('LOGIN_ERROR');
           }
 
-          const publicPagesRegex = /login|register|LoginPage|RegisterPage/;
-          
-          // check user is logged in          
-          if (this.auth.isLoggedIn()) {            
-            this.isLogged = true;
-            this.userLocalStorage = this.auth.getUserFromLocalStorage();
-            
-            this.nav.setRoot('HomePage');
-            // console.log('auth');
-            
-          } else{
-            console.log('not auth');
-            
+          if(this.auth.isLoggedIn() && (/login/.test(this.currentPage.toLowerCase())) || (/register/.test(this.currentPage.toLowerCase()))){
+            console.log('estas logueado e intentas ir a login o register');
+            this.nav.setRoot('HomePage'); 
           }
-          // console.log(1, !publicPagesRegex.test(this.currentPage) && (!this.isLogged));
-          // console.log(2, (!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged);
-          
-          // if current page is not login / register, set login as root
-          // if ((!publicPagesRegex.test(this.currentPage) && !/LoginPage/.test(this.currentPage)) && (!/register/.test(this.currentPage) && !/RegisterPage/.test(this.currentPage)) && !this.isLogged) {
-          //   this.nav.setRoot('LoginPage');
-          //   this.translate.get('LOGIN_ERROR').subscribe((value: string)=>{
-          //     this.toast.create({
-          //       message: value,
-          //       duration: 3000,
-          //       position: 'top'
-          //     }).present()
-          //   })
-          
-          // }
         }
-        
-        
       })
-      
-      
-      
     }
+    
+    translator(messageToTranslate: string, closeAfterDismissedToast?: boolean){
+      this.translate.get(messageToTranslate).subscribe((data: string)=>{          
+        this.showToast(data);
+      })
+    }
+    
+    showToast(data: string, closeAfterDismissedToast?: boolean){
+      let toast = this.toastCtrl.create({
+        message: data,
+        duration: 2000,
+        position: 'top',
+      }).present();
+    }
+    
+    
     
     
     initTranslate() {

@@ -9,14 +9,7 @@ import { Observable, Subject } from 'rxjs';
 @Injectable()
 export class AuthProvider {
   user: User;
-  // localStorageUser: User;
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
-  // LO PUEDO QUITAR??? PROBAR YA QUE LO TENGO EN INTERCEPTOR???
-  
-  // private static readonly defaultOptions = {
-  //   headers: new HttpHeaders().set('Content-Type', 'application/json'),
-  //   withCredentials: true
-  // };
   
   constructor(public http: HttpClient) { }
   
@@ -32,13 +25,13 @@ export class AuthProvider {
   //quitar any???
   login(user: User): Observable<User | HttpErrorResponse> {    
     return this.http.post<User>(`${AuthProvider.ENDPOINT}/sessions`, user).map((data: any)=>{
-      this.user = data; // IF GOOD???
+      this.user = data; // IF GOOD PONER ESO???
       this.saveInLocalStorage(this.user)
       return data;
     });
   }
   
-  isLoggedIn():boolean{
+  isLoggedIn():boolean{    
     return localStorage.getItem('user') ? true : false;
   }
   
@@ -54,5 +47,9 @@ export class AuthProvider {
   //   return localStorage.getItem('rememberMe') ? true : false;
   // }
   
+  logout(){
+    localStorage.removeItem('user');
+    this.user = null;
+  }
   
 }
