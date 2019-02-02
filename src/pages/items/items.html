@@ -1,0 +1,19 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Items</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list *ngFor="let product of productsOfUser">
+    <ion-item>
+      {{product.name}}
+      {{product.description}}
+      <img [src]="product.photos[0]" alt="image">
+    </ion-item>
+  </ion-list>
+</ion-content>

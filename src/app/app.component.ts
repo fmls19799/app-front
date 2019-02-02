@@ -92,7 +92,7 @@ export class MyApp implements OnInit{
     
     ngOnInit(){
       // set root page at first load and environment
-      // this.rootPage = 'HomePage';
+      this.rootPage = 'HomePage';
       this.environment = CONFIG.ENV;
       
       // check phone or web
@@ -113,21 +113,21 @@ export class MyApp implements OnInit{
       //  VIEW CONTROLLER is the view that is going to load) 
       this.nav.viewWillEnter.subscribe((view: ViewController)=>{
   
-        if (this.currentPage !== view.id) {
-          this.currentPage = view.id;
+        // if (this.currentPage !== view.id) {
+        //   this.currentPage = view.id;
           
-          const publicPagesRegex = /login|register|LoginPage|RegisterPage/;
-          if (!/login/.test(this.currentPage.toLowerCase()) && !this.auth.isLoggedIn()) {
-            console.log('no estas logueado y la vista no es login');
-            this.nav.setRoot('LoginPage'); // si no paso siempre por login los subjects fallaran????
-            this.translator('LOGIN_ERROR');
-          }
+        //   const publicPagesRegex = /login|register|LoginPage|RegisterPage/;
+        //   if (!/login/.test(this.currentPage.toLowerCase()) && !this.auth.isLoggedIn()) {
+        //     console.log('no estas logueado y la vista no es login');
+        //     this.nav.setRoot('LoginPage'); // si no paso siempre por login los subjects fallaran????
+        //     this.translator('LOGIN_ERROR');
+        //   }
 
-          if(this.auth.isLoggedIn() && (/login/.test(this.currentPage.toLowerCase())) || (/register/.test(this.currentPage.toLowerCase()))){
-            console.log('estas logueado e intentas ir a login o register');
-            this.nav.setRoot('HomePage'); 
-          }
-        }
+        //   if(this.auth.isLoggedIn() && (/login/.test(this.currentPage.toLowerCase())) || (/register/.test(this.currentPage.toLowerCase()))){
+        //     console.log('estas logueado e intentas ir a login o register');
+        //     this.nav.setRoot('HomePage'); 
+        //   }
+        // }
       })
     }
     
@@ -172,7 +172,7 @@ export class MyApp implements OnInit{
     }
     
     // GO TO SELECTED SEGMENT
-    goToSelectedTab(icon: any){                
+    goToSelectedTab(icon: string){                      
       switch (icon) {
         case 'upload': this.modalCtrl.create(ModalComponentChooseCategory).present(); 
         break;
@@ -181,6 +181,8 @@ export class MyApp implements OnInit{
         case 'map': this.nav.push('MapPage');  
         break;
         case 'chat': this.nav.push('ChatPage');
+        break;
+        case 'items': this.nav.push('ItemsPage');
         break;
         case 'settings': this.nav.push('SettingsPage');
         break;

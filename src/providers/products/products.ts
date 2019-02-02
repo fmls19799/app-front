@@ -20,11 +20,13 @@ export class ProductsProvider {
   
   constructor(public http: HttpClient,
     private auth: AuthProvider) {
+      console.log(this.auth.user.id);
     }
     
     createProduct(product: Product): Observable<Product | ApiError> { 
+      
       let user = JSON.parse(this.auth.getUserFromLocalStorage());      
-      return this.http.post<Product>(`${ProductsProvider.ENDPOINT}/products/${user.id}/create`, this.asFormData(product), ProductsProvider.httpOptionsForFormData)
+      return this.http.post<Product>(`${ProductsProvider.ENDPOINT}/products/${this.auth.user.id}/create`, this.asFormData(product), ProductsProvider.httpOptionsForFormData)
       .pipe(
         map((product: Product)=>{
           console.log(product);
@@ -54,6 +56,10 @@ export class ProductsProvider {
         // return this.http.get<Array<Product>>(`http://www.mocky.io/v2/5c4ced6d3700002b0bb042ef`).map((products: Array<Product>)=> products);
       }
       
+      // COMO HACEMOS CON PIPE O SIN??? ESTE ORDEN ESTA MAL????
+      getProductsByUser(){
+        return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products/${this.auth.user.id}`).map((products: Array<Product>)=> products);
+      }
       
       likeProduct(product: Product){
         console.log(product);

@@ -1,4 +1,4 @@
-webpackJsonp([9],{
+webpackJsonp([10],{
 
 /***/ 105:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -51,11 +51,12 @@ var ProductsProvider = /** @class */ (function () {
     function ProductsProvider(http, auth) {
         this.http = http;
         this.auth = auth;
+        console.log(this.auth.user.id);
     }
     ProductsProvider_1 = ProductsProvider;
     ProductsProvider.prototype.createProduct = function (product) {
         var user = JSON.parse(this.auth.getUserFromLocalStorage());
-        return this.http.post(ProductsProvider_1.ENDPOINT + "/products/" + user.id + "/create", this.asFormData(product), ProductsProvider_1.httpOptionsForFormData)
+        return this.http.post(ProductsProvider_1.ENDPOINT + "/products/" + this.auth.user.id + "/create", this.asFormData(product), ProductsProvider_1.httpOptionsForFormData)
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_6_rxjs_operators__["map"])(function (product) {
             console.log(product);
             return product;
@@ -78,6 +79,10 @@ var ProductsProvider = /** @class */ (function () {
         //QUITAR EL MOCK???      
         return this.http.get(ProductsProvider_1.ENDPOINT + "/products").map(function (products) { return products; });
         // return this.http.get<Array<Product>>(`http://www.mocky.io/v2/5c4ced6d3700002b0bb042ef`).map((products: Array<Product>)=> products);
+    };
+    // COMO HACEMOS CON PIPE O SIN??? ESTE ORDEN ESTA MAL????
+    ProductsProvider.prototype.getProductsByUser = function () {
+        return this.http.get(ProductsProvider_1.ENDPOINT + "/products/" + this.auth.user.id).map(function (products) { return products; });
     };
     ProductsProvider.prototype.likeProduct = function (product) {
         console.log(product);
@@ -181,39 +186,43 @@ webpackEmptyAsyncContext.id = 150;
 
 var map = {
 	"../pages/chat/chat.module": [
+		435,
+		9
+	],
+	"../pages/home/home.module": [
+		436,
+		2
+	],
+	"../pages/items/items.module": [
 		437,
 		8
 	],
-	"../pages/home/home.module": [
-		435,
-		2
-	],
 	"../pages/login/login.module": [
-		436,
+		438,
 		1
 	],
 	"../pages/map/map.module": [
-		438,
+		439,
 		7
 	],
 	"../pages/product-detail/product-detail.module": [
-		439,
+		440,
 		6
 	],
 	"../pages/profile/profile.module": [
-		440,
+		441,
 		5
 	],
 	"../pages/register/register.module": [
-		441,
+		442,
 		0
 	],
 	"../pages/search-product/search-product.module": [
-		442,
+		443,
 		4
 	],
 	"../pages/settings/settings.module": [
-		443,
+		444,
 		3
 	]
 };
@@ -564,9 +573,10 @@ var AppModule = /** @class */ (function () {
                     backButtonText: 'Back'
                 }, {
                     links: [
-                        { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/chat/chat.module#ChatPageModule', name: 'ChatPage', segment: 'chat', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/items/items.module#ItemsPageModule', name: 'ItemsPage', segment: 'items', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/map/map.module#MapPageModule', name: 'MapPage', segment: 'map', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/product-detail/product-detail.module#ProductDetailPageModule', name: 'ProductDetailPage', segment: 'product-detail', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
@@ -816,9 +826,8 @@ var MyApp = /** @class */ (function () {
         this.menuController.close();
     };
     MyApp.prototype.ngOnInit = function () {
-        var _this = this;
         // set root page at first load and environment
-        // this.rootPage = 'HomePage';
+        this.rootPage = 'HomePage';
         this.environment = __WEBPACK_IMPORTED_MODULE_5__config_config_int__["a" /* CONFIG */].ENV;
         // check phone or web
         this.isCordova = this.utils.isCordova() ? true : false;
@@ -833,19 +842,19 @@ var MyApp = /** @class */ (function () {
         //global guardas in here (NAV is the whole nav, not like using ionviewwilleneter,
         //  VIEW CONTROLLER is the view that is going to load) 
         this.nav.viewWillEnter.subscribe(function (view) {
-            if (_this.currentPage !== view.id) {
-                _this.currentPage = view.id;
-                var publicPagesRegex = /login|register|LoginPage|RegisterPage/;
-                if (!/login/.test(_this.currentPage.toLowerCase()) && !_this.auth.isLoggedIn()) {
-                    console.log('no estas logueado y la vista no es login');
-                    _this.nav.setRoot('LoginPage'); // si no paso siempre por login los subjects fallaran????
-                    _this.translator('LOGIN_ERROR');
-                }
-                if (_this.auth.isLoggedIn() && (/login/.test(_this.currentPage.toLowerCase())) || (/register/.test(_this.currentPage.toLowerCase()))) {
-                    console.log('estas logueado e intentas ir a login o register');
-                    _this.nav.setRoot('HomePage');
-                }
-            }
+            // if (this.currentPage !== view.id) {
+            //   this.currentPage = view.id;
+            //   const publicPagesRegex = /login|register|LoginPage|RegisterPage/;
+            //   if (!/login/.test(this.currentPage.toLowerCase()) && !this.auth.isLoggedIn()) {
+            //     console.log('no estas logueado y la vista no es login');
+            //     this.nav.setRoot('LoginPage'); // si no paso siempre por login los subjects fallaran????
+            //     this.translator('LOGIN_ERROR');
+            //   }
+            //   if(this.auth.isLoggedIn() && (/login/.test(this.currentPage.toLowerCase())) || (/register/.test(this.currentPage.toLowerCase()))){
+            //     console.log('estas logueado e intentas ir a login o register');
+            //     this.nav.setRoot('HomePage'); 
+            //   }
+            // }
         });
     };
     MyApp.prototype.translator = function (messageToTranslate, closeAfterDismissedToast) {
@@ -897,6 +906,9 @@ var MyApp = /** @class */ (function () {
                 break;
             case 'chat':
                 this.nav.push('ChatPage');
+                break;
+            case 'items':
+                this.nav.push('ItemsPage');
                 break;
             case 'settings':
                 this.nav.push('SettingsPage');

@@ -77,7 +77,7 @@ export class HomePage implements OnInit{
       
       this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{
         
-        if (refresher) { // stop refresher after i got resuls, if im doing refresher, only include new ones instead adding them all ???
+        if (refresher) { // stop refresher after i got results, if im doing refresher, only include new ones instead adding them all ???
           if (products.length > this.products.length) {
             this.showToast(`${(Number(products.length) - Number(this.products.length)).toString()} products new`);            
           } else{
