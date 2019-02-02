@@ -48,8 +48,8 @@ export class ProductsProvider {
       
       getAllProducts(){
         //QUITAR EL MOCK???      
-        return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products`).map((products: Array<Product>)=> products);
-        // return this.http.get<Array<Product>>(`http://www.mocky.io/v2/5c4ced6d3700002b0bb042ef`).map((products: Array<Product>)=> products);
+        // return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products`).map((products: Array<Product>)=> products);
+        return this.http.get<Array<Product>>(`http://www.mocky.io/v2/5c4ced6d3700002b0bb042ef`).map((products: Array<Product>)=> products);
       }
       
       // COMO HACEMOS CON PIPE O SIN??? ESTE ORDEN ESTA MAL????
