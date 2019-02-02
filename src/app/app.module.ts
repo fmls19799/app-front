@@ -17,6 +17,12 @@ import { CustomComponentsModule } from './../components/components.module';
 import { ProductsProvider } from './../providers/products/products';
 
 
+// FIREBASE
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { environment } from '../environments/environment';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -39,7 +45,14 @@ export function createTranslateLoader(http: HttpClient) {
       tabsPlacement: 'top',
       backButtonText: 'Back'
     }),
-    CustomComponentsModule
+    CustomComponentsModule,
+    AngularFireModule.initializeApp({
+      apiKey: "<your-api-key>",
+      authDomain: "<your-auth-domain>",
+      storageBucket: "<project-id>.appspot.com",
+      projectId: "<your-project-id>",
+    }),
+    AngularFireStorageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
