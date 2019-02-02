@@ -51,17 +51,8 @@ var ProductsProvider = /** @class */ (function () {
     function ProductsProvider(http, auth) {
         this.http = http;
         this.auth = auth;
-        console.log(this.auth.user.id);
     }
     ProductsProvider_1 = ProductsProvider;
-    ProductsProvider.prototype.createProduct = function (product) {
-        var user = JSON.parse(this.auth.getUserFromLocalStorage());
-        return this.http.post(ProductsProvider_1.ENDPOINT + "/products/" + this.auth.user.id + "/create", this.asFormData(product), ProductsProvider_1.httpOptionsForFormData)
-            .pipe(Object(__WEBPACK_IMPORTED_MODULE_6_rxjs_operators__["map"])(function (product) {
-            console.log(product);
-            return product;
-        }), Object(__WEBPACK_IMPORTED_MODULE_6_rxjs_operators__["catchError"])(this.handleError));
-    };
     ProductsProvider.prototype.asFormData = function (product) {
         var data = new FormData();
         data.append('name', product.name);
@@ -74,6 +65,12 @@ var ProductsProvider = /** @class */ (function () {
             data.append('photos', photo);
         }
         return data;
+    };
+    ProductsProvider.prototype.createProduct = function (product) {
+        return this.http.post(ProductsProvider_1.ENDPOINT + "/products/" + this.auth.user.id + "/create", this.asFormData(product), ProductsProvider_1.httpOptionsForFormData)
+            .pipe(Object(__WEBPACK_IMPORTED_MODULE_6_rxjs_operators__["map"])(function (product) {
+            return product;
+        }), Object(__WEBPACK_IMPORTED_MODULE_6_rxjs_operators__["catchError"])(this.handleError));
     };
     ProductsProvider.prototype.getAllProducts = function () {
         //QUITAR EL MOCK???      
@@ -115,11 +112,10 @@ var ProductsProvider = /** @class */ (function () {
     };
     ProductsProvider = ProductsProvider_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */],
-            __WEBPACK_IMPORTED_MODULE_3__auth_auth__["a" /* AuthProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__auth_auth__["a" /* AuthProvider */]) === "function" && _b || Object])
     ], ProductsProvider);
     return ProductsProvider;
-    var ProductsProvider_1;
+    var ProductsProvider_1, _a, _b;
 }());
 
 //# sourceMappingURL=products.js.map
@@ -186,43 +182,43 @@ webpackEmptyAsyncContext.id = 150;
 
 var map = {
 	"../pages/chat/chat.module": [
-		435,
+		434,
 		9
 	],
 	"../pages/home/home.module": [
-		436,
+		435,
 		2
 	],
 	"../pages/items/items.module": [
-		437,
+		436,
 		8
 	],
 	"../pages/login/login.module": [
-		438,
+		437,
 		1
 	],
 	"../pages/map/map.module": [
-		439,
+		438,
 		7
 	],
 	"../pages/product-detail/product-detail.module": [
-		440,
+		439,
 		6
 	],
 	"../pages/profile/profile.module": [
-		441,
+		440,
 		5
 	],
 	"../pages/register/register.module": [
-		442,
+		441,
 		0
 	],
 	"../pages/search-product/search-product.module": [
-		443,
+		442,
 		4
 	],
 	"../pages/settings/settings.module": [
-		444,
+		443,
 		3
 	]
 };
@@ -415,11 +411,10 @@ var ModalComponentChooseCategory = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CustomComponentsModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__header_header__ = __webpack_require__(403);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__ = __webpack_require__(220);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__fileuploader_fileuploader__ = __webpack_require__(404);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fileuploader_fileuploader__ = __webpack_require__(403);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -431,29 +426,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
 var CustomComponentsModule = /** @class */ (function () {
     function CustomComponentsModule() {
     }
     CustomComponentsModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_1__header_header__["a" /* HeaderComponent */],
-                __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
-                __WEBPACK_IMPORTED_MODULE_5__fileuploader_fileuploader__["a" /* FileuploaderComponent */],
+                __WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
+                __WEBPACK_IMPORTED_MODULE_4__fileuploader_fileuploader__["a" /* FileuploaderComponent */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["b" /* TranslateModule */],
-                __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["f" /* IonicModule */] // para poder usar icons en componentes???
+                __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__["b" /* TranslateModule */],
+                __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* IonicModule */] // para poder usar icons en componentes???
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_1__header_header__["a" /* HeaderComponent */],
-                __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
-                __WEBPACK_IMPORTED_MODULE_5__fileuploader_fileuploader__["a" /* FileuploaderComponent */],
+                __WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
+                __WEBPACK_IMPORTED_MODULE_4__fileuploader_fileuploader__["a" /* FileuploaderComponent */],
             ],
             entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_1__header_header__["a" /* HeaderComponent */],
-                __WEBPACK_IMPORTED_MODULE_2__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
+                __WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
             ]
         })
     ], CustomComponentsModule);
@@ -518,11 +509,11 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(260);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(263);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(427);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(426);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ngx_translate_http_loader__ = __webpack_require__(428);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ngx_translate_http_loader__ = __webpack_require__(427);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_common_http__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_app_http_interceptor__ = __webpack_require__(430);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_app_http_interceptor__ = __webpack_require__(429);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_utils__ = __webpack_require__(137);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_auth_auth__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_components_module__ = __webpack_require__(264);
@@ -629,40 +620,6 @@ var ApiError = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HeaderComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var HeaderComponent = /** @class */ (function () {
-    function HeaderComponent() {
-        console.log('Hello HeaderComponent Component');
-        this.text = 'Hello World';
-    }
-    HeaderComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'header',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/header/header.html"*/'<div>\n  <h1>HOLA</h1>\n</div>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/header/header.html"*/
-        }),
-        __metadata("design:paramtypes", [])
-    ], HeaderComponent);
-    return HeaderComponent;
-}());
-
-//# sourceMappingURL=header.js.map
-
-/***/ }),
-
-/***/ 404:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FileuploaderComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -735,7 +692,7 @@ var FileuploaderComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 427:
+/***/ 426:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -826,6 +783,8 @@ var MyApp = /** @class */ (function () {
         this.menuController.close();
     };
     MyApp.prototype.ngOnInit = function () {
+        var _this = this;
+        this.auth.saveUserInAuthWhenAppLoads();
         // set root page at first load and environment
         this.rootPage = 'HomePage';
         this.environment = __WEBPACK_IMPORTED_MODULE_5__config_config_int__["a" /* CONFIG */].ENV;
@@ -842,19 +801,19 @@ var MyApp = /** @class */ (function () {
         //global guardas in here (NAV is the whole nav, not like using ionviewwilleneter,
         //  VIEW CONTROLLER is the view that is going to load) 
         this.nav.viewWillEnter.subscribe(function (view) {
-            // if (this.currentPage !== view.id) {
-            //   this.currentPage = view.id;
-            //   const publicPagesRegex = /login|register|LoginPage|RegisterPage/;
-            //   if (!/login/.test(this.currentPage.toLowerCase()) && !this.auth.isLoggedIn()) {
-            //     console.log('no estas logueado y la vista no es login');
-            //     this.nav.setRoot('LoginPage'); // si no paso siempre por login los subjects fallaran????
-            //     this.translator('LOGIN_ERROR');
-            //   }
-            //   if(this.auth.isLoggedIn() && (/login/.test(this.currentPage.toLowerCase())) || (/register/.test(this.currentPage.toLowerCase()))){
-            //     console.log('estas logueado e intentas ir a login o register');
-            //     this.nav.setRoot('HomePage'); 
-            //   }
-            // }
+            if (_this.currentPage !== view.id) {
+                _this.currentPage = view.id;
+                var publicPagesRegex = /login|register|LoginPage|RegisterPage/;
+                if (!/login/.test(_this.currentPage.toLowerCase()) && !_this.auth.isLoggedIn()) {
+                    console.log('no estas logueado y la vista no es login');
+                    _this.nav.setRoot('LoginPage'); // si no paso siempre por login los subjects fallaran????
+                    _this.translator('LOGIN_ERROR');
+                }
+                if (_this.auth.isLoggedIn() && (/login/.test(_this.currentPage.toLowerCase())) || (/register/.test(_this.currentPage.toLowerCase()))) {
+                    console.log('estas logueado e intentas ir a login o register');
+                    _this.nav.setRoot('HomePage');
+                }
+            }
         });
     };
     MyApp.prototype.translator = function (messageToTranslate, closeAfterDismissedToast) {
@@ -947,7 +906,7 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 430:
+/***/ 429:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -955,9 +914,9 @@ var MyApp = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(431);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(430);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_finally__ = __webpack_require__(433);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_finally__ = __webpack_require__(432);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_finally___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_finally__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_BehaviorSubject__);
@@ -1160,18 +1119,20 @@ var AuthProvider = /** @class */ (function () {
         var _this = this;
         return this.http.post(AuthProvider_1.ENDPOINT + "/sessions", user).map(function (data) {
             _this.user = data; // IF GOOD PONER ESO???
-            _this.saveInLocalStorage(_this.user);
+            _this.saveInLocalStorageAfterLogin(_this.user);
             return data;
         });
     };
     AuthProvider.prototype.isLoggedIn = function () {
         return localStorage.getItem('user') ? true : false;
     };
-    AuthProvider.prototype.saveInLocalStorage = function (user) {
+    AuthProvider.prototype.saveInLocalStorageAfterLogin = function (user) {
         localStorage.setItem('user', JSON.stringify(user));
     };
-    AuthProvider.prototype.getUserFromLocalStorage = function () {
-        return localStorage.getItem('user');
+    AuthProvider.prototype.saveUserInAuthWhenAppLoads = function () {
+        if (localStorage.getItem('user')) {
+            this.user = JSON.parse(localStorage.getItem('user'));
+        }
     };
     // rememberMe():boolean{
     //   return localStorage.getItem('rememberMe') ? true : false;

@@ -25,14 +25,14 @@
         <div class="error-item" [hidden]="!myForm.controls['password'].errors.pattern">{{ 'ERROR_PASSWORD_PATTERN' | translate }}</div>
       </div>
     </ion-list>
-
-  
+    
+    
     <ion-item class="container-checkbox">
       <ion-label>{{ 'REMEMBER_ME' | translate }}</ion-label>
       <ion-checkbox [(ngModel)]="rememberMeCheckbox" [ngModelOptions]="{standalone: true}"></ion-checkbox>
     </ion-item>
-
-    <button class="button" ion-button outline color="white" [disabled]="!myForm.valid">{{'LOGIN' | translate}}</button>
+    
+    <button class="button" ion-button outline color="white">{{'LOGIN' | translate}}</button>
     <span class="center" (click)="forgotPassword()">{{'FORGOT_PASSWORD?' | translate}}</span>
   </form>
   <div class="wrapper">
@@ -46,6 +46,10 @@
 
 <!-- HTML FOR PHONE -->
 <ion-content *ngIf="!isCordova">
+  <div class="lock">
+    <ion-icon name="unlock-outline"></ion-icon>
+  </div>
+  
   <form [formGroup]="myForm" class="form" (ngSubmit)="doLogin()">
     <ion-list>
       <!-- EMAIL ITEM-->
@@ -70,14 +74,14 @@
         <div class="error-item" [hidden]="!myForm.controls['password'].errors.pattern">{{ 'ERROR_PASSWORD_PATTERN' | translate }}</div>
       </div>
     </ion-list>
-
+    
     <ion-item class="container-checkbox">
       <ion-label>{{ 'REMEMBER_ME' | translate }}</ion-label>
       <ion-checkbox (ionChange)="rememberMe()" [(ngModel)]="rememberMeCheckbox" [ngModelOptions]="{standalone: true}"></ion-checkbox>
     </ion-item>
-
-
-    <button class="button" ion-button outline color="white" [disabled]="!myForm.valid">{{'LOGIN' | translate}}</button>
+    
+    
+    <button class="button" ion-button outline color="white">{{'LOGIN' | translate}}</button>
     <span class="center" (click)="forgotPassword()">{{'FORGOT_PASSWORD?' | translate}}</span>
   </form>
   <div class="wrapper">

@@ -45,86 +45,57 @@ page-login, page-register{
     .has-error > .item-inner{
         border-bottom: 1px solid #ff9090 !important;
     }
-// }
-
-ion-menu{
+    // }
     
-    ion-header{
+    ion-menu{
         
-        // border: 1px solid red;
-        ion-toolbar{
-            height: 60px;
-            // border: 1px solid red;
-            .flex{
-                // border: 1px solid red;
-                display: flex;
-                // flex-direction: row;
-                img{
-                    // border: 1px solid red;
-                    width: 40px;
-                    height: 40px;
-                    // font-size: 40px;
-                    
-                    
-                }
-                .flex2{
+        ion-header{
+            ion-toolbar{
+                height: 60px;
+                .flex{
                     display: flex;
-                    flex-direction: column;
-
-                    // border: 1px solid red;
-
-                    .toolbar-title{
-                        // border: 1px solid blue;
-                        
+                    img{
+                        width: 40px;
+                        height: 40px;
                     }
-                    // small{
-                    //     border: 1px solid orange;
-                    //     display: block;
-                    // }
+                    .flex2{
+                        display: flex;
+                        flex-direction: column;
+                    }
                 }
             }
         }
-    }
-    ion-content{
-        
-        ion-list{
-            
-            ion-item{
-                .item-inner{
-                    border: none !important;
-                    
-                }
-                div{
-                    // border: 1px solid red;
-                    padding: 7px;
-                    // height: 70px;
-                    ion-icon{
+        ion-content{
+            ion-list{
+                ion-item{
+                    .item-inner{
+                        border: none !important;
+                    }
+                    div{
                         // border: 1px solid red;
-                        
-                        span{
+                        padding: 7px;
+                        ion-icon{
                             // border: 1px solid red;
                             
+                            span{
+                                // border: 1px solid red;
+                                
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
-// ion-footer{
-    //     display: flex;
-    //     height: 50px;
-    //     background-color: white;
-    //     ion-segment{
-        //         display: flex;
-        //         flex-direction: column;
-        //         // color: rgb(110, 204,262) !important;
-        //         ion-icon{
-            //             font-size: 35px;
-            //         }
-            //         span{
-                //             font-size: 9.2px;
-                //             font-weight: bold;
-                //         }
-                //     }
-                // }
+    // SOBREESCRIBO EL TOASTER DEL HOME YA QUE SIGO EN HOME???
+    .toast-wrapper{
+        left: -10px !important;
+        top: -10px !important;
+        right: -10px !important;
+        text-align: center;
+        height: 50px;
+        background-color: #f95b5b !important;
+        .toast-message{
+            font-size: 15px !important;
+        }
+    }

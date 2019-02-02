@@ -4,12 +4,10 @@ modal-choose-category{
         background-color: white;
         border-radius: 10px;
         .top{
-            // border: 1px solid red;
             margin-top: 20px;
             display: flex;
-            flex-direction: row;
+            flex-direction: row-reverse;
             .close{
-                // border: 1px solid red;
                 cursor: pointer;
                 margin-left: 10px;
                 ion-icon{
@@ -17,14 +15,11 @@ modal-choose-category{
                 }
             }
             h6{
-                // border: 1px solid red;
-                // margin-top: 5px;
                 margin: 5px auto 0 auto;
                 height: 30px;;
                 text-align: center;
                 font-weight: 300;
                 ion-icon{
-                    // border: 1px solid red;
                     font-size: 13px;
                 }
                 .strong{
@@ -33,24 +28,19 @@ modal-choose-category{
             }
         }
         .bottom{
-            // border: 1px solid red;
             margin-top: 40px;
             height: 90vh;
             ion-row{
-                // border: 1px solid red;
                 margin-bottom: 30px;
                 ion-col{
                     padding: 40px;
                     width: 53%;
-                    // border: 1px solid red;
                     ion-icon{
-                        // border: 1px solid red;
                         text-align: center;
                         display: block;
                         font-size: 44px;
                     }
                     span{
-                        // border: 1px solid red;
                         text-align: center;
                         display: block;
                     }
@@ -61,21 +51,15 @@ modal-choose-category{
     
     .modalProductChosen{
         .bottom{
-            // border: 1px solid blue;
             .imagesContainer{
                 padding: 10px;
-                // border: 2px solid blue;
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
-                // width: 100%;
-                // height: 200px;
                 img{
                     margin: 3px;
                     border: 1px solid #bfbfbf;
                     padding: 3px;
-                    // width: 50px;
-                    // border: 1px solid blue;
                     height: 50px;
                     border-radius: 5px;
                 }
@@ -86,12 +70,8 @@ modal-choose-category{
             }
             margin-top: 7px;
             .mainWrapper{
-                
-                // border: 1px solid red;
                 .myForm{
-                    // border: 1px solid blue;
                     ion-list{
-                        // border: 1px solid orange;
                         ion-item{
                             border: none;
                             .item-inner{
@@ -104,21 +84,17 @@ modal-choose-category{
                                 color: grey !important;
                                 font-size: 15px;
                                 font-weight: 300;
-                                // border: 1px solid black;
                             }
                         }
                         button{
-                            // display: block;
-                            // margin:  0 auto;
                             width: 80%;
-                            // border: 1px solid black !important;
                             position: absolute;
                             bottom: 10px;
                             left: 50%;
                             transform: translateX(-50%);
                             border-radius: 50px;
                             height: 40px;
-                            background-color: #c5c201;
+                            background-color: #12d684;
                             font-size: 14px;
                         }
                     }
@@ -126,33 +102,16 @@ modal-choose-category{
             }
         }
         .upload{
-            // border: 1px solid red;
             position: absolute;
             bottom: 10%;
             left: 50%;
             transform: translate(-50%, -50%);
             fileuploader{
                 ion-icon{
-                    // border: 1px solid blue;
                     font-size: 70px;
                 }
             }
         }
     }
 }
-// SOBREESCRIBO EL TOASTER DEL HOME YA QUE SIGO EN HOME???
-.toast-wrapper{
-    // transform: translateY(200px) !important;
-    left: -10px !important;
-    top: -10px !important;
-    right: -10px !important;
-    text-align: center;
-    height: 50px;
-    background-color: #ff9090 !important;
-    .toast-message{
-        // border: 2px solid red !important;
-        // color: blue !important;
-        // color: black;
-        font-size: 15px !important;
-    }
-}
+

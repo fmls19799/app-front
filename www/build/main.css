@@ -25755,6 +25755,19 @@ ion-menu ion-content ion-list ion-item div {
   padding: 7px;
 }
 
+.toast-wrapper {
+  left: -10px !important;
+  top: -10px !important;
+  right: -10px !important;
+  text-align: center;
+  height: 50px;
+  background-color: #f95b5b !important;
+}
+
+.toast-wrapper .toast-message {
+  font-size: 15px !important;
+}
+
 fileuploader .file-container .file {
   display: none;
 }
@@ -25775,10 +25788,10 @@ modal-choose-category .modalChooseProduct .top, modal-choose-category .modalProd
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  -webkit-box-direction: reverse;
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 modal-choose-category .modalChooseProduct .top .close, modal-choose-category .modalProductChosen .top .close {
@@ -25889,7 +25902,7 @@ modal-choose-category .modalProductChosen .bottom .mainWrapper .myForm ion-list 
   transform: translateX(-50%);
   border-radius: 50px;
   height: 40px;
-  background-color: #c5c201;
+  background-color: #12d684;
   font-size: 14px;
 }
 
@@ -25905,19 +25918,6 @@ modal-choose-category .modalProductChosen .upload fileuploader ion-icon {
   font-size: 70px;
 }
 
-.toast-wrapper {
-  left: -10px !important;
-  top: -10px !important;
-  right: -10px !important;
-  text-align: center;
-  height: 50px;
-  background-color: #ff9090 !important;
-}
-
-.toast-wrapper .toast-message {
-  font-size: 15px !important;
-}
-
 page-home {
   background-color: #ececec;
 }
@@ -25927,7 +25927,7 @@ page-home ion-header ion-navbar .burger button {
 }
 
 page-home ion-header ion-navbar .toolbar-background {
-  background-color: #c5c201 !important;
+  background-color: #12d684 !important;
 }
 
 page-home ion-header ion-navbar ion-searchbar {
@@ -26132,14 +26132,20 @@ page-home ion-content .productsList ion-row ion-col .product .container.increase
 }
 
 page-login * {
-  color: white !important;
   font-weight: 200;
 }
 
 page-login ion-content {
-  background-image: url("./../assets/imgs/bg.jpeg") !important;
-  background-size: cover;
-  position: fixed;
+  background-image: url("./../../assets/imgs/bg.jpeg");
+}
+
+page-login ion-content .lock {
+  margin-top: 20px;
+  text-align: center;
+}
+
+page-login ion-content .lock ion-icon {
+  font-size: 70px;
 }
 
 page-login .form {
@@ -26185,7 +26191,9 @@ page-login .button {
   display: block;
   width: 70%;
   height: 40px;
-  border: 1px solid white;
+  border: none;
+  color: black;
+  background-color: #0aebef;
 }
 
 page-login .center {
@@ -26337,7 +26345,7 @@ page-register .wrapper span {
 }
 
 page-search-product ion-header ion-navbar .toolbar-background {
-  background-color: #c5c201 !important;
+  background-color: #12d684 !important;
 }
 
 page-search-product ion-header ion-navbar .flex {

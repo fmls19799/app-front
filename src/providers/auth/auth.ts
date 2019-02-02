@@ -26,7 +26,7 @@ export class AuthProvider {
   login(user: User): Observable<User | HttpErrorResponse> {    
     return this.http.post<User>(`${AuthProvider.ENDPOINT}/sessions`, user).map((data: any)=>{
       this.user = data; // IF GOOD PONER ESO???
-      this.saveInLocalStorage(this.user)
+      this.saveInLocalStorageAfterLogin(this.user)
       return data;
     });
   }
@@ -35,14 +35,15 @@ export class AuthProvider {
     return localStorage.getItem('user') ? true : false;
   }
   
-  saveInLocalStorage(user: User){
+  saveInLocalStorageAfterLogin(user: User){
     localStorage.setItem('user', JSON.stringify(user));    
   }
-  
-  getUserFromLocalStorage():any{    
-    return localStorage.getItem('user');
+
+  saveUserInAuthWhenAppLoads(){
+    if (localStorage.getItem('user')) {
+      this.user = JSON.parse(localStorage.getItem('user'));      
+    }   
   }
-  
   // rememberMe():boolean{
   //   return localStorage.getItem('rememberMe') ? true : false;
   // }

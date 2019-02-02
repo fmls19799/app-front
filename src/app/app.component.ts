@@ -7,7 +7,6 @@ import { CONFIG } from '../config/config.int'; // AQUI DEFINO EL ENTORNO !!!
 import { Utils } from './../providers/utils';
 import { AuthProvider } from './../providers/auth/auth';
 import { ModalComponentChooseCategory } from '../components/modal-choose-category/modal-choose-category';
-import { ChatPage } from 'src/pages/chat/chat';
 // import { CONFIG } from '@environment';
 
 @Component({
@@ -15,7 +14,7 @@ import { ChatPage } from 'src/pages/chat/chat';
 })
 export class MyApp implements OnInit{
   //1. La primera vez, en app component pongo el root en html asi en lugar de setroot ya que no funcionaria
-  rootPage: string;
+  rootPage: any;
   currentPage: string;
   environment: string;
   isCordova: boolean;
@@ -91,6 +90,7 @@ export class MyApp implements OnInit{
     }
     
     ngOnInit(){
+      this.auth.saveUserInAuthWhenAppLoads();
       // set root page at first load and environment
       this.rootPage = 'HomePage';
       this.environment = CONFIG.ENV;
@@ -113,21 +113,21 @@ export class MyApp implements OnInit{
       //  VIEW CONTROLLER is the view that is going to load) 
       this.nav.viewWillEnter.subscribe((view: ViewController)=>{
   
-        // if (this.currentPage !== view.id) {
-        //   this.currentPage = view.id;
+        if (this.currentPage !== view.id) {
+          this.currentPage = view.id;
           
-        //   const publicPagesRegex = /login|register|LoginPage|RegisterPage/;
-        //   if (!/login/.test(this.currentPage.toLowerCase()) && !this.auth.isLoggedIn()) {
-        //     console.log('no estas logueado y la vista no es login');
-        //     this.nav.setRoot('LoginPage'); // si no paso siempre por login los subjects fallaran????
-        //     this.translator('LOGIN_ERROR');
-        //   }
+          const publicPagesRegex = /login|register|LoginPage|RegisterPage/;
+          if (!/login/.test(this.currentPage.toLowerCase()) && !this.auth.isLoggedIn()) {
+            console.log('no estas logueado y la vista no es login');
+            this.nav.setRoot('LoginPage'); // si no paso siempre por login los subjects fallaran????
+            this.translator('LOGIN_ERROR');
+          }
 
-        //   if(this.auth.isLoggedIn() && (/login/.test(this.currentPage.toLowerCase())) || (/register/.test(this.currentPage.toLowerCase()))){
-        //     console.log('estas logueado e intentas ir a login o register');
-        //     this.nav.setRoot('HomePage'); 
-        //   }
-        // }
+          if(this.auth.isLoggedIn() && (/login/.test(this.currentPage.toLowerCase())) || (/register/.test(this.currentPage.toLowerCase()))){
+            console.log('estas logueado e intentas ir a login o register');
+            this.nav.setRoot('HomePage'); 
+          }
+        }
       })
     }
     

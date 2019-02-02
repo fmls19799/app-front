@@ -20,34 +20,30 @@ export class ProductsProvider {
   
   constructor(public http: HttpClient,
     private auth: AuthProvider) {
-      console.log(this.auth.user.id);
+      
     }
     
-    createProduct(product: Product): Observable<Product | ApiError> { 
+    asFormData(product){
+      const data = new FormData();      
+      data.append('name', product.name);
+      data.append('icon', product.icon);
+      data.append('description', product.description);
+      data.append('price', (product.price).toString());
+      data.append('type', product.type);
       
-      let user = JSON.parse(this.auth.getUserFromLocalStorage());      
+      for (const photo of product.photos) {
+        data.append('photos', photo);
+      }
+      return data;
+    }
+    
+    createProduct(product: Product): Observable<Product | ApiError> {       
       return this.http.post<Product>(`${ProductsProvider.ENDPOINT}/products/${this.auth.user.id}/create`, this.asFormData(product), ProductsProvider.httpOptionsForFormData)
       .pipe(
-        map((product: Product)=>{
-          console.log(product);
-          
+        map((product: Product)=>{          
           return product;
         }),
         catchError(this.handleError));
-      }
-      
-      asFormData(product){
-        const data = new FormData();      
-        data.append('name', product.name);
-        data.append('icon', product.icon);
-        data.append('description', product.description);
-        data.append('price', (product.price).toString());
-        data.append('type', product.type);
-        
-        for (const photo of product.photos) {
-          data.append('photos', photo);
-        }
-        return data;
       }
       
       getAllProducts(){
