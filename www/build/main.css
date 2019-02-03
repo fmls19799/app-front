@@ -26172,6 +26172,40 @@ page-items ion-content ion-list ion-item .item-inner .input-wrapper ion-label {
   margin: 0 !important;
 }
 
+page-items ion-fab {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+page-items ion-fab.increaseSize {
+  width: 70vw !important;
+}
+
+page-items ion-fab button.increaseSize {
+  width: 70vw !important;
+  border-radius: 30px;
+}
+
+page-items ion-fab button.increaseSize ion-icon.increaseSize {
+  display: inherit !important;
+  margin-left: 10px !important;
+}
+
+page-items ion-fab button.increaseSize ion-icon span.increaseSize {
+  width: 22px !important;
+}
+
 page-login * {
   font-weight: 200;
 }

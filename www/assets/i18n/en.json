@@ -55,6 +55,12 @@
     "PRODUCTS_NEW_AFTER_REFRESH": "new products",
     "NO_NEW_PRODUCTS_AFTER_REFRESH": "No new products",
     "PRODUCT_CREATED": "Product created successfully",
-    "LOGGED_OUT": "Logged out successfully"
+    "LOGGED_OUT": "Logged out successfully",
+
+    "DELETE_PRODUCTS": "Delete products",
+    "DELETE_PRODUCT": "Delete product",
+    "ARE_YOU_SURE": "Are you sure?",
+    "DONE_BUTTON": "Ok",
+    "CANCEL_BUTTON": "Cancel"
 
 }

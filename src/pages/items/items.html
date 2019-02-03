@@ -1,9 +1,18 @@
 <!-- <header [name]="nameHeader"></header> -->
 
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>aaa</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
 <ion-content padding>
   
   <ion-list>
-    <ion-item *ngFor="let product of productsOfUser">
+    <ion-item *ngFor="let product of productsOfUser" (click)="goToProduct()">
       <ion-label>
         <ion-slides pager="true" options="{efect: 'flip'}">
           <ion-slide *ngFor="let photo of product.photos">
@@ -11,15 +20,17 @@
           </ion-slide>
         </ion-slides>
       </ion-label>
-      <ion-checkbox *ngIf="readyToDelete" checked="checkedToDelete"></ion-checkbox>
+      <ion-checkbox *ngIf="checkBoxedsOpened" (click)="selectProductWithCheckbox(product)"></ion-checkbox>
     </ion-item>
   </ion-list>
+  <!-- {{ arrayProductsToDelete | json }} -->
 </ion-content>
 
 
-<ion-fab left bottom>
-  <button ion-fab mini (click)="selectToDelete()">
-    <ion-icon name="ios-trash-outline"></ion-icon>
+<ion-fab left bottom [ngClass]="{'increaseSize': arrayProductsToDelete.length > 0}">
+  <button color=danger ion-fab mini (click)="fabOpenCheckboxes()" [ngClass]="{'increaseSize': arrayProductsToDelete.length > 0}">
+    <ion-icon [name]="trashEmptyOrFull"></ion-icon>
+    <small *ngIf="arrayProductsToDelete.length > 0" [innerHTML]="showNumberOfProductsToDelete"></small>
   </button>
 </ion-fab>
 

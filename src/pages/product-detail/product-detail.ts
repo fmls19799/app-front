@@ -22,8 +22,7 @@ export class ProductDetailPage implements OnInit{
     }
     
     ngOnInit(){
-      this.productToShow = this.navParams.data;     
-
+      this.productToShow = this.navParams.data;           
       this.isLiking();
     }
     
@@ -31,14 +30,11 @@ export class ProductDetailPage implements OnInit{
       if (!this.liking) {
         this.likingIcon = 'heart-outline';
         this.liking = false;
-        console.log(1, this.likingIcon);
-        console.log(2.1, this.liking);
+
       } else{
         this.likingIcon = 'heart';
         this.liking = true;
-        console.log(2, this.likingIcon);
-        console.log(2.1, this.liking);
-        
+
       }
       
     }
@@ -46,8 +42,6 @@ export class ProductDetailPage implements OnInit{
     // PONER ESTO CON SUBJECT ASI APRENDO??? SI FUESE ENTRAR MAS ADETRO SI HARIA FALTA SUBJECT???
     ionViewDidLoad() {
       this.productToShow = this.navParams.data;     
-      console.log(this.productToShow);
-       
     }
     
     addOrRemoveLikeToThisProduct(){

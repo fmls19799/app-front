@@ -54,6 +54,12 @@
     "PRODUCTS_NEW_AFTER_REFRESH": "productos nuevos",
     "NO_NEW_PRODUCTS_AFTER_REFRESH": "No hay productos nuevos",
     "PRODUCT_CREATED": "Producto creado satisfactoriamente",
-    "LOGGED_OUT": "Has hecho logout correctamente"
+    "LOGGED_OUT": "Has hecho logout correctamente",
+
+    "DELETE_PRODUCTS": "Borrar productos",
+    "DELETE_PRODUCT": "Borrar producto",
+    "ARE_YOU_SURE": "¿estas seguro?",
+    "DONE_BUTTON": "Hecho",
+    "CANCEL_BUTTON": "Cancelar"
 
 }
