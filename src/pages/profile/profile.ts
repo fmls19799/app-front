@@ -7,6 +7,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  nameHeader: string = 'Your profile';
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

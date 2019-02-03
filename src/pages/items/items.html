@@ -1,19 +1,26 @@
-
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Items</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
+<!-- <header [name]="nameHeader"></header> -->
 
 <ion-content padding>
-  <ion-list *ngFor="let product of productsOfUser">
-    <ion-item>
-      {{product.name}}
-      {{product.description}}
-      <img [src]="product.photos[0]" alt="image">
+  
+  <ion-list>
+    <ion-item *ngFor="let product of productsOfUser">
+      <ion-label>
+        <ion-slides pager="true" options="{efect: 'flip'}">
+          <ion-slide *ngFor="let photo of product.photos">
+            <img [src]="photo" alt="image">
+          </ion-slide>
+        </ion-slides>
+      </ion-label>
+      <ion-checkbox *ngIf="readyToDelete" checked="checkedToDelete"></ion-checkbox>
     </ion-item>
   </ion-list>
 </ion-content>
+
+
+<ion-fab left bottom>
+  <button ion-fab mini (click)="selectToDelete()">
+    <ion-icon name="ios-trash-outline"></ion-icon>
+  </button>
+</ion-fab>
+
+
