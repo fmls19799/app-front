@@ -39,10 +39,7 @@ export class ItemsPage implements OnInit{
     private toastCtrl: ToastController) {
     }
     
-    ngOnInit(){
-      this.productsOfUser = [];  
-      console.log(this.productsOfUser);
-      
+    ngOnInit(){      
       // let subscription = this.productsProvider.productByUserChanges().subscribe((products: Array<Product>)=>{
       //   this.productsOfUser = products;
       // })
@@ -50,6 +47,10 @@ export class ItemsPage implements OnInit{
       
       
       this.emptyEverything();
+      this.getAllProducts();
+    }
+    
+    getAllProducts(){
       this.productsProvider.getProductsByUser().subscribe((products: Array<Product>)=>{        
         this.productsOfUser = products;  
         
@@ -60,6 +61,8 @@ export class ItemsPage implements OnInit{
         
       })
     }
+    
+    
     
     emptyEverything(){
       this.arrayProductsToDelete.forEach((product: ProductSelected)=>{
@@ -191,7 +194,8 @@ export class ItemsPage implements OnInit{
         })).subscribe((data: any)=>{ // ESTE DATA QUE ES???
           if (errors.length === 0) {
             this.translator('PRODUCTS_DELETED', false);
-            this.ngOnInit();
+            this.emptyEverything();
+            this.getAllProducts();
           } else{
             console.log(errors);
             

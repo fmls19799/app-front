@@ -42,7 +42,7 @@ export class ModalComponentChooseCategory implements OnInit {
       type: 'Bicycle',
     }
   ]
-
+  
   constructor(private viewCtrl: ViewController, 
     private modalCtrl: ModalController,
     private formBuilder: FormBuilder,
@@ -154,7 +154,9 @@ export class ModalComponentChooseCategory implements OnInit {
       if (closeAfterDismissedToast) {
         toast.onDidDismiss(()=>{
           this.closeModal();
-          this.navCtrl.setRoot('HomePage'); //NO ME DEJA HABRIR EL MENU DE NUEVO VER ESTO ??????  NO DEBERIA HACERLO ASI SINO UN SIMPLE GET DEL PROVIDER DE HOME AGAIN????
+          this.navCtrl.push('ProductDetailPage', this.productChosen)
+          
+          // this.navCtrl.setRoot('HomePage'); //NO ME DEJA HABRIR EL MENU DE NUEVO VER ESTO ??????  NO DEBERIA HACERLO ASI SINO UN SIMPLE GET DEL PROVIDER DE HOME AGAIN????
         })
       }
     }
