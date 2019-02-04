@@ -26131,6 +26131,22 @@ page-home ion-content .productsList ion-row ion-col .product .container.increase
   font-size: 15px;
 }
 
+page-items ion-content .no-products {
+  width: 70%;
+  margin: 0 auto;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+page-items ion-content .no-products .text-no-products {
+  line-height: 30px;
+  text-align: center;
+  color: grey;
+}
+
 page-items ion-content ion-list {
   display: -webkit-box;
   display: -webkit-flex;

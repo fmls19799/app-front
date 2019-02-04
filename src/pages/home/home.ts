@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, LoadingController, ModalController, ToastController } from 'ionic-angular';
 import { AuthProvider } from './../../providers/auth/auth';
 import { User } from './../../models/user';
@@ -24,6 +24,7 @@ export class HomePage implements OnInit{
   randomStyleColumn1: number;
   randomStyleColumn2: number;
   addedOnes: number = null;
+  
   categories: Array<any> = [
     {
       icon: 'ios-home-outline',
@@ -76,6 +77,7 @@ export class HomePage implements OnInit{
       this.closeOpenedOnes(); // close detail of opened ones
       
       this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{
+        console.log(products);
         
         if (refresher) { // stop refresher after i got results, if im doing refresher, only include new ones instead adding them all ???
           if (products.length > this.products.length) {
@@ -106,10 +108,12 @@ export class HomePage implements OnInit{
       }).present();
     }
     
-    closeOpenedOnes(){
-      this.products.forEach(product => {
-        product.opacity = false;                
-      });
+    closeOpenedOnes(){      
+      if (this.products) {
+        this.products.forEach(product => {
+          product.opacity = false;                
+        });
+      }
     }
     
     populateProductsList(){  
@@ -164,5 +168,6 @@ export class HomePage implements OnInit{
       console.log(event); 
       
     }
+
   }
   

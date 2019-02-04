@@ -1,15 +1,19 @@
 <!-- <header [name]="nameHeader"></header> -->
 
 <ion-header>
-
+  
   <ion-navbar>
     <ion-title>aaa</ion-title>
   </ion-navbar>
-
+  
 </ion-header>
 
 
 <ion-content padding>
+  <!-- SI NO HAY PRODUCTOS -->
+  <div class="no-products" *ngIf="productsOfUser.length == 0">
+    <h6 class="text-no-products">{{'NO_PRODUCTS_IN_YOUR_LIST' | translate}}</h6>
+  </div>
   
   <ion-list>
     <ion-item *ngFor="let product of productsOfUser" (click)="goToProduct()">
@@ -23,11 +27,10 @@
       <ion-checkbox *ngIf="checkBoxedsOpened" (click)="selectProductWithCheckbox(product)"></ion-checkbox>
     </ion-item>
   </ion-list>
-  <!-- {{ arrayProductsToDelete | json }} -->
 </ion-content>
 
 
-<ion-fab left bottom [ngClass]="{'increaseSize': arrayProductsToDelete.length > 0}">
+<ion-fab left bottom [ngClass]="{'increaseSize': arrayProductsToDelete.length > 0}" *ngIf="productsOfUser.length !== 0">
   <button color=danger ion-fab mini (click)="fabOpenCheckboxes()" [ngClass]="{'increaseSize': arrayProductsToDelete.length > 0}">
     <ion-icon [name]="trashEmptyOrFull"></ion-icon>
     <small *ngIf="arrayProductsToDelete.length > 0" [innerHTML]="showNumberOfProductsToDelete"></small>

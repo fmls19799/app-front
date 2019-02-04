@@ -1,8 +1,11 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { ProductsProvider } from './../../providers/products/products';
 import { Product } from './../../models/product';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription, Observable } from 'rxjs';
+import { CONFIG } from '../../config/config.int';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface ProductSelected extends Product{
   selected: boolean;
@@ -15,31 +18,40 @@ export interface ProductSelected extends Product{
 })
 export class ItemsPage implements OnInit{
   
-  productsOfUser: Array<Product> = [];
+  productsOfUser?: Array<Product> = [];
   nameHeader: string = 'Your items';
   checkBoxedsOpened: boolean = false;
   arrayProductsToDelete: Array<ProductSelected> = [];
   trashEmptyOrFull: string = 'ios-trash-outline';
   showNumberOfProductsToDelete: string;
   
+  private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}/products`;
+  
+  // productsInLocal: Array<Product> = [];
+  subscriptions = new Subscription();
+  
+  
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private productsProvider: ProductsProvider,
     private alertCtrl: AlertController,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+    private toastCtrl: ToastController) {
     }
     
-    ngOnInit(){  
-      console.log(0, this.arrayProductsToDelete);
-      console.log(1, this.trashEmptyOrFull);
-      console.log(2, this.checkBoxedsOpened);
+    ngOnInit(){
+      this.productsOfUser = [];  
+      console.log(this.productsOfUser);
+      
+      // let subscription = this.productsProvider.productByUserChanges().subscribe((products: Array<Product>)=>{
+      //   this.productsOfUser = products;
+      // })
+      // this.subscriptions.add(subscription);
       
       
-      this.productsProvider.getProductsByUser().subscribe((products: Array<Product>)=>{
-        // console.log(products);
-        
-        this.productsOfUser = products;
-        // console.log(this.productsOfUser);
+      this.emptyEverything();
+      this.productsProvider.getProductsByUser().subscribe((products: Array<Product>)=>{        
+        this.productsOfUser = products;  
         
       },
       (error)=>{
@@ -50,23 +62,23 @@ export class ItemsPage implements OnInit{
     }
     
     emptyEverything(){
+      this.arrayProductsToDelete.forEach((product: ProductSelected)=>{
+        product.selected = false;
+      })
       this.arrayProductsToDelete = [];
       this.trashEmptyOrFull = 'ios-trash-outline';
       this.checkBoxedsOpened = false;
     }
     
     ionViewWillLeave(){
-      this.arrayProductsToDelete.forEach((product: ProductSelected)=>{
-        product.selected = false;
-      })
       this.emptyEverything();
     }
     
     fabOpenCheckboxes(){
       if (this.arrayProductsToDelete.length === 1) {        
-        this.translator(['DELETE_PRODUCT', 'ARE_YOU_SURE', 'DONE_BUTTON', 'CANCEL_BUTTON']);
+        this.translator(['DELETE_PRODUCT', 'ARE_YOU_SURE', 'DONE_BUTTON', 'CANCEL_BUTTON'], true);
       } else if (this.arrayProductsToDelete.length > 1){        
-        this.translator(['DELETE_PRODUCTS', 'ARE_YOU_SURE', 'DONE_BUTTON', 'CANCEL_BUTTON']);
+        this.translator(['DELETE_PRODUCTS', 'ARE_YOU_SURE', 'DONE_BUTTON', 'CANCEL_BUTTON'], true);
       } else{        
         this.checkBoxedsOpened = !this.checkBoxedsOpened;
         if (!this.checkBoxedsOpened) {
@@ -75,9 +87,13 @@ export class ItemsPage implements OnInit{
       }
     }
     
-    translator(messageToTranslate: Array<string> | string){
+    translator(messageToTranslate: Array<string> | string, withAlert: boolean){
       this.translate.get(messageToTranslate).subscribe((data)=>{                  
-        this.showAlert(data);
+        if (withAlert) {
+          this.showAlert(data);
+        } else{
+          this.showToast(data);
+        }
       })
     }
     
@@ -89,10 +105,7 @@ export class ItemsPage implements OnInit{
           {
             text: data.DONE_BUTTON,
             handler: () =>{
-              console.log('ok');
-              this.arrayProductsToDelete.forEach((product: Product)=>{
-                this.deleteProductByUser(product);
-              })
+              this.deleteManyProducts();
             }
           },
           {
@@ -107,6 +120,20 @@ export class ItemsPage implements OnInit{
       }).present();
     }
     
+    showToast(data: string){
+      this.toastCtrl.create({
+        message: `${this.arrayProductsToDelete.length} ${data}`,
+        duration: 2000,
+        position: 'top',
+      }).present();
+    }
+    
+    
+    
+    
+    countNumberOfProductsToDelete(){
+      return this.arrayProductsToDelete.length;
+    }
     
     selectProductWithCheckbox(product: ProductSelected){
       product.selected = !product.selected;
@@ -131,23 +158,57 @@ export class ItemsPage implements OnInit{
     }
     
     goToProduct(product: Product){
-      this.navCtrl.push('ProductDetailPage', Product);
+      this.navCtrl.push('ProductDetailPage', product);
     }
     
     // EN BACK PONER MIDDLEWARES DE SI ES EL MISMO USER ID???
     // LLAMAR A ESTA FUNCION MULTIPLES VECES???
-    deleteProductByUser(product: Product){
-      
-      // NO ME DEVUELVE NADA YA QUE LO BORRA EN BACK???
-      this.productsProvider.deleteProductByUser(product).subscribe((res: any)=>{
-        console.log(res);
-        
-      },
-      (error)=>{
-        console.log(error);
-        
+    
+    deleteManyProducts(){
+      let errors = [];
+      let urls = [];
+      let ids = [];
+      this.arrayProductsToDelete.forEach((product: Product)=>{
+        urls.push(`${ItemsPage.ENDPOINT}/${product._id}/delete`);
+        ids.push(product._id);
       })
+      
+      return Observable.forkJoin(
+        urls.map((url)=>{
+          return this.productsProvider.deleteProductByUser(url)
+        }),
+        (...results)=>({
+          failed: results.map((res)=>{
+            return res instanceof HttpErrorResponse ? res : null
+          }),
+          succeeded: results.map((res)=>{
+            // MEJORAR ESTO???
+            // if (res.result === 'KO') {
+            //   errors.push(res);
+            // }
+            return res instanceof HttpErrorResponse ? null : res;
+          })
+        })).subscribe((data: any)=>{ // ESTE DATA QUE ES???
+          if (errors.length === 0) {
+            this.translator('PRODUCTS_DELETED', false);
+            this.ngOnInit();
+          } else{
+            console.log(errors);
+            
+          }
+        })
+      }
+      
+      // // NO ME DEVUELVE NADA YA QUE LO BORRA EN BACK???
+      // this.productsProvider.deleteManyProductsByUser(product._id).subscribe((res: any)=>{
+      //   this.emptyEverything();
+      //   this.translator('PRODUCTS_DELETED', false);
+      // },
+      // (error)=>{
+      //   console.log(error);
+      
+      // })
     }
     
-  }
-  
+    
+    

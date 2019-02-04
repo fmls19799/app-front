@@ -60,6 +60,7 @@
     "DELETE_PRODUCT": "Borrar producto",
     "ARE_YOU_SURE": "¿estas seguro?",
     "DONE_BUTTON": "Hecho",
-    "CANCEL_BUTTON": "Cancelar"
-
+    "CANCEL_BUTTON": "Cancelar",
+    "PRODUCTS_DELETED": "productos eliminados",
+    "NO_PRODUCTS_IN_YOUR_LIST": "Aún no tienes ningun producto, ves a la pagina de subida de productos"
 }

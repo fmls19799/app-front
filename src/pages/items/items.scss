@@ -7,6 +7,21 @@ page-items {
         
     }
     ion-content{
+        .no-products{
+            // border: 1px solid red;
+            width: 70%;
+            margin: 0 auto;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            .text-no-products{
+                // border: 1px solid red;
+                line-height: 30px;
+                text-align: center;
+                color: grey;
+            }
+        }
         // border: 1px solid red;
         // border: 1px solid red;
         ion-list{
