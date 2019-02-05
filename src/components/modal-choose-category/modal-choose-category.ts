@@ -5,7 +5,9 @@ import { Product } from './../../models/product';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { ProductsProvider } from './../../providers/products/products';
-import { ApiError } from './../../models/ApiError';
+import { StringifiedError } from './../../models/StringifiedError';
+import { AuthProvider } from './../../providers/auth/auth';
+import { User } from './../../models/user';
 
 @Component({
   selector: 'modal-choose-category',
@@ -21,7 +23,7 @@ export class ModalComponentChooseCategory implements OnInit {
   MODALTITLE: string = '';
   previewImages: any = [];
   increaseImageWrapperHeight: boolean;
-  
+  user: User;
   myForm: FormGroup;
   
   categories: Array<any> = [
@@ -43,13 +45,14 @@ export class ModalComponentChooseCategory implements OnInit {
     }
   ]
   
-  constructor(private viewCtrl: ViewController, 
+  constructor(private viewCtrl: ViewController,
     private modalCtrl: ModalController,
     private formBuilder: FormBuilder,
     private translate: TranslateService,
     private toastCtrl: ToastController,
     private productsProvider: ProductsProvider,
-    private navCtrl: NavController) {
+    private navCtrl: NavController,
+    private auth: AuthProvider) {
       
       this.myForm = this.formBuilder.group({
         name: new FormControl('',[Validators.required, Validators.maxLength(10)]),
@@ -58,7 +61,10 @@ export class ModalComponentChooseCategory implements OnInit {
       })
     }
     
-    ngOnInit(){              
+    ngOnInit(){
+      this.user = this.auth.user;
+      console.log(this.user);
+      
       if (this.productChosen) {
         this.MODALTITLE = 'CHOOSE_CATEGORY';        
       }
@@ -117,16 +123,14 @@ export class ModalComponentChooseCategory implements OnInit {
       if (this.previewImages.length <= 0) {
         this.translator('ONE_IMAGE_REQUIRED', null);
       }
-      else if(this.myForm.valid){        
+      else if(this.myForm.valid){  
+        
         this.productsProvider.createProduct(this.productChosen).subscribe((product: Product)=>{
-          this.translator('PRODUCT_CREATED', true)
+          this.translator('PRODUCT_CREATED', true);
         },
-        
-        (error: ApiError)=>{
-          console.log(333, error);
-          
+        (error: any)=>{
+          this.translator(error, false);
         })
-        
       } 
       else{
         this.translator('FORGOT_SOMETHING_VALIDATION', null);
@@ -153,10 +157,14 @@ export class ModalComponentChooseCategory implements OnInit {
       toast.present();
       if (closeAfterDismissedToast) {
         toast.onDidDismiss(()=>{
+          // let owner = new User();
+          // owner.id = this.user.id;
+
+          // this.productChosen.owner = owner;// SI NO SE LO PONGO, EN EL MOMENTO DE IR AL DETALLE DEL PRODUCTO ESE ID NO EXISTIRA YA QUE NO HE HECHO UN GET CON EL PRODUCT YA CON OWNER ID???
+          // this.navCtrl.push('ProductDetailPage', this.productChosen)
           this.closeModal();
-          this.navCtrl.push('ProductDetailPage', this.productChosen)
           
-          // this.navCtrl.setRoot('HomePage'); //NO ME DEJA HABRIR EL MENU DE NUEVO VER ESTO ??????  NO DEBERIA HACERLO ASI SINO UN SIMPLE GET DEL PROVIDER DE HOME AGAIN????
+          this.navCtrl.setRoot('HomePage'); //NO ME DEJA HABRIR EL MENU DE NUEVO VER ESTO ??????  NO DEBERIA HACERLO ASI SINO UN SIMPLE GET DEL PROVIDER DE HOME AGAIN????
         })
       }
     }

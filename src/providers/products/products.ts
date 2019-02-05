@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { CONFIG } from '../../config/config.int';
 import { Product } from './../../models/product';
 import { AuthProvider } from '../auth/auth';
-import { ApiError } from './../../models/ApiError';
+import { StringifiedError } from './../../models/StringifiedError';
 import { Observable, Subject, Subscription, BehaviorSubject } from 'rxjs';
 import { _throw } from 'rxjs/observable/throw';
 import { map, catchError } from 'rxjs/operators';
+import { HandlingErrorsProvider } from '../handling-errors/handling-errors';
 
 @Injectable()
 export class ProductsProvider {
@@ -25,10 +26,11 @@ export class ProductsProvider {
   }
 
   constructor(public http: HttpClient,
-    private auth: AuthProvider) {
+    private auth: AuthProvider,
+    private handlingError: HandlingErrorsProvider) {
 
   }
-
+  // deberia en en el modelo pero no va????
   asFormData(product) {
     const data = new FormData();
     data.append('name', product.name);
@@ -43,70 +45,67 @@ export class ProductsProvider {
     return data;
   }
 
-  createProduct(product: Product): Observable<Product | ApiError> {
-    return this.http.post<Product>(`${ProductsProvider.ENDPOINT}/products/${this.auth.user.id}/create`, this.asFormData(product), ProductsProvider.httpOptionsForFormData)
+  createProduct(product: Product): Observable<Product | StringifiedError> {
+    return this.http.post<Product>(`${ProductsProvider.ENDPOINT}/products/users/${this.auth.user.id}/create`, this.asFormData(product), ProductsProvider.httpOptionsForFormData)
       .pipe(
         map((product: Product) => {
           return product;
         }),
-        catchError(this.handleError));
+
+        catchError(this.handlingError.handleError)
+      );
   }
 
-  getAllProducts(): Observable<Array<Product> | ApiError> {
+  getAllProducts(): Observable<Array<Product> | StringifiedError> {
     //QUITAR EL MOCK???      
     return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products`).map((products: Array<Product>) => products)
       .pipe(
         map((products: Array<Product>) => {
-          // this.allProducts = products;
           return products;
         }),
-        catchError(this.handleError));
-    // return this.http.get<Array<Product>>(`http://www.mocky.io/v2/5c4ced6d3700002b0bb042ef`).map((products: Array<Product>)=> products);
+        catchError(this.handlingError.handleError));
   }
 
-  // COMO HACEMOS CON PIPE O SIN??? ESTE ORDEN ESTA MAL????
-  getProductsByUser(): Observable<Array<Product> | ApiError> {
+  // COMO HACEMOS CON PIPE O SIN??? no haria falta 
+  getProductsByUser(): Observable<Array<Product> | StringifiedError> {
     // PONER BIEN LA RUTA NO TIENE SENTIDO PONER PRODUCT ID????
-    return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products/${this.auth.user.id}`).map((products: Array<Product>) => products)
+    return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products/users/${this.auth.user.id}`).map((products: Array<Product>) => products)
       .pipe(
         map((products: Array<Product>) => {
-          // this.productsByUser = products;
-          // this.notifyChanges();
           return products;
         }),
-        catchError(this.handleError));
+        catchError(this.handlingError.handleError));
   }
 
-  likeProduct(product: Product): Observable<Product | ApiError> {
+
+
+  likeProduct(product: Product): Observable<Product | StringifiedError> {
     return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/like`, product).map((product: Product) => product)
       .pipe(
         map((product: Product) => {
           return product;
         }),
-        catchError(this.handleError));
+        catchError(this.handlingError.handleError));
   }
 
-  unlikeProduct(product: Product): Observable<Product | ApiError> {
+  unlikeProduct(product: Product): Observable<Product | StringifiedError> {
     return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/unlike`, product).map((product: Product) => product)
       .pipe(
         map((product: Product) => {
           return product;
         }),
-        catchError(this.handleError));
+        catchError(this.handlingError.handleError));
   }
 
-  deleteProductByUser(url): Observable<void | ApiError> {
-    // PONER MIDDLEWARE EN BACK TB???
+  deleteProductByUser(url): Observable<void | StringifiedError> {
     return this.http.delete<Product>(url).map((res: any) => res)
       .pipe(
         map(() => {
-          // this.productsByUser = this.productsByUser.filter(product => product._id !== id);
-          // this.allProducts = this.allProducts.filter(product => product._id !== id);
-          // this.notifyChanges();
-          return;
+          return; // USAR SUBJECTS O NO???? COMO AFECTARIA EL FORKJOIN EN ESTE CASO SI HAY ERROR????
         }),
-        catchError(this.handleError));
+        catchError(this.handlingError.handleError));
   }
+
 
   // notifyChanges() {
   //   this.subjectProductOfUser.next(this.productsByUser);
@@ -121,24 +120,5 @@ export class ProductsProvider {
   //   return this.subjectProductOfUser.asObservable();
   // }
 
-  handleError(error: HttpErrorResponse): Observable<ApiError> {
-    console.log(error);
-
-    const apiError = new ApiError();
-    if (error.error instanceof ErrorEvent) {
-      console.log('es error event');
-
-      apiError.message = 'Something went bad, try again';
-    } else {
-      console.log('no es error event');
-      console.log(error.error);
-
-      apiError.message = error.error.message;
-      apiError.errors = error.error.errors;
-    }
-    console.log(apiError);
-
-    return _throw(apiError);
-  }
 
 }

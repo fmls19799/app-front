@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 export class Product {
     _id?: string; // CUANDO LO CREO NO TIENE ID???
     name: string;
@@ -6,6 +8,7 @@ export class Product {
     price: number;
     type: string;
     photos: Array<File> = [];
+    owner?: User;
     
     km: number;
     randomHeight?: any;

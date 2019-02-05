@@ -93,9 +93,15 @@ page-login, page-register{
         top: -10px !important;
         right: -10px !important;
         text-align: center;
-        height: 50px;
-        background-color: #f95b5b !important;
-        .toast-message{
-            font-size: 15px !important;
+        // height: 50px;
+        white-space: normal;
+
+        .toast-container{
+            background-color: #f95b5b !important;
+            white-space: normal;
+
+            .toast-message{
+                font-size: 13px !important;
+            }
         }
     }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
-import { ApiError } from './../../models/apiError';
 import { AuthProvider } from './../../providers/auth/auth';
 import { User } from './../../models/user';
+import { StringifiedError } from './../../models/StringifiedError';
 
 
 @IonicPage()
@@ -36,7 +36,7 @@ export class SearchProductPage {
             this.showToast('we have found 3 items');
           }
         },
-        (error: ApiError) => {
+        (error: StringifiedError) => {
           console.log('error', error);
         })
       }

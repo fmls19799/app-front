@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { TranslateService } from '@ngx-translate/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { PATTERNS } from '../../shared/constants';
-import { ApiError } from './../../models/ApiError';
 import { AuthProvider } from './../../providers/auth/auth';
+import { StringifiedError } from './../../models/StringifiedError';
 
 @IonicPage()
 @Component({
@@ -17,7 +17,8 @@ export class RegisterPage implements OnInit{
   
   user: User = new User();
   myForm: FormGroup;
-  apiError: ApiError;
+  // apiError: ApiError;
+  stringifiedError: StringifiedError;
   
   constructor(public navCtrl: NavController, 
     public toastCtrl: ToastController, 
@@ -54,19 +55,17 @@ export class RegisterPage implements OnInit{
         this.auth.register(this.user).subscribe((user: User)=>{
           this.translator('USER_CREATED', true);
         },
-        (error: ApiError) =>{
-          this.apiError = error;
-          this.translator(this.apiError.error.message);
-          console.log('error:', this.apiError.error.message);
+        (error: any) =>{
+          console.log(error);
+          
+          this.translator(error);
         })
       } else{
         this.translator('FORBIDDEN');
       }
     }
     
-    translator(messageToTranslate: string, goToLogin?: boolean){
-      console.log(messageToTranslate);
-      
+    translator(messageToTranslate: string, goToLogin?: boolean){      
       this.translate.get(messageToTranslate).subscribe((data: string)=>{          
         this.showToast(data, goToLogin);
       })

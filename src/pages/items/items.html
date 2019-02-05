@@ -16,7 +16,7 @@
   </div>
   
   <ion-list>
-    <ion-item *ngFor="let product of productsOfUser" (click)="goToProduct()">
+    <ion-item *ngFor="let product of productsOfUser" (click)="goToProduct(product)">
       <ion-label>
         <ion-slides pager="true" options="{efect: 'flip'}">
           <ion-slide *ngFor="let photo of product.photos">

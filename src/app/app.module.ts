@@ -24,6 +24,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { AngularFireStorageModule } from 'angularfire2/storage';
+import { HandlingErrorsProvider } from '../providers/handling-errors/handling-errors';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -68,7 +69,8 @@ export function createTranslateLoader(http: HttpClient) {
     Utils,
     AuthProvider,
     ProductsProvider,
-    ProductsMediator
+    ProductsMediator,
+    HandlingErrorsProvider
   ]
 })
 export class AppModule {}

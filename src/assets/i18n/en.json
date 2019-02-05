@@ -17,11 +17,12 @@
     "ERROR_PASSWORD_REQUIRED":"Password is required",
     "ERROR_EMAIL_PATTERN": "Wrong email pattern",
     "ERROR_PASSWORD_PATTERN": "Password must have 1 capital letter and at least one number",
-    
+
     "CODE_001": "Email or password is empty",
     "CODE_002": "Invalid email or password",
     "CODE_003": "User with that email already exists",
-    
+    "CODE_004": "Not authorised, login first",
+
     "USER_CREATED": "User created successfully, validate the link we sent you to your email",
     "LOGIN_ERROR": "Unable to sign in",
     "REMEMBER_ME": "Remember password",

@@ -3,34 +3,37 @@
   
   <ion-navbar>
     <div class="flex" right>
-      <ion-icon class="like" (click)="addOrRemoveLikeToThisProduct()" [name]="likingIcon"></ion-icon>
+      <ion-icon *ngIf="productToShow.owner?.id !== this.user?.id" class="like" (click)="addOrRemoveLikeToThisProduct()" [name]="likingIcon"></ion-icon>
       <ion-icon class="share" name="share-outline"></ion-icon>
     </div>
   </ion-navbar>
   
 </ion-header>
 
-
 <ion-content padding>
-  <!-- <div class="wrapper" *ngIf="productToShow">
+  <div class="wrapper" *ngIf="productToShow">
     <div class="imgWrapper">
-      <img [src]="productToShow.photos[0]" alt="image">
+      <ion-slides pager="true" options="{efect: 'flip'}">
+        <ion-slide *ngFor="let photo of productToShow.photos">
+          <img [src]="photo" alt="image">
+        </ion-slide>
+      </ion-slides>
       <div class="counterWrapper">
-        <ion-icon class="likeSmall" name="heart-outline">
+        <ion-icon class="likeSmall" name="heart-outline" *ngIf="productToShow.owner?.id === this.user?.id">
           <span class="counter">{{productCounterLikes}}</span>
         </ion-icon>
       </div>
     </div>
     <div class="info">
       <h2 class="price">
-        {{productToShow.price}}
+        {{productToShow.price}} €
       </h2>
       <h4 class="title">
-        {{productToShow.name}}
+        {{productToShow.name | titlecase}}
       </h4>
       <p class="summary">
-        {{productToShow.description}}
+        {{productToShow.description | titlecase}}
       </p>
     </div>
-  </div> -->
+  </div>
 </ion-content>

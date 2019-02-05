@@ -170,12 +170,11 @@ export class ItemsPage implements OnInit{
     deleteManyProducts(){
       let errors = [];
       let urls = [];
-      let ids = [];
       this.arrayProductsToDelete.forEach((product: Product)=>{
         urls.push(`${ItemsPage.ENDPOINT}/${product._id}/delete`);
-        ids.push(product._id);
       })
       
+      // COMO AFECTARIA LOS ERRORES MULTIPLES AQUI????
       return Observable.forkJoin(
         urls.map((url)=>{
           return this.productsProvider.deleteProductByUser(url)
@@ -185,10 +184,6 @@ export class ItemsPage implements OnInit{
             return res instanceof HttpErrorResponse ? res : null
           }),
           succeeded: results.map((res)=>{
-            // MEJORAR ESTO???
-            // if (res.result === 'KO') {
-            //   errors.push(res);
-            // }
             return res instanceof HttpErrorResponse ? null : res;
           })
         })).subscribe((data: any)=>{ // ESTE DATA QUE ES???
@@ -197,21 +192,10 @@ export class ItemsPage implements OnInit{
             this.emptyEverything();
             this.getAllProducts();
           } else{
-            console.log(errors);
-            
+            console.log(errors); // PROBAR ERRORES DE BACK MULTIPLES AL DELETE???
           }
         })
       }
-      
-      // // NO ME DEVUELVE NADA YA QUE LO BORRA EN BACK???
-      // this.productsProvider.deleteManyProductsByUser(product._id).subscribe((res: any)=>{
-      //   this.emptyEverything();
-      //   this.translator('PRODUCTS_DELETED', false);
-      // },
-      // (error)=>{
-      //   console.log(error);
-      
-      // })
     }
     
     

@@ -31,6 +31,14 @@ page-product-detail {
     ion-content{
         .wrapper{
             .imgWrapper{
+                ion-slides{
+                    ion-slide{
+                        img{
+                            // border: 1px solid blue !important;
+                            // height: 300px;
+                        }
+                    }
+                }
                 position: relative;
                 img{
                     border-radius: 10px;
@@ -40,6 +48,7 @@ page-product-detail {
                 }
             }
             .counterWrapper{
+                z-index: 999;
                 position: absolute;
                 bottom: 10px;
                 right: 10px;

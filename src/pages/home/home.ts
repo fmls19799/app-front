@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, LoadingController, ModalController, ToastController } from 'ionic-angular';
 import { AuthProvider } from './../../providers/auth/auth';
 import { User } from './../../models/user';
-import { ApiError } from './../../models/ApiError';
 import { SearchProductPage } from './../search-product/search-product';
 import { ProductsProvider } from './../../providers/products/products';
 import { Product } from './../../models/product';
@@ -159,7 +158,6 @@ export class HomePage implements OnInit{
     
     goToProduct(product: Product){    
       // PONER ESTO CON SUBJECT ASI APRENDO??? AUNQUE SOLO PRA ESTO NO HARIA FALTA
-      console.log(product);
       this.navCtrl.push('ProductDetailPage', product)
     }
     

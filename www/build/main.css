@@ -25760,12 +25760,16 @@ ion-menu ion-content ion-list ion-item div {
   top: -10px !important;
   right: -10px !important;
   text-align: center;
-  height: 50px;
-  background-color: #f95b5b !important;
+  white-space: normal;
 }
 
-.toast-wrapper .toast-message {
-  font-size: 15px !important;
+.toast-wrapper .toast-container {
+  background-color: #f95b5b !important;
+  white-space: normal;
+}
+
+.toast-wrapper .toast-container .toast-message {
+  font-size: 13px !important;
 }
 
 fileuploader .file-container .file {
@@ -26351,6 +26355,7 @@ page-product-detail ion-content .wrapper .imgWrapper img {
 }
 
 page-product-detail ion-content .wrapper .counterWrapper {
+  z-index: 999;
   position: absolute;
   bottom: 10px;
   right: 10px;
