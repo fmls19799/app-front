@@ -146,6 +146,12 @@ var ProductsProvider = /** @class */ (function () {
             return products;
         }), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["catchError"])(this.handlingError.handleError));
     };
+    ProductsProvider.prototype.getOneProduct = function (id) {
+        return this.http.get(ProductsProvider_1.ENDPOINT + "/products/" + id).map(function (product) { return product; })
+            .pipe(Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["map"])(function (product) {
+            return product;
+        }), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["catchError"])(this.handlingError.handleError));
+    };
     ProductsProvider.prototype.likeProduct = function (product) {
         return this.http.put(ProductsProvider_1.ENDPOINT + "/products/" + product._id + "/like", product).map(function (product) { return product; })
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["map"])(function (product) {
@@ -173,10 +179,12 @@ var ProductsProvider = /** @class */ (function () {
     };
     ProductsProvider = ProductsProvider_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__auth_auth__["a" /* AuthProvider */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__handling_errors_handling_errors__["a" /* HandlingErrorsProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__handling_errors_handling_errors__["a" /* HandlingErrorsProvider */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */],
+            __WEBPACK_IMPORTED_MODULE_3__auth_auth__["a" /* AuthProvider */],
+            __WEBPACK_IMPORTED_MODULE_6__handling_errors_handling_errors__["a" /* HandlingErrorsProvider */]])
     ], ProductsProvider);
     return ProductsProvider;
-    var ProductsProvider_1, _a, _b, _c;
+    var ProductsProvider_1;
 }());
 
 //# sourceMappingURL=products.js.map
@@ -450,9 +458,9 @@ var ModalComponentChooseCategory = /** @class */ (function () {
                 // let owner = new User();
                 // owner.id = this.user.id;
                 // this.productChosen.owner = owner;// SI NO SE LO PONGO, EN EL MOMENTO DE IR AL DETALLE DEL PRODUCTO ESE ID NO EXISTIRA YA QUE NO HE HECHO UN GET CON EL PRODUCT YA CON OWNER ID???
-                // this.navCtrl.push('ProductDetailPage', this.productChosen)
+                _this.navCtrl.push('ProductDetailPage', _this.productChosen);
                 _this.closeModal();
-                _this.navCtrl.setRoot('HomePage'); //NO ME DEJA HABRIR EL MENU DE NUEVO VER ESTO ??????  NO DEBERIA HACERLO ASI SINO UN SIMPLE GET DEL PROVIDER DE HOME AGAIN????
+                // this.navCtrl.setRoot('HomePage'); //NO ME DEJA HABRIR EL MENU DE NUEVO VER ESTO ??????  NO DEBERIA HACERLO ASI SINO UN SIMPLE GET DEL PROVIDER DE HOME AGAIN????
             });
         }
     };
@@ -460,10 +468,16 @@ var ModalComponentChooseCategory = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'modal-choose-category',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/'<!-- CHOOSE PRODUCT -->\n<div *ngIf="!isProductChosen" class="modalChooseProduct">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="closeModal()">{{ MODALTITLE | translate}} \n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  <div class="bottom">\n    <ion-row>\n      <ion-col *ngFor="let category of categories">\n        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>\n        <span>{{category.type | translate }}</span>\n      </ion-col>\n    </ion-row>\n  </div>\n</div>\n\n<!-- PRODUCT CHOSEN -->\n<div *ngIf="isProductChosen" class="modalProductChosen">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.type }}</span>\n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  \n  <section class="bottom">\n    \n    <!-- <div class="imagesContainer" *ngFor="let previewImage of previewImages"> -->\n      <div class="imagesContainer" [ngClass]="{\'increaseDivWtapper\': increaseImageWrapperHeight}">\n        <img [src]="previewImage" *ngFor="let previewImage of previewImages" alt="image">\n      </div>\n      <!-- </div> -->\n      \n      <div class="mainWrapper">\n        <form [formGroup]="myForm" class="myForm" (ngSubmit)="uploadProduct()">\n          <ion-list>\n            <ion-item class="item-form-control" [ngClass]="{\'has-error\': myForm.controls.name.invalid && myForm.controls.name.touched}">\n              <ion-label floating>{{ \'NAME\' | translate }}*</ion-label>\n              <ion-input formControlName="name" type="text" [(ngModel)]="productChosen.name">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item class="item-form-control" [ngClass]="{\'has-error\': myForm.controls.description.invalid && myForm.controls.description.touched}">\n              <ion-label floating>{{ \'DESCRIPTION\' | translate }}*</ion-label>\n              <ion-input formControlName="description" type="text" [(ngModel)]="productChosen.description">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item class="item-form-control" [ngClass]="{\'has-error\': myForm.controls.price.invalid && myForm.controls.price.touched}">\n              <ion-label floating>{{ \'PRICE\' | translate }}*</ion-label>\n              <ion-input formControlName="price" type="number" [(ngModel)]="productChosen.price">\n                \n              </ion-input>\n            </ion-item>\n            \n            <button type="submit" ion-button color="red" block>{{\'UPLOAD_PRODUCT\' | translate}}</button>\n            \n          </ion-list>\n        </form>\n      </div>\n      <!--  -->\n      <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">\n        File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>\n      </div>\n      <!--  -->\n    </section>\n    \n    <div class="upload">\n      <fileuploader [multipleImages]="true" [iconName]="\'camera-outline\'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>\n    </div>\n  </div>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__providers_products_products__["a" /* ProductsProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__providers_products_products__["a" /* ProductsProvider */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_6__providers_auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__providers_auth_auth__["a" /* AuthProvider */]) === "function" && _h || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */],
+            __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */],
+            __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_5__providers_products_products__["a" /* ProductsProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_6__providers_auth_auth__["a" /* AuthProvider */]])
     ], ModalComponentChooseCategory);
     return ModalComponentChooseCategory;
-    var _a, _b, _c, _d, _e, _f, _g, _h;
 }());
 
 //# sourceMappingURL=modal-choose-category.js.map

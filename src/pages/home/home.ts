@@ -8,6 +8,10 @@ import { Product } from './../../models/product';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 
+export interface ProductSelected extends Product{
+  selected: boolean;
+}
+
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -75,9 +79,7 @@ export class HomePage implements OnInit{
     getAllProducts(refresher?: any){
       this.closeOpenedOnes(); // close detail of opened ones
       
-      this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{
-        console.log(products);
-        
+      this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{        
         if (refresher) { // stop refresher after i got results, if im doing refresher, only include new ones instead adding them all ???
           if (products.length > this.products.length) {
             this.showToast(`${(Number(products.length) - Number(this.products.length)).toString()} products new`);            
@@ -110,7 +112,7 @@ export class HomePage implements OnInit{
     closeOpenedOnes(){      
       if (this.products) {
         this.products.forEach(product => {
-          product.opacity = false;                
+          product.selected = false;                
         });
       }
     }
@@ -140,20 +142,26 @@ export class HomePage implements OnInit{
       this.getAllProducts(refresher);
     }
     
-    showSmallDetail(productClicked: Product){            
-      return this.products.forEach(product => {        
+    showSmallDetail(productClicked: Product){           
+       this.products.forEach(product => {        
         if (product._id === productClicked._id) {
-          return this.turnOpacity(product);
-        }
+           this.increaseContainer(product);
+        } else{
+           this.closeOtherOnes(product);
+        }       
       });
     }
+
+    closeOtherOnes(product: ProductSelected){
+      product.selected = false;
+    }
     
-    turnOpacity(product: Product){          
-      if (!product.opacity) {
-        product.opacity = true;
+    increaseContainer(product: ProductSelected){          
+      if (!product.selected) {
+        product.selected = true;
       } else{
-        product.opacity = false;
-      }
+        product.selected = false;
+      }      
     }
     
     goToProduct(product: Product){    
@@ -163,7 +171,7 @@ export class HomePage implements OnInit{
     
     menuClick(event: any){
       // ESTO PARA QUE???
-      console.log(event); 
+      // console.log(event); 
       
     }
 

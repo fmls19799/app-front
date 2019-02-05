@@ -76,12 +76,30 @@ var ProductDetailPage = /** @class */ (function () {
         this.productCounterLikes = 0; // QUE SEA DINAMICO PONER EN SU MODELO???
     }
     ProductDetailPage.prototype.ngOnInit = function () {
-        console.log(this.navParams);
-        this.user = this.auth.user;
-        this.productToShow = this.navParams.data;
-        console.log(this.productToShow.owner.id);
-        console.log(this.user.id);
+        var _this = this;
+        // this.productToShow = this.navParams.data;   
+        console.log(this.navParams.data._id);
+        this.productsProvider.getOneProduct(this.navParams.data._id).subscribe(function (product) {
+            // this.translator('PRODUCT_CREATED', true);
+            console.log(product);
+        }, function (error) {
+            _this.translator(error);
+        });
+        // console.log(this.productToShow.owner.id === this.user.id);
         this.isLiking();
+    };
+    ProductDetailPage.prototype.translator = function (messageToTranslate) {
+        var _this = this;
+        this.translate.get(messageToTranslate).subscribe(function (data) {
+            _this.showToast(data);
+        });
+    };
+    ProductDetailPage.prototype.showToast = function (data) {
+        this.toastCtrl.create({
+            message: data,
+            duration: 2000,
+            position: 'top',
+        }).present();
     };
     ProductDetailPage.prototype.isLiking = function () {
         if (!this.liking) {
@@ -92,6 +110,10 @@ var ProductDetailPage = /** @class */ (function () {
             this.likingIcon = 'heart';
             this.liking = true;
         }
+    };
+    // PONER ESTO CON SUBJECT ASI APRENDO??? SI FUESE ENTRAR MAS ADETRO SI HARIA FALTA SUBJECT???
+    ProductDetailPage.prototype.ionViewDidLoad = function () {
+        this.productToShow = this.navParams.data;
     };
     ProductDetailPage.prototype.addOrRemoveLikeToThisProduct = function () {
         // this.liking = !this.liking;
@@ -111,10 +133,14 @@ var ProductDetailPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-product-detail',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/'\n<ion-header>\n  \n  <ion-navbar>\n    <div class="flex" right>\n      <ion-icon *ngIf="productToShow.owner?.id !== this.user?.id" class="like" (click)="addOrRemoveLikeToThisProduct()" [name]="likingIcon"></ion-icon>\n      <ion-icon class="share" name="share-outline"></ion-icon>\n    </div>\n  </ion-navbar>\n  \n</ion-header>\n\n<ion-content padding>\n  <div class="wrapper" *ngIf="productToShow">\n    <div class="imgWrapper">\n      <ion-slides pager="true" options="{efect: \'flip\'}">\n        <ion-slide *ngFor="let photo of productToShow.photos">\n          <img [src]="photo" alt="image">\n        </ion-slide>\n      </ion-slides>\n      <div class="counterWrapper">\n        <ion-icon class="likeSmall" name="heart-outline" *ngIf="productToShow.owner?.id === this.user?.id">\n          <span class="counter">{{productCounterLikes}}</span>\n        </ion-icon>\n      </div>\n    </div>\n    <div class="info">\n      <h2 class="price">\n        {{productToShow.price}} €\n      </h2>\n      <h4 class="title">\n        {{productToShow.name | titlecase}}\n      </h4>\n      <p class="summary">\n        {{productToShow.description | titlecase}}\n      </p>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__providers_products_products__["a" /* ProductsProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_products_products__["a" /* ProductsProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__providers_auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_auth_auth__["a" /* AuthProvider */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__["c" /* TranslateService */]) === "function" && _f || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_3__providers_products_products__["a" /* ProductsProvider */],
+            __WEBPACK_IMPORTED_MODULE_4__providers_auth_auth__["a" /* AuthProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__["c" /* TranslateService */]])
     ], ProductDetailPage);
     return ProductDetailPage;
-    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=product-detail.js.map

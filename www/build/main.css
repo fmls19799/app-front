@@ -26069,6 +26069,8 @@ page-home ion-content .productsList ion-row ion-col .product .container img.opac
   position: relative;
   opacity: .2 !important;
   background-color: black !important;
+  -webkit-transition: all .5s;
+  transition: all .5s;
 }
 
 page-home ion-content .productsList ion-row ion-col .product .container .infoWrapper {
@@ -26083,6 +26085,8 @@ page-home ion-content .productsList ion-row ion-col .product .container .infoWra
 page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent {
   padding-top: 10px;
   padding-left: 5px;
+  -webkit-transition: all .5s;
+  transition: all .5s;
 }
 
 page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent .imagesGallery {
@@ -26121,6 +26125,8 @@ page-home ion-content .productsList ion-row ion-col .product .container .showHid
 
 page-home ion-content .productsList ion-row ion-col .product .container.increasesizeContainer {
   border: 2px solid #dddada;
+  -webkit-transition: all .5s;
+  transition: all .5s;
 }
 
 .toast-wrapper {
