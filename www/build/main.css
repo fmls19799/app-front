@@ -26214,24 +26214,6 @@ page-items ion-fab {
   align-items: center;
 }
 
-page-items ion-fab.increaseSize {
-  width: 70vw !important;
-}
-
-page-items ion-fab button.increaseSize {
-  width: 70vw !important;
-  border-radius: 30px;
-}
-
-page-items ion-fab button.increaseSize ion-icon.increaseSize {
-  display: inherit !important;
-  margin-left: 10px !important;
-}
-
-page-items ion-fab button.increaseSize ion-icon span.increaseSize {
-  width: 22px !important;
-}
-
 page-login * {
   font-weight: 200;
 }

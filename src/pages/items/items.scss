@@ -65,23 +65,23 @@ page-items {
         display: flex;
         flex-direction: row;
         align-items: center;
-        &.increaseSize{
-            width: 70vw !important;
-        }
-        button.increaseSize{
-            width: 70vw !important;
-            border-radius: 30px;
-            ion-icon{
-                &.increaseSize{
-                    display: inherit !important;
-                    margin-left: 10px !important;
-                }
-                span{
-                    &.increaseSize{
-                        width: 22px !important;
-                    }
-                }
-            }
-        }
+        // &.increaseSize{
+        //     width: 70vw !important;
+        // }
+        // button.increaseSize{
+        //     width: 70vw !important;
+        //     border-radius: 30px;
+        //     ion-icon{
+        //         &.increaseSize{
+        //             display: inherit !important;
+        //             margin-left: 10px !important;
+        //         }
+        //         span{
+        //             &.increaseSize{
+        //                 width: 22px !important;
+        //             }
+        //         }
+        //     }
+        // }
     }
 }

@@ -62,5 +62,6 @@
     "DONE_BUTTON": "Hecho",
     "CANCEL_BUTTON": "Cancelar",
     "PRODUCTS_DELETED": "productos eliminados",
-    "NO_PRODUCTS_IN_YOUR_LIST": "Aún no tienes ningun producto, ves a la pagina de subida de productos"
+    "NO_PRODUCTS_IN_YOUR_LIST": "Aún no tienes ningun producto, ves a la pagina de subida de productos",
+    "HAVE_TO_SELECT_PRODUCT_FIRST": "Primero debe seleccionar un producto"
 }

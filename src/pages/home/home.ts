@@ -66,14 +66,15 @@ export class HomePage implements OnInit{
     private translate: TranslateService) {
       
     }
-    
-    ionViewDidLoad() {
-      
-    }
-    
-    
+
     ngOnInit(){      
+      
+      // DESPUES DE CREAR PRODUCT RECOJO EL TRUE Y LE REDIRIJO AL PRODUCTO CREADO
+      // if (this.navParams.get('comeAfterCreateOProduct')){
+      //   this.goToProduct(this.navParams.data.product);
+      // } 
       this.getAllProducts();
+      
     }
     
     getAllProducts(refresher?: any){
@@ -88,7 +89,9 @@ export class HomePage implements OnInit{
           }
           refresher.complete();
         } 
-        this.products = products;           
+        this.products = products;  
+        console.log(888, this.products);
+        
         this.populateProductsList(); // split products in 3 columns
       })
     }
@@ -143,15 +146,15 @@ export class HomePage implements OnInit{
     }
     
     showSmallDetail(productClicked: Product){           
-       this.products.forEach(product => {        
+      this.products.forEach(product => {        
         if (product._id === productClicked._id) {
-           this.increaseContainer(product);
+          this.increaseContainer(product);
         } else{
-           this.closeOtherOnes(product);
+          this.closeOtherOnes(product);
         }       
       });
     }
-
+    
     closeOtherOnes(product: ProductSelected){
       product.selected = false;
     }
@@ -164,7 +167,9 @@ export class HomePage implements OnInit{
       }      
     }
     
-    goToProduct(product: Product){    
+    goToProduct(product: Product){   
+      console.log(111, product);
+      
       // PONER ESTO CON SUBJECT ASI APRENDO??? AUNQUE SOLO PRA ESTO NO HARIA FALTA
       this.navCtrl.push('ProductDetailPage', product)
     }
@@ -174,6 +179,6 @@ export class HomePage implements OnInit{
       // console.log(event); 
       
     }
-
+    
   }
   

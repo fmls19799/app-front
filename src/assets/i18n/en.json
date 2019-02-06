@@ -64,6 +64,6 @@
     "DONE_BUTTON": "Ok",
     "CANCEL_BUTTON": "Cancel",
     "PRODUCTS_DELETED": "products deleted",
-    "NO_PRODUCTS_IN_YOUR_LIST": "You dont have any product yet, go to the upload tab to create one"
-
+    "NO_PRODUCTS_IN_YOUR_LIST": "You dont have any product yet, go to the upload tab to create one",
+    "HAVE_TO_SELECT_PRODUCT_FIRST": "First you have to select a product"
 }

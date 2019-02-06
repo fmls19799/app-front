@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { ProductsProvider } from './../../providers/products/products';
 import { Product } from './../../models/product';
@@ -23,7 +23,7 @@ export class ItemsPage implements OnInit{
   checkBoxedsOpened: boolean = false;
   arrayProductsToDelete: Array<ProductSelected> = [];
   trashEmptyOrFull: string = 'ios-trash-outline';
-  showNumberOfProductsToDelete: string;
+  @ViewChild("fab") fab: any;
   
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}/products`;
   
@@ -70,39 +70,64 @@ export class ItemsPage implements OnInit{
       })
       this.arrayProductsToDelete = [];
       this.trashEmptyOrFull = 'ios-trash-outline';
-      this.checkBoxedsOpened = false;
+      this.checkBoxedsOpened = false;      
+    }
+    
+    closeFab(){
+      if (this.fab) {
+        console.log(this.fab);
+        this.fab.close();
+      }
     }
     
     ionViewWillLeave(){
       this.emptyEverything();
+      this.closeFab();
     }
     
     fabOpenCheckboxes(){
-      if (this.arrayProductsToDelete.length === 1) {        
-        this.translator(['DELETE_PRODUCT', 'ARE_YOU_SURE', 'DONE_BUTTON', 'CANCEL_BUTTON'], true);
-      } else if (this.arrayProductsToDelete.length > 1){        
-        this.translator(['DELETE_PRODUCTS', 'ARE_YOU_SURE', 'DONE_BUTTON', 'CANCEL_BUTTON'], true);
-      } else{        
-        this.checkBoxedsOpened = !this.checkBoxedsOpened;
-        if (!this.checkBoxedsOpened) {
-          this.emptyEverything();
-        }
+      
+      this.checkBoxedsOpened = !this.checkBoxedsOpened;
+      if (!this.checkBoxedsOpened) {
+        this.emptyEverything();
       }
+      
     }
     
-    translator(messageToTranslate: Array<string> | string, withAlert: boolean){
-      this.translate.get(messageToTranslate).subscribe((data)=>{                  
+    deleteProducts(){
+      if(this.arrayProductsToDelete.length === 0){
+        this.translator('HAVE_TO_SELECT_PRODUCT_FIRST', false);
+      }
+      else if (this.arrayProductsToDelete.length === 1) {                
+        this.translator(['DELETE_PRODUCT', 'ARE_YOU_SURE', 'DONE_BUTTON', 'CANCEL_BUTTON'], true);
+      } else if (this.arrayProductsToDelete.length > 1){  
+        
+        this.translator(['DELETE_PRODUCTS', 'ARE_YOU_SURE', 'DONE_BUTTON', 'CANCEL_BUTTON'], true);
+      } 
+    }
+    
+    translator(messageToTranslate: Array<string> | string, withAlert: boolean, withNumberOfProductsDeleted?: boolean){
+      this.translate.get(messageToTranslate).subscribe((data)=>{                          
         if (withAlert) {
           this.showAlert(data);
         } else{
-          this.showToast(data);
+          this.showToast(data, withNumberOfProductsDeleted);
         }
       })
     }
     
     showAlert(data){
+      var textToShow;
+      if(this.arrayProductsToDelete.length === 0){
+        textToShow = data.HAVE_TO_SELECT_PRODUCT_FIRST
+      }
+      else if (this.arrayProductsToDelete.length === 1) {
+        textToShow = data.DELETE_PRODUCT
+      } else{
+        textToShow = data.DELETE_PRODUCTS
+      }
       this.alertCtrl.create({
-        title: data.DELETE_PRODUCT,
+        title: textToShow,
         message: data.ARE_YOU_SURE, 
         buttons: [
           {
@@ -123,19 +148,18 @@ export class ItemsPage implements OnInit{
       }).present();
     }
     
-    showToast(data: string){
+    showToast(data: string, withNumberOfProductsDeleted?: boolean){
+      var messageToShow;
+      if (withNumberOfProductsDeleted) {
+        messageToShow = `${this.arrayProductsToDelete.length} ${data}`
+      } else{
+        messageToShow = data;
+      }
       this.toastCtrl.create({
-        message: `${this.arrayProductsToDelete.length} ${data}`,
+        message: messageToShow,
         duration: 2000,
         position: 'top',
       }).present();
-    }
-    
-    
-    
-    
-    countNumberOfProductsToDelete(){
-      return this.arrayProductsToDelete.length;
     }
     
     selectProductWithCheckbox(product: ProductSelected){
@@ -148,7 +172,7 @@ export class ItemsPage implements OnInit{
           return elem !== product;
         })        
       }   
-      this.arrayProductsToDelete.length === 1 ? this.showNumberOfProductsToDelete = `Delete ${this.arrayProductsToDelete.length} product` : this.showNumberOfProductsToDelete = `Delete ${this.arrayProductsToDelete.length} products`;
+      // this.arrayProductsToDelete.length === 1 ? this.showNumberOfProductsToDelete = `Delete ${this.arrayProductsToDelete.length} product` : this.showNumberOfProductsToDelete = `Delete ${this.arrayProductsToDelete.length} products`;
       this.paintTrash();   
     }
     
@@ -188,9 +212,10 @@ export class ItemsPage implements OnInit{
           })
         })).subscribe((data: any)=>{ // ESTE DATA QUE ES???
           if (errors.length === 0) {
-            this.translator('PRODUCTS_DELETED', false);
+            this.translator('PRODUCTS_DELETED', false, true);
             this.emptyEverything();
-            this.getAllProducts();
+            this.closeFab();
+            this.getAllProducts(); // MEJOR HACER SUBJECT YA QUE ESTOY EN LOCAL Y ME AHORRO LA SEGUNDA LLAMADA??????
           } else{
             console.log(errors); // PROBAR ERRORES DE BACK MULTIPLES AL DELETE???
           }

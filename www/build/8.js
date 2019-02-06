@@ -115,38 +115,58 @@ var ItemsPage = /** @class */ (function () {
         this.trashEmptyOrFull = 'ios-trash-outline';
         this.checkBoxedsOpened = false;
     };
+    ItemsPage.prototype.closeFab = function () {
+        if (this.fab) {
+            console.log(this.fab);
+            this.fab.close();
+        }
+    };
     ItemsPage.prototype.ionViewWillLeave = function () {
         this.emptyEverything();
+        this.closeFab();
     };
     ItemsPage.prototype.fabOpenCheckboxes = function () {
-        if (this.arrayProductsToDelete.length === 1) {
+        this.checkBoxedsOpened = !this.checkBoxedsOpened;
+        if (!this.checkBoxedsOpened) {
+            this.emptyEverything();
+        }
+    };
+    ItemsPage.prototype.deleteProducts = function () {
+        if (this.arrayProductsToDelete.length === 0) {
+            this.translator('HAVE_TO_SELECT_PRODUCT_FIRST', false);
+        }
+        else if (this.arrayProductsToDelete.length === 1) {
             this.translator(['DELETE_PRODUCT', 'ARE_YOU_SURE', 'DONE_BUTTON', 'CANCEL_BUTTON'], true);
         }
         else if (this.arrayProductsToDelete.length > 1) {
             this.translator(['DELETE_PRODUCTS', 'ARE_YOU_SURE', 'DONE_BUTTON', 'CANCEL_BUTTON'], true);
         }
-        else {
-            this.checkBoxedsOpened = !this.checkBoxedsOpened;
-            if (!this.checkBoxedsOpened) {
-                this.emptyEverything();
-            }
-        }
     };
-    ItemsPage.prototype.translator = function (messageToTranslate, withAlert) {
+    ItemsPage.prototype.translator = function (messageToTranslate, withAlert, withNumberOfProductsDeleted) {
         var _this = this;
         this.translate.get(messageToTranslate).subscribe(function (data) {
             if (withAlert) {
                 _this.showAlert(data);
             }
             else {
-                _this.showToast(data);
+                _this.showToast(data, withNumberOfProductsDeleted);
             }
         });
     };
     ItemsPage.prototype.showAlert = function (data) {
         var _this = this;
+        var textToShow;
+        if (this.arrayProductsToDelete.length === 0) {
+            textToShow = data.HAVE_TO_SELECT_PRODUCT_FIRST;
+        }
+        else if (this.arrayProductsToDelete.length === 1) {
+            textToShow = data.DELETE_PRODUCT;
+        }
+        else {
+            textToShow = data.DELETE_PRODUCTS;
+        }
         this.alertCtrl.create({
-            title: data.DELETE_PRODUCT,
+            title: textToShow,
             message: data.ARE_YOU_SURE,
             buttons: [
                 {
@@ -165,15 +185,19 @@ var ItemsPage = /** @class */ (function () {
             ]
         }).present();
     };
-    ItemsPage.prototype.showToast = function (data) {
+    ItemsPage.prototype.showToast = function (data, withNumberOfProductsDeleted) {
+        var messageToShow;
+        if (withNumberOfProductsDeleted) {
+            messageToShow = this.arrayProductsToDelete.length + " " + data;
+        }
+        else {
+            messageToShow = data;
+        }
         this.toastCtrl.create({
-            message: this.arrayProductsToDelete.length + " " + data,
+            message: messageToShow,
             duration: 2000,
             position: 'top',
         }).present();
-    };
-    ItemsPage.prototype.countNumberOfProductsToDelete = function () {
-        return this.arrayProductsToDelete.length;
     };
     ItemsPage.prototype.selectProductWithCheckbox = function (product) {
         product.selected = !product.selected;
@@ -185,7 +209,7 @@ var ItemsPage = /** @class */ (function () {
                 return elem !== product;
             });
         }
-        this.arrayProductsToDelete.length === 1 ? this.showNumberOfProductsToDelete = "Delete " + this.arrayProductsToDelete.length + " product" : this.showNumberOfProductsToDelete = "Delete " + this.arrayProductsToDelete.length + " products";
+        // this.arrayProductsToDelete.length === 1 ? this.showNumberOfProductsToDelete = `Delete ${this.arrayProductsToDelete.length} product` : this.showNumberOfProductsToDelete = `Delete ${this.arrayProductsToDelete.length} products`;
         this.paintTrash();
     };
     ItemsPage.prototype.paintTrash = function () {
@@ -226,9 +250,9 @@ var ItemsPage = /** @class */ (function () {
             });
         }).subscribe(function (data) {
             if (errors.length === 0) {
-                _this.translator('PRODUCTS_DELETED', false);
+                _this.translator('PRODUCTS_DELETED', false, true);
                 _this.emptyEverything();
-                _this.getAllProducts();
+                _this.getAllProducts(); // MEJOR HACER SUBJECT YA QUE ESTOY EN LOCAL Y ME AHORRO LA SEGUNDA LLAMADA??????
             }
             else {
                 console.log(errors); // PROBAR ERRORES DE BACK MULTIPLES AL DELETE???
@@ -236,9 +260,13 @@ var ItemsPage = /** @class */ (function () {
         });
     };
     ItemsPage.ENDPOINT = __WEBPACK_IMPORTED_MODULE_5__config_config_int__["a" /* CONFIG */].API_ENDPOINT + "/products";
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])("fab"),
+        __metadata("design:type", Object)
+    ], ItemsPage.prototype, "fab", void 0);
     ItemsPage = ItemsPage_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-items',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/items/items.html"*/'<!-- <header [name]="nameHeader"></header> -->\n\n<ion-header>\n  \n  <ion-navbar>\n    <ion-title>aaa</ion-title>\n  </ion-navbar>\n  \n</ion-header>\n\n\n<ion-content padding>\n  <!-- SI NO HAY PRODUCTOS -->\n  <div class="no-products" *ngIf="productsOfUser.length == 0">\n    <h6 class="text-no-products">{{\'NO_PRODUCTS_IN_YOUR_LIST\' | translate}}</h6>\n  </div>\n  \n  <ion-list>\n    <ion-item *ngFor="let product of productsOfUser" (click)="goToProduct(product)">\n      <ion-label>\n        <ion-slides pager="true" options="{efect: \'flip\'}">\n          <ion-slide *ngFor="let photo of product.photos">\n            <img [src]="photo" alt="image">\n          </ion-slide>\n        </ion-slides>\n      </ion-label>\n      <ion-checkbox *ngIf="checkBoxedsOpened" (click)="selectProductWithCheckbox(product)"></ion-checkbox>\n    </ion-item>\n  </ion-list>\n</ion-content>\n\n\n<ion-fab left bottom [ngClass]="{\'increaseSize\': arrayProductsToDelete.length > 0}" *ngIf="productsOfUser.length !== 0">\n  <button color=danger ion-fab mini (click)="fabOpenCheckboxes()" [ngClass]="{\'increaseSize\': arrayProductsToDelete.length > 0}">\n    <ion-icon [name]="trashEmptyOrFull"></ion-icon>\n    <small *ngIf="arrayProductsToDelete.length > 0" [innerHTML]="showNumberOfProductsToDelete"></small>\n  </button>\n</ion-fab>\n\n\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/items/items.html"*/,
+            selector: 'page-items',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/items/items.html"*/'<!-- <header [name]="nameHeader"></header> -->\n\n<ion-header>\n  \n  <ion-navbar>\n    <ion-title>aaa</ion-title>\n  </ion-navbar>\n  \n</ion-header>\n\n\n<ion-content padding>\n  <!-- SI NO HAY PRODUCTOS -->\n  <div class="no-products" *ngIf="productsOfUser.length == 0">\n    <h6 class="text-no-products">{{\'NO_PRODUCTS_IN_YOUR_LIST\' | translate}}</h6>\n  </div>\n  \n  <ion-list>\n    <ion-item *ngFor="let product of productsOfUser" (click)="goToProduct(product)">\n      <ion-label>\n        <ion-slides pager="true" options="{efect: \'flip\'}">\n          <ion-slide *ngFor="let photo of product.photos">\n            <img [src]="photo" alt="image">\n          </ion-slide>\n        </ion-slides>\n      </ion-label>\n      <ion-checkbox *ngIf="checkBoxedsOpened" (click)="selectProductWithCheckbox(product)"></ion-checkbox>\n    </ion-item>\n  </ion-list>\n</ion-content>\n\n\n<ion-fab left bottom *ngIf="productsOfUser.length !== 0" #fab>\n  <button color=danger ion-fab mini (click)="fabOpenCheckboxes()">\n    <ion-icon [name]="trashEmptyOrFull"></ion-icon>\n  </button>\n  <ion-fab-list side="top">\n    <button color=primary ion-fab>\n      <ion-icon name="share-alt"></ion-icon> \n    </button>\n    <button color=light ion-fab (click)="deleteProducts()">\n      <ion-icon [name]="trashEmptyOrFull"></ion-icon> \n    </button>\n  </ion-fab-list>\n</ion-fab>\n\n\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/items/items.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],

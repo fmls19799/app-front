@@ -28,11 +28,11 @@ export class ProductDetailPage implements OnInit{
     }
     
     ngOnInit(){
-      console.log(this.navParams);
+    
       this.user = this.auth.user;
       this.productToShow = this.navParams.data;
-      console.log(this.productToShow.owner.id);
-      console.log(this.user.id);
+      console.log(this.productToShow);
+      console.log(this.user);
       
       this.isLiking();
     }

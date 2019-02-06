@@ -48,7 +48,7 @@ export class ProductsProvider {
   createProduct(product: Product): Observable<Product | StringifiedError> {
     return this.http.post<Product>(`${ProductsProvider.ENDPOINT}/products/users/${this.auth.user.id}/create`, this.asFormData(product), ProductsProvider.httpOptionsForFormData)
       .pipe(
-        map((product: Product) => {
+        map((product: Product) => {          
           return product;
         }),
 

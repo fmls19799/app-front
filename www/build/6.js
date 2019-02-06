@@ -1,6 +1,6 @@
 webpackJsonp([6],{
 
-/***/ 804:
+/***/ 805:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProductDetailPageModule", function() { return ProductDetailPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__product_detail__ = __webpack_require__(816);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__product_detail__ = __webpack_require__(817);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,7 +38,7 @@ var ProductDetailPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 816:
+/***/ 817:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -76,30 +76,11 @@ var ProductDetailPage = /** @class */ (function () {
         this.productCounterLikes = 0; // QUE SEA DINAMICO PONER EN SU MODELO???
     }
     ProductDetailPage.prototype.ngOnInit = function () {
-        var _this = this;
-        // this.productToShow = this.navParams.data;   
-        console.log(this.navParams.data._id);
-        this.productsProvider.getOneProduct(this.navParams.data._id).subscribe(function (product) {
-            // this.translator('PRODUCT_CREATED', true);
-            console.log(product);
-        }, function (error) {
-            _this.translator(error);
-        });
-        // console.log(this.productToShow.owner.id === this.user.id);
+        this.user = this.auth.user;
+        this.productToShow = this.navParams.data;
+        console.log(this.productToShow);
+        console.log(this.user);
         this.isLiking();
-    };
-    ProductDetailPage.prototype.translator = function (messageToTranslate) {
-        var _this = this;
-        this.translate.get(messageToTranslate).subscribe(function (data) {
-            _this.showToast(data);
-        });
-    };
-    ProductDetailPage.prototype.showToast = function (data) {
-        this.toastCtrl.create({
-            message: data,
-            duration: 2000,
-            position: 'top',
-        }).present();
     };
     ProductDetailPage.prototype.isLiking = function () {
         if (!this.liking) {
@@ -110,10 +91,6 @@ var ProductDetailPage = /** @class */ (function () {
             this.likingIcon = 'heart';
             this.liking = true;
         }
-    };
-    // PONER ESTO CON SUBJECT ASI APRENDO??? SI FUESE ENTRAR MAS ADETRO SI HARIA FALTA SUBJECT???
-    ProductDetailPage.prototype.ionViewDidLoad = function () {
-        this.productToShow = this.navParams.data;
     };
     ProductDetailPage.prototype.addOrRemoveLikeToThisProduct = function () {
         // this.liking = !this.liking;
@@ -131,7 +108,7 @@ var ProductDetailPage = /** @class */ (function () {
     };
     ProductDetailPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-product-detail',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/'\n<ion-header>\n  \n  <ion-navbar>\n    <div class="flex" right>\n      <ion-icon *ngIf="productToShow.owner?.id !== this.user?.id" class="like" (click)="addOrRemoveLikeToThisProduct()" [name]="likingIcon"></ion-icon>\n      <ion-icon class="share" name="share-outline"></ion-icon>\n    </div>\n  </ion-navbar>\n  \n</ion-header>\n\n<ion-content padding>\n  <div class="wrapper" *ngIf="productToShow">\n    <div class="imgWrapper">\n      <ion-slides pager="true" options="{efect: \'flip\'}">\n        <ion-slide *ngFor="let photo of productToShow.photos">\n          <img [src]="photo" alt="image">\n        </ion-slide>\n      </ion-slides>\n      <div class="counterWrapper">\n        <ion-icon class="likeSmall" name="heart-outline" *ngIf="productToShow.owner?.id === this.user?.id">\n          <span class="counter">{{productCounterLikes}}</span>\n        </ion-icon>\n      </div>\n    </div>\n    <div class="info">\n      <h2 class="price">\n        {{productToShow.price}} €\n      </h2>\n      <h4 class="title">\n        {{productToShow.name | titlecase}}\n      </h4>\n      <p class="summary">\n        {{productToShow.description | titlecase}}\n      </p>\n    </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/,
+            selector: 'page-product-detail',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/'\n<ion-header>\n  \n  <ion-navbar>\n    <div class="flex" right>\n      <!-- PONGO QUE SEA IGUAL AL ID O AL USER YA QUE DESDE MODAL CHOSE \n        CATEGORY AL CREARLO Y ASIGNARLE LO RETORNADO AL THIS.PRODUCTCHOSEN, EL POPULATE NO SE LLEVA A CABO YA QUE SOLO SE HACE \n        EN EL FIND() DEL BACK, POR LO QUE NO HAY ID EN OWNER AUN -->\n        <ion-icon *ngIf="(productToShow.owner?.id !== this.user?.id) || (productToShow.owner !== this.user?.id)" class="like" (click)="addOrRemoveLikeToThisProduct()" [name]="likingIcon"></ion-icon>\n        <ion-icon class="share" name="share-outline"></ion-icon>\n      </div>\n    </ion-navbar>\n    \n  </ion-header>\n  \n  <ion-content padding>\n    <div class="wrapper" *ngIf="productToShow">\n      <div class="imgWrapper">\n        <ion-slides pager="true" options="{efect: \'flip\'}">\n          <ion-slide *ngFor="let photo of productToShow.photos">\n            <img [src]="photo" alt="image">\n          </ion-slide>\n        </ion-slides>\n        <div class="counterWrapper">\n          <ion-icon class="likeSmall" name="heart-outline" *ngIf="(productToShow.owner?.id === this.user?.id) || (productToShow.owner === this.user?.id)">\n            <span class="counter">{{productCounterLikes}}</span>\n          </ion-icon>\n        </div>\n      </div>\n      <div class="info">\n        <h2 class="price">\n          {{productToShow.price}} €\n        </h2>\n        <h4 class="title">\n          {{productToShow.name | titlecase}}\n        </h4>\n        <p class="summary">\n          {{productToShow.description | titlecase}}\n        </p>\n      </div>\n    </div>\n  </ion-content>\n  '/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],

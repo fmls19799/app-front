@@ -115,6 +115,7 @@ export class MyApp implements OnInit{
   
         if (this.currentPage !== view.id) {
           this.currentPage = view.id;
+          console.log(view.id);
           
           const publicPagesRegex = /login|register|LoginPage|RegisterPage/;          
           // if (!this.auth.isLoggedIn() && (!/login/.test(this.currentPage.toLowerCase())) || (!/register/.test(this.currentPage.toLowerCase()))) {

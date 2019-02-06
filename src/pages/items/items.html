@@ -30,11 +30,18 @@
 </ion-content>
 
 
-<ion-fab left bottom [ngClass]="{'increaseSize': arrayProductsToDelete.length > 0}" *ngIf="productsOfUser.length !== 0">
-  <button color=danger ion-fab mini (click)="fabOpenCheckboxes()" [ngClass]="{'increaseSize': arrayProductsToDelete.length > 0}">
+<ion-fab left bottom *ngIf="productsOfUser.length !== 0" #fab>
+  <button color=danger ion-fab mini (click)="fabOpenCheckboxes()">
     <ion-icon [name]="trashEmptyOrFull"></ion-icon>
-    <small *ngIf="arrayProductsToDelete.length > 0" [innerHTML]="showNumberOfProductsToDelete"></small>
   </button>
+  <ion-fab-list side="top">
+    <button color=primary ion-fab>
+      <ion-icon name="share-alt"></ion-icon> 
+    </button>
+    <button color=light ion-fab (click)="deleteProducts()">
+      <ion-icon [name]="trashEmptyOrFull"></ion-icon> 
+    </button>
+  </ion-fab-list>
 </ion-fab>
 
 
