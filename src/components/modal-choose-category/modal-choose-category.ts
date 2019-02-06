@@ -137,7 +137,9 @@ export class ModalComponentChooseCategory implements OnInit {
         
         
         this.productsProvider.createProduct(this.productChosen).subscribe((product: Product)=>{
-          this.productChosen = product; //YA LO TENGO CON ID, ahora si se lo puedo pasar???
+          this.productChosen = product; //YA LO TENGO CON ID RETORNADO PERO EL POPULATE NO 
+          // SE HACE HASTA QUE HAGA GET NO POST, ahora si se lo puedo pasar pero los ifs del 
+          // html habra que poner mas opciones ya que no hay owner.id???
           this.translator('PRODUCT_CREATED', true);
         },
         (error: any)=>{
