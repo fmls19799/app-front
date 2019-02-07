@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { ProductsProvider } from './../../providers/products/products';
 import { Product } from './../../models/product';
@@ -16,14 +16,18 @@ export interface ProductSelected extends Product{
   selector: 'page-items',
   templateUrl: 'items.html',
 })
-export class ItemsPage implements OnInit{
+export class ItemsPage implements OnInit, OnDestroy{
   
   productsOfUser?: Array<Product> = [];
   nameHeader: string = 'Your items';
   checkBoxedsOpened: boolean = false;
-  arrayProductsToDelete: Array<ProductSelected> = [];
+  arrayProductsToDelete: Array<ProductSelected | Product> = [];
   trashEmptyOrFull: string = 'ios-trash-outline';
+  rentOrBuyOptions: Array<string> = [];
+  tabSelected: string = '';
   @ViewChild("fab") fab: any;
+  
+  // @ViewChild('checkBox') checkBox: ElementRef;
   
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}/products`;
   
@@ -39,21 +43,38 @@ export class ItemsPage implements OnInit{
     private toastCtrl: ToastController) {
     }
     
-    ngOnInit(){      
-      // let subscription = this.productsProvider.productByUserChanges().subscribe((products: Array<Product>)=>{
-      //   this.productsOfUser = products;
-      // })
-      // this.subscriptions.add(subscription);
-      
+    ngOnInit(){    
+      this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];
+      console.log(this.rentOrBuyOptions);
       
       this.emptyEverything();
       this.getAllProducts();
+      this.getSuscription();
+    }
+    
+    getSuscription(){
+      let subscription = this.productsProvider.productByUserChanges().subscribe((products: Array<Product>)=>{
+        this.productsOfUser = products;        
+      })      
+      this.subscriptions.add(subscription);
+    }
+    
+    segmentSelected(event: any){  
+      this.tabSelected = event.target.innerHTML;
+      this.goToSelectedTab(this.tabSelected);
+    }
+    
+    goToSelectedTab(selectedTab: string){      
+      this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado???
+      
+      if (selectedTab !== 'All') {
+        this.productsOfUser = this.productsOfUser.filter(product => product.rentOrBuy === selectedTab);
+      }
     }
     
     getAllProducts(){
       this.productsProvider.getProductsByUser().subscribe((products: Array<Product>)=>{        
-        this.productsOfUser = products;  
-        
+        this.productsOfUser = products;          
       },
       (error)=>{
         // PONER API ERRORS BIEN???
@@ -73,9 +94,35 @@ export class ItemsPage implements OnInit{
       this.checkBoxedsOpened = false;      
     }
     
+    selectAllProductsToDelete(){
+      this.arrayProductsToDelete = this.productsOfUser;
+      this.translate.get(['DELETE_PRODUCTS', 'ARE_YOU_SURE_THAT_YOU_WANT_TO_DELETE', 'PRODUCTS', 'DONE_BUTTON', 'CANCEL_BUTTON'])
+      .subscribe((data: any)=>{
+        this.alertCtrl.create({
+          title: data.DELETE_PRODUCTS,
+          message: `${data.ARE_YOU_SURE_THAT_YOU_WANT_TO_DELETE} ${this.arrayProductsToDelete.length} ${data.PRODUCTS}?`, 
+          buttons: [
+            {
+              text: data.DONE_BUTTON,
+              handler: () =>{
+                this.deleteManyProducts();
+              }
+            },
+            {
+              text: data.CANCEL_BUTTON,
+              role: 'cancel',
+              handler: () => {
+                console.log('cancel');
+                
+              }
+            }
+          ]
+        }).present();
+      })
+    }
+    
     closeFab(){
       if (this.fab) {
-        console.log(this.fab);
         this.fab.close();
       }
     }
@@ -185,23 +232,24 @@ export class ItemsPage implements OnInit{
     }
     
     goToProduct(product: Product){
-      this.navCtrl.push('ProductDetailPage', product);
+      console.log(this.checkBoxedsOpened);
+      
+      if (!this.checkBoxedsOpened) {
+        this.navCtrl.push('ProductDetailPage', product);
+      } 
     }
     
     // EN BACK PONER MIDDLEWARES DE SI ES EL MISMO USER ID???
     // LLAMAR A ESTA FUNCION MULTIPLES VECES???
     
+    
     deleteManyProducts(){
       let errors = [];
-      let urls = [];
-      this.arrayProductsToDelete.forEach((product: Product)=>{
-        urls.push(`${ItemsPage.ENDPOINT}/${product._id}/delete`);
-      })
       
       // COMO AFECTARIA LOS ERRORES MULTIPLES AQUI????
       return Observable.forkJoin(
-        urls.map((url)=>{
-          return this.productsProvider.deleteProductByUser(url)
+        this.arrayProductsToDelete.map((product)=>{
+          return this.productsProvider.deleteProductByUser(product)
         }),
         (...results)=>({
           failed: results.map((res)=>{
@@ -215,11 +263,14 @@ export class ItemsPage implements OnInit{
             this.translator('PRODUCTS_DELETED', false, true);
             this.emptyEverything();
             this.closeFab();
-            this.getAllProducts(); // MEJOR HACER SUBJECT YA QUE ESTOY EN LOCAL Y ME AHORRO LA SEGUNDA LLAMADA??????
           } else{
             console.log(errors); // PROBAR ERRORES DE BACK MULTIPLES AL DELETE???
           }
         })
+      }
+      
+      ngOnDestroy(){
+        this.subscriptions.unsubscribe();
       }
     }
     

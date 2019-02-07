@@ -15,7 +15,7 @@
   </ion-navbar>
 </ion-header>
 <!-- ION CONTENT -->
-<ion-content>
+<ion-content padding>
   <!-- REFRESHER -->
   <ion-refresher pullMin="100" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>
@@ -40,6 +40,13 @@
         <span>{{category.name | translate }}</span>
       </div>
     </div>
+    
+    <!-- SEGMENT TABS TOCHANGE CONTENT -->
+    <ion-segment (click)="segmentSelected($event)" class="segmentOptions" *ngIf="rentOrBuyOptions">
+      <ion-segment-button *ngFor="let option of rentOrBuyOptions">
+        <ion-label>{{option}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </div>
   <!-- MAIN CONTENT -->
   <div class="productsList">
@@ -53,6 +60,9 @@
               <!-- if clicked -->
               <h6 class="goToProduct" *ngIf="product.selected" (click)="goToProduct(product)">{{'SEE' | translate}} {{ product.name }}</h6>
               <!-- fin if clicked -->
+              <div class="rentOrBuyTag">
+                  <p>{{product.rentOrBuy}}</p>
+                </div>
             </div>
             <div class="infoWrapper">
               <h6 class="price">{{ product.price }} €</h6>
@@ -79,6 +89,9 @@
               <!-- if clicked -->
               <h6 class="goToProduct" *ngIf="product.selected" (click)="goToProduct(product)">{{'SEE' | translate}} {{ product.name }}</h6>
               <!-- fin if clicked -->
+              <div class="rentOrBuyTag">
+                <p>{{product.rentOrBuy}}</p>
+              </div>
             </div>
             <div class="infoWrapper">
               <h6 class="price">{{ product.price }} €</h6>

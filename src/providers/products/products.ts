@@ -12,12 +12,8 @@ import { HandlingErrorsProvider } from '../handling-errors/handling-errors';
 @Injectable()
 export class ProductsProvider {
 
-  allProducts: Array<Product> = [];
-  subjectAllProducts = new BehaviorSubject(null);
-
   productsByUser: Array<Product> = [];
-  // subjectProductOfUser = new BehaviorSubject(null);
-  // subscriptions = new Subscription();
+  subjectProductsOfUser = new BehaviorSubject(null);
 
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
   private static readonly httpOptionsForFormData = {
@@ -38,6 +34,7 @@ export class ProductsProvider {
     data.append('description', product.description);
     data.append('price', (product.price).toString());
     data.append('type', product.type);
+    data.append('rentOrBuy', product.rentOrBuy);
 
     for (const photo of product.photos) {
       data.append('photos', photo);
@@ -46,9 +43,13 @@ export class ProductsProvider {
   }
 
   createProduct(product: Product): Observable<Product | StringifiedError> {
+    console.log(this.asFormData(product));
+    console.log(product);
+
     return this.http.post<Product>(`${ProductsProvider.ENDPOINT}/products/users/${this.auth.user.id}/create`, this.asFormData(product), ProductsProvider.httpOptionsForFormData)
       .pipe(
-        map((product: Product) => {          
+        map((product: Product) => {
+          // no hace falta notify changes porque donde me quiero ahorrar el get es al borrar elementos???
           return product;
         }),
 
@@ -57,8 +58,7 @@ export class ProductsProvider {
   }
 
   getAllProducts(): Observable<Array<Product> | StringifiedError> {
-    //QUITAR EL MOCK???      
-    return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products`).map((products: Array<Product>) => products)
+    return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products`)
       .pipe(
         map((products: Array<Product>) => {
           return products;
@@ -69,9 +69,11 @@ export class ProductsProvider {
   // COMO HACEMOS CON PIPE O SIN??? no haria falta 
   getProductsByUser(): Observable<Array<Product> | StringifiedError> {
     // PONER BIEN LA RUTA NO TIENE SENTIDO PONER PRODUCT ID????
-    return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products/users/${this.auth.user.id}`).map((products: Array<Product>) => products)
+    return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products/users/${this.auth.user.id}`)
       .pipe(
         map((products: Array<Product>) => {
+          this.productsByUser = products;
+          this.notifyChanges();
           return products;
         }),
         catchError(this.handlingError.handleError));
@@ -80,7 +82,7 @@ export class ProductsProvider {
 
 
   likeProduct(product: Product): Observable<Product | StringifiedError> {
-    return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/like`, product).map((product: Product) => product)
+    return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/like`, product)
       .pipe(
         map((product: Product) => {
           return product;
@@ -89,7 +91,7 @@ export class ProductsProvider {
   }
 
   unlikeProduct(product: Product): Observable<Product | StringifiedError> {
-    return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/unlike`, product).map((product: Product) => product)
+    return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/unlike`, product)
       .pipe(
         map((product: Product) => {
           return product;
@@ -97,28 +99,26 @@ export class ProductsProvider {
         catchError(this.handlingError.handleError));
   }
 
-  deleteProductByUser(url): Observable<void | StringifiedError> {
-    return this.http.delete<Product>(url).map((res: any) => res)
+
+  deleteProductByUser(product: Product): Observable<void | StringifiedError> {
+
+    return this.http.delete<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/delete`)
       .pipe(
         map(() => {
-          return; // USAR SUBJECTS O NO???? COMO AFECTARIA EL FORKJOIN EN ESTE CASO SI HAY ERROR????
+          this.productsByUser = this.productsByUser.filter(productsByUser => productsByUser._id !== product._id);
+          this.notifyChanges();
+          return;
         }),
         catchError(this.handlingError.handleError));
   }
 
 
-  // notifyChanges() {
-  //   this.subjectProductOfUser.next(this.productsByUser);
-  //   this.subjectAllProducts.next(this.allProducts);
-  // }
+  notifyChanges() {
+    this.subjectProductsOfUser.next(this.productsByUser);
+  }
 
-  // productByUserChanges() {
-  //   return this.subjectProductOfUser.asObservable();
-  // }
-
-  // allProductsChanges() {
-  //   return this.subjectProductOfUser.asObservable();
-  // }
-
+  productByUserChanges() {
+    return this.subjectProductsOfUser.asObservable();
+  }
 
 }

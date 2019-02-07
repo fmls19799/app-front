@@ -106,9 +106,8 @@ var ProductsProvider = /** @class */ (function () {
         this.http = http;
         this.auth = auth;
         this.handlingError = handlingError;
-        this.allProducts = [];
-        this.subjectAllProducts = new __WEBPACK_IMPORTED_MODULE_4_rxjs__["BehaviorSubject"](null);
         this.productsByUser = [];
+        this.subjectProductsOfUser = new __WEBPACK_IMPORTED_MODULE_4_rxjs__["BehaviorSubject"](null);
     }
     ProductsProvider_1 = ProductsProvider;
     // deberia en en el modelo pero no va????
@@ -119,6 +118,7 @@ var ProductsProvider = /** @class */ (function () {
         data.append('description', product.description);
         data.append('price', (product.price).toString());
         data.append('type', product.type);
+        data.append('rentOrBuy', product.rentOrBuy);
         for (var _i = 0, _a = product.photos; _i < _a.length; _i++) {
             var photo = _a[_i];
             data.append('photos', photo);
@@ -126,46 +126,58 @@ var ProductsProvider = /** @class */ (function () {
         return data;
     };
     ProductsProvider.prototype.createProduct = function (product) {
+        console.log(this.asFormData(product));
+        console.log(product);
         return this.http.post(ProductsProvider_1.ENDPOINT + "/products/users/" + this.auth.user.id + "/create", this.asFormData(product), ProductsProvider_1.httpOptionsForFormData)
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["map"])(function (product) {
+            // no hace falta notify changes porque donde me quiero ahorrar el get es al borrar elementos???
             return product;
         }), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["catchError"])(this.handlingError.handleError));
     };
     ProductsProvider.prototype.getAllProducts = function () {
-        //QUITAR EL MOCK???      
-        return this.http.get(ProductsProvider_1.ENDPOINT + "/products").map(function (products) { return products; })
+        return this.http.get(ProductsProvider_1.ENDPOINT + "/products")
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["map"])(function (products) {
             return products;
         }), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["catchError"])(this.handlingError.handleError));
     };
     // COMO HACEMOS CON PIPE O SIN??? no haria falta 
     ProductsProvider.prototype.getProductsByUser = function () {
+        var _this = this;
         // PONER BIEN LA RUTA NO TIENE SENTIDO PONER PRODUCT ID????
-        return this.http.get(ProductsProvider_1.ENDPOINT + "/products/users/" + this.auth.user.id).map(function (products) { return products; })
+        return this.http.get(ProductsProvider_1.ENDPOINT + "/products/users/" + this.auth.user.id)
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["map"])(function (products) {
+            _this.productsByUser = products;
+            _this.notifyChanges();
             return products;
         }), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["catchError"])(this.handlingError.handleError));
     };
     ProductsProvider.prototype.likeProduct = function (product) {
-        return this.http.put(ProductsProvider_1.ENDPOINT + "/products/" + product._id + "/like", product).map(function (product) { return product; })
+        return this.http.put(ProductsProvider_1.ENDPOINT + "/products/" + product._id + "/like", product)
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["map"])(function (product) {
             return product;
         }), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["catchError"])(this.handlingError.handleError));
     };
     ProductsProvider.prototype.unlikeProduct = function (product) {
-        return this.http.put(ProductsProvider_1.ENDPOINT + "/products/" + product._id + "/unlike", product).map(function (product) { return product; })
+        return this.http.put(ProductsProvider_1.ENDPOINT + "/products/" + product._id + "/unlike", product)
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["map"])(function (product) {
             return product;
         }), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["catchError"])(this.handlingError.handleError));
     };
-    ProductsProvider.prototype.deleteProductByUser = function (url) {
-        return this.http.delete(url).map(function (res) { return res; })
+    ProductsProvider.prototype.deleteProductByUser = function (product) {
+        var _this = this;
+        return this.http.delete(ProductsProvider_1.ENDPOINT + "/products/" + product._id + "/delete")
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["map"])(function () {
-            return; // USAR SUBJECTS O NO???? COMO AFECTARIA EL FORKJOIN EN ESTE CASO SI HAY ERROR????
+            _this.productsByUser = _this.productsByUser.filter(function (productsByUser) { return productsByUser._id !== product._id; });
+            _this.notifyChanges();
+            return;
         }), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["catchError"])(this.handlingError.handleError));
     };
-    // subjectProductOfUser = new BehaviorSubject(null);
-    // subscriptions = new Subscription();
+    ProductsProvider.prototype.notifyChanges = function () {
+        this.subjectProductsOfUser.next(this.productsByUser);
+    };
+    ProductsProvider.prototype.productByUserChanges = function () {
+        return this.subjectProductsOfUser.asObservable();
+    };
     ProductsProvider.ENDPOINT = "" + __WEBPACK_IMPORTED_MODULE_2__config_config_int__["a" /* CONFIG */].API_ENDPOINT;
     ProductsProvider.httpOptionsForFormData = {
         headers: new __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["e" /* HttpHeaders */]({ "myHeaders": "fotos" }),
@@ -253,35 +265,35 @@ var map = {
 		2
 	],
 	"../pages/items/items.module": [
-		802,
+		809,
 		8
 	],
 	"../pages/login/login.module": [
-		803,
+		802,
 		1
 	],
 	"../pages/map/map.module": [
-		804,
+		803,
 		7
 	],
 	"../pages/product-detail/product-detail.module": [
-		805,
+		804,
 		6
 	],
 	"../pages/profile/profile.module": [
-		806,
+		805,
 		5
 	],
 	"../pages/register/register.module": [
-		807,
+		806,
 		0
 	],
 	"../pages/search-product/search-product.module": [
-		808,
+		807,
 		4
 	],
 	"../pages/settings/settings.module": [
-		809,
+		808,
 		3
 	]
 };
@@ -345,6 +357,7 @@ var ModalComponentChooseCategory = /** @class */ (function () {
         this.productChosen = new __WEBPACK_IMPORTED_MODULE_2__models_product__["a" /* Product */]();
         this.MODALTITLE = '';
         this.previewImages = [];
+        this.rentOrBuyOptions = ['Rent', 'Sell', 'Exchange', 'Gift'];
         this.categories = [
             {
                 icon: 'ios-home-outline',
@@ -366,7 +379,8 @@ var ModalComponentChooseCategory = /** @class */ (function () {
         this.myForm = this.formBuilder.group({
             name: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].maxLength(10)]),
             description: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].maxLength(200)]),
-            price: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required])
+            price: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required]),
+            rentOrBuy: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required])
         });
     }
     ModalComponentChooseCategory.prototype.ngOnInit = function () {
@@ -420,7 +434,9 @@ var ModalComponentChooseCategory = /** @class */ (function () {
         }
         else if (this.myForm.valid) {
             this.productsProvider.createProduct(this.productChosen).subscribe(function (product) {
-                _this.productChosen = product; //YA LO TENGO CON ID, ahora si se lo puedo pasar???
+                _this.productChosen = product; //YA LO TENGO CON ID RETORNADO PERO EL POPULATE NO 
+                // SE HACE HASTA QUE HAGA GET NO POST, ahora si se lo puedo pasar pero los ifs del 
+                // html habra que poner mas opciones ya que no hay owner.id???
                 _this.translator('PRODUCT_CREATED', true);
             }, function (error) {
                 _this.translator(error, false);
@@ -456,7 +472,7 @@ var ModalComponentChooseCategory = /** @class */ (function () {
     };
     ModalComponentChooseCategory = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'modal-choose-category',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/'<!-- CHOOSE PRODUCT -->\n<div *ngIf="!isProductChosen" class="modalChooseProduct">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="closeModal()">{{ MODALTITLE | translate}} \n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  <div class="bottom">\n    <ion-row>\n      <ion-col *ngFor="let category of categories">\n        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>\n        <span>{{category.type | translate }}</span>\n      </ion-col>\n    </ion-row>\n  </div>\n</div>\n\n<!-- PRODUCT CHOSEN -->\n<div *ngIf="isProductChosen" class="modalProductChosen">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.type }}</span>\n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  \n  <section class="bottom">\n    \n    <!-- <div class="imagesContainer" *ngFor="let previewImage of previewImages"> -->\n      <div class="imagesContainer" [ngClass]="{\'increaseDivWtapper\': increaseImageWrapperHeight}">\n        <img [src]="previewImage" *ngFor="let previewImage of previewImages" alt="image">\n      </div>\n      <!-- </div> -->\n      \n      <div class="mainWrapper">\n        <form [formGroup]="myForm" class="myForm" (ngSubmit)="uploadProduct()">\n          <ion-list>\n            <ion-item class="item-form-control" [ngClass]="{\'has-error\': myForm.controls.name.invalid && myForm.controls.name.touched}">\n              <ion-label floating>{{ \'NAME\' | translate }}*</ion-label>\n              <ion-input formControlName="name" type="text" [(ngModel)]="productChosen.name">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item class="item-form-control" [ngClass]="{\'has-error\': myForm.controls.description.invalid && myForm.controls.description.touched}">\n              <ion-label floating>{{ \'DESCRIPTION\' | translate }}*</ion-label>\n              <ion-input formControlName="description" type="text" [(ngModel)]="productChosen.description">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item class="item-form-control" [ngClass]="{\'has-error\': myForm.controls.price.invalid && myForm.controls.price.touched}">\n              <ion-label floating>{{ \'PRICE\' | translate }}*</ion-label>\n              <ion-input formControlName="price" type="number" [(ngModel)]="productChosen.price">\n                \n              </ion-input>\n            </ion-item>\n            \n            <button type="submit" ion-button color="red" block>{{\'UPLOAD_PRODUCT\' | translate}}</button>\n            \n          </ion-list>\n        </form>\n      </div>\n      <!--  -->\n      <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">\n        File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>\n      </div>\n      <!--  -->\n    </section>\n    \n    <div class="upload">\n      <fileuploader [multipleImages]="true" [iconName]="\'camera-outline\'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>\n    </div>\n  </div>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/
+            selector: 'modal-choose-category',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/'<!-- CHOOSE PRODUCT -->\n<div *ngIf="!isProductChosen" class="modalChooseProduct">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="closeModal()">{{ MODALTITLE | translate}} \n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  <div class="bottom">\n    <ion-row>\n      <ion-col *ngFor="let category of categories">\n        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>\n        <span>{{category.type | translate }}</span>\n      </ion-col>\n    </ion-row>\n  </div>\n</div>\n\n<!-- PRODUCT CHOSEN -->\n<div *ngIf="isProductChosen" class="modalProductChosen">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.type }}</span>\n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  \n  <section class="bottom">\n    \n    <!-- <div class="imagesContainer" *ngFor="let previewImage of previewImages"> -->\n      <div class="imagesContainer" [ngClass]="{\'increaseDivWtapper\': increaseImageWrapperHeight}">\n        <img [src]="previewImage" *ngFor="let previewImage of previewImages" alt="image">\n      </div>\n      <!-- </div> -->\n      \n      <div class="mainWrapper">\n        <form [formGroup]="myForm" class="myForm" (ngSubmit)="uploadProduct()">\n          <ion-list>\n            <ion-item [ngClass]="{\'has-error\': myForm.controls.name.invalid && myForm.controls.name.touched}">\n              <ion-label floating>{{ \'NAME\' | translate }}*</ion-label>\n              <ion-input formControlName="name" type="text" [(ngModel)]="productChosen.name">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item [ngClass]="{\'has-error\': myForm.controls.description.invalid && myForm.controls.description.touched}">\n              <ion-label floating>{{ \'DESCRIPTION\' | translate }}*</ion-label>\n              <ion-input formControlName="description" type="text" [(ngModel)]="productChosen.description">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item [ngClass]="{\'has-error\': myForm.controls.price.invalid && myForm.controls.price.touched}">\n              <ion-label floating>{{ \'PRICE\' | translate }}*</ion-label>\n              <ion-input formControlName="price" type="number" [(ngModel)]="productChosen.price">\n              </ion-input>\n            </ion-item>\n\n            <ion-item class="rentOrBuy" [ngClass]="{\'has-error\': myForm.controls.price.invalid && myForm.controls.price.touched}">\n              <ion-label floating>{{ \'RENT_BUT_EXCHANGE_GIFT\' | translate }}</ion-label>\n              <ion-select formControlName="rentOrBuy" [(ngModel)]="productChosen.rentOrBuy">\n                <ion-option *ngFor="let option of rentOrBuyOptions">{{option}}</ion-option>\n              </ion-select>\n            </ion-item>\n            <button type="submit" ion-button color="red" block>{{\'UPLOAD_PRODUCT\' | translate}}</button>\n            \n          </ion-list>\n        </form>\n      </div>\n      \n    </section>\n    \n    <div class="upload">\n      <fileuploader [multipleImages]="true" [iconName]="\'camera-outline\'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>\n    </div>\n  </div>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */],
@@ -537,6 +553,7 @@ var Product = /** @class */ (function () {
     function Product() {
         this.photos = [];
     }
+    // opacity?: boolean; // NO SIEMPRE TENEMOS OPACTIDAD???
     Product.prototype.asFormData = function () {
         var data = new FormData();
         data.append('name', this.name);
@@ -651,14 +668,14 @@ var AppModule = /** @class */ (function () {
                     links: [
                         { loadChildren: '../pages/chat/chat.module#ChatPageModule', name: 'ChatPage', segment: 'chat', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/items/items.module#ItemsPageModule', name: 'ItemsPage', segment: 'items', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/map/map.module#MapPageModule', name: 'MapPage', segment: 'map', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/product-detail/product-detail.module#ProductDetailPageModule', name: 'ProductDetailPage', segment: 'product-detail', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/search-product/search-product.module#SearchProductPageModule', name: 'SearchProductPage', segment: 'search-product', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/settings/settings.module#SettingsPageModule', name: 'SettingsPage', segment: 'settings', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/settings/settings.module#SettingsPageModule', name: 'SettingsPage', segment: 'settings', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/items/items.module#ItemsPageModule', name: 'ItemsPage', segment: 'items', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_12__components_components_module__["a" /* CustomComponentsModule */],

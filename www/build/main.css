@@ -25897,6 +25897,10 @@ modal-choose-category .modalProductChosen .bottom .mainWrapper .myForm ion-list 
   font-weight: 300;
 }
 
+modal-choose-category .modalProductChosen .bottom .mainWrapper .myForm ion-list .rentOrBuy button {
+  display: none !important;
+}
+
 modal-choose-category .modalProductChosen .bottom .mainWrapper .myForm ion-list button {
   width: 80%;
   position: absolute;
@@ -26026,31 +26030,40 @@ page-home ion-content .fixedTop .listOfProductsToChooseFrom div span {
   font-size: 12px;
 }
 
-page-home ion-content .productsList ion-row ion-col {
+page-home ion-content .fixedTop .segmentOptions {
+  margin-bottom: 6px;
+}
+
+page-home ion-content .fixedTop .segmentOptions ion-segment-button ion-label {
+  margin: 0 !important;
+  font-size: 10px !important;
+}
+
+page-home .productsList ion-row ion-col {
   overflow-y: scroll;
   height: calc(100vh - 132px);
 }
 
-page-home ion-content .productsList ion-row ion-col .product {
+page-home .productsList ion-row ion-col .product {
   padding-bottom: 20px;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container {
+page-home .productsList ion-row ion-col .product .container {
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   position: relative;
   margin: 3px;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container .relative {
+page-home .productsList ion-row ion-col .product .container .relative {
   position: relative;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container .relative img {
+page-home .productsList ion-row ion-col .product .container .relative img {
   border-radius: 10px;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container .relative .goToProduct {
+page-home .productsList ion-row ion-col .product .container .relative .goToProduct {
   width: 70%;
   position: absolute;
   font-size: 13px;
@@ -26065,7 +26078,24 @@ page-home ion-content .productsList ion-row ion-col .product .container .relativ
   padding: 5px;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container img.opacity03 {
+page-home .productsList ion-row ion-col .product .container .relative .rentOrBuyTag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  border-radius: 30px;
+  padding: 0 10px;
+  margin: 3px;
+  background-color: orange;
+}
+
+page-home .productsList ion-row ion-col .product .container .relative .rentOrBuyTag p {
+  color: white;
+  font-weight: bolder;
+  margin: 0;
+}
+
+page-home .productsList ion-row ion-col .product .container img.opacity03 {
   position: relative;
   opacity: .2 !important;
   background-color: black !important;
@@ -26073,23 +26103,23 @@ page-home ion-content .productsList ion-row ion-col .product .container img.opac
   transition: all .5s;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container .infoWrapper {
+page-home .productsList ion-row ion-col .product .container .infoWrapper {
   padding-left: 5px;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container .infoWrapper .price {
+page-home .productsList ion-row ion-col .product .container .infoWrapper .price {
   margin: 0;
   font-weight: bold;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent {
+page-home .productsList ion-row ion-col .product .container .showHiddenContent {
   padding-top: 10px;
   padding-left: 5px;
   -webkit-transition: all .5s;
   transition: all .5s;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent .imagesGallery {
+page-home .productsList ion-row ion-col .product .container .showHiddenContent .imagesGallery {
   overflow-x: scroll;
   display: -webkit-box;
   display: -webkit-flex;
@@ -26102,20 +26132,20 @@ page-home ion-content .productsList ion-row ion-col .product .container .showHid
   flex-direction: row;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent .imagesGallery img {
+page-home .productsList ion-row ion-col .product .container .showHiddenContent .imagesGallery img {
   display: inline-block;
   height: 50px;
   margin: 1px;
   border-radius: 3px;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent .description {
+page-home .productsList ion-row ion-col .product .container .showHiddenContent .description {
   font-size: 10px;
   line-height: 1px;
   font-weight: 500;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container .showHiddenContent ion-icon {
+page-home .productsList ion-row ion-col .product .container .showHiddenContent ion-icon {
   position: absolute;
   right: 5%;
   top: 0;
@@ -26123,7 +26153,7 @@ page-home ion-content .productsList ion-row ion-col .product .container .showHid
   font-weight: 100;
 }
 
-page-home ion-content .productsList ion-row ion-col .product .container.increasesizeContainer {
+page-home .productsList ion-row ion-col .product .container.increasesizeContainer {
   border: 2px solid #dddada;
   -webkit-transition: all .5s;
   transition: all .5s;
@@ -26155,6 +26185,15 @@ page-items ion-content .no-products .text-no-products {
   line-height: 30px;
   text-align: center;
   color: grey;
+}
+
+page-items ion-content .ifThereIsContent ion-segment {
+  margin-bottom: 6px;
+}
+
+page-items ion-content .ifThereIsContent ion-segment ion-segment-button ion-label {
+  margin: 0 !important;
+  font-size: 10px !important;
 }
 
 page-items ion-content ion-list {
@@ -26198,20 +26237,20 @@ page-items ion-content ion-list ion-item .item-inner .input-wrapper ion-label {
   margin: 0 !important;
 }
 
-page-items ion-fab {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
+page-items .delete-all {
+  height: 50px;
+  width: 100vw;
+  background-color: grey;
+  position: absolute;
+  top: 0;
+  z-index: 999;
+  border-radius: 3px;
+  background-color: #f64645;
+  color: white;
+}
+
+page-items .delete-all p {
+  text-align: center;
 }
 
 page-login * {
@@ -26354,6 +26393,23 @@ page-product-detail ion-content .wrapper .counterWrapper .likeSmall {
   font-weight: 900;
   color: #cccaca;
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+page-product-detail ion-content .wrapper .rentOrBuyTag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  background-color: orange;
+  border-radius: 100px;
+  padding: 0 20px;
+  margin: 8px 8px 0 0;
+}
+
+page-product-detail ion-content .wrapper .rentOrBuyTag p {
+  color: white;
+  font-weight: bolder;
+  margin: 3px 0;
 }
 
 page-product-detail ion-content .wrapper .info .price {

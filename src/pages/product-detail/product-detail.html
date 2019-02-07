@@ -18,13 +18,20 @@
       <div class="imgWrapper">
         <ion-slides pager="true" options="{efect: 'flip'}">
           <ion-slide *ngFor="let photo of productToShow.photos">
-            <img [src]="photo" alt="image">
+            <div class="relative">
+              <img [src]="photo" alt="image">
+            </div>
           </ion-slide>
         </ion-slides>
+        
         <div class="counterWrapper">
           <ion-icon class="likeSmall" name="heart-outline" *ngIf="(productToShow.owner?.id === this.user?.id) || (productToShow.owner === this.user?.id)">
             <span class="counter">{{productCounterLikes}}</span>
           </ion-icon>
+        </div>
+        
+        <div class="rentOrBuyTag">
+          <p>{{productToShow.rentOrBuy}}</p>
         </div>
       </div>
       <div class="info">

@@ -11,37 +11,48 @@
 
 <ion-content padding>
   <!-- SI NO HAY PRODUCTOS -->
-  <div class="no-products" *ngIf="productsOfUser.length == 0">
+  <div class="no-products" *ngIf="productsOfUser.length === 0">
     <h6 class="text-no-products">{{'NO_PRODUCTS_IN_YOUR_LIST' | translate}}</h6>
   </div>
-  
-  <ion-list>
-    <ion-item *ngFor="let product of productsOfUser" (click)="goToProduct(product)">
-      <ion-label>
-        <ion-slides pager="true" options="{efect: 'flip'}">
-          <ion-slide *ngFor="let photo of product.photos">
-            <img [src]="photo" alt="image">
-          </ion-slide>
-        </ion-slides>
-      </ion-label>
-      <ion-checkbox *ngIf="checkBoxedsOpened" (click)="selectProductWithCheckbox(product)"></ion-checkbox>
-    </ion-item>
-  </ion-list>
+  <!-- {{productsOfUser.length}} -->
+  <div class="ifThereIsContent">
+    <ion-segment (click)="segmentSelected($event)">
+      <ion-segment-button *ngFor="let option of rentOrBuyOptions">
+        <ion-label>{{option}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-list>
+      <ion-item *ngFor="let product of productsOfUser" (click)="goToProduct(product)">
+        <ion-label>
+          <ion-slides pager="true" options="{efect: 'flip'}">
+            <ion-slide *ngFor="let photo of product.photos">
+              <img [src]="photo" alt="image">
+            </ion-slide>
+          </ion-slides>
+        </ion-label>
+        <ion-checkbox #checkBox *ngIf="checkBoxedsOpened" (click)="selectProductWithCheckbox(product)"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+    
+    <ion-fab left bottom #fab *ngIf="productsOfUser.length !== 0">
+      <button color=danger ion-fab mini (click)="fabOpenCheckboxes()">
+        <ion-icon [name]="trashEmptyOrFull"></ion-icon>
+      </button>
+      <ion-fab-list side="right">
+        <button color=primary ion-fab>
+          <ion-icon name="share-alt"></ion-icon> 
+        </button>
+        <button color=light ion-fab (click)="deleteProducts()">
+          <ion-icon [name]="trashEmptyOrFull"></ion-icon> 
+        </button>
+      </ion-fab-list>
+    </ion-fab>
+    
+  </div>
 </ion-content>
 
 
-<ion-fab left bottom *ngIf="productsOfUser.length !== 0" #fab>
-  <button color=danger ion-fab mini (click)="fabOpenCheckboxes()">
-    <ion-icon [name]="trashEmptyOrFull"></ion-icon>
-  </button>
-  <ion-fab-list side="top">
-    <button color=primary ion-fab>
-      <ion-icon name="share-alt"></ion-icon> 
-    </button>
-    <button color=light ion-fab (click)="deleteProducts()">
-      <ion-icon [name]="trashEmptyOrFull"></ion-icon> 
-    </button>
-  </ion-fab-list>
-</ion-fab>
-
+<div class="delete-all" *ngIf="checkBoxedsOpened" (click)="selectAllProductsToDelete()">
+  <p>{{'DELETE_ALL' | translate}}</p>
+</div>
 

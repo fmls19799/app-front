@@ -25,6 +25,7 @@ export class ModalComponentChooseCategory implements OnInit {
   increaseImageWrapperHeight: boolean;
   user: User;
   myForm: FormGroup;
+  rentOrBuyOptions: Array<string> = ['Rent', 'Sell', 'Exchange', 'Gift'];
   
   categories: Array<any> = [
     {
@@ -57,12 +58,12 @@ export class ModalComponentChooseCategory implements OnInit {
       this.myForm = this.formBuilder.group({
         name: new FormControl('',[Validators.required, Validators.maxLength(10)]),
         description: new FormControl('',[Validators.required, Validators.maxLength(200)]),
-        price: new FormControl('',[Validators.required])
+        price: new FormControl('',[Validators.required]),
+        rentOrBuy: new FormControl('',[Validators.required])
       })
     }
-    
+
     ngOnInit(){
-      
       this.user = this.auth.user;
       
       if (this.productChosen) {

@@ -31,15 +31,15 @@ page-product-detail {
     ion-content{
         .wrapper{
             .imgWrapper{
+                position: relative;
+                // border: 1px solid blue !important;
                 ion-slides{
                     ion-slide{
                         img{
-                            // border: 1px solid blue !important;
                             // height: 300px;
                         }
                     }
                 }
-                position: relative;
                 img{
                     border-radius: 10px;
                     display: block;
@@ -57,6 +57,22 @@ page-product-detail {
                     font-weight: 900;
                     color: #cccaca;
                     background-color: rgba(0, 0, 0, 0.05);
+                }
+            }
+            .rentOrBuyTag{
+                position: absolute;
+                top: 0;
+                right: 0;
+                z-index: 999;
+                background-color: orange;
+                border-radius: 100px;
+                padding:0 20px;
+                margin: 8px 8px 0 0;
+                // margin: 0;
+                p{
+                    color: white;
+                    font-weight: bolder;
+                    margin: 3px 0;
                 }
             }
             

@@ -31,8 +31,8 @@ export class ProductDetailPage implements OnInit{
     
       this.user = this.auth.user;
       this.productToShow = this.navParams.data;
-      console.log(this.productToShow);
-      console.log(this.user);
+      console.log('product: ', this.productToShow);
+      console.log('user', this.user);
       
       this.isLiking();
     }

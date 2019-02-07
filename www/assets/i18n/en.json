@@ -49,6 +49,7 @@
     "PUBLISHING_IN": "Publishing in",
     "SEE": "See",
 
+    "PRODUCTS": "products",
     "UPLOAD_PRODUCT": "Upload product",
     "FORGOT_SOMETHING_VALIDATION": "Forgot something, some information is required",
     "MAXIMUM_IMAGE_STACK_EXCEEDED": "The maximum images to upload are 15",
@@ -65,5 +66,8 @@
     "CANCEL_BUTTON": "Cancel",
     "PRODUCTS_DELETED": "products deleted",
     "NO_PRODUCTS_IN_YOUR_LIST": "You dont have any product yet, go to the upload tab to create one",
-    "HAVE_TO_SELECT_PRODUCT_FIRST": "First you have to select a product"
+    "HAVE_TO_SELECT_PRODUCT_FIRST": "First you have to select a product",
+    "DELETE_ALL": "Delete all",
+    "ARE_YOU_SURE_THAT_YOU_WANT_TO_DELETE": "Are you sure you want to delete",
+    "RENT_BUT_EXCHANGE_GIFT": "Rent, buy, exchange or gift"
 }

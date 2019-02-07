@@ -27,6 +27,8 @@ export class HomePage implements OnInit{
   randomStyleColumn1: number;
   randomStyleColumn2: number;
   addedOnes: number = null;
+  rentOrBuyOptions: Array<string> = [];
+  
   
   categories: Array<any> = [
     {
@@ -66,15 +68,10 @@ export class HomePage implements OnInit{
     private translate: TranslateService) {
       
     }
-
+    
     ngOnInit(){      
-      
-      // DESPUES DE CREAR PRODUCT RECOJO EL TRUE Y LE REDIRIJO AL PRODUCTO CREADO
-      // if (this.navParams.get('comeAfterCreateOProduct')){
-      //   this.goToProduct(this.navParams.data.product);
-      // } 
       this.getAllProducts();
-      
+      this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];      
     }
     
     getAllProducts(refresher?: any){

@@ -86,6 +86,14 @@ modal-choose-category{
                                 font-weight: 300;
                             }
                         }
+                        .rentOrBuy{
+                            // border: 1px solid red !important;
+
+                            button{
+                                display: none !important;
+                                // border: 1px solid red !important;
+                            }
+                        }
                         button{
                             width: 80%;
                             position: absolute;

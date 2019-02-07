@@ -2,6 +2,7 @@ import { User } from "./user";
 
 export class Product {
     _id?: string; // CUANDO LO CREO NO TIENE ID???
+    
     name: string;
     icon?: string;
     description: string;
@@ -9,10 +10,11 @@ export class Product {
     type: string;
     photos: Array<File> = [];
     owner?: User;
-    
+    rentOrBuy: string;
+
     km: number;
     randomHeight?: any;
-    opacity?: boolean; // NO SIEMPRE TENEMOS OPACTIDAD???
+    // opacity?: boolean; // NO SIEMPRE TENEMOS OPACTIDAD???
     
     
     asFormData(): any{         

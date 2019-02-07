@@ -40,35 +40,36 @@
       <div class="mainWrapper">
         <form [formGroup]="myForm" class="myForm" (ngSubmit)="uploadProduct()">
           <ion-list>
-            <ion-item class="item-form-control" [ngClass]="{'has-error': myForm.controls.name.invalid && myForm.controls.name.touched}">
+            <ion-item [ngClass]="{'has-error': myForm.controls.name.invalid && myForm.controls.name.touched}">
               <ion-label floating>{{ 'NAME' | translate }}*</ion-label>
               <ion-input formControlName="name" type="text" [(ngModel)]="productChosen.name">
                 
               </ion-input>
             </ion-item>
-            <ion-item class="item-form-control" [ngClass]="{'has-error': myForm.controls.description.invalid && myForm.controls.description.touched}">
+            <ion-item [ngClass]="{'has-error': myForm.controls.description.invalid && myForm.controls.description.touched}">
               <ion-label floating>{{ 'DESCRIPTION' | translate }}*</ion-label>
               <ion-input formControlName="description" type="text" [(ngModel)]="productChosen.description">
                 
               </ion-input>
             </ion-item>
-            <ion-item class="item-form-control" [ngClass]="{'has-error': myForm.controls.price.invalid && myForm.controls.price.touched}">
+            <ion-item [ngClass]="{'has-error': myForm.controls.price.invalid && myForm.controls.price.touched}">
               <ion-label floating>{{ 'PRICE' | translate }}*</ion-label>
               <ion-input formControlName="price" type="number" [(ngModel)]="productChosen.price">
-                
               </ion-input>
             </ion-item>
-            
+
+            <ion-item class="rentOrBuy" [ngClass]="{'has-error': myForm.controls.price.invalid && myForm.controls.price.touched}">
+              <ion-label floating>{{ 'RENT_BUT_EXCHANGE_GIFT' | translate }}</ion-label>
+              <ion-select formControlName="rentOrBuy" [(ngModel)]="productChosen.rentOrBuy">
+                <ion-option *ngFor="let option of rentOrBuyOptions">{{option}}</ion-option>
+              </ion-select>
+            </ion-item>
             <button type="submit" ion-button color="red" block>{{'UPLOAD_PRODUCT' | translate}}</button>
             
           </ion-list>
         </form>
       </div>
-      <!--  -->
-      <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">
-        File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>
-      </div>
-      <!--  -->
+      
     </section>
     
     <div class="upload">

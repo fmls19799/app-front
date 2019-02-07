@@ -74,95 +74,122 @@ page-home {
                     }
                 }
             }
-        }
-        .productsList{     
-            ion-row{                
-                ion-col{
-                    overflow-y: scroll;
-                    height: calc(100vh - 132px);
-                    .product{
-                        padding-bottom: 20px;
-                        .container{
-                            border-radius: 10px;
-                            border: 1px solid rgba(0,0,0, 0.1);
-                            position: relative;
-                            margin: 3px;
-                            .relative{
-                                position: relative;
-                                img{                                
-                                    border-radius: 10px;
-                                    
-                                }
-                                .goToProduct{
-                                    width: 70%;
-                                    position: absolute;
-                                    font-size: 13px;
-                                    top: 50%;
-                                    left: 50%;
-                                    transform: translate(-50%, -50%);
-                                    color: #00a2ff;
-                                    font-weight: bold;
-                                    margin: 0;
-                                    text-align: center;
-                                    padding: 5px;
-                                }
-                                
-                            }
-                            img.opacity03{
-                                position: relative;
-                                opacity: .2 !important;
-                                background-color: black !important;
-                                transition: all .5s;
-                            }
-                            .infoWrapper{                                
-                                padding-left: 5px;
-                                .price{
-                                    margin: 0;
-                                    font-weight: bold;
-                                }
-                                .name{
-                                }
-                            }
-                            .showHiddenContent{
-                                padding-top: 10px;
-                                padding-left: 5px;
-                                transition: all .5s;
-
-                                .imagesGallery{
-                                    overflow-x: scroll;
-                                    display: flex;
-                                    flex-direction: row;
-                                    img{
-                                        display: inline-block;
-                                        height: 50px;
-                                        margin: 1px;
-                                        border-radius: 3px;
-                                    }
-                                }
-                                .description{
-                                    font-size: 10px;
-                                    line-height: 1px;
-                                    font-weight: 500;
-                                }
-                                ion-icon{
-                                    position: absolute;
-                                    right: 5%;
-                                    top: 0;
-                                    font-size: 30px;
-                                    font-weight: 100;
-                                }
-                            }
-                        }
-                        .container.increasesizeContainer{
-                            border: 2px solid #dddada;
-                            transition: all .5s;
-
-                        }
+            .segmentOptions{
+                // border: 1px solid red;
+                margin-bottom: 6px;
+                ion-segment-button{
+                    ion-label{
+                        margin: 0 !important;
+                        font-size: 10px !important;
+                        
                     }
                 }
             }
         }
     }
+    .productsList{     
+        ion-row{                
+            ion-col{
+                overflow-y: scroll;
+                height: calc(100vh - 132px);
+                .product{
+                    padding-bottom: 20px;
+                    .container{
+                        border-radius: 10px;
+                        border: 1px solid rgba(0,0,0, 0.1);
+                        position: relative;
+                        margin: 3px;
+                        .relative{
+                            position: relative;
+                            img{                                
+                                border-radius: 10px;
+                                
+                            }
+                            .goToProduct{
+                                width: 70%;
+                                position: absolute;
+                                font-size: 13px;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                                color: #00a2ff;
+                                font-weight: bold;
+                                margin: 0;
+                                text-align: center;
+                                padding: 5px;
+                            }
+                            .rentOrBuyTag{
+                                position: absolute;
+                                top: 0;
+                                right: 0;
+                                z-index: 999;
+                                border-radius: 30px;
+                                padding: 0 10px;
+                                margin: 3px;
+                                background-color: orange;
+                                p{
+                                    color: white;
+                                    font-weight: bolder;
+                                    margin: 0;
+                                }
+                            }
+                            
+                        }
+                        img.opacity03{
+                            position: relative;
+                            opacity: .2 !important;
+                            background-color: black !important;
+                            transition: all .5s;
+                        }
+                        .infoWrapper{                                
+                            padding-left: 5px;
+                            .price{
+                                margin: 0;
+                                font-weight: bold;
+                            }
+                            .name{
+                            }
+                        }
+                        .showHiddenContent{
+                            padding-top: 10px;
+                            padding-left: 5px;
+                            transition: all .5s;
+                            
+                            .imagesGallery{
+                                overflow-x: scroll;
+                                display: flex;
+                                flex-direction: row;
+                                img{
+                                    display: inline-block;
+                                    height: 50px;
+                                    margin: 1px;
+                                    border-radius: 3px;
+                                }
+                            }
+                            .description{
+                                font-size: 10px;
+                                line-height: 1px;
+                                font-weight: 500;
+                            }
+                            ion-icon{
+                                position: absolute;
+                                right: 5%;
+                                top: 0;
+                                font-size: 30px;
+                                font-weight: 100;
+                            }
+                        }
+                    }
+                    .container.increasesizeContainer{
+                        border: 2px solid #dddada;
+                        transition: all .5s;
+                        
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 .toast-wrapper{
