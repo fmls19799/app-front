@@ -87,16 +87,20 @@ var ItemsPage = /** @class */ (function () {
         this.arrayProductsToDelete = [];
         this.trashEmptyOrFull = 'ios-trash-outline';
         this.rentOrBuyOptions = [];
-        this.tabSelected = '';
+        this.tabSelected = 'All';
         // productsInLocal: Array<Product> = [];
         this.subscriptions = new __WEBPACK_IMPORTED_MODULE_4_rxjs__["Subscription"]();
     }
     ItemsPage.prototype.ngOnInit = function () {
-        this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];
+        this.rentOrBuyOptions = ['Rent', 'Sell', 'Exchange', 'Gift'];
         console.log(this.rentOrBuyOptions);
         this.emptyEverything();
         this.getAllProducts();
         this.getSuscription();
+    };
+    ItemsPage.prototype.getTotalProducts = function () {
+        console.log(this.subscriptions);
+        return this.productsOfUser.length;
     };
     ItemsPage.prototype.getSuscription = function () {
         var _this = this;
@@ -294,10 +298,6 @@ var ItemsPage = /** @class */ (function () {
                 _this.translator('PRODUCTS_DELETED', false, true);
                 _this.emptyEverything();
                 _this.closeFab();
-<<<<<<< HEAD
-=======
-                _this.getAllProducts(); // MEJOR HACER SUBJECT YA QUE ESTOY EN LOCAL Y ME AHORRO LA SEGUNDA LLAMADA??????
->>>>>>> fase01_fran
             }
             else {
                 console.log(errors); // PROBAR ERRORES DE BACK MULTIPLES AL DELETE???
@@ -317,14 +317,14 @@ var ItemsPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-items',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/items/items.html"*/'<!-- <header [name]="nameHeader"></header> -->\n\n<ion-header>\n  \n  <ion-navbar>\n    <ion-title>aaa</ion-title>\n  </ion-navbar>\n  \n</ion-header>\n\n\n<ion-content padding>\n  <!-- SI NO HAY PRODUCTOS -->\n  <div class="no-products" *ngIf="productsOfUser.length === 0">\n    <h6 class="text-no-products">{{\'NO_PRODUCTS_IN_YOUR_LIST\' | translate}}</h6>\n  </div>\n  <!-- {{productsOfUser.length}} -->\n  <div class="ifThereIsContent">\n    <ion-segment (click)="segmentSelected($event)">\n      <ion-segment-button *ngFor="let option of rentOrBuyOptions">\n        <ion-label>{{option}}</ion-label>\n      </ion-segment-button>\n    </ion-segment>\n    <ion-list>\n      <ion-item *ngFor="let product of productsOfUser" (click)="goToProduct(product)">\n        <ion-label>\n          <ion-slides pager="true" options="{efect: \'flip\'}">\n            <ion-slide *ngFor="let photo of product.photos">\n              <img [src]="photo" alt="image">\n            </ion-slide>\n          </ion-slides>\n        </ion-label>\n        <ion-checkbox #checkBox *ngIf="checkBoxedsOpened" (click)="selectProductWithCheckbox(product)"></ion-checkbox>\n      </ion-item>\n    </ion-list>\n    \n    <ion-fab left bottom #fab *ngIf="productsOfUser.length !== 0">\n      <button color=danger ion-fab mini (click)="fabOpenCheckboxes()">\n        <ion-icon [name]="trashEmptyOrFull"></ion-icon>\n      </button>\n      <ion-fab-list side="right">\n        <button color=primary ion-fab>\n          <ion-icon name="share-alt"></ion-icon> \n        </button>\n        <button color=light ion-fab (click)="deleteProducts()">\n          <ion-icon [name]="trashEmptyOrFull"></ion-icon> \n        </button>\n      </ion-fab-list>\n    </ion-fab>\n    \n  </div>\n</ion-content>\n\n\n<div class="delete-all" *ngIf="checkBoxedsOpened" (click)="selectAllProductsToDelete()">\n  <p>{{\'DELETE_ALL\' | translate}}</p>\n</div>\n\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/items/items.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_products_products__["a" /* ProductsProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_products_products__["a" /* ProductsProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _f || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_products_products__["a" /* ProductsProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]])
     ], ItemsPage);
     return ItemsPage;
-<<<<<<< HEAD
-    var _a, _b, _c, _d, _e, _f;
-=======
-    var ItemsPage_1, _a, _b, _c, _d, _e, _f;
->>>>>>> fase01_fran
 }());
 
 //# sourceMappingURL=items.js.map
