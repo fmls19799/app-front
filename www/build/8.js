@@ -87,7 +87,7 @@ var ItemsPage = /** @class */ (function () {
         this.arrayProductsToDelete = [];
         this.trashEmptyOrFull = 'ios-trash-outline';
         this.rentOrBuyOptions = [];
-        this.tabSelected = 'll';
+        this.tabSelected = '';
         // productsInLocal: Array<Product> = [];
         this.subscriptions = new __WEBPACK_IMPORTED_MODULE_4_rxjs__["Subscription"]();
     }
