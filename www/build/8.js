@@ -294,6 +294,10 @@ var ItemsPage = /** @class */ (function () {
                 _this.translator('PRODUCTS_DELETED', false, true);
                 _this.emptyEverything();
                 _this.closeFab();
+<<<<<<< HEAD
+=======
+                _this.getAllProducts(); // MEJOR HACER SUBJECT YA QUE ESTOY EN LOCAL Y ME AHORRO LA SEGUNDA LLAMADA??????
+>>>>>>> fase01_fran
             }
             else {
                 console.log(errors); // PROBAR ERRORES DE BACK MULTIPLES AL DELETE???
@@ -316,7 +320,11 @@ var ItemsPage = /** @class */ (function () {
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_products_products__["a" /* ProductsProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_products_products__["a" /* ProductsProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _f || Object])
     ], ItemsPage);
     return ItemsPage;
+<<<<<<< HEAD
     var _a, _b, _c, _d, _e, _f;
+=======
+    var ItemsPage_1, _a, _b, _c, _d, _e, _f;
+>>>>>>> fase01_fran
 }());
 
 //# sourceMappingURL=items.js.map
