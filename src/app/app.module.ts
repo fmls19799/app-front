@@ -16,6 +16,15 @@ import { AuthProvider } from '../providers/auth/auth';
 import { CustomComponentsModule } from './../components/components.module';
 import { ProductsProvider } from './../providers/products/products';
 
+// MEDIATORS
+import { ProductsMediator } from './../shared/mediators/productsMediator';
+
+// FIREBASE
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { environment } from '../environments/environment';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { HandlingErrorsProvider } from '../providers/handling-errors/handling-errors';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -39,7 +48,14 @@ export function createTranslateLoader(http: HttpClient) {
       tabsPlacement: 'top',
       backButtonText: 'Back'
     }),
-    CustomComponentsModule
+    CustomComponentsModule,
+    AngularFireModule.initializeApp({
+      apiKey: "<your-api-key>",
+      authDomain: "<your-auth-domain>",
+      storageBucket: "<project-id>.appspot.com",
+      projectId: "<your-project-id>",
+    }),
+    AngularFireStorageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -52,7 +68,9 @@ export function createTranslateLoader(http: HttpClient) {
     {provide: HTTP_INTERCEPTORS, useClass:AppHttpInterceptorProvider, multi: true},
     Utils,
     AuthProvider,
-    ProductsProvider
+    ProductsProvider,
+    ProductsMediator,
+    HandlingErrorsProvider
   ]
 })
 export class AppModule {}

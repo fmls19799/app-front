@@ -17,11 +17,12 @@
     "ERROR_PASSWORD_REQUIRED":"Password is required",
     "ERROR_EMAIL_PATTERN": "Wrong email pattern",
     "ERROR_PASSWORD_PATTERN": "Password must have 1 capital letter and at least one number",
-    
+
     "CODE_001": "Email or password is empty",
     "CODE_002": "Invalid email or password",
     "CODE_003": "User with that email already exists",
-    
+    "CODE_004": "Not authorised, login first",
+
     "USER_CREATED": "User created successfully, validate the link we sent you to your email",
     "LOGIN_ERROR": "Unable to sign in",
     "REMEMBER_ME": "Remember password",
@@ -55,6 +56,14 @@
     "PRODUCTS_NEW_AFTER_REFRESH": "new products",
     "NO_NEW_PRODUCTS_AFTER_REFRESH": "No new products",
     "PRODUCT_CREATED": "Product created successfully",
-    "LOGGED_OUT": "Logged out successfully"
+    "LOGGED_OUT": "Logged out successfully",
 
+    "DELETE_PRODUCTS": "Delete products",
+    "DELETE_PRODUCT": "Delete product",
+    "ARE_YOU_SURE": "Are you sure?",
+    "DONE_BUTTON": "Ok",
+    "CANCEL_BUTTON": "Cancel",
+    "PRODUCTS_DELETED": "products deleted",
+    "NO_PRODUCTS_IN_YOUR_LIST": "You dont have any product yet, go to the upload tab to create one",
+    "HAVE_TO_SELECT_PRODUCT_FIRST": "First you have to select a product"
 }

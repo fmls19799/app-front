@@ -112,6 +112,7 @@ page-home {
                                 position: relative;
                                 opacity: .2 !important;
                                 background-color: black !important;
+                                transition: all .5s;
                             }
                             .infoWrapper{                                
                                 padding-left: 5px;
@@ -125,6 +126,8 @@ page-home {
                             .showHiddenContent{
                                 padding-top: 10px;
                                 padding-left: 5px;
+                                transition: all .5s;
+
                                 .imagesGallery{
                                     overflow-x: scroll;
                                     display: flex;
@@ -152,6 +155,8 @@ page-home {
                         }
                         .container.increasesizeContainer{
                             border: 2px solid #dddada;
+                            transition: all .5s;
+
                         }
                     }
                 }

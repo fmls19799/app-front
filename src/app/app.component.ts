@@ -115,18 +115,18 @@ export class MyApp implements OnInit{
   
         if (this.currentPage !== view.id) {
           this.currentPage = view.id;
+          console.log(view.id);
           
-          const publicPagesRegex = /login|register|LoginPage|RegisterPage/;
-          if (!/login/.test(this.currentPage.toLowerCase()) && !this.auth.isLoggedIn()) {
-            console.log('no estas logueado y la vista no es login');
-            this.nav.setRoot('LoginPage'); // si no paso siempre por login los subjects fallaran????
-            this.translator('LOGIN_ERROR');
-          }
-
-          if(this.auth.isLoggedIn() && (/login/.test(this.currentPage.toLowerCase())) || (/register/.test(this.currentPage.toLowerCase()))){
-            console.log('estas logueado e intentas ir a login o register');
-            this.nav.setRoot('HomePage'); 
-          }
+          const publicPagesRegex = /login|register|LoginPage|RegisterPage/;          
+          // if (!this.auth.isLoggedIn() && (!/login/.test(this.currentPage.toLowerCase())) || (!/register/.test(this.currentPage.toLowerCase()))) {
+          //   console.log('no estas logueado y la vista no es login');
+          //   this.nav.setRoot('LoginPage'); // si no paso siempre por login los subjects fallaran????
+          //   this.translator('LOGIN_ERROR');
+          // }
+          // if(this.auth.isLoggedIn() && ((/login/.test(this.currentPage.toLowerCase())) || (/register/.test(this.currentPage.toLowerCase())))){
+          //   console.log('estas logueado e intentas ir a login o register');
+          //   this.nav.setRoot('HomePage'); 
+          // }
         }
       })
     }

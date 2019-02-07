@@ -1,34 +1,46 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { CONFIG } from '../../config/config.int';
 import { User } from '../../models/user';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
-
+import { StringifiedError } from './../../models/StringifiedError';
+import { HandlingErrorsProvider } from '../handling-errors/handling-errors';
 
 @Injectable()
 export class AuthProvider {
   user: User;
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
   
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient,
+    private handlingError: HandlingErrorsProvider) { }
   
   ngOnInit() {
     
   }
   
   //quitar any???
-  register(user: User): Observable<User | HttpErrorResponse> {
-    return this.http.post<User>(`${AuthProvider.ENDPOINT}/register`, user).map((data: any) => data);
+  register(user: User): Observable<User | StringifiedError> {
+    return this.http.post<User>(`${AuthProvider.ENDPOINT}/register`, user)
+    .pipe(
+      map((user: User) => {
+        return user;
+      }),
+      catchError(this.handlingError.handleError)
+    );
   }
   
   //quitar any???
-  login(user: User): Observable<User | HttpErrorResponse> {    
-    return this.http.post<User>(`${AuthProvider.ENDPOINT}/sessions`, user).map((data: any)=>{
-      this.user = data; // IF GOOD PONER ESO???
-      this.saveInLocalStorageAfterLogin(this.user)
-      return data;
-    });
+  login(user: User): Observable<User | StringifiedError> {    
+    return this.http.post<User>(`${AuthProvider.ENDPOINT}/sessions`, user)
+    .pipe(
+      map((user: User) => {
+        this.user = user;
+        this.saveInLocalStorageAfterLogin(this.user)
+        return user;
+      }),
+      catchError(this.handlingError.handleError)
+    );
   }
   
   isLoggedIn():boolean{    

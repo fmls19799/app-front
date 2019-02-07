@@ -21,7 +21,7 @@
     "CODE_001": "Email o contraseña faltan",
     "CODE_002": "Email o contraseña errónea",
     "CODE_003": "El usuario con ese email ya existe",
-    
+    "CODE_004": "No estas autorizado, debes registrarte primero",
     "USER_CREATED": "Usuario creado satisfactoriamente, valide el link de su bandeja de entrada",
     "LOGIN_ERROR": "No se ha podido iniciar session",
     "REMEMBER_ME": "Remember password",
@@ -54,6 +54,14 @@
     "PRODUCTS_NEW_AFTER_REFRESH": "productos nuevos",
     "NO_NEW_PRODUCTS_AFTER_REFRESH": "No hay productos nuevos",
     "PRODUCT_CREATED": "Producto creado satisfactoriamente",
-    "LOGGED_OUT": "Has hecho logout correctamente"
-
+    "LOGGED_OUT": "Has hecho logout correctamente",
+    
+    "DELETE_PRODUCTS": "Borrar productos",
+    "DELETE_PRODUCT": "Borrar producto",
+    "ARE_YOU_SURE": "¿estas seguro?",
+    "DONE_BUTTON": "Hecho",
+    "CANCEL_BUTTON": "Cancelar",
+    "PRODUCTS_DELETED": "productos eliminados",
+    "NO_PRODUCTS_IN_YOUR_LIST": "Aún no tienes ningun producto, ves a la pagina de subida de productos",
+    "HAVE_TO_SELECT_PRODUCT_FIRST": "Primero debe seleccionar un producto"
 }

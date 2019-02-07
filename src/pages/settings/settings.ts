@@ -9,7 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
-  
+  nameHeader: string = 'Settings';
+
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private authProvider: AuthProvider,

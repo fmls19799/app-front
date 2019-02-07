@@ -4,9 +4,9 @@ import { IonicPage, NavController, ToastController, Platform, AlertController } 
 import { User } from '../../models/user';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PATTERNS } from '../../shared/constants';
-import { ApiError } from './../../models/ApiError';
 import { Utils } from './../../providers/utils';
 import { AuthProvider } from './../../providers/auth/auth';
+import { StringifiedError } from './../../models/StringifiedError';
 // var encrypter = require('object-encrypter');
 // var engine = encrypter('your secret', {ttl: true});
 
@@ -20,7 +20,7 @@ export class LoginPage implements OnInit{
   user: User = new User();  
   myForm: FormGroup;
   userStorage: User;
-  apiError: ApiError;
+  stringifiedError: StringifiedError;
   isCordova: boolean;
   rememberMeCheckbox: boolean = false;
 
@@ -52,10 +52,8 @@ export class LoginPage implements OnInit{
             this.navCtrl.setRoot('HomePage')
           }
         },
-        (error: ApiError) => {
-          this.apiError = error;
-          this.translator(this.apiError.error.message);
-          console.log('error:', this.apiError.error.message);
+        (error: any) => {
+          this.translator(error)
         })
       } else{
         this.translator('FORBIDDEN');

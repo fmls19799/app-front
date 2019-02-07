@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, LoadingController, ModalController, ToastController } from 'ionic-angular';
 import { AuthProvider } from './../../providers/auth/auth';
 import { User } from './../../models/user';
-import { ApiError } from './../../models/ApiError';
 import { SearchProductPage } from './../search-product/search-product';
 import { ProductsProvider } from './../../providers/products/products';
 import { Product } from './../../models/product';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
+
+export interface ProductSelected extends Product{
+  selected: boolean;
+}
 
 @IonicPage()
 @Component({
@@ -24,6 +27,7 @@ export class HomePage implements OnInit{
   randomStyleColumn1: number;
   randomStyleColumn2: number;
   addedOnes: number = null;
+  
   categories: Array<any> = [
     {
       icon: 'ios-home-outline',
@@ -62,21 +66,21 @@ export class HomePage implements OnInit{
     private translate: TranslateService) {
       
     }
-    
-    ionViewDidLoad() {
-      
-    }
-    
-    
+
     ngOnInit(){      
+      
+      // DESPUES DE CREAR PRODUCT RECOJO EL TRUE Y LE REDIRIJO AL PRODUCTO CREADO
+      // if (this.navParams.get('comeAfterCreateOProduct')){
+      //   this.goToProduct(this.navParams.data.product);
+      // } 
       this.getAllProducts();
+      
     }
     
     getAllProducts(refresher?: any){
       this.closeOpenedOnes(); // close detail of opened ones
       
-      this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{
-        
+      this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{        
         if (refresher) { // stop refresher after i got results, if im doing refresher, only include new ones instead adding them all ???
           if (products.length > this.products.length) {
             this.showToast(`${(Number(products.length) - Number(this.products.length)).toString()} products new`);            
@@ -85,7 +89,9 @@ export class HomePage implements OnInit{
           }
           refresher.complete();
         } 
-        this.products = products;           
+        this.products = products;  
+        console.log(888, this.products);
+        
         this.populateProductsList(); // split products in 3 columns
       })
     }
@@ -106,10 +112,12 @@ export class HomePage implements OnInit{
       }).present();
     }
     
-    closeOpenedOnes(){
-      this.products.forEach(product => {
-        product.opacity = false;                
-      });
+    closeOpenedOnes(){      
+      if (this.products) {
+        this.products.forEach(product => {
+          product.selected = false;                
+        });
+      }
     }
     
     populateProductsList(){  
@@ -137,32 +145,40 @@ export class HomePage implements OnInit{
       this.getAllProducts(refresher);
     }
     
-    showSmallDetail(productClicked: Product){            
-      return this.products.forEach(product => {        
+    showSmallDetail(productClicked: Product){           
+      this.products.forEach(product => {        
         if (product._id === productClicked._id) {
-          return this.turnOpacity(product);
-        }
+          this.increaseContainer(product);
+        } else{
+          this.closeOtherOnes(product);
+        }       
       });
     }
     
-    turnOpacity(product: Product){          
-      if (!product.opacity) {
-        product.opacity = true;
-      } else{
-        product.opacity = false;
-      }
+    closeOtherOnes(product: ProductSelected){
+      product.selected = false;
     }
     
-    goToProduct(product: Product){    
+    increaseContainer(product: ProductSelected){          
+      if (!product.selected) {
+        product.selected = true;
+      } else{
+        product.selected = false;
+      }      
+    }
+    
+    goToProduct(product: Product){   
+      console.log(111, product);
+      
       // PONER ESTO CON SUBJECT ASI APRENDO??? AUNQUE SOLO PRA ESTO NO HARIA FALTA
-      console.log(product);
       this.navCtrl.push('ProductDetailPage', product)
     }
     
     menuClick(event: any){
       // ESTO PARA QUE???
-      console.log(event); 
+      // console.log(event); 
       
     }
+    
   }
   

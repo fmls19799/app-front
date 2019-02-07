@@ -5,7 +5,9 @@ import { Product } from './../../models/product';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { ProductsProvider } from './../../providers/products/products';
-import { ApiError } from './../../models/ApiError';
+import { StringifiedError } from './../../models/StringifiedError';
+import { AuthProvider } from './../../providers/auth/auth';
+import { User } from './../../models/user';
 
 @Component({
   selector: 'modal-choose-category',
@@ -21,7 +23,7 @@ export class ModalComponentChooseCategory implements OnInit {
   MODALTITLE: string = '';
   previewImages: any = [];
   increaseImageWrapperHeight: boolean;
-  
+  user: User;
   myForm: FormGroup;
   
   categories: Array<any> = [
@@ -43,13 +45,14 @@ export class ModalComponentChooseCategory implements OnInit {
     }
   ]
   
-  constructor(private viewCtrl: ViewController, 
+  constructor(private viewCtrl: ViewController,
     private modalCtrl: ModalController,
     private formBuilder: FormBuilder,
     private translate: TranslateService,
     private toastCtrl: ToastController,
     private productsProvider: ProductsProvider,
-    private navCtrl: NavController) {
+    private navCtrl: NavController,
+    private auth: AuthProvider) {
       
       this.myForm = this.formBuilder.group({
         name: new FormControl('',[Validators.required, Validators.maxLength(10)]),
@@ -58,8 +61,12 @@ export class ModalComponentChooseCategory implements OnInit {
       })
     }
     
-    ngOnInit(){              
+    ngOnInit(){
+      
+      this.user = this.auth.user;
+      
       if (this.productChosen) {
+        
         this.MODALTITLE = 'CHOOSE_CATEGORY';        
       }
     }
@@ -71,19 +78,24 @@ export class ModalComponentChooseCategory implements OnInit {
     }
     
     closeModal(){
+      
       this.viewCtrl.dismiss();
     }
     
     chooseAgain(){
+      
       this.MODALTITLE = 'CHOOSE_CATEGORY';
       this.isProductChosen = false;
     }
     
     
-    receiveImageFromChildren(imagesReceived: Array<File>){  
+    receiveImageFromChildren(imagesReceived: Array<File>){ 
+      
+      
       this.productChosen.photos = []; // cada vez que pongo fotos lo vacio para que entre limpio???  
       
       Array.from(imagesReceived).forEach(file => { 
+        
         this.productChosen.photos.push(file)
       });
       
@@ -91,20 +103,24 @@ export class ModalComponentChooseCategory implements OnInit {
       
     }
     
-    renderPreviewImg(imagesReceived: Array<File>){   
+    renderPreviewImg(imagesReceived: Array<File>){  
+      
       if(imagesReceived.length > 5){
         this.increaseImgWrapper();        
       }   
       
-      if (this.previewImages.length >= 15) {        
+      if (this.previewImages.length >= 15) {   
+        
         this.translator('MAXIMUM_IMAGE_STACK_EXCEEDED', null);
       }
       
       Array.from(imagesReceived).forEach(file => { 
+        
         var reader = new FileReader(); // si pones const no va ya que esta busy reading blobs???
         reader.readAsDataURL(file);
         reader.onload = () =>{
           if (this.previewImages.length < 15) {
+            
             this.previewImages.push(reader.result);  
           } 
         }
@@ -114,18 +130,21 @@ export class ModalComponentChooseCategory implements OnInit {
     uploadProduct(){
       
       if (this.previewImages.length <= 0) {
+        
         this.translator('ONE_IMAGE_REQUIRED', null);
       }
-      else if(this.myForm.valid){        
+      else if(this.myForm.valid){  
+        
+        
         this.productsProvider.createProduct(this.productChosen).subscribe((product: Product)=>{
-          this.translator('PRODUCT_CREATED', true)
+          this.productChosen = product; //YA LO TENGO CON ID RETORNADO PERO EL POPULATE NO 
+          // SE HACE HASTA QUE HAGA GET NO POST, ahora si se lo puedo pasar pero los ifs del 
+          // html habra que poner mas opciones ya que no hay owner.id???
+          this.translator('PRODUCT_CREATED', true);
         },
-        
-        (error: ApiError)=>{
-          console.log(333, error);
-          
+        (error: any)=>{
+          this.translator(error, false);
         })
-        
       } 
       else{
         this.translator('FORGOT_SOMETHING_VALIDATION', null);
@@ -144,6 +163,7 @@ export class ModalComponentChooseCategory implements OnInit {
     
     
     showToast(data: string, closeAfterDismissedToast: boolean){
+      
       let toast = this.toastCtrl.create({
         message: data,
         duration: 2000,
@@ -152,8 +172,8 @@ export class ModalComponentChooseCategory implements OnInit {
       toast.present();
       if (closeAfterDismissedToast) {
         toast.onDidDismiss(()=>{
+          this.navCtrl.push('ProductDetailPage', this.productChosen); // SI HAGO EL PUSH YA NO ESTOY EN ESTE MODAL Y NO HABRA PUSH POSIBLE???
           this.closeModal();
-          this.navCtrl.setRoot('HomePage'); //NO ME DEJA HABRIR EL MENU DE NUEVO VER ESTO ??????  NO DEBERIA HACERLO ASI SINO UN SIMPLE GET DEL PROVIDER DE HOME AGAIN????
         })
       }
     }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Product } from './../../models/product';
 import { ProductsProvider } from './../../providers/products/products';
-
+import { AuthProvider } from './../../providers/auth/auth';
+import { User } from './../../models/user';
+import { TranslateService } from '@ngx-translate/core';
 
 @IonicPage()
 @Component({
@@ -15,40 +17,41 @@ export class ProductDetailPage implements OnInit{
   productCounterLikes: number = 0; // QUE SEA DINAMICO PONER EN SU MODELO???
   liking: boolean;
   likingIcon: string;
+  user: User;
   
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
-    private productsProvider: ProductsProvider) {
+    private productsProvider: ProductsProvider,
+    private auth: AuthProvider,
+    private toastCtrl: ToastController,
+    private translate: TranslateService) {
     }
     
     ngOnInit(){
-      this.productToShow = this.navParams.data;     
-
+    
+      this.user = this.auth.user;
+      this.productToShow = this.navParams.data;
+      console.log(this.productToShow);
+      console.log(this.user);
+      
       this.isLiking();
     }
+    
     
     isLiking(){
       if (!this.liking) {
         this.likingIcon = 'heart-outline';
         this.liking = false;
-        console.log(1, this.likingIcon);
-        console.log(2.1, this.liking);
+        
       } else{
         this.likingIcon = 'heart';
         this.liking = true;
-        console.log(2, this.likingIcon);
-        console.log(2.1, this.liking);
         
       }
       
     }
     
-    // PONER ESTO CON SUBJECT ASI APRENDO??? SI FUESE ENTRAR MAS ADETRO SI HARIA FALTA SUBJECT???
-    ionViewDidLoad() {
-      this.productToShow = this.navParams.data;     
-      console.log(this.productToShow);
-       
-    }
+    
     
     addOrRemoveLikeToThisProduct(){
       // this.liking = !this.liking;
