@@ -173,12 +173,10 @@ var ProductsProvider = /** @class */ (function () {
     };
     ProductsProvider = ProductsProvider_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */],
-            __WEBPACK_IMPORTED_MODULE_3__auth_auth__["a" /* AuthProvider */],
-            __WEBPACK_IMPORTED_MODULE_6__handling_errors_handling_errors__["a" /* HandlingErrorsProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["b" /* HttpClient */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__auth_auth__["a" /* AuthProvider */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__handling_errors_handling_errors__["a" /* HandlingErrorsProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__handling_errors_handling_errors__["a" /* HandlingErrorsProvider */]) === "function" && _c || Object])
     ], ProductsProvider);
     return ProductsProvider;
-    var ProductsProvider_1;
+    var ProductsProvider_1, _a, _b, _c;
 }());
 
 //# sourceMappingURL=products.js.map
@@ -253,35 +251,35 @@ var map = {
 		2
 	],
 	"../pages/items/items.module": [
-		802,
+		809,
 		8
 	],
 	"../pages/login/login.module": [
-		803,
+		802,
 		1
 	],
 	"../pages/map/map.module": [
-		804,
+		803,
 		7
 	],
 	"../pages/product-detail/product-detail.module": [
-		805,
+		804,
 		6
 	],
 	"../pages/profile/profile.module": [
-		806,
+		805,
 		5
 	],
 	"../pages/register/register.module": [
-		807,
+		806,
 		0
 	],
 	"../pages/search-product/search-product.module": [
-		808,
+		807,
 		4
 	],
 	"../pages/settings/settings.module": [
-		809,
+		808,
 		3
 	]
 };
@@ -647,14 +645,14 @@ var AppModule = /** @class */ (function () {
                     links: [
                         { loadChildren: '../pages/chat/chat.module#ChatPageModule', name: 'ChatPage', segment: 'chat', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/items/items.module#ItemsPageModule', name: 'ItemsPage', segment: 'items', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/map/map.module#MapPageModule', name: 'MapPage', segment: 'map', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/product-detail/product-detail.module#ProductDetailPageModule', name: 'ProductDetailPage', segment: 'product-detail', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/search-product/search-product.module#SearchProductPageModule', name: 'SearchProductPage', segment: 'search-product', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/settings/settings.module#SettingsPageModule', name: 'SettingsPage', segment: 'settings', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/settings/settings.module#SettingsPageModule', name: 'SettingsPage', segment: 'settings', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/items/items.module#ItemsPageModule', name: 'ItemsPage', segment: 'items', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_12__components_components_module__["a" /* CustomComponentsModule */],
