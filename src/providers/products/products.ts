@@ -8,12 +8,15 @@ import { Observable, Subject, Subscription, BehaviorSubject } from 'rxjs';
 import { _throw } from 'rxjs/observable/throw';
 import { map, catchError } from 'rxjs/operators';
 import { HandlingErrorsProvider } from '../handling-errors/handling-errors';
+import { WishProduct } from 'src/models/wishlist';
 
 @Injectable()
 export class ProductsProvider extends HandlingErrorsProvider {
-
   productsByUser: Array<Product> = [];
   subjectProductsOfUser = new BehaviorSubject(null);
+
+  productDetail: Product;
+  subjectProductDetail = new BehaviorSubject(null);
 
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
   private static readonly httpOptionsForFormData = {
@@ -80,21 +83,38 @@ export class ProductsProvider extends HandlingErrorsProvider {
         catchError(this.handleError));
   }
 
-
-
+  // NO LOAD ERCOMO HACERLO??? PONER ESTO EN WISHLIST PROVIDER PERO DA URINARY ERROR AL MEZCLARA DIFERENTES TIPOS???
   likeProduct(product: Product): Observable<Product | StringifiedError> {
-    return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/like`, product)
+    return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/users/${this.auth.user.id}/like`, product)
       .pipe(
         map((product: Product) => {
+          this.productDetail = product;
+          console.log(1, this.productDetail);
+          this.notifyChanges();
           return product;
         }),
         catchError(this.handleError));
   }
 
+  isLiking(product: Product): Observable<boolean | StringifiedError> {
+    return this.http.get<any>(`${ProductsProvider.ENDPOINT}/products/${product._id}/users/${this.auth.user.id}/isliking`)
+      .pipe(
+        map((isliking: boolean) => {
+          return isliking;
+        }),
+        catchError(this.handleError));
+  }
+
+
+
   unlikeProduct(product: Product): Observable<Product | StringifiedError> {
-    return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/unlike`, product)
+    return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/users/${this.auth.user.id}/unlike`, product)
       .pipe(
         map((product: Product) => {
+          this.productDetail = product;
+          console.log(2, this.productDetail);
+          
+          this.notifyChanges();
           return product;
         }),
         catchError(this.handleError));
@@ -117,11 +137,17 @@ export class ProductsProvider extends HandlingErrorsProvider {
   notifyChanges() {
     console.log(1);
     this.subjectProductsOfUser.next(this.productsByUser);
+    this.subjectProductDetail.next(this.productDetail);
   }
 
   productByUserChanges() {
     console.log(4);
     return this.subjectProductsOfUser.asObservable();
+  }
+
+  productDetailChanges() {
+    console.log(4);
+    return this.subjectProductDetail.asObservable();
   }
 
 }

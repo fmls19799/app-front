@@ -7,8 +7,7 @@
         CATEGORY AL CREARLO Y ASIGNARLE LO RETORNADO AL THIS.PRODUCTCHOSEN, EL POPULATE NO SE LLEVA A CABO YA QUE SOLO SE HACE 
         EN EL FIND() DEL BACK, POR LO QUE NO HAY ID EN OWNER AUN -->
         <!-- NO ME SALE QUE CUANDO ME VENGA DESPUES DE CREAR EL PRODUCTO HACER LA IGUALACION ya que si hago todo en una linea productToShow.owner?.id !== this.user.id || productToShow?.owner !== this.user.id una invalidaria a la otra?¿?? -->
-
-        <ion-icon *ngIf="productToShow.owner?.id && productToShow.owner?.id !== this.user.id" class="like" (click)="addOrRemoveLikeToThisProduct()" [name]="likingIcon"></ion-icon>
+        <ion-icon *ngIf="productToShow.owner?.id && productToShow.owner?.id !== this.user.id" class="like" (click)="like()" [name]="(liking)? 'heart' : 'heart-outline'"></ion-icon>
         <ion-icon class="share" name="share-outline"></ion-icon>
       </div>
     </ion-navbar>
@@ -18,7 +17,7 @@
   <ion-content padding>
     <div class="wrapper" *ngIf="productToShow">
       <div class="imgWrapper">
-        <ion-slides [pager]="productToShow?.photos.length > 1" options="{efect: 'flip'}">
+        <ion-slides [pager]="productToShow.photos?.length > 1" options="{efect: 'flip'}">
           <ion-slide *ngFor="let photo of productToShow.photos">
             <div class="relative">
               <img [src]="photo" alt="image">
@@ -28,7 +27,7 @@
         <div class="counterWrapper" *ngIf="comingAfterCreateProduct || productToShow.owner?.id === this.user.id">
           <!-- aqui lo mismo??? -->
           <ion-icon class="likeSmall" name="heart-outline">
-            <span class="counter">{{productCounterLikes}}</span>
+            <span class="counter">{{productToShow.numberOfLikes}}</span>
           </ion-icon>
         </div>
         

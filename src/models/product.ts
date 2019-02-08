@@ -11,6 +11,7 @@ export class Product {
     photos: Array<File> = [];
     owner?: User;
     rentOrBuy: string;
+    numberOfLikes?: number;
 
     km: number;
     randomHeight?: any;

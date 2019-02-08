@@ -40,6 +40,11 @@ export class MyApp implements OnInit{
       active: false
     },
     {
+      name: 'favorites',
+      icon: 'ios-map-outline',
+      active: false
+    },
+    {
       name: 'items',
       icon: 'ios-pricetag-outline',
       active: false
@@ -112,7 +117,7 @@ export class MyApp implements OnInit{
       //global guardas in here (NAV is the whole nav, not like using ionviewwilleneter,
       //  VIEW CONTROLLER is the view that is going to load) 
       this.nav.viewWillEnter.subscribe((view: ViewController)=>{
-  
+        
         if (this.currentPage !== view.id) {
           this.currentPage = view.id;
           console.log(view.id);
@@ -168,27 +173,14 @@ export class MyApp implements OnInit{
       } else {
         this.translate.use('en'); // Set your language here
       }
-      
     }
     
     // GO TO SELECTED SEGMENT
-    goToSelectedTab(icon: string){                      
-      switch (icon) {
-        case 'upload': this.modalCtrl.create(ModalComponentChooseCategory).present(); 
-        break;
-        case 'profile': this.nav.push('ProfilePage'); 
-        break;
-        case 'map': this.nav.push('MapPage');  
-        break;
-        case 'chat': this.nav.push('ChatPage');
-        break;
-        case 'items': this.nav.push('ItemsPage');
-        break;
-        case 'settings': this.nav.push('SettingsPage');
-        break;
-        
-        default:
-        break;
+    goToSelectedTab(icon: string){  
+      if (icon === 'upload' ) {
+        this.modalCtrl.create(ModalComponentChooseCategory).present(); 
+      } else{
+        this.nav.push(`${icon.replace(/\b\w/g, l => l.toUpperCase())}Page`); 
       }
       this.menuController.close();
     }

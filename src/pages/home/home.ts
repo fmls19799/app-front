@@ -164,9 +164,7 @@ export class HomePage implements OnInit{
       }      
     }
     
-    goToProduct(product: Product){   
-      console.log(111, product);
-      
+    goToProduct(product: Product){         
       // PONER ESTO CON SUBJECT ASI APRENDO??? AUNQUE SOLO PRA ESTO NO HARIA FALTA
       this.navCtrl.push('ProductDetailPage', product)
     }

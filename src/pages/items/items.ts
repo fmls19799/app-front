@@ -26,13 +26,10 @@ export class ItemsPage implements OnInit, OnDestroy{
   tabSelected: string = '';
   @ViewChild("fab") fab: any;
   productsRemainAllTheTime: Array<Product>;
-  
-  // @ViewChild('checkBox') checkBox: ElementRef;
+  subscriptions = new Subscription();
   
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}/products`;
   
-  // productsInLocal: Array<Product> = [];
-  subscriptions = new Subscription();
   
   
   constructor(public navCtrl: NavController, 
