@@ -48,7 +48,7 @@ var ProductDetailPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_product__ = __webpack_require__(421);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_products_products__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_auth__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__ = __webpack_require__(78);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -77,9 +77,13 @@ var ProductDetailPage = /** @class */ (function () {
     }
     ProductDetailPage.prototype.ngOnInit = function () {
         this.user = this.auth.user;
+        console.log(this.navParams.data);
+        console.log(this.navParams.data === true);
+        if (this.navParams.data) {
+            console.log('dsa');
+            this.comingAfterCreateProduct = true;
+        }
         this.productToShow = this.navParams.data;
-        console.log('product: ', this.productToShow);
-        console.log('user', this.user);
         this.isLiking();
     };
     ProductDetailPage.prototype.isLiking = function () {
@@ -108,7 +112,7 @@ var ProductDetailPage = /** @class */ (function () {
     };
     ProductDetailPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-product-detail',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/'\n<ion-header>\n  \n  <ion-navbar>\n    <div class="flex" right>\n      <!-- PONGO QUE SEA IGUAL AL ID O AL USER YA QUE DESDE MODAL CHOSE \n        CATEGORY AL CREARLO Y ASIGNARLE LO RETORNADO AL THIS.PRODUCTCHOSEN, EL POPULATE NO SE LLEVA A CABO YA QUE SOLO SE HACE \n        EN EL FIND() DEL BACK, POR LO QUE NO HAY ID EN OWNER AUN -->\n        <ion-icon *ngIf="(productToShow.owner?.id !== this.user?.id) || (productToShow.owner !== this.user?.id)" class="like" (click)="addOrRemoveLikeToThisProduct()" [name]="likingIcon"></ion-icon>\n        <ion-icon class="share" name="share-outline"></ion-icon>\n      </div>\n    </ion-navbar>\n    \n  </ion-header>\n  \n  <ion-content padding>\n    <div class="wrapper" *ngIf="productToShow">\n      <div class="imgWrapper">\n        <ion-slides pager="true" options="{efect: \'flip\'}">\n          <ion-slide *ngFor="let photo of productToShow.photos">\n            <div class="relative">\n              <img [src]="photo" alt="image">\n            </div>\n          </ion-slide>\n        </ion-slides>\n        \n        <div class="counterWrapper">\n          <ion-icon class="likeSmall" name="heart-outline" *ngIf="(productToShow.owner?.id === this.user?.id) || (productToShow.owner === this.user?.id)">\n            <span class="counter">{{productCounterLikes}}</span>\n          </ion-icon>\n        </div>\n        \n        <div class="rentOrBuyTag">\n          <p>{{productToShow.rentOrBuy}}</p>\n        </div>\n      </div>\n      <div class="info">\n        <h2 class="price">\n          {{productToShow.price}} €\n        </h2>\n        <h4 class="title">\n          {{productToShow.name | titlecase}}\n        </h4>\n        <p class="summary">\n          {{productToShow.description | titlecase}}\n        </p>\n      </div>\n    </div>\n  </ion-content>\n  '/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/,
+            selector: 'page-product-detail',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/'\n<ion-header>\n  \n  <ion-navbar>\n    <div class="flex" right>\n      <!-- PONGO QUE SEA IGUAL AL ID O AL USER YA QUE DESDE MODAL CHOSE \n        CATEGORY AL CREARLO Y ASIGNARLE LO RETORNADO AL THIS.PRODUCTCHOSEN, EL POPULATE NO SE LLEVA A CABO YA QUE SOLO SE HACE \n        EN EL FIND() DEL BACK, POR LO QUE NO HAY ID EN OWNER AUN -->\n        <!-- NO ME SALE QUE CUANDO ME VENGA DESPUES DE CREAR EL PRODUCTO HACER LA IGUALACION ya que si hago todo en una linea productToShow.owner?.id !== this.user.id || productToShow?.owner !== this.user.id una invalidaria a la otra?¿?? -->\n\n        <ion-icon *ngIf="productToShow.owner?.id && productToShow.owner?.id !== this.user.id" class="like" (click)="addOrRemoveLikeToThisProduct()" [name]="likingIcon"></ion-icon>\n        <ion-icon class="share" name="share-outline"></ion-icon>\n      </div>\n    </ion-navbar>\n    \n  </ion-header>\n  \n  <ion-content padding>\n    <div class="wrapper" *ngIf="productToShow">\n      <div class="imgWrapper">\n        <ion-slides [pager]="productToShow?.photos.length > 1" options="{efect: \'flip\'}">\n          <ion-slide *ngFor="let photo of productToShow.photos">\n            <div class="relative">\n              <img [src]="photo" alt="image">\n            </div>\n          </ion-slide>\n        </ion-slides>\n        <div class="counterWrapper" *ngIf="comingAfterCreateProduct || productToShow.owner?.id === this.user.id">\n          <!-- aqui lo mismo??? -->\n          <ion-icon class="likeSmall" name="heart-outline">\n            <span class="counter">{{productCounterLikes}}</span>\n          </ion-icon>\n        </div>\n        \n        <div class="rentOrBuyTag">\n          <p>{{productToShow.rentOrBuy}}</p>\n        </div>\n      </div>\n      <div class="info">\n        <h2 class="price">\n          {{productToShow.price}} €\n        </h2>\n        <h4 class="title">\n          {{productToShow.name | titlecase}}\n        </h4>\n        <p class="summary">\n          {{productToShow.description | titlecase}}\n        </p>\n      </div>\n    </div>\n  </ion-content>\n  '/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/product-detail/product-detail.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],

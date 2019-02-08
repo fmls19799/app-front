@@ -16,8 +16,7 @@ export interface ProductSelected extends Product{
   selector: 'page-items',
   templateUrl: 'items.html',
 })
-export class ItemsPage implements OnInit, OnDestroy{
-  
+export class ItemsPage implements OnInit, OnDestroy{  
   productsOfUser?: Array<Product> = [];
   nameHeader: string = 'Your items';
   checkBoxedsOpened: boolean = false;
@@ -26,6 +25,7 @@ export class ItemsPage implements OnInit, OnDestroy{
   rentOrBuyOptions: Array<string> = [];
   tabSelected: string = '';
   @ViewChild("fab") fab: any;
+  productsRemainAllTheTime: Array<Product>;
   
   // @ViewChild('checkBox') checkBox: ElementRef;
   
@@ -45,8 +45,6 @@ export class ItemsPage implements OnInit, OnDestroy{
     
     ngOnInit(){    
       this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];
-      console.log(this.rentOrBuyOptions);
-      
       this.emptyEverything();
       this.getAllProducts();
       this.getSuscription();
@@ -54,18 +52,23 @@ export class ItemsPage implements OnInit, OnDestroy{
     
     getSuscription(){
       let subscription = this.productsProvider.productByUserChanges().subscribe((products: Array<Product>)=>{
-        this.productsOfUser = products;        
+        this.productsOfUser = products;  
+        this.productsRemainAllTheTime = products; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???
+        console.log(5);
+              
       })      
       this.subscriptions.add(subscription);
     }
     
-    segmentSelected(event: any){  
+    segmentSelected(event: any){        
       this.tabSelected = event.target.innerHTML;
       this.goToSelectedTab(this.tabSelected);
     }
     
     goToSelectedTab(selectedTab: string){      
-      this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado???
+      console.log(3);
+      this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???
+      console.log(6, this.productsOfUser);
       
       if (selectedTab !== 'All') {
         this.productsOfUser = this.productsOfUser.filter(product => product.rentOrBuy === selectedTab);
@@ -73,8 +76,9 @@ export class ItemsPage implements OnInit, OnDestroy{
     }
     
     getAllProducts(){
-      this.productsProvider.getProductsByUser().subscribe((products: Array<Product>)=>{        
-        this.productsOfUser = products;          
+      this.productsProvider.getProductsByUser().subscribe((products: Array<Product>)=>{     
+        this.productsOfUser = products;
+        console.log(2);
       },
       (error)=>{
         // PONER API ERRORS BIEN???
@@ -82,8 +86,6 @@ export class ItemsPage implements OnInit, OnDestroy{
         
       })
     }
-    
-    
     
     emptyEverything(){
       this.arrayProductsToDelete.forEach((product: ProductSelected)=>{

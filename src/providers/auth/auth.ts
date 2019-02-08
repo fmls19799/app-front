@@ -8,12 +8,13 @@ import { StringifiedError } from './../../models/StringifiedError';
 import { HandlingErrorsProvider } from '../handling-errors/handling-errors';
 
 @Injectable()
-export class AuthProvider {
+export class AuthProvider extends HandlingErrorsProvider{
   user: User;
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
   
-  constructor(public http: HttpClient,
-    private handlingError: HandlingErrorsProvider) { }
+  constructor(public http: HttpClient) { 
+    super();
+  }
   
   ngOnInit() {
     
@@ -26,8 +27,7 @@ export class AuthProvider {
       map((user: User) => {
         return user;
       }),
-      catchError(this.handlingError.handleError)
-    );
+      catchError(this.handleError));
   }
   
   //quitar any???
@@ -39,8 +39,7 @@ export class AuthProvider {
         this.saveInLocalStorageAfterLogin(this.user)
         return user;
       }),
-      catchError(this.handlingError.handleError)
-    );
+      catchError(this.handleError));
   }
   
   isLoggedIn():boolean{    

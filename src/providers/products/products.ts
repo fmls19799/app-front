@@ -10,7 +10,7 @@ import { map, catchError } from 'rxjs/operators';
 import { HandlingErrorsProvider } from '../handling-errors/handling-errors';
 
 @Injectable()
-export class ProductsProvider {
+export class ProductsProvider extends HandlingErrorsProvider {
 
   productsByUser: Array<Product> = [];
   subjectProductsOfUser = new BehaviorSubject(null);
@@ -22,8 +22,8 @@ export class ProductsProvider {
   }
 
   constructor(public http: HttpClient,
-    private auth: AuthProvider,
-    private handlingError: HandlingErrorsProvider) {
+    private auth: AuthProvider) {
+    super();
 
   }
   // deberia en en el modelo pero no va????
@@ -43,8 +43,8 @@ export class ProductsProvider {
   }
 
   createProduct(product: Product): Observable<Product | StringifiedError> {
-    console.log(this.asFormData(product));
-    console.log(product);
+    // console.log(this.asFormData(product));
+    // console.log(product);
 
     return this.http.post<Product>(`${ProductsProvider.ENDPOINT}/products/users/${this.auth.user.id}/create`, this.asFormData(product), ProductsProvider.httpOptionsForFormData)
       .pipe(
@@ -53,8 +53,7 @@ export class ProductsProvider {
           return product;
         }),
 
-        catchError(this.handlingError.handleError)
-      );
+        catchError(this.handleError));
   }
 
   getAllProducts(): Observable<Array<Product> | StringifiedError> {
@@ -63,7 +62,7 @@ export class ProductsProvider {
         map((products: Array<Product>) => {
           return products;
         }),
-        catchError(this.handlingError.handleError));
+        catchError(this.handleError));
   }
 
   // COMO HACEMOS CON PIPE O SIN??? no haria falta 
@@ -73,10 +72,12 @@ export class ProductsProvider {
       .pipe(
         map((products: Array<Product>) => {
           this.productsByUser = products;
+          console.log(0);
+
           this.notifyChanges();
           return products;
         }),
-        catchError(this.handlingError.handleError));
+        catchError(this.handleError));
   }
 
 
@@ -87,7 +88,7 @@ export class ProductsProvider {
         map((product: Product) => {
           return product;
         }),
-        catchError(this.handlingError.handleError));
+        catchError(this.handleError));
   }
 
   unlikeProduct(product: Product): Observable<Product | StringifiedError> {
@@ -96,7 +97,7 @@ export class ProductsProvider {
         map((product: Product) => {
           return product;
         }),
-        catchError(this.handlingError.handleError));
+        catchError(this.handleError));
   }
 
 
@@ -106,18 +107,20 @@ export class ProductsProvider {
       .pipe(
         map(() => {
           this.productsByUser = this.productsByUser.filter(productsByUser => productsByUser._id !== product._id);
-          this.notifyChanges();
+          this.notifyChanges(); // no emito y suscribo desde el page como en altran ya que aqui no retorno nada y no quiero en el page retornar algo, asi que emito aqui???
           return;
         }),
-        catchError(this.handlingError.handleError));
+        catchError(this.handleError));
   }
 
 
   notifyChanges() {
+    console.log(1);
     this.subjectProductsOfUser.next(this.productsByUser);
   }
 
   productByUserChanges() {
+    console.log(4);
     return this.subjectProductsOfUser.asObservable();
   }
 

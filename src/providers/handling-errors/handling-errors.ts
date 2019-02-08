@@ -3,15 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { _throw } from 'rxjs/observable/throw';
 import { StringifiedError } from './../../models/StringifiedError';
-import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class HandlingErrorsProvider {
   
-  constructor(private translate: TranslateService) {
+  constructor() {
   }
   
-  public handleError(error: HttpErrorResponse): Observable<StringifiedError>{
+  protected handleError(error: HttpErrorResponse): Observable<StringifiedError>{
     
     let stringifiedError = new StringifiedError();
     if (error) {

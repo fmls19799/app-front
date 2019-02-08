@@ -1,22 +1,20 @@
-<!-- <header [name]="nameHeader"></header> -->
-
-<ion-header>
+  <!-- <header [name]="nameHeader"></header> -->
   
-  <ion-navbar>
-    <ion-title>aaa</ion-title>
-  </ion-navbar>
+  <ion-header>
+    
+    <ion-navbar>
+      <ion-title>aaa</ion-title>
+    </ion-navbar>
+    
+  </ion-header>
   
-</ion-header>
-
-
-<ion-content padding>
-  <!-- SI NO HAY PRODUCTOS -->
-  <div class="no-products" *ngIf="productsOfUser.length === 0">
-    <h6 class="text-no-products">{{'NO_PRODUCTS_IN_YOUR_LIST' | translate}}</h6>
-  </div>
-  <!-- {{productsOfUser.length}} -->
-  <div class="ifThereIsContent">
-    <ion-segment (click)="segmentSelected($event)">
+  
+  <ion-content padding>
+    <!-- SI NO HAY PRODUCTOS -->
+    <div class="no-products" *ngIf="productsOfUser?.length === 0">
+      <h6 class="text-no-products">{{'NO_PRODUCTS_IN_YOUR_LIST' | translate}}</h6>
+    </div>
+    <ion-segment (click)="segmentSelected($event)" *ngIf="productsRemainAllTheTime?.length > 0">
       <ion-segment-button *ngFor="let option of rentOrBuyOptions">
         <ion-label>{{option}}</ion-label>
       </ion-segment-button>
@@ -24,7 +22,7 @@
     <ion-list>
       <ion-item *ngFor="let product of productsOfUser" (click)="goToProduct(product)">
         <ion-label>
-          <ion-slides pager="true" options="{efect: 'flip'}">
+          <ion-slides [pager]="product?.photos.length > 1" options="{efect: 'flip'}">
             <ion-slide *ngFor="let photo of product.photos">
               <img [src]="photo" alt="image">
             </ion-slide>
@@ -34,7 +32,8 @@
       </ion-item>
     </ion-list>
     
-    <ion-fab left bottom #fab *ngIf="productsOfUser.length !== 0">
+    
+    <ion-fab left bottom #fab *ngIf="productsOfUser?.length !== 0">
       <button color=danger ion-fab mini (click)="fabOpenCheckboxes()">
         <ion-icon [name]="trashEmptyOrFull"></ion-icon>
       </button>
@@ -47,12 +46,13 @@
         </button>
       </ion-fab-list>
     </ion-fab>
-    
+  </ion-content>
+  
+  
+  
+  <div class="delete-all" *ngIf="checkBoxedsOpened" (click)="selectAllProductsToDelete()">
+    <p>{{'DELETE_ALL' | translate}}</p>
   </div>
-</ion-content>
 
 
-<div class="delete-all" *ngIf="checkBoxedsOpened" (click)="selectAllProductsToDelete()">
-  <p>{{'DELETE_ALL' | translate}}</p>
-</div>
 

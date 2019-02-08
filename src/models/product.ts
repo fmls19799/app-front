@@ -17,20 +17,20 @@ export class Product {
     // opacity?: boolean; // NO SIEMPRE TENEMOS OPACTIDAD???
     
     
-    asFormData(): any{         
-        const data = new FormData();
+    // asFormData(): any{         
+    //     const data = new FormData();
         
-        data.append('name', this.name);
-        data.append('icon', this.icon);
-        data.append('description', this.description);
-        data.append('price', (this.price).toString());
-        data.append('type', this.type);
+    //     data.append('name', this.name);
+    //     data.append('icon', this.icon);
+    //     data.append('description', this.description);
+    //     data.append('price', (this.price).toString());
+    //     data.append('type', this.type);
         
-        for (const photo of this.photos) {
-            data.append('photos', photo);
-        }
-        return data;
-    }
+    //     for (const photo of this.photos) {
+    //         data.append('photos', photo);
+    //     }
+    //     return data;
+    // }
     
     
     

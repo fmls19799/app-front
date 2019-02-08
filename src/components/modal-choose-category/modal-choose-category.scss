@@ -30,11 +30,22 @@ modal-choose-category{
         .bottom{
             margin-top: 40px;
             height: 90vh;
-            ion-row{
-                margin-bottom: 30px;
-                ion-col{
-                    padding: 40px;
-                    width: 53%;
+        }
+    }
+    .modalChooseProduct{
+        .bottom{
+            ion-list{
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                ion-item{
+                    border: none !important;
+
+                    .item-inner{
+                        border: none !important;
+                    }
+                    width: 32% !important;
                     ion-icon{
                         text-align: center;
                         display: block;
@@ -44,13 +55,15 @@ modal-choose-category{
                         text-align: center;
                         display: block;
                     }
-                }
+                    
+                }                
             }
         }
     }
     
     .modalProductChosen{
         .bottom{
+            
             .imagesContainer{
                 padding: 10px;
                 display: flex;
@@ -88,7 +101,7 @@ modal-choose-category{
                         }
                         .rentOrBuy{
                             // border: 1px solid red !important;
-
+                            
                             button{
                                 display: none !important;
                                 // border: 1px solid red !important;

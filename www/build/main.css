@@ -25827,22 +25827,41 @@ modal-choose-category .modalChooseProduct .bottom, modal-choose-category .modalP
   height: 90vh;
 }
 
-modal-choose-category .modalChooseProduct .bottom ion-row, modal-choose-category .modalProductChosen .bottom ion-row {
-  margin-bottom: 30px;
+modal-choose-category .modalChooseProduct .bottom ion-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
 }
 
-modal-choose-category .modalChooseProduct .bottom ion-row ion-col, modal-choose-category .modalProductChosen .bottom ion-row ion-col {
-  padding: 40px;
-  width: 53%;
+modal-choose-category .modalChooseProduct .bottom ion-list ion-item {
+  border: none !important;
+  width: 32% !important;
 }
 
-modal-choose-category .modalChooseProduct .bottom ion-row ion-col ion-icon, modal-choose-category .modalProductChosen .bottom ion-row ion-col ion-icon {
+modal-choose-category .modalChooseProduct .bottom ion-list ion-item .item-inner {
+  border: none !important;
+}
+
+modal-choose-category .modalChooseProduct .bottom ion-list ion-item ion-icon {
   text-align: center;
   display: block;
   font-size: 44px;
 }
 
-modal-choose-category .modalChooseProduct .bottom ion-row ion-col span, modal-choose-category .modalProductChosen .bottom ion-row ion-col span {
+modal-choose-category .modalChooseProduct .bottom ion-list ion-item span {
   text-align: center;
   display: block;
 }
@@ -26187,13 +26206,13 @@ page-items ion-content .no-products .text-no-products {
   color: grey;
 }
 
-page-items ion-content .ifThereIsContent ion-segment {
+page-items ion-content ion-segment {
   margin-bottom: 6px;
 }
 
-page-items ion-content .ifThereIsContent ion-segment ion-segment-button ion-label {
+page-items ion-content ion-segment ion-segment-button ion-label {
   margin: 0 !important;
-  font-size: 10px !important;
+  font-size: 12px !important;
 }
 
 page-items ion-content ion-list {
@@ -26209,16 +26228,20 @@ page-items ion-content ion-list {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
 }
 
 page-items ion-content ion-list ion-item {
   position: relative !important;
   display: block !important;
-  width: 48% !important;
+  width: calc(33% - 4px) !important;
   border: 1px solid grey !important;
   border-radius: 5px !important;
   margin: 2px !important;
-  padding: 1px !important;
+  padding: 2px !important;
 }
 
 page-items ion-content ion-list ion-item ion-checkbox {

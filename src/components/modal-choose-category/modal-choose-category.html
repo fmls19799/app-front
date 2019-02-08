@@ -9,12 +9,12 @@
     </h6>
   </div>
   <div class="bottom">
-    <ion-row>
-      <ion-col *ngFor="let category of categories">
-        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>
-        <span>{{category.type | translate }}</span>
-      </ion-col>
-    </ion-row>
+    <ion-list>
+        <ion-item *ngFor="let category of categories" (click)="chooseProduct(category)">
+          <ion-icon [name]="category.icon"></ion-icon>
+          <span>{{category.type | translate }}</span>
+        </ion-item>
+    </ion-list>
   </div>
 </div>
 
@@ -57,7 +57,7 @@
               <ion-input formControlName="price" type="number" [(ngModel)]="productChosen.price">
               </ion-input>
             </ion-item>
-
+            
             <ion-item class="rentOrBuy" [ngClass]="{'has-error': myForm.controls.price.invalid && myForm.controls.price.touched}">
               <ion-label floating>{{ 'RENT_BUT_EXCHANGE_GIFT' | translate }}</ion-label>
               <ion-select formControlName="rentOrBuy" [(ngModel)]="productChosen.rentOrBuy">
@@ -76,3 +76,4 @@
       <fileuploader [multipleImages]="true" [iconName]="'camera-outline'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>
     </div>
   </div>
+  

@@ -18,6 +18,7 @@ export class ProductDetailPage implements OnInit{
   liking: boolean;
   likingIcon: string;
   user: User;
+  comingAfterCreateProduct: boolean;
   
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -28,12 +29,13 @@ export class ProductDetailPage implements OnInit{
     }
     
     ngOnInit(){
-    
       this.user = this.auth.user;
+      if (this.navParams.data) {
+        console.log('si');
+        
+        this.comingAfterCreateProduct = true;
+      }
       this.productToShow = this.navParams.data;
-      console.log('product: ', this.productToShow);
-      console.log('user', this.user);
-      
       this.isLiking();
     }
     
