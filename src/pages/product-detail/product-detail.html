@@ -17,9 +17,9 @@
       <div class="imgWrapper">
         <ion-slides [pager]="productToShow.photos?.length > 1" options="{efect: 'flip'}">
           <ion-slide *ngFor="let photo of productToShow.photos">
-            <div class="relative">
+            <!-- <div> -->
               <img [src]="photo" alt="image">
-            </div>
+            <!-- </div> -->
           </ion-slide>
         </ion-slides>
      
@@ -32,6 +32,9 @@
         
         <div class="rentOrBuyTag">
           <p>{{productToShow.rentOrBuy}}</p>
+        </div>
+        <div class="imgUser">
+         <img [src]="productToShow.owner.image" alt="photo">
         </div>
       </div>
       <div class="info">

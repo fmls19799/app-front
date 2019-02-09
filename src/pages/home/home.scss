@@ -1,4 +1,7 @@
 page-home {   
+    *{
+        // border: 1px solid red;
+    }
     background-color: #ececec;
     ion-header{
         ion-navbar{            
@@ -8,7 +11,7 @@ page-home {
                 }
             }
             .toolbar-background{                
-                background-color: #12d684 !important;
+                background-color: orange !important;
             }
             ion-searchbar{                
                 padding: 0 !important;
@@ -105,19 +108,6 @@ page-home {
                                 border-radius: 10px;
                                 
                             }
-                            .goToProduct{
-                                width: 70%;
-                                position: absolute;
-                                font-size: 13px;
-                                top: 50%;
-                                left: 50%;
-                                transform: translate(-50%, -50%);
-                                color: #00a2ff;
-                                font-weight: bold;
-                                margin: 0;
-                                text-align: center;
-                                padding: 5px;
-                            }
                             .rentOrBuyTag{
                                 position: absolute;
                                 top: 0;
@@ -133,22 +123,44 @@ page-home {
                                     margin: 0;
                                 }
                             }
+                            .imgUser{
+                                position: absolute;
+                                bottom: 0;
+                                right: 0;
+                                img{
+                                    width: 30px;
+                                    border-radius: 50%;
+                                }
+                            }
                             
                         }
-                        img.opacity03{
-                            position: relative;
-                            opacity: .2 !important;
-                            background-color: black !important;
-                            transition: all .5s;
-                        }
-                        .infoWrapper{                                
+                        .infoWrapper{   
+                            // border: 1px solid red;                             
                             padding-left: 5px;
-                            .price{
-                                margin: 0;
-                                font-weight: bold;
+                            .flex{
+                                display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                .price{
+                                    // border: 1px solid red;                             
+                                    margin: 0;
+                                    font-weight: bold;
+                                    color: orange;
+                                }
+                                ion-icon{
+                                    border: 1px solid red !important;                             
+                                    color: #e66363;
+                                    font-weight: bolder;
+                                    font-size: 25px;
+                                    margin-right: 10px;
+                                }
+                                .name{
+                                    display: block;
+                                    // border: 1px solid red;                             
+                                    
+                                }
                             }
-                            .name{
-                            }
+                           
                         }
                         .showHiddenContent{
                             padding-top: 10px;

@@ -53,59 +53,47 @@
     <ion-row>
       <!-- LEFT COLUMN -->
       <ion-col>
-        <div class="product" *ngFor="let product of productColumn1">
-          <div class="container" [style]="product.randomHeight" [ngClass]="{'increasesizeContainer': product.selected}">
+        <div class="product" *ngFor="let product of productColumn1" (click)="goToProduct(product)">
+          <div class="container" [style]="product.randomHeight">
             <div class="relative">
-              <img [src]="product.photos[0]" (click)="showSmallDetail(product)" alt="image" [ngClass]="{'opacity03': product.selected}">
-              <!-- if clicked -->
-              <h6 class="goToProduct" *ngIf="product.selected" (click)="goToProduct(product)">{{'SEE' | translate}} {{ product.name }}</h6>
-              <!-- fin if clicked -->
+              <img [src]="product.photos[0]" alt="image">
               <div class="rentOrBuyTag">
-                  <p>{{product.rentOrBuy}}</p>
-                </div>
+                <p>{{product.rentOrBuy}}</p>
+              </div>
+              <div class="imgUser">
+                <img [src]="product.owner.image" alt="">
+              </div>
             </div>
             <div class="infoWrapper">
-              <h6 class="price">{{ product.price }} €</h6>
+              <div class="flex">
+                <h6 class="price">{{ product.price }} €</h6>
+                <ion-icon name="heart-outline"></ion-icon>
+              </div>
               <span class="name">{{ product.name | titlecase}}</span>
             </div>
-            <!-- IF CLICKED -->
-            <div class="showHiddenContent" *ngIf="product.selected">
-              <div class="imagesGallery">
-                <img [src]="image" alt="image" *ngFor="let image of product.photos">
-              </div>
-              <small class="description">{{product.description}}</small>
-              <ion-icon [name]="product.icon"></ion-icon>
-            </div>
-            <!-- FIN IF CLICKED -->
           </div>
         </div>
       </ion-col>
       <!-- RIGHT COLUMN -->
       <ion-col>
-        <div class="product" *ngFor="let product of productColumn2">
-          <div class="container" [style]="product.randomHeight" [ngClass]="{'increasesizeContainer': product.selected}">
+        <div class="product" *ngFor="let product of productColumn2" (click)="goToProduct(product)">
+          <div class="container" [style]="product.randomHeight">
             <div class="relative">
-              <img [src]="product.photos[0]" (click)="showSmallDetail(product)" alt="image" [ngClass]="{'opacity03': product.selected}">
-              <!-- if clicked -->
-              <h6 class="goToProduct" *ngIf="product.selected" (click)="goToProduct(product)">{{'SEE' | translate}} {{ product.name }}</h6>
-              <!-- fin if clicked -->
+              <img [src]="product.photos[0]" alt="image">
               <div class="rentOrBuyTag">
                 <p>{{product.rentOrBuy}}</p>
               </div>
+              <div class="imgUser">
+                <img [src]="product.owner.image" alt="">
+              </div>
             </div>
             <div class="infoWrapper">
-              <h6 class="price">{{ product.price }} €</h6>
+              <div class="flex">
+                <h6 class="price">{{ product.price }} €</h6>
+                <ion-icon name="heart-outline"></ion-icon>
+              </div>
               <span class="name">{{ product.name | titlecase}}</span>
             </div>
-            <!-- IF CLICKED -->
-            <div class="showHiddenContent" *ngIf="product.selected">
-              <div class="imagesGallery">
-                <img [src]="image" alt="image" *ngFor="let image of product.photos">
-              </div>
-              <small class="description">{{product.description}}</small>
-              <ion-icon [name]="product.icon"></ion-icon>
-            </div>
-            <!-- FIN IF CLICKED -->
           </div>
         </div>
       </ion-col>

@@ -76,7 +76,7 @@ export class HomePage implements OnInit{
     }
     
     getAllProducts(refresher?: any){
-      this.closeOpenedOnes(); // close detail of opened ones
+      // this.closeOpenedOnes(); // close detail of opened ones
       
       this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{        
         if (refresher) { // stop refresher after i got results, if im doing refresher, only include new ones instead adding them all ???
@@ -110,13 +110,13 @@ export class HomePage implements OnInit{
       }).present();
     }
     
-    closeOpenedOnes(){      
-      if (this.products) {
-        this.products.forEach(product => {
-          product.selected = false;                
-        });
-      }
-    }
+    // closeOpenedOnes(){      
+    //   if (this.products) {
+    //     this.products.forEach(product => {
+    //       product.selected = false;                
+    //     });
+    //   }
+    // }
     
     populateProductsList(){  
       this.productColumn1 = [];
@@ -130,9 +130,9 @@ export class HomePage implements OnInit{
       });      
     }
     
-    randomStyleHeightDiv(){      
-      return this._sanitizer.bypassSecurityTrustStyle(`height:${Math.floor(Math.random() * 60) + 40}`)
-    }
+    // randomStyleHeightDiv(){      
+    //   return this._sanitizer.bypassSecurityTrustStyle(`height:${Math.floor(Math.random() * 60) + 40}`)
+    // }
     
     searchingProduct(pattern: string){   
       // this.modal.create('SearchProductPage').present();
@@ -143,27 +143,27 @@ export class HomePage implements OnInit{
       this.getAllProducts(refresher);
     }
     
-    showSmallDetail(productClicked: Product){           
-      this.products.forEach(product => {        
-        if (product._id === productClicked._id) {
-          this.increaseContainer(product);
-        } else{
-          this.closeOtherOnes(product);
-        }       
-      });
-    }
+    // showSmallDetail(productClicked: Product){           
+    //   this.products.forEach(product => {        
+    //     if (product._id === productClicked._id) {
+    //       this.increaseContainer(product);
+    //     } else{
+    //       this.closeOtherOnes(product);
+    //     }       
+    //   });
+    // }
     
-    closeOtherOnes(product: ProductSelected){
-      product.selected = false;
-    }
+    // closeOtherOnes(product: ProductSelected){
+    //   product.selected = false;
+    // }
     
-    increaseContainer(product: ProductSelected){          
-      if (!product.selected) {
-        product.selected = true;
-      } else{
-        product.selected = false;
-      }      
-    }
+    // increaseContainer(product: ProductSelected){          
+    //   if (!product.selected) {
+    //     product.selected = true;
+    //   } else{
+    //     product.selected = false;
+    //   }      
+    // }
     
     goToProduct(product: Product){         
       // PONER ESTO CON SUBJECT ASI APRENDO??? AUNQUE SOLO PRA ESTO NO HARIA FALTA

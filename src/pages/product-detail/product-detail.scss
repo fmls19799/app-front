@@ -51,7 +51,7 @@ page-product-detail {
                 z-index: 999;
                 position: absolute;
                 bottom: 10px;
-                right: 10px;
+                left: 10px;
                 .likeSmall{
                     font-size: 20px;
                     font-weight: 900;
@@ -73,6 +73,17 @@ page-product-detail {
                     color: white;
                     font-weight: bolder;
                     margin: 3px 0;
+                }
+            }
+            .imgUser{
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                z-index: 999;
+                margin-right: 3px;
+                img{
+                    width: 40px;
+                    border-radius: 50%;
                 }
             }
             
