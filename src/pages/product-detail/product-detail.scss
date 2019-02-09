@@ -16,13 +16,17 @@ page-product-detail {
                 display: block;
                 margin-right: 30px;
                 .like{
+                    color: orange;
+                    font-weight: bolder;
                     // border: 1px solid red;
-                    font-size: 30px;
+                    font-size: 27px;
+                    border-color: black !important;
                 }
                 .share{
+                    color: orange;
+                    font-weight: bolder;
                     margin-left: 30px;
-                    // border: 1px solid red;
-                    font-size: 30px;
+                    font-size: 27px;
                 }
             }
         }
@@ -45,18 +49,6 @@ page-product-detail {
                     display: block;
                     margin: 0 auto;
                     width: 90vw;
-                }
-            }
-            .counterWrapper{
-                z-index: 999;
-                position: absolute;
-                bottom: 10px;
-                left: 10px;
-                .likeSmall{
-                    font-size: 20px;
-                    font-weight: 900;
-                    color: #cccaca;
-                    background-color: rgba(0, 0, 0, 0.05);
                 }
             }
             .rentOrBuyTag{
@@ -88,11 +80,28 @@ page-product-detail {
             }
             
             .info{
-                .price{
-                    margin-top: 10px;
-                    font-weight: 400;
-                    // border: 1px solid red;
-                } 
+                
+                .priceAndLikesWrapper{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    .price{
+                        margin-top: 10px;
+                        font-weight: bolder;
+                        font-size: 20px;
+                        // border: 1px solid red;
+                    } 
+                    .likeSmall{
+                        color: orange;
+                        font-weight: bolder;
+                        font-size: 19px;
+                        // border: 1px solid blue;
+                        .counter{
+                            font-size: 17px;
+                        }
+                    }
+                }
                 .title{
                     margin: 0;
                     font-weight: 300;
@@ -100,7 +109,7 @@ page-product-detail {
                 }
                 
                 .summary{
-                    
+                    font-size: 12px;
                 }
             }
         }

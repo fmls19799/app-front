@@ -25675,6 +25675,10 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .version {
   font-size: 12px;
   background-color: grey;
@@ -26222,8 +26226,9 @@ page-home .productsList ion-row ion-col .product .container .infoWrapper .flex i
   margin-right: 10px;
 }
 
-page-home .productsList ion-row ion-col .product .container .infoWrapper .flex .name {
+page-home .productsList ion-row ion-col .product .container .infoWrapper .name {
   display: block;
+  font-size: 12px;
 }
 
 page-home .productsList ion-row ion-col .product .container .showHiddenContent {
@@ -26481,12 +26486,17 @@ page-product-detail ion-header ion-navbar .flex {
 }
 
 page-product-detail ion-header ion-navbar .flex .like {
-  font-size: 30px;
+  color: orange;
+  font-weight: bolder;
+  font-size: 27px;
+  border-color: black !important;
 }
 
 page-product-detail ion-header ion-navbar .flex .share {
+  color: orange;
+  font-weight: bolder;
   margin-left: 30px;
-  font-size: 30px;
+  font-size: 27px;
 }
 
 page-product-detail ion-content .wrapper .imgWrapper {
@@ -26498,20 +26508,6 @@ page-product-detail ion-content .wrapper .imgWrapper img {
   display: block;
   margin: 0 auto;
   width: 90vw;
-}
-
-page-product-detail ion-content .wrapper .counterWrapper {
-  z-index: 999;
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-}
-
-page-product-detail ion-content .wrapper .counterWrapper .likeSmall {
-  font-size: 20px;
-  font-weight: 900;
-  color: #cccaca;
-  background-color: rgba(0, 0, 0, 0.05);
 }
 
 page-product-detail ion-content .wrapper .rentOrBuyTag {
@@ -26544,14 +26540,49 @@ page-product-detail ion-content .wrapper .imgUser img {
   border-radius: 50%;
 }
 
-page-product-detail ion-content .wrapper .info .price {
+page-product-detail ion-content .wrapper .info .priceAndLikesWrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+page-product-detail ion-content .wrapper .info .priceAndLikesWrapper .price {
   margin-top: 10px;
-  font-weight: 400;
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+page-product-detail ion-content .wrapper .info .priceAndLikesWrapper .likeSmall {
+  color: orange;
+  font-weight: bolder;
+  font-size: 19px;
+}
+
+page-product-detail ion-content .wrapper .info .priceAndLikesWrapper .likeSmall .counter {
+  font-size: 17px;
 }
 
 page-product-detail ion-content .wrapper .info .title {
   margin: 0;
   font-weight: 300;
+}
+
+page-product-detail ion-content .wrapper .info .summary {
+  font-size: 12px;
 }
 
 page-register * {

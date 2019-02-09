@@ -10,20 +10,20 @@
 
 <ion-content padding>
   <!-- SI NO HAY PRODUCTOS -->
-  <div class="no-products" *ngIf="productsOfUser?.length === 0">
-    <h6 class="text-no-products">{{'NO_PRODUCTS_IN_YOUR_LIST' | translate}}</h6>
+  <div class="no-products" *ngIf="wishList?.length === 0">
+    <h6 class="text-no-products">{{'NO_FAVS_YET' | translate}}</h6>
   </div>
   <!-- PONERLO EN ION-SEGMENT??? -->
   <!-- * ngIf="wishProductRemailAllTheTime?.length > 0" -->
   <ion-segment (click)="segmentSelected($event)" *ngIf="wishProductRemailAllTheTime?.length > 0"> 
-    <ion-segment-button *ngFor="let option of rentOrBuyOptions">
+    <ion-segment-button *ngFor="let option of rentOrBuyOptions" value="a">
       <ion-label>{{option}}</ion-label>
     </ion-segment-button>
   </ion-segment>
   
   <ion-list>
     <ion-item *ngFor="let fav of wishList">
-      <div class="relative">
+      <div class="relative" (click)="goToProduct(fav.product)">
         <img [src]="fav.product.photos[0]" alt="photo">
         <!-- <div class="absolute right">
           <p>{{fav.product.rentOrBuy}}</p>

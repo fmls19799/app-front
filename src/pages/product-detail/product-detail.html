@@ -3,44 +3,39 @@
   
   <ion-navbar>
     <div class="flex" right>
-          <!-- PETA ESTO??? -->
-        <!-- *ngIf="productToShow.owner?.id && productToShow.owner?.id !== this.user.id" -->
-        <ion-icon class="like" (click)="like()" [name]="(liking)? 'heart' : 'heart-outline'"></ion-icon>
-        <ion-icon class="share" name="share-outline"></ion-icon>
-      </div>
-    </ion-navbar>
-    
-  </ion-header>
+      <!-- PETA ESTO??? -->
+      <!-- *ngIf="productToShow.owner?.id && productToShow.owner?.id !== this.user.id" -->
+      <ion-icon class="like" (click)="like()" [name]="(liking)? 'heart' : 'heart-outline'"></ion-icon>
+      <ion-icon class="share" name="share-outline"></ion-icon>
+    </div>
+  </ion-navbar>
   
-  <ion-content padding>
-    <div class="wrapper" *ngIf="productToShow">
-      <div class="imgWrapper">
-        <ion-slides [pager]="productToShow.photos?.length > 1" options="{efect: 'flip'}">
-          <ion-slide *ngFor="let photo of productToShow.photos">
-            <!-- <div> -->
-              <img [src]="photo" alt="image">
-            <!-- </div> -->
+</ion-header>
+
+<ion-content padding>
+  <div class="wrapper" *ngIf="productToShow">
+    <div class="imgWrapper">
+      <ion-slides [pager]="productToShow.photos?.length > 1" options="{efect: 'flip'}">
+        <ion-slide *ngFor="let photo of productToShow.photos">
+            <img [src]="photo" alt="image">
           </ion-slide>
         </ion-slides>
-     
-        <div class="counterWrapper">
-          <!-- aqui lo mismo??? -->
-          <ion-icon class="likeSmall" name="heart-outline">
-            <span class="counter">{{productToShow.numberOfLikes}}</span>
-          </ion-icon>
-        </div>
         
         <div class="rentOrBuyTag">
           <p>{{productToShow.rentOrBuy}}</p>
         </div>
         <div class="imgUser">
-         <img [src]="productToShow.owner.image" alt="photo">
+          <img [src]="productToShow.owner.image" alt="photo">
         </div>
       </div>
       <div class="info">
-        <h2 class="price">
-          {{productToShow.price}} €
-        </h2>
+        
+        <div class="priceAndLikesWrapper">
+          <h2 class="price">{{productToShow.price}} €</h2>
+          <ion-icon class="likeSmall" name="heart-outline">
+            <span class="counter">{{productToShow.numberOfLikes}}</span>
+          </ion-icon>
+        </div>
         <h4 class="title">
           {{productToShow.name | titlecase}}
         </h4>

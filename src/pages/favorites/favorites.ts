@@ -4,6 +4,7 @@ import { FavoritesProvider } from './../../providers/favorites/favorites';
 import { TranslateService } from '@ngx-translate/core';
 import { WishProduct } from 'src/models/wishlist';
 import { Subscription } from 'rxjs';
+import { Product } from 'src/models/product';
 
 @IonicPage()
 @Component({
@@ -30,6 +31,10 @@ export class FavoritesPage implements OnInit, OnDestroy {
       this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];
       this.getAllFavs();
       this.getSuscription();
+    }
+    
+    goToProduct(product: Product){
+      this.navCtrl.push('ProductDetailPage', product);
     }
     
     getSuscription(){

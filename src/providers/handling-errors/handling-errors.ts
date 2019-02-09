@@ -25,7 +25,7 @@ export class HandlingErrorsProvider {
     }
     console.log(stringifiedError);
     
-    return _throw(stringifiedError);
+    return _throw(error);
   }
   
 }

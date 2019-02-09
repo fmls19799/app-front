@@ -43,7 +43,7 @@
     
     <!-- SEGMENT TABS TOCHANGE CONTENT -->
     <ion-segment (click)="segmentSelected($event)" class="segmentOptions" *ngIf="rentOrBuyOptions">
-      <ion-segment-button *ngFor="let option of rentOrBuyOptions">
+      <ion-segment-button *ngFor="let option of rentOrBuyOptions" value="a">
         <ion-label>{{option}}</ion-label>
       </ion-segment-button>
     </ion-segment>
@@ -53,9 +53,9 @@
     <ion-row>
       <!-- LEFT COLUMN -->
       <ion-col>
-        <div class="product" *ngFor="let product of productColumn1" (click)="goToProduct(product)">
+        <div class="product" *ngFor="let product of productColumn1">
           <div class="container" [style]="product.randomHeight">
-            <div class="relative">
+            <div class="relative" (click)="goToProduct(product)">
               <img [src]="product.photos[0]" alt="image">
               <div class="rentOrBuyTag">
                 <p>{{product.rentOrBuy}}</p>
@@ -76,9 +76,9 @@
       </ion-col>
       <!-- RIGHT COLUMN -->
       <ion-col>
-        <div class="product" *ngFor="let product of productColumn2" (click)="goToProduct(product)">
+        <div class="product" *ngFor="let product of productColumn2">
           <div class="container" [style]="product.randomHeight">
-            <div class="relative">
+            <div class="relative" (click)="goToProduct(product)">
               <img [src]="product.photos[0]" alt="image">
               <div class="rentOrBuyTag">
                 <p>{{product.rentOrBuy}}</p>

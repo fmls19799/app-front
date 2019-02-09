@@ -70,5 +70,7 @@
     "DELETE_ALL": "Delete all",
     "ARE_YOU_SURE_THAT_YOU_WANT_TO_DELETE": "Are you sure you want to delete",
     "RENT_BUT_EXCHANGE_GIFT": "Rent, buy, exchange or gift",
-    "YOU_CANNOT_LIKT_YOUR_OWN_PRODUCT": "You cannot like your own product"
+    "YOU_CANNOT_LIKT_YOUR_OWN_PRODUCT": "You cannot like your own product",
+    "PEOPLE_LIKE_THIS_PRODUCT": "people like this product",
+    "NO_FAVS_YET": "You dont have any favorite product yet"
 }
