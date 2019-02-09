@@ -8,7 +8,6 @@ import { Observable, Subject, Subscription, BehaviorSubject } from 'rxjs';
 import { _throw } from 'rxjs/observable/throw';
 import { map, catchError } from 'rxjs/operators';
 import { HandlingErrorsProvider } from '../handling-errors/handling-errors';
-import { WishProduct } from 'src/models/wishlist';
 
 @Injectable()
 export class ProductsProvider extends HandlingErrorsProvider {
@@ -21,6 +20,10 @@ export class ProductsProvider extends HandlingErrorsProvider {
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
   private static readonly httpOptionsForFormData = {
     headers: new HttpHeaders({ "myHeaders": "fotos" }), // si uso content type multipart dara error de bountry pero necesito que el interceptor reciba algo para poner el loader????
+    withCredentials: true
+  }
+  private static readonly httpOptionsNoLoader = {
+    headers: new HttpHeaders({ "No-Loader": "true" }),
     withCredentials: true
   }
 
@@ -70,15 +73,29 @@ export class ProductsProvider extends HandlingErrorsProvider {
 
   // COMO HACEMOS CON PIPE O SIN??? no haria falta 
   getProductsByUser(): Observable<Array<Product> | StringifiedError> {
+
     // PONER BIEN LA RUTA NO TIENE SENTIDO PONER PRODUCT ID????
     return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products/users/${this.auth.user.id}`)
       .pipe(
         map((products: Array<Product>) => {
           this.productsByUser = products;
-          console.log(0);
-
-          this.notifyChanges();
+          this.notifyChangesProductsOfUserl();
           return products;
+        }),
+        catchError(this.handleError));
+  }
+
+  getProductById(id: string): Observable<any | StringifiedError> { // le pongo any ya que es el producto + si esta like???    
+
+    return this.http.get<Product>(`${ProductsProvider.ENDPOINT}/products/${id}/users/${this.auth.user.id}`)
+      .pipe(
+        map((data: any) => {
+          console.log('before get by id:', this.productDetail);
+          this.productDetail = data.product;
+          console.log('after get by id:', this.productDetail);
+
+          this.notifyChangesproductDetail();
+          return data;
         }),
         catchError(this.handleError));
   }
@@ -88,33 +105,24 @@ export class ProductsProvider extends HandlingErrorsProvider {
     return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/users/${this.auth.user.id}/like`, product)
       .pipe(
         map((product: Product) => {
+          console.log('before like:', this.productDetail);
           this.productDetail = product;
-          console.log(1, this.productDetail);
-          this.notifyChanges();
+          console.log('after like:', this.productDetail);
+          this.notifyChangesproductDetail();
           return product;
         }),
         catchError(this.handleError));
   }
 
-  isLiking(product: Product): Observable<boolean | StringifiedError> {
-    return this.http.get<any>(`${ProductsProvider.ENDPOINT}/products/${product._id}/users/${this.auth.user.id}/isliking`)
-      .pipe(
-        map((isliking: boolean) => {
-          return isliking;
-        }),
-        catchError(this.handleError));
-  }
-
-
-
   unlikeProduct(product: Product): Observable<Product | StringifiedError> {
     return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/users/${this.auth.user.id}/unlike`, product)
       .pipe(
         map((product: Product) => {
+          console.log('before unlike:', this.productDetail);
           this.productDetail = product;
-          console.log(2, this.productDetail);
-          
-          this.notifyChanges();
+          console.log('after unlike:', this.productDetail);
+
+          this.notifyChangesproductDetail();
           return product;
         }),
         catchError(this.handleError));
@@ -127,27 +135,29 @@ export class ProductsProvider extends HandlingErrorsProvider {
       .pipe(
         map(() => {
           this.productsByUser = this.productsByUser.filter(productsByUser => productsByUser._id !== product._id);
-          this.notifyChanges(); // no emito y suscribo desde el page como en altran ya que aqui no retorno nada y no quiero en el page retornar algo, asi que emito aqui???
+          this.notifyChangesProductsOfUserl(); // no emito y suscribo desde el page como en altran ya que aqui no retorno nada y no quiero en el page retornar algo, asi que emito aqui???
           return;
         }),
         catchError(this.handleError));
   }
 
 
-  notifyChanges() {
-    console.log(1);
-    this.subjectProductsOfUser.next(this.productsByUser);
+  notifyChangesproductDetail() {
     this.subjectProductDetail.next(this.productDetail);
+  }
+  productDetailChanges() {
+    return this.subjectProductDetail.asObservable();
+
+  }
+
+  notifyChangesProductsOfUserl() {
+    this.subjectProductsOfUser.next(this.productsByUser);
   }
 
   productByUserChanges() {
-    console.log(4);
     return this.subjectProductsOfUser.asObservable();
   }
 
-  productDetailChanges() {
-    console.log(4);
-    return this.subjectProductDetail.asObservable();
-  }
+
 
 }

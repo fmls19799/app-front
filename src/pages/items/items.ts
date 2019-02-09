@@ -80,7 +80,6 @@ export class ItemsPage implements OnInit, OnDestroy{
       (error)=>{
         // PONER API ERRORS BIEN???
         console.log(error);
-        
       })
     }
     

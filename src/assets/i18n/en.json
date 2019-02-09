@@ -69,5 +69,6 @@
     "HAVE_TO_SELECT_PRODUCT_FIRST": "First you have to select a product",
     "DELETE_ALL": "Delete all",
     "ARE_YOU_SURE_THAT_YOU_WANT_TO_DELETE": "Are you sure you want to delete",
-    "RENT_BUT_EXCHANGE_GIFT": "Rent, buy, exchange or gift"
+    "RENT_BUT_EXCHANGE_GIFT": "Rent, buy, exchange or gift",
+    "YOU_CANNOT_LIKT_YOUR_OWN_PRODUCT": "You cannot like your own product"
 }

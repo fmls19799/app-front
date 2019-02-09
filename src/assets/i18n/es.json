@@ -67,5 +67,6 @@
     "HAVE_TO_SELECT_PRODUCT_FIRST": "Primero debe seleccionar un producto",
     "DELETE_ALL": "Eliminar todos",
     "ARE_YOU_SURE_THAT_YOU_WANT_TO_DELETE": "¿Estás seguro de que deseas borrar",
-    "RENT_BUT_EXCHANGE_GIFT": "Alquilar, comprar, intercambiar o regalar"
+    "RENT_BUT_EXCHANGE_GIFT": "Alquilar, comprar, intercambiar o regalar",
+    "YOU_CANNOT_LIKT_YOUR_OWN_PRODUCT": "No puedes dar a like a tu propio producto"
 }

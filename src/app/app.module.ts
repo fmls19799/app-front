@@ -17,7 +17,6 @@ import { CustomComponentsModule } from './../components/components.module';
 import { ProductsProvider } from './../providers/products/products';
 
 // MEDIATORS
-import { ProductsMediator } from './../shared/mediators/productsMediator';
 
 // FIREBASE
 import { AngularFireModule } from 'angularfire2';
@@ -25,7 +24,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { HandlingErrorsProvider } from '../providers/handling-errors/handling-errors';
-import { WishListProvider } from '../providers/wish-list/wish-list';
+import { FavoritesProvider } from '../providers/favorites/favorites';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -70,9 +69,8 @@ export function createTranslateLoader(http: HttpClient) {
     Utils,
     AuthProvider,
     ProductsProvider,
-    ProductsMediator,
     HandlingErrorsProvider,
-    WishListProvider
+    FavoritesProvider
   ]
 })
 export class AppModule {}

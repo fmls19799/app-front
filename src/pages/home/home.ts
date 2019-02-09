@@ -71,6 +71,7 @@ export class HomePage implements OnInit{
     
     ngOnInit(){      
       this.getAllProducts();
+
       this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];      
     }
     

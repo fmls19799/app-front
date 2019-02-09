@@ -17,6 +17,7 @@ export class HandlingErrorsProvider {
       if (error.error.length === 1) {
         stringifiedError = error.error.toString();
       } else if(error.error.length === 2){
+        
         stringifiedError = error.error.join(' and ');
       } else{      
         stringifiedError = error.error.join(', ').replace(/,(?=[^,]*$)/, ' and')
@@ -26,5 +27,5 @@ export class HandlingErrorsProvider {
     
     return _throw(stringifiedError);
   }
-
+  
 }

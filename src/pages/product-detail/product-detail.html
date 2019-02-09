@@ -3,11 +3,9 @@
   
   <ion-navbar>
     <div class="flex" right>
-      <!-- PONGO QUE SEA IGUAL AL ID O AL USER YA QUE DESDE MODAL CHOSE 
-        CATEGORY AL CREARLO Y ASIGNARLE LO RETORNADO AL THIS.PRODUCTCHOSEN, EL POPULATE NO SE LLEVA A CABO YA QUE SOLO SE HACE 
-        EN EL FIND() DEL BACK, POR LO QUE NO HAY ID EN OWNER AUN -->
-        <!-- NO ME SALE QUE CUANDO ME VENGA DESPUES DE CREAR EL PRODUCTO HACER LA IGUALACION ya que si hago todo en una linea productToShow.owner?.id !== this.user.id || productToShow?.owner !== this.user.id una invalidaria a la otra?¿?? -->
-        <ion-icon *ngIf="productToShow.owner?.id && productToShow.owner?.id !== this.user.id" class="like" (click)="like()" [name]="(liking)? 'heart' : 'heart-outline'"></ion-icon>
+          <!-- PETA ESTO??? -->
+        <!-- *ngIf="productToShow.owner?.id && productToShow.owner?.id !== this.user.id" -->
+        <ion-icon class="like" (click)="like()" [name]="(liking)? 'heart' : 'heart-outline'"></ion-icon>
         <ion-icon class="share" name="share-outline"></ion-icon>
       </div>
     </ion-navbar>
@@ -24,7 +22,8 @@
             </div>
           </ion-slide>
         </ion-slides>
-        <div class="counterWrapper" *ngIf="comingAfterCreateProduct || productToShow.owner?.id === this.user.id">
+     
+        <div class="counterWrapper">
           <!-- aqui lo mismo??? -->
           <ion-icon class="likeSmall" name="heart-outline">
             <span class="counter">{{productToShow.numberOfLikes}}</span>

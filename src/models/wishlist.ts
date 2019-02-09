@@ -3,6 +3,6 @@ import { Product } from "./product";
 
 export class WishProduct {
     id?: string;
-    user: User;
-    product: Product;
+    user?: User;
+    product?: Product;
 }
