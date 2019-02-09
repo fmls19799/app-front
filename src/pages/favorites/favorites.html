@@ -1,18 +1,37 @@
 
 <ion-header>
-
+  
   <ion-navbar>
     <ion-title>favorites</ion-title>
   </ion-navbar>
-
+  
 </ion-header>
 
 
 <ion-content padding>
-
+  <!-- SI NO HAY PRODUCTOS -->
+  <div class="no-products" *ngIf="productsOfUser?.length === 0">
+    <h6 class="text-no-products">{{'NO_PRODUCTS_IN_YOUR_LIST' | translate}}</h6>
+  </div>
+  <!-- PONERLO EN ION-SEGMENT??? -->
+  <!-- * ngIf="wishProductRemailAllTheTime?.length > 0" -->
+  <ion-segment (click)="segmentSelected($event)" *ngIf="wishProductRemailAllTheTime?.length > 0"> 
+    <ion-segment-button *ngFor="let option of rentOrBuyOptions">
+      <ion-label>{{option}}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  
   <ion-list>
     <ion-item *ngFor="let fav of wishList">
-      
+      <div class="relative">
+        <img [src]="fav.product.photos[0]" alt="photo">
+        <!-- <div class="absolute right">
+          <p>{{fav.product.rentOrBuy}}</p>
+        </div> -->
+        <div class="absolute left">
+          <ion-icon name="heart"></ion-icon>
+        </div>
+      </div>
     </ion-item>
   </ion-list>
 </ion-content>

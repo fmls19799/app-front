@@ -25945,6 +25945,83 @@ modal-choose-category .modalProductChosen .upload fileuploader ion-icon {
   font-size: 70px;
 }
 
+page-favorites ion-content .no-products {
+  width: 70%;
+  margin: 0 auto;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+page-favorites ion-content .no-products .text-no-products {
+  line-height: 30px;
+  text-align: center;
+  color: grey;
+}
+
+page-favorites ion-content ion-segment {
+  margin-bottom: 6px;
+}
+
+page-favorites ion-content ion-segment ion-segment-button ion-label {
+  margin: 0 !important;
+  font-size: 12px !important;
+}
+
+page-favorites ion-content ion-list {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+page-favorites ion-content ion-list ion-item {
+  width: 50% !important;
+  border: none !important;
+}
+
+page-favorites ion-content ion-list ion-item .relative {
+  position: relative;
+}
+
+page-favorites ion-content ion-list ion-item .relative .absolute.right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: orange;
+  border-radius: 10px;
+  padding: 1px 15px;
+  margin: 3px 3px 0 0;
+}
+
+page-favorites ion-content ion-list ion-item .relative .absolute.right p {
+  color: white;
+  font-weight: bolder;
+}
+
+page-favorites ion-content ion-list ion-item .relative .absolute.left {
+  position: absolute;
+  top: 0;
+  left: 3px;
+  color: orange;
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+page-favorites ion-content ion-list ion-item .item-inner {
+  border: none !important;
+}
+
 page-home {
   background-color: #ececec;
 }

@@ -14,6 +14,7 @@ import { WishProduct } from './../../models/wishlist';
 @Injectable()
 export class FavoritesProvider extends HandlingErrorsProvider {
   wishList: Array<WishProduct> = [];
+  subjectFavProducts = new BehaviorSubject(null);
   
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
   constructor(public http: HttpClient, private auth: AuthProvider) {
@@ -26,10 +27,23 @@ export class FavoritesProvider extends HandlingErrorsProvider {
     .pipe(
       map((wishlist: Array<WishProduct>)=>{
         this.wishList = wishlist;
+        this.notifyChanges();
         return wishlist;
       }),
       catchError(this.handleError));
     }
-    
+
+    notifyChanges(){
+      console.log(1, this.wishList);
+      
+      this.subjectFavProducts.next(this.wishList);
+    }
+
+    favsByUserChanges(){
+      console.log(2, this.wishList);
+      
+      return this.subjectFavProducts.asObservable();
+    }
+
   }
   

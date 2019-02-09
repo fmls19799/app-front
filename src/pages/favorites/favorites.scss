@@ -1,3 +1,83 @@
 page-favorites {
-
+    *{
+        // border: 1px solid red;
+    }
+    ion-content{
+        .no-products{
+            // border: 1px solid red;
+            width: 70%;
+            margin: 0 auto;
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            .text-no-products{
+                // border: 1px solid red;
+                line-height: 30px;
+                text-align: center;
+                color: grey;
+            }
+        }
+        ion-segment{
+            // border: 1px solid red !important;
+            margin-bottom: 6px;
+            ion-segment-button{
+                // border: 1px solid red !important;
+                ion-label{
+                    // border: 1px solid red !important;
+                    margin: 0 !important;
+                    font-size: 12px !important;
+                    
+                }
+            }
+        }
+        ion-list{
+            // border: 1px solid red;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            ion-item{
+                // position: relative;
+                // border: 100px solid blue !important;
+                width: 50% !important;
+                border: none !important;
+                .relative{
+                    position: relative;
+                    // border: 2px solid blue;
+                    img{
+                        // border: 1px solid red;
+                    }
+                    .absolute.right{
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        background-color: orange;
+                        border-radius: 10px;
+                        // border: 1px solid red;
+                        padding: 1px 15px;
+                        margin: 3px 3px 0 0;
+                        p{
+                            // border: 1px solid red;
+                            color: white;
+                            font-weight: bolder;
+                        }
+                    }
+                    .absolute.left{
+                        position: absolute;
+                        top: 0;
+                        left: 3px;
+                        color: orange;
+                        font-weight: bolder;
+                        font-size: 20px;
+                        // border: 1px solid red;
+                    }
+                }
+                .item-inner{
+                    border: none !important;
+                }
+                
+                
+            }
+        }
+    }
 }

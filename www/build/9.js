@@ -1,6 +1,6 @@
 webpackJsonp([9],{
 
-/***/ 800:
+/***/ 801:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,9 +8,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FavoritesPageModule", function() { return FavoritesPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__favorites__ = __webpack_require__(813);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__favorites__ = __webpack_require__(814);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(420);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(81);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -44,7 +44,7 @@ var FavoritesPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 813:
+/***/ 814:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52,7 +52,9 @@ var FavoritesPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_favorites_favorites__ = __webpack_require__(421);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -66,6 +68,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var FavoritesPage = /** @class */ (function () {
     function FavoritesPage(navCtrl, navParams, favoritesProvider, toastCtrl, translate) {
         this.navCtrl = navCtrl;
@@ -74,15 +77,42 @@ var FavoritesPage = /** @class */ (function () {
         this.toastCtrl = toastCtrl;
         this.translate = translate;
         this.wishList = [];
+        this.rentOrBuyOptions = [];
+        this.tabSelected = '';
+        this.subscriptions = new __WEBPACK_IMPORTED_MODULE_4_rxjs__["Subscription"]();
     }
     FavoritesPage.prototype.ngOnInit = function () {
+        this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];
+        this.getAllFavs();
+        this.getSuscription();
+    };
+    FavoritesPage.prototype.getSuscription = function () {
+        var _this = this;
+        var subscription = this.favoritesProvider.favsByUserChanges().subscribe(function (wishList) {
+            _this.wishList = wishList;
+            console.log(11, _this.wishList);
+            _this.wishProductRemailAllTheTime = wishList; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???              
+            console.log(22, _this.wishProductRemailAllTheTime);
+        });
+        this.subscriptions.add(subscription);
+    };
+    FavoritesPage.prototype.segmentSelected = function (event) {
+        this.tabSelected = event.target.innerHTML;
+        this.goToSelectedTab(this.tabSelected);
+    };
+    FavoritesPage.prototype.goToSelectedTab = function (selectedTab) {
+        this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???            
+        if (selectedTab !== 'All') {
+            this.wishList = this.wishList.filter(function (wishProduct) { return wishProduct.product.rentOrBuy === selectedTab; });
+        }
+    };
+    FavoritesPage.prototype.getAllFavs = function () {
         var _this = this;
         this.favoritesProvider.getFavoritesProductsOfUser().subscribe(function (wishList) {
             _this.wishList = wishList;
-            console.log(_this.wishList);
         }, function (error) {
             console.log(error);
-            _this.translator(error);
+            // this.translator(error);
         });
     };
     FavoritesPage.prototype.translator = function (message) {
@@ -98,9 +128,12 @@ var FavoritesPage = /** @class */ (function () {
             position: 'top',
         }).present();
     };
+    FavoritesPage.prototype.ngOnDestroy = function () {
+        this.subscriptions.unsubscribe();
+    };
     FavoritesPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-favorites',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/favorites/favorites.html"*/'\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>favorites</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n  <ion-list>\n    <ion-item *ngFor="let fav of wishList">\n      \n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/favorites/favorites.html"*/,
+            selector: 'page-favorites',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/favorites/favorites.html"*/'\n<ion-header>\n  \n  <ion-navbar>\n    <ion-title>favorites</ion-title>\n  </ion-navbar>\n  \n</ion-header>\n\n\n<ion-content padding>\n  <!-- SI NO HAY PRODUCTOS -->\n  <div class="no-products" *ngIf="productsOfUser?.length === 0">\n    <h6 class="text-no-products">{{\'NO_PRODUCTS_IN_YOUR_LIST\' | translate}}</h6>\n  </div>\n  <!-- PONERLO EN ION-SEGMENT??? -->\n  <!-- * ngIf="wishProductRemailAllTheTime?.length > 0" -->\n  <ion-segment (click)="segmentSelected($event)" *ngIf="wishProductRemailAllTheTime?.length > 0"> \n    <ion-segment-button *ngFor="let option of rentOrBuyOptions">\n      <ion-label>{{option}}</ion-label>\n    </ion-segment-button>\n  </ion-segment>\n  \n  <ion-list>\n    <ion-item *ngFor="let fav of wishList">\n      <div class="relative">\n        <img [src]="fav.product.photos[0]" alt="photo">\n        <!-- <div class="absolute right">\n          <p>{{fav.product.rentOrBuy}}</p>\n        </div> -->\n        <div class="absolute left">\n          <ion-icon name="heart"></ion-icon>\n        </div>\n      </div>\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/favorites/favorites.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
