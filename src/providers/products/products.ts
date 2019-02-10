@@ -17,6 +17,9 @@ export class ProductsProvider extends HandlingErrorsProvider {
   productDetail: Product;
   subjectProductDetail = new BehaviorSubject(null);
 
+  allProductsHome: Array<Product>;
+  subjectAllProductsHome = new BehaviorSubject(null);
+
   private static readonly ENDPOINT = `${CONFIG.API_ENDPOINT}`;
   private static readonly httpOptionsForFormData = {
     headers: new HttpHeaders({ "myHeaders": "fotos" }), // si uso content type multipart dara error de bountry pero necesito que el interceptor reciba algo para poner el loader????
@@ -66,6 +69,10 @@ export class ProductsProvider extends HandlingErrorsProvider {
     return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products`)
       .pipe(
         map((products: Array<Product>) => {
+          this.allProductsHome = products;
+          console.log(0, this.allProductsHome);
+          
+          this.notifyChangesAllProductsHome();
           return products;
         }),
         catchError(this.handleError));
@@ -150,12 +157,25 @@ export class ProductsProvider extends HandlingErrorsProvider {
 
   }
 
+
   notifyChangesProductsOfUserl() {
     this.subjectProductsOfUser.next(this.productsByUser);
   }
 
   productByUserChanges() {
     return this.subjectProductsOfUser.asObservable();
+  }
+
+  notifyChangesAllProductsHome() {
+    console.log(111, this.allProductsHome);
+    
+    this.subjectAllProductsHome.next(this.allProductsHome);
+  }
+
+  allProductsHomeChanges() {
+    console.log(444, this.allProductsHome);
+
+    return this.subjectAllProductsHome.asObservable();
   }
 
 

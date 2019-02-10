@@ -7,6 +7,7 @@ import { ProductsProvider } from './../../providers/products/products';
 import { Product } from './../../models/product';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 export interface ProductSelected extends Product{
   selected: boolean;
@@ -17,7 +18,7 @@ export interface ProductSelected extends Product{
   selector: 'page-home',
   templateUrl: 'home.html',
 })
-export class HomePage implements OnInit{
+export class HomePage implements OnInit, OnDestroy{
   private loader: Loading = null;
   user: User = new User();
   products: any = [];
@@ -26,36 +27,11 @@ export class HomePage implements OnInit{
   newOnesAfterRefresh: Array<Product> = [];
   randomStyleColumn1: number;
   randomStyleColumn2: number;
-  addedOnes: number = null;
   rentOrBuyOptions: Array<string> = [];
+  categories: Array<any> = [{icon: 'ios-home-outline',type: 'Real state'},{icon: 'ios-car-outline',type: 'Cars'},{icon: 'ios-game-controller-b-outline',type: 'Gaming'},{icon: 'bicycle',type: 'Cycling'},{icon: 'football',type: 'Sports'},{icon: 'phone-portrait',type: 'Phones'},{icon: 'bicycle',type: 'Clothing'},{icon: 'boat-outline',type: 'Boats'},{icon: 'ios-home-outline',type: 'Real state'},{icon: 'ios-car-outline',type: 'Cars'},{icon: 'ios-game-controller-b-outline',type: 'Gaming'},{icon: 'bicycle',type: 'Cycling'},{icon: 'football',type: 'Sports'},{icon: 'phone-portrait',type: 'Phones'},{icon: 'bicycle',type: 'Clothing'},{icon: 'boat-outline',type: 'Boats' }]
+  tabSelected: string = '';
+  subscriptions = new Subscription();
   
-  
-  categories: Array<any> = [
-    {
-      icon: 'ios-home-outline',
-      name: 'House',
-    },
-    {
-      icon: 'ios-car-outline',
-      name: 'Car',
-    },
-    {
-      icon: 'ios-game-controller-b-outline',
-      name: 'Gaming',
-    },
-    {
-      icon: 'bicycle',
-      name: 'Bicycle',
-    },
-    {
-      icon: 'ios-american-football-outline',
-      name: 'Sports',
-    },
-    {
-      icon: 'ios-phone-portrait-outline',
-      name: 'Phones',
-    }
-  ]
   
   constructor(public navCtrl: NavController,
     public navParams: NavParams, 
@@ -70,14 +46,51 @@ export class HomePage implements OnInit{
     }
     
     ngOnInit(){      
-      this.getAllProducts();
-
       this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];      
+      this.getAllProducts();
+      this.getSuscription();
     }
     
-    getAllProducts(refresher?: any){
-      // this.closeOpenedOnes(); // close detail of opened ones
-      
+    getSuscription(){
+      let subscription = this.productsProvider.allProductsHomeChanges().subscribe((products: Array<Product>)=>{
+        this.products = products; 
+        console.log(22, this.products);
+        
+        // this.productsRemainAllTheTime = products; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???
+        
+      })      
+      this.subscriptions.add(subscription);
+    }
+
+    chooseProduct(category: any){
+      console.log(11, category);
+      this.filterByType(category.type)
+    }
+
+    segmentSelected(event: any){        
+      this.tabSelected = event.target.innerHTML;
+      this.filterByRentOrBuy(this.tabSelected);
+    }
+
+    filterByType(filterByType: string){  
+      console.log(filterByType);
+          
+      this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???
+      if (filterByType !== 'All') {
+        this.products = this.products.filter(product => product.type === filterByType);
+      }
+      this.populateProductsList();
+    }
+    
+    filterByRentOrBuy(rentOrBuy: string){            
+      this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???
+      if (rentOrBuy !== 'All') {
+        this.products = this.products.filter(product => product.rentOrBuy === rentOrBuy);
+      }
+      this.populateProductsList();
+    }
+    
+    getAllProducts(refresher?: any){      
       this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{        
         if (refresher) { // stop refresher after i got results, if im doing refresher, only include new ones instead adding them all ???
           if (products.length > this.products.length) {
@@ -87,9 +100,9 @@ export class HomePage implements OnInit{
           }
           refresher.complete();
         } 
-        this.products = products;  
-        console.log(888, this.products);
-        
+        this.products = products; 
+        console.log(11, this.products);
+                 
         this.populateProductsList(); // split products in 3 columns
       })
     }
@@ -174,6 +187,10 @@ export class HomePage implements OnInit{
       // ESTO PARA QUE???
       // console.log(event); 
       
+    }
+    
+    ngOnDestroy(){
+      this.subscriptions.unsubscribe();
     }
     
   }

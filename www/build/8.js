@@ -101,7 +101,7 @@ var ItemsPage = /** @class */ (function () {
         var subscription = this.productsProvider.productByUserChanges().subscribe(function (products) {
             _this.productsOfUser = products;
             _this.productsRemainAllTheTime = products; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???
-            console.log(5);
+            console.log(5, _this.productsOfUser);
         });
         this.subscriptions.add(subscription);
     };

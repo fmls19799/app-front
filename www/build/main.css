@@ -26177,6 +26177,25 @@ page-home .productsList ion-row ion-col .product .container .relative .rentOrBuy
 
 page-home .productsList ion-row ion-col .product .container .relative .rentOrBuyTag p {
   color: white;
+  font-size: 13px;
+  font-weight: bolder;
+  margin: 0;
+}
+
+page-home .productsList ion-row ion-col .product .container .relative .typeTag {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  z-index: 999;
+  border-radius: 30px;
+  padding: 0 10px;
+  margin: 3px;
+  background-color: orange;
+}
+
+page-home .productsList ion-row ion-col .product .container .relative .typeTag p {
+  color: white;
+  font-size: 13px;
   font-weight: bolder;
   margin: 0;
 }

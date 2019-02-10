@@ -1,6 +1,6 @@
 webpackJsonp([9],{
 
-/***/ 800:
+/***/ 801:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FavoritesPageModule", function() { return FavoritesPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__favorites__ = __webpack_require__(813);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__favorites__ = __webpack_require__(814);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(420);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(81);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -44,7 +44,7 @@ var FavoritesPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 813:
+/***/ 814:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -138,10 +138,13 @@ var FavoritesPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-favorites',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/favorites/favorites.html"*/'\n<ion-header>\n  \n  <ion-navbar>\n    <ion-title>favorites</ion-title>\n  </ion-navbar>\n  \n</ion-header>\n\n\n<ion-content padding>\n  <!-- SI NO HAY PRODUCTOS -->\n  <div class="no-products" *ngIf="wishList?.length === 0">\n    <h6 class="text-no-products">{{\'NO_FAVS_YET\' | translate}}</h6>\n  </div>\n  <!-- PONERLO EN ION-SEGMENT??? -->\n  <!-- * ngIf="wishProductRemailAllTheTime?.length > 0" -->\n  <ion-segment (click)="segmentSelected($event)" *ngIf="wishProductRemailAllTheTime?.length > 0"> \n    <ion-segment-button *ngFor="let option of rentOrBuyOptions" value="a">\n      <ion-label>{{option}}</ion-label>\n    </ion-segment-button>\n  </ion-segment>\n  \n  <ion-list>\n    <ion-item *ngFor="let fav of wishList">\n      <div class="relative" (click)="goToProduct(fav.product)">\n        <img [src]="fav.product.photos[0]" alt="photo">\n        <!-- <div class="absolute right">\n          <p>{{fav.product.rentOrBuy}}</p>\n        </div> -->\n        <div class="absolute left">\n          <ion-icon name="heart"></ion-icon>\n        </div>\n      </div>\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/favorites/favorites.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_favorites_favorites__["a" /* FavoritesProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_favorites_favorites__["a" /* FavoritesProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */]) === "function" && _e || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_favorites_favorites__["a" /* FavoritesProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */]])
     ], FavoritesPage);
     return FavoritesPage;
-    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=favorites.js.map

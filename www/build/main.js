@@ -100,6 +100,7 @@ var ProductsProvider = /** @class */ (function (_super) {
         _this.productsByUser = [];
         _this.subjectProductsOfUser = new __WEBPACK_IMPORTED_MODULE_4_rxjs__["BehaviorSubject"](null);
         _this.subjectProductDetail = new __WEBPACK_IMPORTED_MODULE_4_rxjs__["BehaviorSubject"](null);
+        _this.subjectAllProductsHome = new __WEBPACK_IMPORTED_MODULE_4_rxjs__["BehaviorSubject"](null);
         return _this;
     }
     ProductsProvider_1 = ProductsProvider;
@@ -128,8 +129,12 @@ var ProductsProvider = /** @class */ (function (_super) {
         }), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["catchError"])(this.handleError));
     };
     ProductsProvider.prototype.getAllProducts = function () {
+        var _this = this;
         return this.http.get(ProductsProvider_1.ENDPOINT + "/products")
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["map"])(function (products) {
+            _this.allProductsHome = products;
+            console.log(0, _this.allProductsHome);
+            _this.notifyChangesAllProductsHome();
             return products;
         }), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["catchError"])(this.handleError));
     };
@@ -198,6 +203,14 @@ var ProductsProvider = /** @class */ (function (_super) {
     };
     ProductsProvider.prototype.productByUserChanges = function () {
         return this.subjectProductsOfUser.asObservable();
+    };
+    ProductsProvider.prototype.notifyChangesAllProductsHome = function () {
+        console.log(111, this.allProductsHome);
+        this.subjectAllProductsHome.next(this.allProductsHome);
+    };
+    ProductsProvider.prototype.allProductsHomeChanges = function () {
+        console.log(444, this.allProductsHome);
+        return this.subjectAllProductsHome.asObservable();
     };
     ProductsProvider.ENDPOINT = "" + __WEBPACK_IMPORTED_MODULE_2__config_config_int__["a" /* CONFIG */].API_ENDPOINT;
     ProductsProvider.httpOptionsForFormData = {
@@ -281,11 +294,11 @@ webpackEmptyAsyncContext.id = 213;
 
 var map = {
 	"../pages/chat/chat.module": [
-		801,
+		800,
 		10
 	],
 	"../pages/favorites/favorites.module": [
-		800,
+		801,
 		9
 	],
 	"../pages/home/home.module": [
@@ -386,8 +399,7 @@ var ModalComponentChooseCategory = /** @class */ (function () {
         this.MODALTITLE = '';
         this.previewImages = [];
         this.rentOrBuyOptions = ['Rent', 'Sell', 'Exchange', 'Gift'];
-        this.categories = [{ icon: 'ios-home-outline', type: 'Real state' }, { icon: 'ios-car-outline', type: 'Cars' }, { icon: 'ios-game-controller-b-outline', type: 'Gaming' }, { icon: 'bicycle', type: 'Cycling' }, { icon: 'football', type: 'Sports' }, { icon: 'phone-portrait', type: 'Phones' }, { icon: 'bicycle', type: 'Clothing' }, { icon: 'boat-outline', type: 'Boats' }, { icon: 'ios-home-outline', type: 'Real state' }, { icon: 'ios-car-outline', type: 'Cars' }, { icon: 'ios-game-controller-b-outline', type: 'Gaming' }, { icon: 'bicycle', type: 'Cycling' }, { icon: 'football', type: 'Sports' }, { icon: 'phone-portrait', type: 'Phones' }, { icon: 'bicycle', type: 'Clothing' }, { icon: 'boat-outline', type: 'Boats' }
-        ];
+        this.categories = [{ icon: 'ios-home-outline', type: 'Real state' }, { icon: 'ios-car-outline', type: 'Cars' }, { icon: 'ios-game-controller-b-outline', type: 'Gaming' }, { icon: 'bicycle', type: 'Cycling' }, { icon: 'football', type: 'Sports' }, { icon: 'phone-portrait', type: 'Phones' }, { icon: 'bicycle', type: 'Clothing' }, { icon: 'boat-outline', type: 'Boats' }, { icon: 'ios-home-outline', type: 'Real state' }, { icon: 'ios-car-outline', type: 'Cars' }, { icon: 'ios-game-controller-b-outline', type: 'Gaming' }, { icon: 'bicycle', type: 'Cycling' }, { icon: 'football', type: 'Sports' }, { icon: 'phone-portrait', type: 'Phones' }, { icon: 'bicycle', type: 'Clothing' }, { icon: 'boat-outline', type: 'Boats' }];
         this.myForm = this.formBuilder.group({
             name: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].maxLength(10)]),
             description: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].maxLength(200)]),
@@ -759,8 +771,8 @@ var AppModule = /** @class */ (function () {
                     backButtonText: 'Back'
                 }, {
                     links: [
-                        { loadChildren: '../pages/favorites/favorites.module#FavoritesPageModule', name: 'FavoritesPage', segment: 'favorites', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/chat/chat.module#ChatPageModule', name: 'ChatPage', segment: 'chat', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/favorites/favorites.module#FavoritesPageModule', name: 'FavoritesPage', segment: 'favorites', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/map/map.module#MapPageModule', name: 'MapPage', segment: 'map', priority: 'low', defaultHistory: [] },

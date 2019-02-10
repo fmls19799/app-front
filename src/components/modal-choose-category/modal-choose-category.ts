@@ -27,8 +27,7 @@ export class ModalComponentChooseCategory implements OnInit {
   user: User;
   myForm: FormGroup;
   rentOrBuyOptions: Array<string> = ['Rent', 'Sell', 'Exchange', 'Gift'];
-  categories: Array<any> = [{icon: 'ios-home-outline',type: 'Real state'},{icon: 'ios-car-outline',type: 'Cars'},{icon: 'ios-game-controller-b-outline',type: 'Gaming'},{icon: 'bicycle',type: 'Cycling'},{icon: 'football',type: 'Sports'},{icon: 'phone-portrait',type: 'Phones'},{icon: 'bicycle',type: 'Clothing'},{icon: 'boat-outline',type: 'Boats'},{icon: 'ios-home-outline',type: 'Real state'},{icon: 'ios-car-outline',type: 'Cars'},{icon: 'ios-game-controller-b-outline',type: 'Gaming'},{icon: 'bicycle',type: 'Cycling'},{icon: 'football',type: 'Sports'},{icon: 'phone-portrait',type: 'Phones'},{icon: 'bicycle',type: 'Clothing'},{icon: 'boat-outline',type: 'Boats' }
-]
+  categories: Array<any> = [{icon: 'ios-home-outline',type: 'Real state'},{icon: 'ios-car-outline',type: 'Cars'},{icon: 'ios-game-controller-b-outline',type: 'Gaming'},{icon: 'bicycle',type: 'Cycling'},{icon: 'football',type: 'Sports'},{icon: 'phone-portrait',type: 'Phones'},{icon: 'bicycle',type: 'Clothing'},{icon: 'boat-outline',type: 'Boats'},{icon: 'ios-home-outline',type: 'Real state'},{icon: 'ios-car-outline',type: 'Cars'},{icon: 'ios-game-controller-b-outline',type: 'Gaming'},{icon: 'bicycle',type: 'Cycling'},{icon: 'football',type: 'Sports'},{icon: 'phone-portrait',type: 'Phones'},{icon: 'bicycle',type: 'Clothing'},{icon: 'boat-outline',type: 'Boats' }]
 
 constructor(private viewCtrl: ViewController,
   private modalCtrl: ModalController,
@@ -40,7 +39,7 @@ constructor(private viewCtrl: ViewController,
   private auth: AuthProvider) {
     
     this.myForm = this.formBuilder.group({
-      name: new FormControl('',[Validators.required, Validators.maxLength(10)]),
+      name: new FormControl('',[Validators.required, Validators.maxLength(20)]),
       description: new FormControl('',[Validators.required, Validators.maxLength(200)]),
       price: new FormControl('',[Validators.required]),
       rentOrBuy: new FormControl('',[Validators.required])

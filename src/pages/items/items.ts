@@ -51,7 +51,7 @@ export class ItemsPage implements OnInit, OnDestroy{
       let subscription = this.productsProvider.productByUserChanges().subscribe((products: Array<Product>)=>{
         this.productsOfUser = products;  
         this.productsRemainAllTheTime = products; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???
-        console.log(5);
+        console.log(5, this.productsOfUser);
               
       })      
       this.subscriptions.add(subscription);
