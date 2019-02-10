@@ -30,7 +30,8 @@ export class ProductDetailPage implements OnInit, OnDestroy {
     }
     
     ngOnInit() {
-      this.getProductById(this.navParams.data._id);
+  
+      this.getProductById(this.navParams.data._id); // NO HACE FALTA PUEDO CARGA EL PRODUCT AL PASAR DEL HOME Y SOLO LLAMAR PARA QUE ME DE LOS LIKES???
       this.getSuscription();
       this.liking = false;
       this.user = this.auth.user;

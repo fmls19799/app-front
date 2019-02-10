@@ -28,7 +28,7 @@ export class HomePage implements OnInit, OnDestroy{
   randomStyleColumn1: number;
   randomStyleColumn2: number;
   rentOrBuyOptions: Array<string> = [];
-  categories: Array<any> = [{icon: 'ios-home-outline',type: 'Real state'},{icon: 'ios-car-outline',type: 'Cars'},{icon: 'ios-game-controller-b-outline',type: 'Gaming'},{icon: 'bicycle',type: 'Cycling'},{icon: 'football',type: 'Sports'},{icon: 'phone-portrait',type: 'Phones'},{icon: 'bicycle',type: 'Clothing'},{icon: 'boat-outline',type: 'Boats'},{icon: 'ios-home-outline',type: 'Real state'},{icon: 'ios-car-outline',type: 'Cars'},{icon: 'ios-game-controller-b-outline',type: 'Gaming'},{icon: 'bicycle',type: 'Cycling'},{icon: 'football',type: 'Sports'},{icon: 'phone-portrait',type: 'Phones'},{icon: 'bicycle',type: 'Clothing'},{icon: 'boat-outline',type: 'Boats' }]
+  categories: Array<any> = [{icon: 'ios-home-outline',type: 'Real state'},{icon: 'ios-car-outline',type: 'Cars'},{icon: 'ios-game-controller-b-outline',type: 'Gaming'},{icon: 'bicycle',type: 'Cycling'},{icon: 'football-outline',type: 'Sports'},{icon: 'phone-portrait',type: 'Phones'},{icon: 'shirt-outline',type: 'Clothing'},{icon: 'boat-outline',type: 'Boats'}]
   tabSelected: string = '';
   subscriptions = new Subscription();
   

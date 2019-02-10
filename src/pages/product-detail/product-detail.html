@@ -17,32 +17,34 @@
     <div class="imgWrapper">
       <ion-slides [pager]="productToShow.photos?.length > 1" options="{efect: 'flip'}">
         <ion-slide *ngFor="let photo of productToShow.photos">
-            <img [src]="photo" alt="image">
-          </ion-slide>
-        </ion-slides>
-        
-        <div class="rentOrBuyTag">
-          <p>{{productToShow.rentOrBuy}}</p>
-        </div>
-        <div class="imgUser">
-          <img [src]="productToShow.owner.image" alt="photo">
-        </div>
+          <img [src]="photo" alt="image">
+        </ion-slide>
+      </ion-slides>
+      
+      <div class="rentOrBuyTag">
+        <p>{{productToShow.rentOrBuy}}</p>
       </div>
-      <div class="info">
-        
-        <div class="priceAndLikesWrapper">
-          <h2 class="price">{{productToShow.price}} €</h2>
-          <ion-icon class="likeSmall" name="heart-outline">
-            <span class="counter">{{productToShow.numberOfLikes}}</span>
-          </ion-icon>
-        </div>
-        <h4 class="title">
-          {{productToShow.name | titlecase}}
-        </h4>
-        <p class="summary">
-          {{productToShow.description | titlecase}}
-        </p>
+      <div class="imgUser">
+        <img [src]="productToShow.owner.image" alt="photo">
       </div>
     </div>
-  </ion-content>
-  
+    <div class="info">
+      
+      <div class="priceAndLikesWrapper">
+        <h2 class="price">{{productToShow.price}} €</h2>
+        <ion-icon class="likeSmall" name="heart-outline">
+          <span class="counter">{{productToShow.numberOfLikes}}</span>
+        </ion-icon>
+      </div>
+      <h4 class="title">
+        {{productToShow.name | titlecase}}
+      </h4>
+      <p class="summary">
+        {{productToShow.description | titlecase}}
+      </p>
+    </div>
+  </div>
+</ion-content>
+<div class="chat">
+  <h4>{{'CHAT' | translate}}</h4>
+</div>

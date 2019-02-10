@@ -9,8 +9,9 @@
       </button>
     </ion-buttons>
     <!-- SEARCH BAR -->
-    <div class="flex">
+    <div class="searchBar">
       <ion-searchbar (click)="searchingProduct(pattern)" [(ngModel)]="pattern"></ion-searchbar>
+      <ion-icon name="md-funnel"></ion-icon>
     </div>
   </ion-navbar>
 </ion-header>
@@ -42,7 +43,7 @@
     </div>
     
     <!-- SEGMENT TABS TOCHANGE CONTENT -->
-    <ion-segment (click)="segmentSelected($event)" class="segmentOptions" *ngIf="rentOrBuyOptions">
+    <ion-segment (click)="segmentSelected($event)" class="segmentOptions" *ngIf="rentOrBuyOptions" color ="dark">
       <ion-segment-button *ngFor="let option of rentOrBuyOptions">
         <ion-label>{{option}}</ion-label>
       </ion-segment-button>
@@ -60,9 +61,9 @@
               <div class="rentOrBuyTag">
                 <p>{{product.rentOrBuy}}</p>
               </div>
-              <div class="typeTag">
+              <!-- <div class="typeTag">
                 <p>{{product.type}}</p>
-              </div>
+              </div> -->
               <div class="imgUser">
                 <img [src]="product.owner.image" alt="">
               </div>
@@ -86,9 +87,9 @@
               <div class="rentOrBuyTag">
                 <p>{{product.rentOrBuy}}</p>
               </div>
-              <div class="typeTag">
+              <!-- <div class="typeTag">
                 <p>{{product.type}}</p>
-              </div>
+              </div> -->
               <div class="imgUser">
                 <img [src]="product.owner.image" alt="">
               </div>

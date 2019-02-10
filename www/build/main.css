@@ -26032,6 +26032,7 @@ page-home {
 }
 
 page-home ion-header ion-navbar .burger button {
+  font-size: 15px;
   color: black !important;
 }
 
@@ -26039,32 +26040,35 @@ page-home ion-header ion-navbar .toolbar-background {
   background-color: orange !important;
 }
 
-page-home ion-header ion-navbar ion-searchbar {
-  padding: 0 !important;
-  position: relative;
+page-home ion-header ion-navbar .searchBar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 3;
+  -webkit-flex-grow: 3;
+  -ms-flex-positive: 3;
+  flex-grow: 3;
 }
 
-page-home ion-header ion-navbar ion-searchbar .searchbar-input-container {
-  width: 85%;
-  margin-left: 50px;
-}
-
-page-home ion-header ion-navbar ion-searchbar .searchbar-input-container .searchbar-search-icon {
-  background-size: 15px;
+page-home ion-header ion-navbar .searchBar ion-searchbar .searchbar-input-container .searchbar-search-icon {
   position: absolute;
   top: 7px;
   left: 11px;
 }
 
-page-home ion-header ion-navbar ion-searchbar .searchbar-input-container .searchbar-input {
+page-home ion-header ion-navbar .searchBar ion-searchbar .searchbar-input-container .searchbar-input {
   height: 27px;
   padding-left: 40px !important;
   border-radius: 30px;
-  background: rgba(0, 0, 0, 0.08) !important;
 }
 
-page-home ion-content {
-  background-color: #ecebeb;
+page-home ion-header ion-navbar .searchBar ion-icon {
+  font-size: 22px;
 }
 
 page-home ion-content .fixedTop .searchIn {
@@ -26123,7 +26127,7 @@ page-home ion-content .fixedTop .listOfProductsToChooseFrom div {
 }
 
 page-home ion-content .fixedTop .listOfProductsToChooseFrom div ion-icon {
-  font-size: 25px;
+  font-size: 30px;
   text-align: center;
 }
 
@@ -26135,9 +26139,20 @@ page-home ion-content .fixedTop .segmentOptions {
   margin-bottom: 6px;
 }
 
+page-home ion-content .fixedTop .segmentOptions ion-segment-button {
+  border: none !important;
+  background-color: transparent !important;
+  border-radius: inherit !important;
+}
+
 page-home ion-content .fixedTop .segmentOptions ion-segment-button ion-label {
   margin: 0 !important;
-  font-size: 10px !important;
+  font-size: 12px !important;
+}
+
+page-home ion-content .fixedTop .segmentOptions .segment-button:hover:not(.segment-activated) {
+  border-bottom: 1px solid orange !important;
+  width: 30px !important;
 }
 
 page-home .productsList ion-row ion-col {
@@ -26176,24 +26191,6 @@ page-home .productsList ion-row ion-col .product .container .relative .rentOrBuy
 }
 
 page-home .productsList ion-row ion-col .product .container .relative .rentOrBuyTag p {
-  color: white;
-  font-size: 13px;
-  font-weight: bolder;
-  margin: 0;
-}
-
-page-home .productsList ion-row ion-col .product .container .relative .typeTag {
-  position: absolute;
-  bottom: 10px;
-  left: 0;
-  z-index: 999;
-  border-radius: 30px;
-  padding: 0 10px;
-  margin: 3px;
-  background-color: orange;
-}
-
-page-home .productsList ion-row ion-col .product .container .relative .typeTag p {
   color: white;
   font-size: 13px;
   font-weight: bolder;
@@ -26239,7 +26236,7 @@ page-home .productsList ion-row ion-col .product .container .infoWrapper .flex .
 
 page-home .productsList ion-row ion-col .product .container .infoWrapper .flex ion-icon {
   border: 1px solid red  !important;
-  color: #e66363;
+  color: #ec6967;
   font-weight: bolder;
   font-size: 25px;
   margin-right: 10px;
@@ -26602,6 +26599,27 @@ page-product-detail ion-content .wrapper .info .title {
 
 page-product-detail ion-content .wrapper .info .summary {
   font-size: 12px;
+}
+
+page-product-detail .chat {
+  background-color: orange;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding-bottom: 5px;
+}
+
+page-product-detail .chat h4 {
+  z-index: 9999;
 }
 
 page-register * {

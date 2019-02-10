@@ -114,4 +114,17 @@ page-product-detail {
             }
         }
     }
+    .chat{
+        background-color: orange;
+        color: white;
+        position: absolute;
+        bottom: 0;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 5px;
+        h4{
+            z-index: 9999;
+        }
+    }
 }
