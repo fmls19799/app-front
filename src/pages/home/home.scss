@@ -99,147 +99,110 @@ page-home {
             }
         }
     }
-    .productsList{     
-        ion-row{                
-            ion-col{
-                overflow-y: scroll;
-                height: calc(100vh - 132px);
-                .product{
-                    padding-bottom: 20px;
-                    .container{
+    .productsList{  
+        // border: 1px solid red;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        .product{
+            width: 50%;
+            // border: 1px solid blue;    
+            .container{
+                border-radius: 10px;
+                border: 1px solid rgba(0,0,0, 0.1);
+                position: relative;
+                margin: 3px;
+                .relative{
+                    position: relative;
+                    img{                                
                         border-radius: 10px;
-                        border: 1px solid rgba(0,0,0, 0.1);
-                        position: relative;
+                        
+                    }
+                    .rentOrBuyTag{
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        z-index: 999;
+                        border-radius: 30px;
+                        padding: 0 10px;
                         margin: 3px;
-                        .relative{
-                            position: relative;
-                            img{                                
-                                border-radius: 10px;
-                                
-                            }
-                            .rentOrBuyTag{
-                                position: absolute;
-                                top: 0;
-                                right: 0;
-                                z-index: 999;
-                                border-radius: 30px;
-                                padding: 0 10px;
-                                margin: 3px;
-                                background-color: orange;
-                                p{
-                                    color: white;
-                                    font-size: 13px;
-                                    font-weight: bolder;
-                                    margin: 0;
-                                }
-                            }
-                            // .typeTag{
-                                //     position: absolute;
-                                //     bottom: 10px;
-                                //     left: 0;
-                                //     z-index: 999;
-                                //     border-radius: 30px;
-                                //     padding: 0 10px;
-                                //     margin: 3px;
-                                //     background-color: orange;
-                                //     p{
-                                    //         color: white;
-                                    //         font-size: 13px;
-                                    //         font-weight: bolder;
-                                    //         margin: 0;
-                                    //     }
-                                    // }
-                                    .imgUser{
-                                        position: absolute;
-                                        bottom: 0;
-                                        right: 0;
-                                        img{
-                                            width: 30px;
-                                            border-radius: 50%;
-                                        }
-                                    }
-                                    
-                                }
-                                .infoWrapper{   
-                                    // border: 1px solid red;                             
-                                    padding-left: 5px;
-                                    .flex{
-                                        display: flex;
-                                        flex-direction: row;
-                                        justify-content: space-between;
-                                        .price{
-                                            // border: 1px solid red;                             
-                                            margin: 0;
-                                            font-weight: bold;
-                                            color: orange;
-                                        }
-                                        ion-icon{
-                                            border: 1px solid red !important;                             
-                                            color: #ec6967;
-                                            font-weight: bolder;
-                                            font-size: 25px;
-                                            margin-right: 10px;
-                                        }
-                                    }
-                                    .name{
-                                        display: block;
-                                        font-size: 12px;                                
-                                    }
-                                    
-                                }
-                                .showHiddenContent{
-                                    padding-top: 10px;
-                                    padding-left: 5px;
-                                    transition: all .5s;
-                                    
-                                    .imagesGallery{
-                                        overflow-x: scroll;
-                                        display: flex;
-                                        flex-direction: row;
-                                        img{
-                                            display: inline-block;
-                                            height: 50px;
-                                            margin: 1px;
-                                            border-radius: 3px;
-                                        }
-                                    }
-                                    .description{
-                                        font-size: 10px;
-                                        line-height: 1px;
-                                        font-weight: 500;
-                                    }
-                                    ion-icon{
-                                        position: absolute;
-                                        right: 5%;
-                                        top: 0;
-                                        font-size: 30px;
-                                        font-weight: 100;
-                                    }
-                                }
-                            }
-                            .container.increasesizeContainer{
-                                border: 2px solid #dddada;
-                                transition: all .5s;
-                                
-                            }
+                        background-color: orange;
+                        p{
+                            color: white;
+                            font-size: 13px;
+                            font-weight: bolder;
+                            margin: 0;
                         }
                     }
+                    .imgUser{
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        img{
+                            width: 30px;
+                            border-radius: 50%;
+                        }
+                    }
+                    
+                }
+                .infoWrapper{   
+                    // border: 1px solid red;                             
+                    padding-left: 5px;
+                    .flex{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        .price{
+                            // border: 1px solid red;                             
+                            margin: 0;
+                            font-weight: bold;
+                            color: orange;
+                        }
+                        ion-icon{
+                            border: 1px solid red !important;                             
+                            color: #ec6967;
+                            font-weight: bolder;
+                            font-size: 25px;
+                            margin-right: 10px;
+                        }
+                    }
+                    .name{
+                        display: block;
+                        font-size: 12px;                                
+                    }
+                    
+                }
+                
+            }
+        }     
+        // ion-row{   
+            //     border: 1px solid red;             
+            //     ion-col{
+                // border: 1px solid blue;
+                // overflow-y: scroll;
+                // height: calc(100vh - 132px);
+                // .product{
+                    // border: 1px solid orange;
+                    // padding-bottom: 20px;
+                    
+                    // }
+                    // }
+                    // }
+                }
+                
+            }
+            
+            .toast-wrapper{
+                left: -10px;
+                right: -10px;
+                max-width: none !important;
+                border-radius: 0 !important;
+                text-align: center;
+                .toast-message{
+                    font-size: 15px;
                 }
             }
             
-        }
-        
-        .toast-wrapper{
-            left: -10px;
-            right: -10px;
-            max-width: none !important;
-            border-radius: 0 !important;
-            text-align: center;
-            .toast-message{
-                font-size: 15px;
-            }
-        }
-        
-        
-        
-        
+            
+            
+            

@@ -25,6 +25,7 @@ import { environment } from '../environments/environment';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { HandlingErrorsProvider } from '../providers/handling-errors/handling-errors';
 import { FavoritesProvider } from '../providers/favorites/favorites';
+import { UserProvider } from '../providers/user/user';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -70,7 +71,8 @@ export function createTranslateLoader(http: HttpClient) {
     AuthProvider,
     ProductsProvider,
     HandlingErrorsProvider,
-    FavoritesProvider
+    FavoritesProvider,
+    UserProvider
   ]
 })
 export class AppModule {}

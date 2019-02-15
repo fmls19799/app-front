@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FavoritesProvider } from './../../providers/favorites/favorites';
 import { TranslateService } from '@ngx-translate/core';
-import { WishProduct } from 'src/models/wishlist';
+import { WishProduct } from './../../models/wishlist';
 import { Subscription } from 'rxjs';
-import { Product } from 'src/models/product';
+import { Product } from './../../models/product';
 
 @IonicPage()
 @Component({

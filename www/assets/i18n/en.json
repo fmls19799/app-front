@@ -72,5 +72,6 @@
     "RENT_BUT_EXCHANGE_GIFT": "Rent, buy, exchange or gift",
     "YOU_CANNOT_LIKT_YOUR_OWN_PRODUCT": "You cannot like your own product",
     "PEOPLE_LIKE_THIS_PRODUCT": "people like this product",
-    "NO_FAVS_YET": "You dont have any favorite product yet"
+    "NO_FAVS_YET": "You dont have any favorite product yet",
+    "NO_MORE_PRODUCTS": "No more products"
 }

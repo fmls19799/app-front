@@ -7,6 +7,7 @@ import { User } from './../../models/user';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
+
 @IonicPage()
 @Component({
   selector: 'page-product-detail',
@@ -46,11 +47,11 @@ export class ProductDetailPage implements OnInit, OnDestroy {
     
     getProductById(id: string) {
       this.productsProvider.getProductById(id).subscribe((data) => {
-        
-        this.liking = data.liking;
-        console.log(this.liking);
-        
+        this.liking = data.liking;        
         this.productToShow = data.product;
+        console.log(this.productToShow);
+        console.log('liking:', this.liking);
+        
       },
       (error) => {
         this.translator(error);
@@ -70,18 +71,22 @@ export class ProductDetailPage implements OnInit, OnDestroy {
     // AUNQUE SI SE CAMBNIE EL ICONO DE FORMA LOCAL DEBO NITIFICAR CAMBIOS PARA QUE EL PRODUCT SE VEA LOS LIKES EN TIEMPO REAL???
     likeOrUnlike() {
       if (this.liking) {
+        console.log('like');
+        
         this.productsProvider.likeProduct(this.productToShow).subscribe((product: Product) => {
           this.productToShow = product;
         },
         (error) => {
-          this.translator(error);
+          // this.translator(error);
         })
       } else {
+        console.log('unlike');
+        
         this.productsProvider.unlikeProduct(this.productToShow).subscribe((product: Product) => { 
           this.productToShow = product;
         },
         (error) => {
-          this.translator(error);
+          // this.translator(error);
         })
       }
     }

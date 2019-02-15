@@ -22,10 +22,8 @@ export class HandlingErrorsProvider {
       } else{      
         stringifiedError = error.error.join(', ').replace(/,(?=[^,]*$)/, ' and')
       }
-    }
-    console.log(stringifiedError);
-    
-    return _throw(error);
+    }    
+    return _throw(stringifiedError);
   }
   
 }

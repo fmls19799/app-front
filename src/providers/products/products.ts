@@ -61,16 +61,17 @@ export class ProductsProvider extends HandlingErrorsProvider {
           // no hace falta notify changes porque donde me quiero ahorrar el get es al borrar elementos???
           return product;
         }),
-
         catchError(this.handleError));
   }
 
-  getAllProducts(): Observable<Array<Product> | StringifiedError> {
-    return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products`)
+  getAllProducts(pagination: number): Observable<Array<Product> | StringifiedError> {    
+    // ESTOOO????
+    // return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products/${this.auth.user.id}?page=${pagination}`)
+    return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products/${this.auth.user.id}`)
       .pipe(
         map((products: Array<Product>) => {
           this.allProductsHome = products;
-          console.log(0, this.allProductsHome);
+          console.log(22, this.allProductsHome);
           
           this.notifyChangesAllProductsHome();
           return products;
@@ -78,7 +79,7 @@ export class ProductsProvider extends HandlingErrorsProvider {
         catchError(this.handleError));
   }
 
-  // COMO HACEMOS CON PIPE O SIN??? no haria falta 
+  // COMO HACEMOS CON PIPE O SIN??? no haria falta
   getProductsByUser(): Observable<Array<Product> | StringifiedError> {
 
     // PONER BIEN LA RUTA NO TIENE SENTIDO PONER PRODUCT ID????
@@ -97,10 +98,7 @@ export class ProductsProvider extends HandlingErrorsProvider {
     return this.http.get<Product>(`${ProductsProvider.ENDPOINT}/products/${id}/users/${this.auth.user.id}`)
       .pipe(
         map((data: any) => {
-          console.log('before get by id:', this.productDetail);
           this.productDetail = data.product;
-          console.log('after get by id:', this.productDetail);
-
           this.notifyChangesproductDetail();
           return data;
         }),
@@ -112,9 +110,7 @@ export class ProductsProvider extends HandlingErrorsProvider {
     return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/users/${this.auth.user.id}/like`, product)
       .pipe(
         map((product: Product) => {
-          console.log('before like:', this.productDetail);
           this.productDetail = product;
-          console.log('after like:', this.productDetail);
           this.notifyChangesproductDetail();
           return product;
         }),
@@ -125,10 +121,7 @@ export class ProductsProvider extends HandlingErrorsProvider {
     return this.http.put<Product>(`${ProductsProvider.ENDPOINT}/products/${product._id}/users/${this.auth.user.id}/unlike`, product)
       .pipe(
         map((product: Product) => {
-          console.log('before unlike:', this.productDetail);
           this.productDetail = product;
-          console.log('after unlike:', this.productDetail);
-
           this.notifyChangesproductDetail();
           return product;
         }),
@@ -174,7 +167,6 @@ export class ProductsProvider extends HandlingErrorsProvider {
 
   allProductsHomeChanges() {
     console.log(444, this.allProductsHome);
-
     return this.subjectAllProductsHome.asObservable();
   }
 

@@ -33,15 +33,11 @@ export class FavoritesProvider extends HandlingErrorsProvider {
       catchError(this.handleError));
     }
 
-    notifyChanges(){
-      console.log(1, this.wishList);
-      
+    notifyChanges(){      
       this.subjectFavProducts.next(this.wishList);
     }
 
-    favsByUserChanges(){
-      console.log(2, this.wishList);
-      
+    favsByUserChanges(){      
       return this.subjectFavProducts.asObservable();
     }
 

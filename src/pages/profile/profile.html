@@ -1,5 +1,15 @@
-<header [name]="nameHeader"></header>
+<!-- <header [name]="nameHeader"></header> -->
 
 <ion-content padding>
+    <fileuploader [multipleImages]="true" [iconName]="'camera-outline'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>
 
+    <img [src]="previewImage">
+
+
+
+
+
+    <form (ngSubmit)="editUser()">
+            <button type="submit" ion-button color="red" block>Edit user</button>
+    </form>
 </ion-content>

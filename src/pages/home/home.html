@@ -51,60 +51,35 @@
   </div>
   <!-- MAIN CONTENT -->
   <div class="productsList">
-    <ion-row>
-      <!-- LEFT COLUMN -->
-      <ion-col>
-        <div class="product" *ngFor="let product of productColumn1">
-          <div class="container" [style]="product.randomHeight">
-            <div class="relative" (click)="goToProduct(product)">
-              <img [src]="product.photos[0]" alt="image">
-              <div class="rentOrBuyTag">
-                <p>{{product.rentOrBuy}}</p>
-              </div>
-              <!-- <div class="typeTag">
-                <p>{{product.type}}</p>
-              </div> -->
-              <div class="imgUser">
-                <img [src]="product.owner.image" alt="">
-              </div>
-            </div>
-            <div class="infoWrapper">
-              <div class="flex">
-                <h6 class="price">{{ product.price }} €</h6>
-                <ion-icon name="heart-outline"></ion-icon>
-              </div>
-              <span class="name">{{ product.name | titlecase}}</span>
-            </div>
+    <div class="product" *ngFor="let product of products">
+      <div class="container" [style]="product.randomHeight">
+        <div class="relative" (click)="goToProduct(product)">
+          <img [src]="product.photos[0]" alt="image">
+          <div class="rentOrBuyTag">
+            <p>{{product.rentOrBuy}}</p>
+          </div>
+          <!-- <div class="typeTag">
+            <p>{{product.type}}</p>
+          </div> -->
+          <div class="imgUser">
+            <img [src]="product.owner.image" alt="">
           </div>
         </div>
-      </ion-col>
-      <!-- RIGHT COLUMN -->
-      <ion-col>
-        <div class="product" *ngFor="let product of productColumn2">
-          <div class="container" [style]="product.randomHeight">
-            <div class="relative" (click)="goToProduct(product)">
-              <img [src]="product.photos[0]" alt="image">
-              <div class="rentOrBuyTag">
-                <p>{{product.rentOrBuy}}</p>
-              </div>
-              <!-- <div class="typeTag">
-                <p>{{product.type}}</p>
-              </div> -->
-              <div class="imgUser">
-                <img [src]="product.owner.image" alt="">
-              </div>
-            </div>
-            <div class="infoWrapper">
-              <div class="flex">
-                <h6 class="price">{{ product.price }} €</h6>
-                <ion-icon name="heart-outline"></ion-icon>
-              </div>
-              <span class="name">{{ product.name | titlecase}}</span>
-            </div>
+        <div class="infoWrapper">
+          <div class="flex">
+            <h6 class="price">{{ product.price }} €</h6>
+            <ion-icon name="heart-outline"></ion-icon>
           </div>
+          <span class="name">{{ product.name | titlecase}}</span>
         </div>
-      </ion-col>
-    </ion-row>
-    <!-- <ion-fab-button color="primary">Primary</ion-fab-button> -->
+      </div>
+    </div>
   </div>
+  <!-- INFINITE SCROLL -->
+  <!-- <ion-infinite-scroll threshold="10px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll> -->
 </ion-content>

@@ -71,6 +71,10 @@ constructor(private viewCtrl: ViewController,
   }
   
   
+
+
+
+  
   receiveImageFromChildren(imagesReceived: Array<File>){ 
     this.productChosen.photos = []; // cada vez que pongo fotos lo vacio para que entre limpio???  
     Array.from(imagesReceived).forEach(file => { 

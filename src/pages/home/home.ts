@@ -8,6 +8,8 @@ import { Product } from './../../models/product';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { FavoritesProvider } from './../../providers/favorites/favorites';
+import { WishProduct } from './../../models/wishlist';
 
 export interface ProductSelected extends Product{
   selected: boolean;
@@ -22,16 +24,13 @@ export class HomePage implements OnInit, OnDestroy{
   private loader: Loading = null;
   user: User = new User();
   products: any = [];
-  productColumn1: Array<any> = [];
-  productColumn2: Array<any> = [];
   newOnesAfterRefresh: Array<Product> = [];
-  randomStyleColumn1: number;
-  randomStyleColumn2: number;
   rentOrBuyOptions: Array<string> = [];
   categories: Array<any> = [{icon: 'ios-home-outline',type: 'Real state'},{icon: 'ios-car-outline',type: 'Cars'},{icon: 'ios-game-controller-b-outline',type: 'Gaming'},{icon: 'bicycle',type: 'Cycling'},{icon: 'football-outline',type: 'Sports'},{icon: 'phone-portrait',type: 'Phones'},{icon: 'shirt-outline',type: 'Clothing'},{icon: 'boat-outline',type: 'Boats'}]
   tabSelected: string = '';
+  wishList: Array<WishProduct> = [];
   subscriptions = new Subscription();
-  
+  pagination: number = 1;
   
   constructor(public navCtrl: NavController,
     public navParams: NavParams, 
@@ -41,45 +40,39 @@ export class HomePage implements OnInit, OnDestroy{
     private productsProvider: ProductsProvider,
     private _sanitizer: DomSanitizer,
     private toastCtrl: ToastController,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+    private favoritesProvider: FavoritesProvider,) {
       
     }
     
-    ngOnInit(){      
+    ngOnInit(){          
       this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];      
       this.getAllProducts();
+      this.getAllFavs();
       this.getSuscription();
     }
     
     getSuscription(){
       let subscription = this.productsProvider.allProductsHomeChanges().subscribe((products: Array<Product>)=>{
-        this.products = products; 
-        console.log(22, this.products);
-        
-        // this.productsRemainAllTheTime = products; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???
-        
+        this.products = products; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???        
       })      
       this.subscriptions.add(subscription);
     }
-
+    
     chooseProduct(category: any){
-      console.log(11, category);
       this.filterByType(category.type)
     }
-
+    
     segmentSelected(event: any){        
       this.tabSelected = event.target.innerHTML;
       this.filterByRentOrBuy(this.tabSelected);
     }
-
-    filterByType(filterByType: string){  
-      console.log(filterByType);
-          
+    
+    filterByType(filterByType: string){        
       this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???
       if (filterByType !== 'All') {
         this.products = this.products.filter(product => product.type === filterByType);
       }
-      this.populateProductsList();
     }
     
     filterByRentOrBuy(rentOrBuy: string){            
@@ -87,11 +80,10 @@ export class HomePage implements OnInit, OnDestroy{
       if (rentOrBuy !== 'All') {
         this.products = this.products.filter(product => product.rentOrBuy === rentOrBuy);
       }
-      this.populateProductsList();
     }
     
     getAllProducts(refresher?: any){      
-      this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{        
+      this.productsProvider.getAllProducts(this.pagination).subscribe((products: Array<Product>)=>{        
         if (refresher) { // stop refresher after i got results, if im doing refresher, only include new ones instead adding them all ???
           if (products.length > this.products.length) {
             this.showToast(`${(Number(products.length) - Number(this.products.length)).toString()} products new`);            
@@ -100,11 +92,42 @@ export class HomePage implements OnInit, OnDestroy{
           }
           refresher.complete();
         } 
-        this.products = products; 
-        console.log(11, this.products);
-                 
-        this.populateProductsList(); // split products in 3 columns
+        
+        
+        // ESTO???????
+        // if (products.length > 0) {
+        //   products.forEach((product)=>{            
+        //     this.products.push(product);
+        //   })  
+        // }
+        // console.log(555,  this.products);
+        // ESTO???????
       })
+    }
+    
+    getAllFavs(){
+      this.favoritesProvider.getFavoritesProductsOfUser().subscribe((wishList: Array<WishProduct>)=>{
+        this.wishList = wishList;   
+        this.paintHeartIfLiked();     
+      },
+      (error) =>{
+        console.log(error);
+        // this.translator(error);
+      })
+      
+    }
+    // ESTO???
+    // loadData(event: any){
+    //   setTimeout(()=>{
+    //     this.pagination++;
+    //     this.getAllProducts();
+    //     event.complete();
+    //   },500)
+    // }
+    // ESTO???
+    
+    paintHeartIfLiked(){
+      
     }
     
     translator(textToTranslate: string){
@@ -123,30 +146,6 @@ export class HomePage implements OnInit, OnDestroy{
       }).present();
     }
     
-    // closeOpenedOnes(){      
-    //   if (this.products) {
-    //     this.products.forEach(product => {
-    //       product.selected = false;                
-    //     });
-    //   }
-    // }
-    
-    populateProductsList(){  
-      this.productColumn1 = [];
-      this.productColumn2 = [];
-      this.products.forEach((product, i) => {  
-        if (i <= this.products.length / 2) {
-          this.productColumn1.push(product);          
-        } else{
-          this.productColumn2.push(product);
-        }
-      });      
-    }
-    
-    // randomStyleHeightDiv(){      
-    //   return this._sanitizer.bypassSecurityTrustStyle(`height:${Math.floor(Math.random() * 60) + 40}`)
-    // }
-    
     searchingProduct(pattern: string){   
       // this.modal.create('SearchProductPage').present();
       this.navCtrl.push('SearchProductPage'); // mediante el push puedo pasar info a otra pagina o si no quiero pasar y pasar usar behaviour subject???
@@ -155,28 +154,6 @@ export class HomePage implements OnInit, OnDestroy{
     doRefresh(refresher) {
       this.getAllProducts(refresher);
     }
-    
-    // showSmallDetail(productClicked: Product){           
-    //   this.products.forEach(product => {        
-    //     if (product._id === productClicked._id) {
-    //       this.increaseContainer(product);
-    //     } else{
-    //       this.closeOtherOnes(product);
-    //     }       
-    //   });
-    // }
-    
-    // closeOtherOnes(product: ProductSelected){
-    //   product.selected = false;
-    // }
-    
-    // increaseContainer(product: ProductSelected){          
-    //   if (!product.selected) {
-    //     product.selected = true;
-    //   } else{
-    //     product.selected = false;
-    //   }      
-    // }
     
     goToProduct(product: Product){         
       // PONER ESTO CON SUBJECT ASI APRENDO??? AUNQUE SOLO PRA ESTO NO HARIA FALTA
