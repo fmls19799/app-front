@@ -25,12 +25,16 @@ export class HomePage implements OnInit, OnDestroy{
   user: User = new User();
   products: any = [];
   newOnesAfterRefresh: Array<Product> = [];
+  // productsRemainAllTheTime: Array<Product> = [];
   rentOrBuyOptions: Array<string> = [];
   categories: Array<any> = [{icon: 'ios-home-outline',type: 'Real state'},{icon: 'ios-car-outline',type: 'Cars'},{icon: 'ios-game-controller-b-outline',type: 'Gaming'},{icon: 'bicycle',type: 'Cycling'},{icon: 'football-outline',type: 'Sports'},{icon: 'phone-portrait',type: 'Phones'},{icon: 'shirt-outline',type: 'Clothing'},{icon: 'boat-outline',type: 'Boats'}]
-  tabSelected: string = '';
   wishList: Array<WishProduct> = [];
   subscriptions = new Subscription();
   pagination: number = 1;
+  
+  rentOrBuyTabSelected: string = '';
+  typeSelected: string = '';
+  lastTabClicked: Object;
   
   constructor(public navCtrl: NavController,
     public navParams: NavParams, 
@@ -49,61 +53,94 @@ export class HomePage implements OnInit, OnDestroy{
       this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];      
       this.getAllProducts();
       this.getAllFavs();
-      this.getSuscription();
+      // this.getSuscription();//ESTO??????
     }
     
-    getSuscription(){
-      let subscription = this.productsProvider.allProductsHomeChanges().subscribe((products: Array<Product>)=>{
-        this.products = products; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???        
-      })      
-      this.subscriptions.add(subscription);
-    }
+    // getSuscription(){//ESTO??????
+    //   let subscription = this.productsProvider.allProductsHomeChanges().subscribe((products: Array<Product>)=>{
+    //     this.products = products; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???        
+    //   })      
+    //   this.subscriptions.add(subscription);
+    // }
     
     chooseProduct(category: any){
-      this.filterByType(category.type)
+      // this.filterByType(category.type)//ESTO??????
+      
+      // SI ES NUEVO O NO ES EL MISMO QUIERO VACIAR EL ARRAY LOCAL ASI ME DA EL TIPO QUE QUIERO
+      if (this.typeSelected === '' || this.typeSelected !== category.type) {
+        this.typeSelected = category.type;
+        this.products = [];
+        this.pagination = 1;
+        this.getAllProducts(null, {'type': category.type}); 
+      }    
+      // console.log(111111, this.typeSelected);
+      this.inWhatTabIclickedLast({'type': category.type});
     }
     
-    segmentSelected(event: any){        
-      this.tabSelected = event.target.innerHTML;
-      this.filterByRentOrBuy(this.tabSelected);
-    }
-    
-    filterByType(filterByType: string){        
-      this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???
-      if (filterByType !== 'All') {
-        this.products = this.products.filter(product => product.type === filterByType);
+    segmentSelected(event: any){   
+      // this.filterByType(event.target.innerHTML) //ESTO??????
+      if (this.rentOrBuyTabSelected === 'All') {
+        // NO VA???????????????????
+        // this.pagination = 1;
+        // this.lastTabClicked = undefined; 
+        // this.getAllProducts();
       }
+      if (this.rentOrBuyTabSelected === '' || this.rentOrBuyTabSelected !== event.target.innerHTML) {
+        this.rentOrBuyTabSelected = event.target.innerHTML;
+        this.products = [];
+        this.pagination = 1;
+        this.getAllProducts(null, {'rentOrBuy': event.target.innerHTML}); 
+      } 
+      // console.log(22222, this.rentOrBuyTabSelected);
+      this.inWhatTabIclickedLast({'rentOrBuy': event.target.innerHTML});
     }
     
-    filterByRentOrBuy(rentOrBuy: string){            
-      this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???
-      if (rentOrBuy !== 'All') {
-        this.products = this.products.filter(product => product.rentOrBuy === rentOrBuy);
-      }
+    inWhatTabIclickedLast(objectClicked: Object){
+      // REEEMPLAZA EL ULTIMO SITIO DONDE CLIQUEE ASI EL INFINITE PUEDE RECARGAR SOBRE ESO    
+      this.lastTabClicked = objectClicked;
     }
     
-    getAllProducts(refresher?: any){      
-      this.productsProvider.getAllProducts(this.pagination).subscribe((products: Array<Product>)=>{        
+    // filterByType(filterByType: string){   //ESTO??????
+    //   this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???
+    //   if (filterByType !== 'All') {
+    //     this.products = this.products.filter(product => product.type === filterByType);
+    //   }
+    // }
+    
+    // filterByRentOrBuy(rentOrBuy: string){   //ESTO??????         
+    //   this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???
+    //   if (rentOrBuy !== 'All') {
+    //     this.products = this.products.filter(product => product.rentOrBuy === rentOrBuy);
+    //   }
+    // }
+    
+    getAllProducts(refresher?: any, rentOrBuyOrType?: Object | undefined){      
+      this.productsProvider.getAllProducts(this.pagination, rentOrBuyOrType)
+      .subscribe((products: Array<Product>)=>{        
         if (refresher) { // stop refresher after i got results, if im doing refresher, only include new ones instead adding them all ???
-          if (products.length > this.products.length) {
-            this.showToast(`${(Number(products.length) - Number(this.products.length)).toString()} products new`);            
-          } else{
-            this.translator('NO_NEW_PRODUCTS_AFTER_REFRESH');            
-          }
           refresher.complete();
         } 
-        
-        
-        // ESTO???????
-        // if (products.length > 0) {
-        //   products.forEach((product)=>{            
-        //     this.products.push(product);
-        //   })  
-        // }
-        // console.log(555,  this.products);
-        // ESTO???????
+        if (products.length > 0) {
+          products.forEach((product)=>{                        
+            this.products.push(product);
+          })  
+        }
       })
     }
+    
+    // ESTO???????
+    // getaAllProducts(refresher?: any){      
+    //   this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{        
+    //     if (refresher) { // stop refresher after i got results, if im doing refresher, only include new ones instead adding them all ???
+    //       if (products.length > this.products.length) {
+    //         this.showToast(`${(Number(products.length) - Number(this.products.length)).toString()} products new`);            
+    //       } else{
+    //         this.translator('NO_NEW_PRODUCTS_AFTER_REFRESH');            
+    //       }
+    //       refresher.complete();
+    //     } 
+    //   })
+    // }
     
     getAllFavs(){
       this.favoritesProvider.getFavoritesProductsOfUser().subscribe((wishList: Array<WishProduct>)=>{
@@ -117,13 +154,15 @@ export class HomePage implements OnInit, OnDestroy{
       
     }
     // ESTO???
-    // loadData(event: any){
-    //   setTimeout(()=>{
-    //     this.pagination++;
-    //     this.getAllProducts();
-    //     event.complete();
-    //   },500)
-    // }
+    loadData(event: any){
+      setTimeout(()=>{
+        this.pagination++;
+        console.log(777, this.lastTabClicked);
+        
+        this.getAllProducts(null, this.lastTabClicked);
+        event.complete();
+      },500)
+    }
     // ESTO???
     
     paintHeartIfLiked(){
@@ -152,7 +191,10 @@ export class HomePage implements OnInit, OnDestroy{
     }
     
     doRefresh(refresher) {
-      this.getAllProducts(refresher);
+      this.products = [];
+      this.pagination = 1;
+      this.lastTabClicked = undefined; // necesito no solo pasar a la funcion undefined para que no tenga en cuenta el filtro sino tambien esto, ya que el infinite recuerda la ultima clicada???
+      this.getAllProducts(refresher, undefined);
     }
     
     goToProduct(product: Product){         

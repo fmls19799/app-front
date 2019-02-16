@@ -77,11 +77,24 @@ var ProductsProvider = /** @class */ (function (_super) {
             return product;
         }), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["catchError"])(this.handleError));
     };
-    ProductsProvider.prototype.getAllProducts = function (pagination) {
+    ProductsProvider.prototype.getAllProducts = function (pagination, rentOrBuyOrType) {
         var _this = this;
-        // ESTOOO????
+        console.log(888, rentOrBuyOrType);
+        var customQuery = "?page=" + pagination;
+        if (rentOrBuyOrType) {
+            console.log(rentOrBuyOrType);
+            if (rentOrBuyOrType.rentOrBuy) {
+                customQuery = "?page=" + pagination + "&rentOrBuy=" + rentOrBuyOrType.rentOrBuy;
+                // console.log(1, customQuery);
+            }
+            else if (rentOrBuyOrType.type) {
+                customQuery = "?page=" + pagination + "&type=" + rentOrBuyOrType.type;
+                // console.log(2, customQuery);
+            }
+        }
+        console.log(ProductsProvider_1.ENDPOINT + "/products/" + this.auth.user.id + customQuery);
         // return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products/${this.auth.user.id}?page=${pagination}`)
-        return this.http.get(ProductsProvider_1.ENDPOINT + "/products/" + this.auth.user.id)
+        return this.http.get(ProductsProvider_1.ENDPOINT + "/products/" + this.auth.user.id + customQuery)
             .pipe(Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["map"])(function (products) {
             _this.allProductsHome = products;
             console.log(22, _this.allProductsHome);
@@ -89,6 +102,18 @@ var ProductsProvider = /** @class */ (function (_super) {
             return products;
         }), Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_operators__["catchError"])(this.handleError));
     };
+    // ESTO??????
+    // getAllProducts(): Observable<Array<Product> | StringifiedError> {            
+    //   return this.http.get<Array<Product>>(`${ProductsProvider.ENDPOINT}/products/${this.auth.user.id}`)
+    //     .pipe(
+    //       map((products: Array<Product>) => {
+    //         this.allProductsHome = products;
+    //         // console.log(22, this.allProductsHome);
+    //         this.notifyChangesAllProductsHome();
+    //         return products;
+    //       }),
+    //       catchError(this.handleError));
+    // }
     // COMO HACEMOS CON PIPE O SIN??? no haria falta
     ProductsProvider.prototype.getProductsByUser = function () {
         var _this = this;
@@ -150,7 +175,7 @@ var ProductsProvider = /** @class */ (function (_super) {
         return this.subjectProductsOfUser.asObservable();
     };
     ProductsProvider.prototype.notifyChangesAllProductsHome = function () {
-        console.log(111, this.allProductsHome);
+        // console.log(111, this.allProductsHome);
         this.subjectAllProductsHome.next(this.allProductsHome);
     };
     ProductsProvider.prototype.allProductsHomeChanges = function () {
@@ -239,15 +264,15 @@ webpackEmptyAsyncContext.id = 213;
 
 var map = {
 	"../pages/chat/chat.module": [
-		802,
+		801,
 		10
 	],
 	"../pages/favorites/favorites.module": [
-		801,
+		802,
 		9
 	],
 	"../pages/home/home.module": [
-		803,
+		810,
 		2
 	],
 	"../pages/items/items.module": [
@@ -255,15 +280,15 @@ var map = {
 		8
 	],
 	"../pages/login/login.module": [
-		804,
+		803,
 		1
 	],
 	"../pages/map/map.module": [
-		805,
+		804,
 		7
 	],
 	"../pages/product-detail/product-detail.module": [
-		807,
+		805,
 		6
 	],
 	"../pages/profile/profile.module": [
@@ -271,15 +296,15 @@ var map = {
 		5
 	],
 	"../pages/register/register.module": [
-		808,
+		807,
 		0
 	],
 	"../pages/search-product/search-product.module": [
-		809,
+		808,
 		4
 	],
 	"../pages/settings/settings.module": [
-		810,
+		809,
 		3
 	]
 };
@@ -800,16 +825,16 @@ var AppModule = /** @class */ (function () {
                     backButtonText: 'Back'
                 }, {
                     links: [
-                        { loadChildren: '../pages/favorites/favorites.module#FavoritesPageModule', name: 'FavoritesPage', segment: 'favorites', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/chat/chat.module#ChatPageModule', name: 'ChatPage', segment: 'chat', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/favorites/favorites.module#FavoritesPageModule', name: 'FavoritesPage', segment: 'favorites', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/map/map.module#MapPageModule', name: 'MapPage', segment: 'map', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/product-detail/product-detail.module#ProductDetailPageModule', name: 'ProductDetailPage', segment: 'product-detail', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/search-product/search-product.module#SearchProductPageModule', name: 'SearchProductPage', segment: 'search-product', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/settings/settings.module#SettingsPageModule', name: 'SettingsPage', segment: 'settings', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/home/home.module#HomePageModule', name: 'HomePage', segment: 'home', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/items/items.module#ItemsPageModule', name: 'ItemsPage', segment: 'items', priority: 'low', defaultHistory: [] }
                     ]
                 }),

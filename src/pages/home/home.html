@@ -20,7 +20,7 @@
   <!-- REFRESHER -->
   <ion-refresher pullMin="100" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>
-  </ion-refresher>  
+  </ion-refresher>
   <!-- TOP PART -->
   <div class="fixedTop">
     <!-- SEARCH IN... -->
@@ -37,7 +37,8 @@
     <!-- SEARCH BY ICON -->
     <div class="listOfProductsToChooseFrom">
       <div *ngFor="let category of categories">
-        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>
+        <ion-icon [name]="category.icon" (click)="chooseProduct(category)">
+        </ion-icon>
         <span>{{category.name | translate }}</span>
       </div>
     </div>
@@ -57,6 +58,7 @@
           <img [src]="product.photos[0]" alt="image">
           <div class="rentOrBuyTag">
             <p>{{product.rentOrBuy}}</p>
+            <p>{{product.type}}</p>
           </div>
           <!-- <div class="typeTag">
             <p>{{product.type}}</p>
@@ -76,10 +78,10 @@
     </div>
   </div>
   <!-- INFINITE SCROLL -->
-  <!-- <ion-infinite-scroll threshold="10px" (ionInfinite)="loadData($event)">
+  <ion-infinite-scroll threshold="10px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
     loadingSpinner="bubbles"
     loadingText="Loading more data...">
   </ion-infinite-scroll-content>
-</ion-infinite-scroll> -->
+</ion-infinite-scroll>
 </ion-content>
