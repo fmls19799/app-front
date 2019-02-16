@@ -9,6 +9,9 @@ import { AuthProvider } from './../providers/auth/auth';
 import { ModalComponentChooseCategory } from '../components/modal-choose-category/modal-choose-category';
 // import { CONFIG } from '@environment';
 
+// // FIREBASE STORAGE
+// import { AngularFireStorageReference, AngularFireUploadTask } from 'angularfire2/storage';
+
 @Component({
   templateUrl: 'app.html',
 })

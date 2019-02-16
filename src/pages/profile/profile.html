@@ -13,3 +13,88 @@
             <button type="submit" ion-button color="red" block>Edit user</button>
     </form>
 </ion-content>
+
+
+
+
+
+
+
+
+
+
+<!-- <div *ngIf="!isProductChosen" class="modalChooseProduct">
+    <div class="top">
+      <div class="close">
+        <ion-icon name="close" (click)="closeModal()"></ion-icon>
+      </div>
+      <h6 (click)="closeModal()">{{ MODALTITLE | translate}} 
+        <ion-icon name="arrow-down"></ion-icon> 
+      </h6>
+    </div>
+    <div class="bottom">
+      <ion-list>
+          <ion-item *ngFor="let category of categories" (click)="chooseProduct(category)">
+            <ion-icon [name]="category.icon"></ion-icon>
+            <span>{{category.type | translate }}</span>
+          </ion-item>
+      </ion-list>
+    </div>
+  </div>
+  
+  <div *ngIf="isProductChosen" class="modalProductChosen">
+    <div class="top">
+      <div class="close">
+        <ion-icon name="close" (click)="closeModal()"></ion-icon>
+      </div>
+      <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.type }}</span>
+        <ion-icon name="arrow-down"></ion-icon>  
+      </h6>
+    </div>
+    
+    <section class="bottom">
+      
+        <div class="imagesContainer" [ngClass]="{'increaseDivWtapper': increaseImageWrapperHeight}">
+          <img [src]="previewImage" *ngFor="let previewImage of previewImages" alt="image">
+        </div>
+        
+        <div class="mainWrapper">
+          <form [formGroup]="myForm" class="myForm" (ngSubmit)="uploadProduct()">
+            <ion-list>
+              <ion-item [ngClass]="{'has-error': myForm.controls.name.invalid && myForm.controls.name.touched}">
+                <ion-label floating>{{ 'NAME' | translate }}*</ion-label>
+                <ion-input formControlName="name" type="text" [(ngModel)]="productChosen.name">
+                  
+                </ion-input>
+              </ion-item>
+              <ion-item [ngClass]="{'has-error': myForm.controls.description.invalid && myForm.controls.description.touched}">
+                <ion-label floating>{{ 'DESCRIPTION' | translate }}*</ion-label>
+                <ion-input formControlName="description" type="text" [(ngModel)]="productChosen.description">
+                  
+                </ion-input>
+              </ion-item>
+              <ion-item [ngClass]="{'has-error': myForm.controls.price.invalid && myForm.controls.price.touched}">
+                <ion-label floating>{{ 'PRICE' | translate }}*</ion-label>
+                <ion-input formControlName="price" type="number" [(ngModel)]="productChosen.price">
+                </ion-input>
+              </ion-item>
+              
+              <ion-item class="rentOrBuy" [ngClass]="{'has-error': myForm.controls.price.invalid && myForm.controls.price.touched}">
+                <ion-label floating>{{ 'RENT_BUT_EXCHANGE_GIFT' | translate }}</ion-label>
+                <ion-select formControlName="rentOrBuy" [(ngModel)]="productChosen.rentOrBuy">
+                  <ion-option *ngFor="let option of rentOrBuyOptions">{{option}}</ion-option>
+                </ion-select>
+              </ion-item>
+              <button type="submit" ion-button color="red" block>{{'UPLOAD_PRODUCT' | translate}}</button>
+              
+            </ion-list>
+          </form>
+        </div>
+        
+      </section>
+      
+      <div class="upload">
+        <fileuploader [multipleImages]="true" [iconName]="'camera-outline'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>
+      </div>
+    </div>
+     -->

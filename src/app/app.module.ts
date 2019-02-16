@@ -20,9 +20,10 @@ import { ProductsProvider } from './../providers/products/products';
 
 // FIREBASE
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { environment } from '../environments/environment';
 import { AngularFireStorageModule } from 'angularfire2/storage';
+// import { AngularFireDatabaseModule } from 'angularfire2/database';
+
+import { environment } from '../environments/environment';
 import { HandlingErrorsProvider } from '../providers/handling-errors/handling-errors';
 import { FavoritesProvider } from '../providers/favorites/favorites';
 import { UserProvider } from '../providers/user/user';
@@ -51,10 +52,12 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     CustomComponentsModule,
     AngularFireModule.initializeApp({
-      apiKey: "<your-api-key>",
-      authDomain: "<your-auth-domain>",
-      storageBucket: "<project-id>.appspot.com",
-      projectId: "<your-project-id>",
+      apiKey: "AIzaSyBRfXQk-oedampZQxJsgerWKmp60WYmU4A",
+      authDomain: "yourstuffeveryonestuff-9209a.firebaseapp.com",
+      databaseURL: "https://yourstuffeveryonestuff-9209a.firebaseio.com",
+      storageBucket: "yourstuffeveryonestuff-9209a.appspot.com",
+      projectId: "yourstuffeveryonestuff-9209a",
+      messagingSenderId: "292213632688"
     }),
     AngularFireStorageModule
   ],

@@ -10,10 +10,10 @@
   </div>
   <div class="bottom">
     <ion-list>
-        <ion-item *ngFor="let category of categories" (click)="chooseProduct(category)">
-          <ion-icon [name]="category.icon"></ion-icon>
-          <span>{{category.type | translate }}</span>
-        </ion-item>
+      <ion-item *ngFor="let category of categories" (click)="chooseProduct(category)">
+        <ion-icon [name]="category.icon"></ion-icon>
+        <span>{{category.type | translate }}</span>
+      </ion-item>
     </ion-list>
   </div>
 </div>
