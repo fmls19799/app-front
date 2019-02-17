@@ -325,301 +325,9 @@ module.exports = webpackAsyncContext;
 /***/ }),
 
 /***/ 361:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, __webpack_exports__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ModalComponentChooseCategory; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_product__ = __webpack_require__(423);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_products_products__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_auth_auth__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2_storage__ = __webpack_require__(362);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_angularfire2_storage___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_angularfire2_storage__);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-// FIREBASE STORAGE
-
-var ModalComponentChooseCategory = /** @class */ (function () {
-    function ModalComponentChooseCategory(viewCtrl, modalCtrl, formBuilder, translate, toastCtrl, productsProvider, navCtrl, auth, afStorage) {
-        this.viewCtrl = viewCtrl;
-        this.modalCtrl = modalCtrl;
-        this.formBuilder = formBuilder;
-        this.translate = translate;
-        this.toastCtrl = toastCtrl;
-        this.productsProvider = productsProvider;
-        this.navCtrl = navCtrl;
-        this.auth = auth;
-        this.afStorage = afStorage;
-        this.turnOpacity = false;
-        this.categoriesArray = [];
-        this.isProductChosen = false;
-        this.productChosen = new __WEBPACK_IMPORTED_MODULE_2__models_product__["a" /* Product */]();
-        this.MODALTITLE = '';
-        this.previewImages = [];
-        this.rentOrBuyOptions = ['Rent', 'Sell', 'Exchange', 'Gift'];
-        this.categories = [{ icon: 'ios-home-outline', type: 'Real state' }, { icon: 'ios-car-outline', type: 'Cars' }, { icon: 'ios-game-controller-b-outline', type: 'Gaming' }, { icon: 'bicycle', type: 'Cycling' }, { icon: 'football-outline', type: 'Sports' }, { icon: 'phone-portrait', type: 'Phones' }, { icon: 'shirt-outline', type: 'Clothing' }, { icon: 'boat-outline', type: 'Boats' }];
-        this.myForm = this.formBuilder.group({
-            name: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].maxLength(20)]),
-            description: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].maxLength(200)]),
-            price: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required]),
-            rentOrBuy: new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]('', [__WEBPACK_IMPORTED_MODULE_3__angular_forms__["g" /* Validators */].required])
-        });
-    }
-    ModalComponentChooseCategory.prototype.ngOnInit = function () {
-        this.user = this.auth.user;
-        if (this.productChosen) {
-            this.MODALTITLE = 'CHOOSE_CATEGORY';
-        }
-    };
-    ModalComponentChooseCategory.prototype.chooseProduct = function (nameProduct) {
-        this.isProductChosen = true;
-        this.MODALTITLE = 'PUBLISHING_IN';
-        this.productChosen = nameProduct;
-    };
-    ModalComponentChooseCategory.prototype.closeModal = function () {
-        this.viewCtrl.dismiss();
-    };
-    ModalComponentChooseCategory.prototype.chooseAgain = function () {
-        this.MODALTITLE = 'CHOOSE_CATEGORY';
-        this.isProductChosen = false;
-    };
-    ModalComponentChooseCategory.prototype.receiveImageFromChildren = function (imagesReceived) {
-        var _this = this;
-        this.productChosen.photos = []; // cada vez que pongo fotos lo vacio para que entre limpio???  
-        Array.from(imagesReceived).forEach(function (file) {
-            _this.productChosen.photos.push(file);
-        });
-        this.renderPreviewImg(imagesReceived); // to render in the view
-    };
-    ModalComponentChooseCategory.prototype.renderPreviewImg = function (imagesReceived) {
-        var _this = this;
-        if (imagesReceived.length > 5) {
-            this.increaseImgWrapper();
-        }
-        if (this.previewImages.length >= 15) {
-            this.translator('MAXIMUM_IMAGE_STACK_EXCEEDED', null);
-        }
-        Array.from(imagesReceived).forEach(function (file) {
-            var reader = new FileReader(); // si pones const no va ya que esta busy reading blobs???
-            reader.readAsDataURL(file);
-            reader.onload = function () {
-                if (_this.previewImages.length < 15) {
-                    _this.previewImages.push(reader.result);
-                }
-            };
-        });
-    };
-    ModalComponentChooseCategory.prototype.uploadProduct = function () {
-        var _this = this;
-        if (this.previewImages.length <= 0) {
-            this.translator('ONE_IMAGE_REQUIRED', null);
-        }
-        else if (this.myForm.valid) {
-            this.productsProvider.createProduct(this.productChosen).subscribe(function (product) {
-                _this.productChosen = product;
-                _this.translator('PRODUCT_CREATED', true);
-            }, function (error) {
-                _this.translator(error, false);
-            });
-        }
-        else {
-            this.translator('FORGOT_SOMETHING_VALIDATION', null);
-        }
-    };
-    ModalComponentChooseCategory.prototype.increaseImgWrapper = function () {
-        this.increaseImageWrapperHeight = true;
-    };
-    ModalComponentChooseCategory.prototype.translator = function (messageToTranslate, closeAfterDismissedToast) {
-        var _this = this;
-        this.translate.get(messageToTranslate).subscribe(function (data) {
-            _this.showToast(data, closeAfterDismissedToast);
-        });
-    };
-    ModalComponentChooseCategory.prototype.showToast = function (data, closeAfterDismissedToast) {
-        var _this = this;
-        var toast = this.toastCtrl.create({
-            message: data,
-            duration: 2000,
-            position: 'top',
-        });
-        toast.present();
-        if (closeAfterDismissedToast) {
-            toast.onDidDismiss(function () {
-                _this.navCtrl.push('ProductDetailPage', _this.productChosen); // SI HAGO EL PUSH YA NO ESTOY EN ESTE MODAL Y NO HABRA PUSH POSIBLE???
-                _this.closeModal();
-            });
-        }
-    };
-    ModalComponentChooseCategory.prototype.upload = function (event) {
-        var imageRandomName = Math.random().toString(36).substring(2);
-        this.reference = this.afStorage.ref("products/" + this.productChosen._id + "/" + imageRandomName);
-        this.task = this.reference.put(event.target.files[0]);
-        // this.uploadState = this.task.snapshotChanges().pipe(map(s => s.state));
-        // this.uploadProgress = this.task.percentageChanges();
-        // this.downloadURL = this.task.downloadURL();
-        // this.reference.child(`${this.user.name}/`);
-    };
-    ModalComponentChooseCategory = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'modal-choose-category',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/'<!-- CHOOSE PRODUCT -->\n<div *ngIf="!isProductChosen" class="modalChooseProduct">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="closeModal()">{{ MODALTITLE | translate}} \n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  <div class="bottom">\n    <ion-list>\n      <ion-item *ngFor="let category of categories" (click)="chooseProduct(category)">\n        <ion-icon [name]="category.icon"></ion-icon>\n        <span>{{category.type | translate }}</span>\n      </ion-item>\n    </ion-list>\n  </div>\n</div>\n\n<!-- PRODUCT CHOSEN -->\n<div *ngIf="isProductChosen" class="modalProductChosen">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.type }}</span>\n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  \n  <section class="bottom">\n    \n    <!-- <div class="imagesContainer" *ngFor="let previewImage of previewImages"> -->\n      <div class="imagesContainer" [ngClass]="{\'increaseDivWtapper\': increaseImageWrapperHeight}">\n        <img [src]="previewImage" *ngFor="let previewImage of previewImages" alt="image">\n      </div>\n      <!-- </div> -->\n      \n      <div class="mainWrapper">\n        <form [formGroup]="myForm" class="myForm" (ngSubmit)="uploadProduct()">\n          <ion-list>\n            <ion-item [ngClass]="{\'has-error\': myForm.controls.name.invalid && myForm.controls.name.touched}">\n              <ion-label floating>{{ \'NAME\' | translate }}*</ion-label>\n              <ion-input formControlName="name" type="text" [(ngModel)]="productChosen.name">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item [ngClass]="{\'has-error\': myForm.controls.description.invalid && myForm.controls.description.touched}">\n              <ion-label floating>{{ \'DESCRIPTION\' | translate }}*</ion-label>\n              <ion-input formControlName="description" type="text" [(ngModel)]="productChosen.description">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item [ngClass]="{\'has-error\': myForm.controls.price.invalid && myForm.controls.price.touched}">\n              <ion-label floating>{{ \'PRICE\' | translate }}*</ion-label>\n              <ion-input formControlName="price" type="number" [(ngModel)]="productChosen.price">\n              </ion-input>\n            </ion-item>\n            \n            <ion-item class="rentOrBuy" [ngClass]="{\'has-error\': myForm.controls.price.invalid && myForm.controls.price.touched}">\n              <ion-label floating>{{ \'RENT_BUT_EXCHANGE_GIFT\' | translate }}</ion-label>\n              <ion-select formControlName="rentOrBuy" [(ngModel)]="productChosen.rentOrBuy">\n                <ion-option *ngFor="let option of rentOrBuyOptions">{{option}}</ion-option>\n              </ion-select>\n            </ion-item>\n            <button type="submit" ion-button color="red" block>{{\'UPLOAD_PRODUCT\' | translate}}</button>\n            \n          </ion-list>\n        </form>\n      </div>\n      \n    </section>\n    \n    <div class="upload">\n      <fileuploader [multipleImages]="true" [iconName]="\'camera-outline\'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>\n    </div>\n  </div>\n  '/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/
-        }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["c" /* TranslateService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_5__providers_products_products__["a" /* ProductsProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__providers_products_products__["a" /* ProductsProvider */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_6__providers_auth_auth__["a" /* AuthProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__providers_auth_auth__["a" /* AuthProvider */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_7_angularfire2_storage__["AngularFireStorage"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_angularfire2_storage__["AngularFireStorage"]) === "function" && _j || Object])
-    ], ModalComponentChooseCategory);
-    return ModalComponentChooseCategory;
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
-}());
-
-// SIN FIREBASE?????
-// import { Component, OnInit, ElementRef } from '@angular/core';
-// import { ViewController, NavController, ModalController, ToastController } from 'ionic-angular';
-// import { Subscription, Subject, Observable } from 'rxjs';
-// import { Product } from './../../models/product';
-// import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-// import { TranslateService } from '@ngx-translate/core';
-// import { ProductsProvider } from './../../providers/products/products';
-// import { StringifiedError } from './../../models/StringifiedError';
-// import { AuthProvider } from './../../providers/auth/auth';
-// import { User } from './../../models/user';
-// // FIREBASE STORAGE
-// import { AngularFireStorageReference, AngularFireUploadTask, AngularFireStorage } from 'angularfire2/storage';
-// import { map } from 'rxjs/operators/map';
-// @Component({
-//   selector: 'modal-choose-category',
-//template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/'<!-- CHOOSE PRODUCT -->\n<div *ngIf="!isProductChosen" class="modalChooseProduct">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="closeModal()">{{ MODALTITLE | translate}} \n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  <div class="bottom">\n    <ion-list>\n      <ion-item *ngFor="let category of categories" (click)="chooseProduct(category)">\n        <ion-icon [name]="category.icon"></ion-icon>\n        <span>{{category.type | translate }}</span>\n      </ion-item>\n    </ion-list>\n  </div>\n</div>\n\n<!-- PRODUCT CHOSEN -->\n<div *ngIf="isProductChosen" class="modalProductChosen">\n  <div class="top">\n    <div class="close">\n      <ion-icon name="close" (click)="closeModal()"></ion-icon>\n    </div>\n    <h6 (click)="chooseAgain()">{{ MODALTITLE | translate}} <span class="strong">{{ productChosen.type }}</span>\n      <ion-icon name="arrow-down"></ion-icon>   <!-- para poder usar icons en componentes se importa ionicmodule en components ??? -->\n    </h6>\n  </div>\n  \n  <section class="bottom">\n    \n    \n    \n    <hr>\n    <div class="container">\n      <div class="card">\n        <div class="card-header">\n          Firebase Cloud Storage & Angular 5\n        </div>\n        <div class="card-body">\n          <h5 class="card-title">Select a file for upload:</h5>\n          <input type="file" (change)="upload($event)" accept=".png,.jpg" />\n          <br><br>\n          <div class="progress">\n            <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadProgress | async) + \'%\'" [attr.aria-valuenow]="(uploadProgress | async)" aria-valuemin="0" aria-valuemax="100"></div>\n          </div>\n          <br>\n          <div *ngIf="downloadURL | async; let downloadSrc" class="alert alert-info" role="alert">\n            File uploaded: <a [href]="downloadSrc">{{downloadSrc}}</a>\n          </div>\n          <br>\n          <div class="btn-group" role="group" *ngIf="uploadState | async; let state">\n            <button type="button" class="btn btn-primary" (click)="task.pause()" [disabled]="state === \'paused\'">Pause</button>\n            <button type="button" class="btn btn-primary" (click)="task.cancel()" [disabled]="!(state === \'paused\' || state === \'running\')">Cancel</button>\n            <button type="button" class="btn btn-primary" (click)="task.resume()" [disabled]="state === \'running\'">Resume</button>\n          </div>\n        </div>\n      </div>\n    </div>\n    <hr>\n    \n    \n    \n    \n    <!-- <div class="imagesContainer" *ngFor="let previewImage of previewImages"> -->\n      <div class="imagesContainer" [ngClass]="{\'increaseDivWtapper\': increaseImageWrapperHeight}">\n        <img [src]="previewImage" *ngFor="let previewImage of previewImages" alt="image">\n      </div>\n      <!-- </div> -->\n      \n      <div class="mainWrapper">\n        <form [formGroup]="myForm" class="myForm" (ngSubmit)="uploadProduct()">\n          <ion-list>\n            <ion-item [ngClass]="{\'has-error\': myForm.controls.name.invalid && myForm.controls.name.touched}">\n              <ion-label floating>{{ \'NAME\' | translate }}*</ion-label>\n              <ion-input formControlName="name" type="text" [(ngModel)]="productChosen.name">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item [ngClass]="{\'has-error\': myForm.controls.description.invalid && myForm.controls.description.touched}">\n              <ion-label floating>{{ \'DESCRIPTION\' | translate }}*</ion-label>\n              <ion-input formControlName="description" type="text" [(ngModel)]="productChosen.description">\n                \n              </ion-input>\n            </ion-item>\n            <ion-item [ngClass]="{\'has-error\': myForm.controls.price.invalid && myForm.controls.price.touched}">\n              <ion-label floating>{{ \'PRICE\' | translate }}*</ion-label>\n              <ion-input formControlName="price" type="number" [(ngModel)]="productChosen.price">\n              </ion-input>\n            </ion-item>\n            \n            <ion-item class="rentOrBuy" [ngClass]="{\'has-error\': myForm.controls.price.invalid && myForm.controls.price.touched}">\n              <ion-label floating>{{ \'RENT_BUT_EXCHANGE_GIFT\' | translate }}</ion-label>\n              <ion-select formControlName="rentOrBuy" [(ngModel)]="productChosen.rentOrBuy">\n                <ion-option *ngFor="let option of rentOrBuyOptions">{{option}}</ion-option>\n              </ion-select>\n            </ion-item>\n            <button type="submit" ion-button color="red" block>{{\'UPLOAD_PRODUCT\' | translate}}</button>\n            \n          </ion-list>\n        </form>\n      </div>\n      \n    </section>\n    \n    <div class="upload">\n      <fileuploader [multipleImages]="true" [iconName]="\'camera-outline\'" [icon]="true" [hideInput]="true" (uploadFileFromChildrenToParent)="receiveImageFromChildren($event)"></fileuploader>\n    </div>\n  </div>\n  '/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/components/modal-choose-category/modal-choose-category.html"*/
-// })
-// export class ModalComponentChooseCategory implements OnInit {
-//   text: string;
-//   turnOpacity: boolean = false;
-//   categoriesArray: Array<string> = [];
-//   isProductChosen: boolean = false;
-//   productChosen: Product = new Product();
-//   MODALTITLE: string = '';
-//   previewImages: any = [];
-//   increaseImageWrapperHeight: boolean;
-//   user: User;
-//   myForm: FormGroup;
-//   rentOrBuyOptions: Array<string> = ['Rent', 'Sell', 'Exchange', 'Gift'];
-//   categories: Array<any> = [{icon: 'ios-home-outline',type: 'Real state'},{icon: 'ios-car-outline',type: 'Cars'},{icon: 'ios-game-controller-b-outline',type: 'Gaming'},{icon: 'bicycle',type: 'Cycling'},{icon: 'football-outline',type: 'Sports'},{icon: 'phone-portrait',type: 'Phones'},{icon: 'shirt-outline',type: 'Clothing'},{icon: 'boat-outline',type: 'Boats'}]
-//   reference: AngularFireStorageReference;
-//   task: AngularFireUploadTask;
-//   uploadProgress: Observable<number>;
-//   downloadURL: Observable<string>;
-//   uploadState: Observable<string>;
-//   constructor(private viewCtrl: ViewController,
-//     private modalCtrl: ModalController,
-//     private formBuilder: FormBuilder,
-//     private translate: TranslateService,
-//     private toastCtrl: ToastController,
-//     private productsProvider: ProductsProvider,
-//     private navCtrl: NavController,
-//     private auth: AuthProvider,
-//     private afStorage: AngularFireStorage) {
-//       this.myForm = this.formBuilder.group({
-//         name: new FormControl('',[Validators.required, Validators.maxLength(20)]),
-//         description: new FormControl('',[Validators.required, Validators.maxLength(200)]),
-//         price: new FormControl('',[Validators.required]),
-//         rentOrBuy: new FormControl('',[Validators.required])
-//       })
-//     }
-//     ngOnInit(){
-//       this.user = this.auth.user;
-//       if (this.productChosen) {
-//         this.MODALTITLE = 'CHOOSE_CATEGORY';        
-//       }
-//     }
-//     chooseProduct(nameProduct: Product){
-//       this.isProductChosen = true;
-//       this.MODALTITLE = 'PUBLISHING_IN';
-//       this.productChosen = nameProduct;      
-//     }
-//     closeModal(){
-//       this.viewCtrl.dismiss();
-//     }
-//     chooseAgain(){
-//       this.MODALTITLE = 'CHOOSE_CATEGORY';
-//       this.isProductChosen = false;
-//     }
-//     receiveImageFromChildren(imagesReceived: Array<File>){ 
-//       this.productChosen.photos = []; // cada vez que pongo fotos lo vacio para que entre limpio???  
-//       Array.from(imagesReceived).forEach(file => { 
-//         this.productChosen.photos.push(file)
-//       });
-//       this.renderPreviewImg(imagesReceived); // to render in the view
-//     }
-//     renderPreviewImg(imagesReceived: Array<File>){  
-//       if(imagesReceived.length > 5){
-//         this.increaseImgWrapper();        
-//       }   
-//       if (this.previewImages.length >= 15) {   
-//         this.translator('MAXIMUM_IMAGE_STACK_EXCEEDED', null);
-//       }
-//       Array.from(imagesReceived).forEach(file => { 
-//         var reader = new FileReader(); // si pones const no va ya que esta busy reading blobs???
-//         reader.readAsDataURL(file);
-//         reader.onload = () =>{
-//           if (this.previewImages.length < 15) {
-//             this.previewImages.push(reader.result);  
-//           } 
-//         }
-//       });
-//     }
-//     uploadProduct(){
-//       if (this.previewImages.length <= 0) {
-//         this.translator('ONE_IMAGE_REQUIRED', null);
-//       }
-//       else if(this.myForm.valid){  
-//         this.productsProvider.createProduct(this.productChosen).subscribe((product: Product)=>{
-//           this.productChosen = product;
-//           this.translator('PRODUCT_CREATED', true);
-//         },
-//         (error: any)=>{
-//           this.translator(error, false);
-//         })
-//       } 
-//       else{
-//         this.translator('FORGOT_SOMETHING_VALIDATION', null);
-//       }
-//     }
-//     increaseImgWrapper(){
-//       this.increaseImageWrapperHeight = true;
-//     }
-//     translator(messageToTranslate: string, closeAfterDismissedToast: boolean){
-//       this.translate.get(messageToTranslate).subscribe((data: string)=>{          
-//         this.showToast(data, closeAfterDismissedToast);
-//       })
-//     }
-//     showToast(data: string, closeAfterDismissedToast: boolean){
-//       let toast = this.toastCtrl.create({
-//         message: data,
-//         duration: 2000,
-//         position: 'top',
-//       })
-//       toast.present();
-//       if (closeAfterDismissedToast) {
-//         toast.onDidDismiss(()=>{
-//           this.navCtrl.push('ProductDetailPage', this.productChosen); // SI HAGO EL PUSH YA NO ESTOY EN ESTE MODAL Y NO HABRA PUSH POSIBLE???
-//           this.closeModal();
-//         })
-//       }
-//     }
-//   }
 //# sourceMappingURL=modal-choose-category.js.map
 
 /***/ }),
@@ -631,6 +339,7 @@ var ModalComponentChooseCategory = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CustomComponentsModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngx_translate_core__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__fileuploader_fileuploader__ = __webpack_require__(774);
@@ -653,7 +362,7 @@ var CustomComponentsModule = /** @class */ (function () {
     CustomComponentsModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
+                __WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category__["ModalComponentChooseCategory"],
                 __WEBPACK_IMPORTED_MODULE_4__fileuploader_fileuploader__["a" /* FileuploaderComponent */],
                 __WEBPACK_IMPORTED_MODULE_5__header_header__["a" /* HeaderComponent */],
             ],
@@ -662,12 +371,12 @@ var CustomComponentsModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* IonicModule */] // para poder usar icons en componentes???
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
+                __WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category__["ModalComponentChooseCategory"],
                 __WEBPACK_IMPORTED_MODULE_4__fileuploader_fileuploader__["a" /* FileuploaderComponent */],
                 __WEBPACK_IMPORTED_MODULE_5__header_header__["a" /* HeaderComponent */],
             ],
             entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */],
+                __WEBPACK_IMPORTED_MODULE_1__modal_choose_category_modal_choose_category__["ModalComponentChooseCategory"],
             ]
         })
     ], CustomComponentsModule);
@@ -754,35 +463,6 @@ var FavoritesProvider = /** @class */ (function (_super) {
 }(__WEBPACK_IMPORTED_MODULE_6__handling_errors_handling_errors__["a" /* HandlingErrorsProvider */]));
 
 //# sourceMappingURL=favorites.js.map
-
-/***/ }),
-
-/***/ 423:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Product; });
-var Product = /** @class */ (function () {
-    function Product() {
-        this.photos = [];
-        // opacity?: boolean; // NO SIEMPRE TENEMOS OPACTIDAD???
-        // asFormData(): any{         
-        //     const data = new FormData();
-        //     data.append('name', this.name);
-        //     data.append('icon', this.icon);
-        //     data.append('description', this.description);
-        //     data.append('price', (this.price).toString());
-        //     data.append('type', this.type);
-        //     for (const photo of this.photos) {
-        //         data.append('photos', photo);
-        //     }
-        //     return data;
-        // }
-    }
-    return Product;
-}());
-
-//# sourceMappingURL=product.js.map
 
 /***/ }),
 
@@ -1317,6 +997,7 @@ var HeaderComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_utils__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_auth_auth__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_modal_choose_category_modal_choose_category__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_modal_choose_category_modal_choose_category___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_modal_choose_category_modal_choose_category__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1473,7 +1154,7 @@ var MyApp = /** @class */ (function () {
     // GO TO SELECTED SEGMENT
     MyApp.prototype.goToSelectedTab = function (icon) {
         if (icon === 'upload') {
-            this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_8__components_modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */]).present();
+            this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_8__components_modal_choose_category_modal_choose_category__["ModalComponentChooseCategory"]).present();
         }
         else {
             this.nav.push(icon.replace(/\b\w/g, function (l) { return l.toUpperCase(); }) + "Page");
