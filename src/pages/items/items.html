@@ -14,8 +14,9 @@
     <div class="no-products" *ngIf="productsOfUser?.length === 0">
       <h6 class="text-no-products">{{'NO_PRODUCTS_IN_YOUR_LIST' | translate}}</h6>
     </div>
-    <ion-segment (click)="segmentSelected($event)" *ngIf="productsRemainAllTheTime?.length > 0">
-      <ion-segment-button *ngFor="let option of rentOrBuyOptions" value="a">
+
+    <ion-segment (click)="segmentSelected($event)" class="segmentOptions" *ngIf="productsRemainAllTheTime?.length > 0">
+      <ion-segment-button *ngFor="let option of rentOrBuyOptions">
         <ion-label>{{option}}</ion-label>
       </ion-segment-button>
     </ion-segment>

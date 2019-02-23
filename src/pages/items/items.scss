@@ -22,43 +22,43 @@ page-items {
                 color: grey;
             }
         }
-        // .ifThereIsContent{
-            ion-segment{
-                // border: 1px solid red !important;
-                margin-bottom: 6px;
-                ion-segment-button{
-                    // border: 1px solid red !important;
-                    ion-label{
-                        // border: 1px solid red !important;
-                        margin: 0 !important;
-                        font-size: 12px !important;
-                        
-                    }
+        
+        .segmentOptions{
+            margin-bottom: 6px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ccc8c8;
+            border-top: 1px solid #ccc8c8;
+            ion-segment-button{
+                border: none !important;
+                background-color: transparent !important;
+                border-radius: inherit !important;
+                
+                ion-label{
+                    margin: 0 !important;
+                    font-size: 12px !important;
                 }
             }
-        // }
-        // border: 1px solid red;
-        // border: 1px solid red;
+            .segment-button:hover:not(.segment-activated) {
+                border-bottom: 1px solid orange !important;
+                width: 30px !important;
+            }
+        }
         ion-list{
-            // border: 3px solid red;
-            // border: 1px solid red;
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: flex-start;
-
+            
             ion-item{
                 position: relative !important;
-                // border: 300px solid blue !important;
                 display: block !important;
                 width: calc(33% - 4px) !important;
-                // border: 1px solid grey !important;
                 box-shadow: 0px 0px 17px -1px #a7a2a2;
                 border-radius: 5px !important;
                 margin: 2px !important;
                 padding: 2px !important;
                 ion-checkbox{
-                    //    border: 1px solid red;
                     z-index: 999 !important;
                     position: absolute !important;
                     top: 0 !important;

@@ -1,34 +1,5 @@
 webpackJsonp([6],{
 
-/***/ 423:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Product; });
-var Product = /** @class */ (function () {
-    function Product() {
-        this.photos = [];
-        // opacity?: boolean; // NO SIEMPRE TENEMOS OPACTIDAD???
-        // asFormData(): any{         
-        //     const data = new FormData();
-        //     data.append('name', this.name);
-        //     data.append('icon', this.icon);
-        //     data.append('description', this.description);
-        //     data.append('price', (this.price).toString());
-        //     data.append('type', this.type);
-        //     for (const photo of this.photos) {
-        //         data.append('photos', photo);
-        //     }
-        //     return data;
-        // }
-    }
-    return Product;
-}());
-
-//# sourceMappingURL=product.js.map
-
-/***/ }),
-
 /***/ 805:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

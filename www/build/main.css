@@ -26285,13 +26285,28 @@ page-items ion-content .no-products .text-no-products {
   color: grey;
 }
 
-page-items ion-content ion-segment {
+page-items ion-content .segmentOptions {
   margin-bottom: 6px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc8c8;
+  border-top: 1px solid #ccc8c8;
 }
 
-page-items ion-content ion-segment ion-segment-button ion-label {
+page-items ion-content .segmentOptions ion-segment-button {
+  border: none !important;
+  background-color: transparent !important;
+  border-radius: inherit !important;
+}
+
+page-items ion-content .segmentOptions ion-segment-button ion-label {
   margin: 0 !important;
   font-size: 12px !important;
+}
+
+page-items ion-content .segmentOptions .segment-button:hover:not(.segment-activated) {
+  border-bottom: 1px solid orange !important;
+  width: 30px !important;
 }
 
 page-items ion-content ion-list {
