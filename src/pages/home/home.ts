@@ -34,7 +34,7 @@ export class HomePage implements OnInit, OnDestroy{
   
   rentOrBuyTabSelected: string = '';
   typeSelected: string = '';
-  lastTabClicked: Object;
+  lastTabClicked: any;
   
   constructor(public navCtrl: NavController,
     public navParams: NavParams, 
@@ -49,7 +49,7 @@ export class HomePage implements OnInit, OnDestroy{
       
     }
     
-    ngOnInit(){          
+    ngOnInit(){         
       this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];      
       this.getAllProducts();
       this.getAllFavs();
@@ -63,9 +63,7 @@ export class HomePage implements OnInit, OnDestroy{
     //   this.subscriptions.add(subscription);
     // }
     
-    chooseProduct(category: any){
-      // this.filterByType(category.type)//ESTO??????
-      
+    chooseProduct(category: any){      
       // SI ES NUEVO O NO ES EL MISMO QUIERO VACIAR EL ARRAY LOCAL ASI ME DA EL TIPO QUE QUIERO
       if (this.typeSelected === '' || this.typeSelected !== category.type) {
         this.typeSelected = category.type;
@@ -73,19 +71,16 @@ export class HomePage implements OnInit, OnDestroy{
         this.pagination = 1;
         this.getAllProducts(null, {'type': category.type}); 
       }    
-      // console.log(111111, this.typeSelected);
       this.inWhatTabIclickedLast({'type': category.type});
     }
     
-    segmentSelected(event: any){   
-      // this.filterByType(event.target.innerHTML) //ESTO??????
-      if (this.rentOrBuyTabSelected === 'All') {
-        // NO VA???????????????????
-        // this.pagination = 1;
-        // this.lastTabClicked = undefined; 
-        // this.getAllProducts();
-      }
-      if (this.rentOrBuyTabSelected === '' || this.rentOrBuyTabSelected !== event.target.innerHTML) {
+    segmentSelected(event: any){        
+      if (event.target.innerHTML === 'All') {        
+        this.pagination = 1;
+        this.products = [];
+        this.lastTabClicked = undefined; 
+        this.getAllProducts();
+      } else if (this.rentOrBuyTabSelected === '' || this.rentOrBuyTabSelected !== event.target.innerHTML) {        
         this.rentOrBuyTabSelected = event.target.innerHTML;
         this.products = [];
         this.pagination = 1;
@@ -114,17 +109,19 @@ export class HomePage implements OnInit, OnDestroy{
     //   }
     // }
     
-    getAllProducts(refresher?: any, rentOrBuyOrType?: Object | undefined){      
+    getAllProducts(refresher?: any, rentOrBuyOrType?: Object | undefined){       
       this.productsProvider.getAllProducts(this.pagination, rentOrBuyOrType)
       .subscribe((products: Array<Product>)=>{        
         if (refresher) { // stop refresher after i got results, if im doing refresher, only include new ones instead adding them all ???
           refresher.complete();
-        } 
+        }
         if (products.length > 0) {
           products.forEach((product)=>{                        
-            this.products.push(product);
+            this.products.push(product);            
           })  
         }
+        console.log(this.products);
+        
       })
     }
     
@@ -157,9 +154,11 @@ export class HomePage implements OnInit, OnDestroy{
     loadData(event: any){
       setTimeout(()=>{
         this.pagination++;
-        console.log(777, this.lastTabClicked);
-        
-        this.getAllProducts(null, this.lastTabClicked);
+        if (this.lastTabClicked.rentOrBuy === 'All') {          
+          this.getAllProducts(null, undefined);
+        } else{          
+          this.getAllProducts(null, this.lastTabClicked);
+        }
         event.complete();
       },500)
     }
@@ -209,7 +208,7 @@ export class HomePage implements OnInit, OnDestroy{
     }
     
     ngOnDestroy(){
-      this.subscriptions.unsubscribe();
+      // this.subscriptions.unsubscribe();
     }
     
   }

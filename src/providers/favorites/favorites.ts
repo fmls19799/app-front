@@ -27,6 +27,8 @@ export class FavoritesProvider extends HandlingErrorsProvider {
     .pipe(
       map((wishlist: Array<WishProduct>)=>{
         this.wishList = wishlist;
+        console.log(this.wishList);
+        
         this.notifyChanges();
         return wishlist;
       }),

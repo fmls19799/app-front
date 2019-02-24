@@ -48,7 +48,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     IonicModule.forRoot(MyApp, {
       tabsPlacement: 'top',
-      backButtonText: 'Back'
+      backButtonText: ''
     }),
     CustomComponentsModule,
     AngularFireModule.initializeApp({

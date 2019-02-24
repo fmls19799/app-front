@@ -70,15 +70,10 @@ export class ProductsProvider extends HandlingErrorsProvider {
                
         let customQuery = `?page=${pagination}`;
         if (rentOrBuyOrType) {
-          console.log(rentOrBuyOrType);
           if(rentOrBuyOrType.rentOrBuy){
-            customQuery = `?page=${pagination}&rentOrBuy=${rentOrBuyOrType.rentOrBuy}`;
-            // console.log(1, customQuery);
-            
+            customQuery = `?page=${pagination}&rentOrBuy=${rentOrBuyOrType.rentOrBuy}`;            
           } else if(rentOrBuyOrType.type){
-            customQuery = `?page=${pagination}&type=${rentOrBuyOrType.type}`;
-            // console.log(2, customQuery);
-            
+            customQuery = `?page=${pagination}&type=${rentOrBuyOrType.type}`;            
           } 
         }
         console.log(`${ProductsProvider.ENDPOINT}/products/${this.auth.user.id}${customQuery}`);
@@ -88,9 +83,9 @@ export class ProductsProvider extends HandlingErrorsProvider {
         .pipe(
           map((products: Array<Product>) => {
             this.allProductsHome = products;
-            console.log(22, this.allProductsHome);
+            // console.log(22, this.allProductsHome);
             
-            this.notifyChangesAllProductsHome();
+            // this.notifyChangesAllProductsHome();
             return products;
           }),
           catchError(this.handleError));

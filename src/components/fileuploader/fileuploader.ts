@@ -22,11 +22,6 @@ export class FileuploaderComponent implements OnInit{
   }
   
   ngOnInit(){
-    // console.log('hide input : ',this.hideInput);
-    // console.log('icon: ',this.icon);
-    // console.log('icon name : ',this.iconName);
-    // console.log('file : ',this.file);
-    // console.log('file container : ',this.fileContainer);
   }
   
   clickButtonToOpenFile(){

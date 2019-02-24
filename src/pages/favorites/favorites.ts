@@ -30,23 +30,23 @@ export class FavoritesPage implements OnInit, OnDestroy {
     ngOnInit(){
       this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];
       this.getAllFavs();
-      this.getSuscription();
+      // this.getSuscription();
     }
     
     goToProduct(product: Product){
       this.navCtrl.push('ProductDetailPage', product);
     }
     
-    getSuscription(){
-      let subscription = this.favoritesProvider.favsByUserChanges().subscribe((wishList: Array<WishProduct>)=>{        
-        this.wishList = wishList;  
-        console.log(11, this.wishList);
+    // getSuscription(){
+    //   let subscription = this.favoritesProvider.favsByUserChanges().subscribe((wishList: Array<WishProduct>)=>{        
+    //     this.wishList = wishList;  
+    //     console.log(11, this.wishList);
         
-        this.wishProductRemailAllTheTime = wishList; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???              
-        console.log(22, this.wishProductRemailAllTheTime);
-      })      
-      this.subscriptions.add(subscription);
-    }
+    //     this.wishProductRemailAllTheTime = wishList; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???              
+    //     console.log(22, this.wishProductRemailAllTheTime);
+    //   })      
+    //   this.subscriptions.add(subscription);
+    // }
     
     segmentSelected(event: any){        
       this.tabSelected = event.target.innerHTML;
@@ -54,7 +54,7 @@ export class FavoritesPage implements OnInit, OnDestroy {
     }
     
     goToSelectedTab(selectedTab: string){            
-      this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???            
+      // this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???            
       if (selectedTab !== 'All') {
         this.wishList = this.wishList.filter(wishProduct => wishProduct.product.rentOrBuy === selectedTab);       
       }
@@ -62,7 +62,9 @@ export class FavoritesPage implements OnInit, OnDestroy {
     
     getAllFavs(){
       this.favoritesProvider.getFavoritesProductsOfUser().subscribe((wishList: Array<WishProduct>)=>{
-        this.wishList = wishList;        
+        console.log(wishList);
+        this.wishList = wishList;   
+             
       },
       (error) =>{
         console.log(error);

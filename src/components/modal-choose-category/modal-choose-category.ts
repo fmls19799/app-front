@@ -44,6 +44,7 @@ export class ModalComponentChooseCategory implements OnInit {
   uploadState: Observable<string>;
   arrayImagesFiles: Array<File> = [];
   
+  
   constructor(private viewCtrl: ViewController,
     private modalCtrl: ModalController,
     private formBuilder: FormBuilder,
@@ -52,7 +53,7 @@ export class ModalComponentChooseCategory implements OnInit {
     private productsProvider: ProductsProvider,
     private navCtrl: NavController,
     private auth: AuthProvider,
-    private afStorage: AngularFireStorage) {
+    private storage: AngularFireStorage) {
       
       this.myForm = this.formBuilder.group({
         name: new FormControl('',[Validators.required, Validators.maxLength(20)]),
@@ -67,6 +68,10 @@ export class ModalComponentChooseCategory implements OnInit {
       if (this.productChosen) {
         this.MODALTITLE = 'CHOOSE_CATEGORY';        
       }
+      
+      this.productChosen.name = 'dsa',
+      this.productChosen.price = 11,
+      this.productChosen.rentOrBuy = 'Rent'
     }
     
     chooseProduct(nameProduct: Product){
@@ -122,18 +127,22 @@ export class ModalComponentChooseCategory implements OnInit {
     }
     
     uploadProduct(){
+      
       Array.from(this.arrayImagesFiles).forEach(file => { 
         var imageName = `${new Date().getTime()}_${file.name}`; 
-        this.reference = this.afStorage.ref(`products/${this.productChosen.name}/${imageName}`); 
-        this.task = this.reference.put(file);
-        var starsRef = this.reference.child(`products/${this.productChosen.name}/${imageName}`);
+        this.reference = this.storage.ref(`products/${this.productChosen.name}/${imageName}`)
+        // this.reference.put(file);
+        this.storage.upload(`products/${this.productChosen.name}/${imageName}`, file).then((url)=>{
+          let a = url.ref.getDownloadURL()
+          console.log(a); //DEVUELVE __zone_symbol__value ???
+          
+        })
         
-        
+        // this.storage.child(`products/${this.productChosen.name}/${imageName}`)
         // Create a reference to the file we want to download
         // var imageUploadedReference = this.reference.child(`products/${this.productChosen}/${imageName}`)
         // this.downloadURL = imageUploadedReference.downloadURL();
       })
-      
       
       
       

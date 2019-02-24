@@ -1,11 +1,12 @@
 import { Component, OnInit, DoCheck, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController, ModalController } from 'ionic-angular';
 import { ProductsProvider } from './../../providers/products/products';
 import { Product } from './../../models/product';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription, Observable } from 'rxjs';
 import { CONFIG } from '../../config/config.int';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ModalComponentChooseCategory } from './../../components/modal-choose-category/modal-choose-category';
 
 export interface ProductSelected extends Product{
   selected: boolean;
@@ -37,7 +38,8 @@ export class ItemsPage implements OnInit, OnDestroy{
     private productsProvider: ProductsProvider,
     private alertCtrl: AlertController,
     private translate: TranslateService,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private modalCntrl: ModalController) {
     }
     
     ngOnInit(){    
@@ -265,6 +267,15 @@ export class ItemsPage implements OnInit, OnDestroy{
             console.log(errors); // PROBAR ERRORES DE BACK MULTIPLES AL DELETE???
           }
         })
+      }
+
+      goToUploadProduct(){
+        console.log('AQUI');
+        
+        this.modalCntrl.create(ModalComponentChooseCategory).present(); 
+        setTimeout(()=>{
+          this.navCtrl.pop();
+        },400)
       }
       
       ngOnDestroy(){
