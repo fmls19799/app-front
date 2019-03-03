@@ -49,8 +49,8 @@ export class ProductDetailPage implements OnInit, OnDestroy {
       this.productsProvider.getProductById(id).subscribe((data) => {
         this.liking = data.liking;        
         this.productToShow = data.product;
-        console.log(this.productToShow);
-        console.log('liking:', this.liking);
+        // console.log(this.productToShow);
+        // console.log('liking:', this.liking);
         
       },
       (error) => {
@@ -71,7 +71,7 @@ export class ProductDetailPage implements OnInit, OnDestroy {
     // AUNQUE SI SE CAMBNIE EL ICONO DE FORMA LOCAL DEBO NITIFICAR CAMBIOS PARA QUE EL PRODUCT SE VEA LOS LIKES EN TIEMPO REAL???
     likeOrUnlike() {
       if (this.liking) {
-        console.log('like');
+        // console.log('like');
         
         this.productsProvider.likeProduct(this.productToShow).subscribe((product: Product) => {
           this.productToShow = product;
@@ -80,7 +80,7 @@ export class ProductDetailPage implements OnInit, OnDestroy {
           // this.translator(error);
         })
       } else {
-        console.log('unlike');
+        // console.log('unlike');
         
         this.productsProvider.unlikeProduct(this.productToShow).subscribe((product: Product) => { 
           this.productToShow = product;

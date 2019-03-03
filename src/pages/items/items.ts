@@ -53,7 +53,7 @@ export class ItemsPage implements OnInit, OnDestroy{
       let subscription = this.productsProvider.productByUserChanges().subscribe((products: Array<Product>)=>{
         this.productsOfUser = products;  
         this.productsRemainAllTheTime = products; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???
-        console.log(5, this.productsOfUser);
+        // console.log(5, this.productsOfUser);
               
       })      
       this.subscriptions.add(subscription);
@@ -65,9 +65,9 @@ export class ItemsPage implements OnInit, OnDestroy{
     }
     
     goToSelectedTab(selectedTab: string){      
-      console.log(3);
+      // console.log(3);
       this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???
-      console.log(6, this.productsOfUser);
+      // console.log(6, this.productsOfUser);
       
       if (selectedTab !== 'All') {
         this.productsOfUser = this.productsOfUser.filter(product => product.rentOrBuy === selectedTab);
@@ -77,11 +77,11 @@ export class ItemsPage implements OnInit, OnDestroy{
     getAllProducts(){
       this.productsProvider.getProductsByUser().subscribe((products: Array<Product>)=>{     
         this.productsOfUser = products;
-        console.log(2);
+        // console.log(2);
       },
       (error)=>{
         // PONER API ERRORS BIEN???
-        console.log(error);
+        // console.log(error);
       })
     }
     
@@ -112,7 +112,7 @@ export class ItemsPage implements OnInit, OnDestroy{
               text: data.CANCEL_BUTTON,
               role: 'cancel',
               handler: () => {
-                console.log('cancel');
+                // console.log('cancel');
                 
               }
             }
@@ -187,7 +187,7 @@ export class ItemsPage implements OnInit, OnDestroy{
             text: data.CANCEL_BUTTON,
             role: 'cancel',
             handler: () => {
-              console.log('cancel');
+              // console.log('cancel');
               
             }
           }
@@ -232,7 +232,7 @@ export class ItemsPage implements OnInit, OnDestroy{
     }
     
     goToProduct(product: Product){
-      console.log(this.checkBoxedsOpened);
+      // console.log(this.checkBoxedsOpened);
       
       if (!this.checkBoxedsOpened) {
         this.navCtrl.push('ProductDetailPage', product);
@@ -264,13 +264,13 @@ export class ItemsPage implements OnInit, OnDestroy{
             this.emptyEverything();
             this.closeFab();
           } else{
-            console.log(errors); // PROBAR ERRORES DE BACK MULTIPLES AL DELETE???
+            // console.log(errors); // PROBAR ERRORES DE BACK MULTIPLES AL DELETE???
           }
         })
       }
 
       goToUploadProduct(){
-        console.log('AQUI');
+        // console.log('AQUI');
         
         this.modalCntrl.create(ModalComponentChooseCategory).present(); 
         setTimeout(()=>{

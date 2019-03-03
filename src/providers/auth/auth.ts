@@ -28,40 +28,35 @@ export class AuthProvider extends HandlingErrorsProvider{
         return user;
       }),
       catchError(this.handleError));
-  }
-  
-  //quitar any???
-  login(user: User): Observable<User | StringifiedError> {    
-    return this.http.post<User>(`${AuthProvider.ENDPOINT}/sessions`, user)
-    .pipe(
-      map((user: User) => {
-        this.user = user;
-        this.saveInLocalStorageAfterLogin(this.user)
-        return user;
-      }),
-      catchError(this.handleError));
-  }
-  
-  isLoggedIn():boolean{    
-    return localStorage.getItem('user') ? true : false;
-  }
-  
-  saveInLocalStorageAfterLogin(user: User){
-    localStorage.setItem('user', JSON.stringify(user));    
-  }
-
-  saveUserInAuthWhenAppLoads(){
-    if (localStorage.getItem('user')) {
-      this.user = JSON.parse(localStorage.getItem('user'));      
-    }   
-  }
-  // rememberMe():boolean{
-  //   return localStorage.getItem('rememberMe') ? true : false;
-  // }
-  
-  logout(){
-    localStorage.removeItem('user');
-    this.user = null;
-  }
-  
-}
+    }
+    
+    //quitar any???
+    login(user: User): Observable<User | StringifiedError> {    
+      return this.http.post<User>(`${AuthProvider.ENDPOINT}/sessions`, user)
+      .pipe(
+        map((user: User) => {
+          this.user = user;        
+          this.saveInLocalStorageAfterLogin(this.user)
+          return user;
+        }),
+        catchError(this.handleError));
+      }
+      
+      isLoggedIn():boolean{        
+        return localStorage.getItem('user') ? true : false;
+      }
+      
+      saveInLocalStorageAfterLogin(user: User){
+        localStorage.setItem('user', JSON.stringify(user));    
+      }
+      
+      saveUserInAuthWhenAppLoads(){
+        if (localStorage.getItem('user')) this.user = JSON.parse(localStorage.getItem('user'));  
+      }
+      
+      logout(){
+        localStorage.removeItem('user');
+        this.user = null;
+      }
+      
+    }

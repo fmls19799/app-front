@@ -31,16 +31,16 @@ export class ProfilePage implements OnInit{
     }
 
     receiveImageFromChildren(imagesReceived: Array<File>){ 
-      console.log(11111, imagesReceived);
+      // console.log(11111, imagesReceived);
       
       this.user.image = imagesReceived[0];
-      console.log(this.user);
+      // console.log(this.user);
       
       this.renderPreviewImg(imagesReceived[0]); // to render in the view
     }
     
     renderPreviewImg(imageReceived: File){  
-      console.log(imageReceived);
+      // console.log(imageReceived);
       
       var reader = new FileReader();
       reader.readAsDataURL(imageReceived);
@@ -51,11 +51,11 @@ export class ProfilePage implements OnInit{
     
     editUser(){
       this.userProvider.updateUser(this.user).subscribe((res)=>{
-        console.log(res);
+        // console.log(res);
         
       },
       (error) =>{
-        console.log(error);
+        // console.log(error);
         
       })
     }

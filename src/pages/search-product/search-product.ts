@@ -32,12 +32,12 @@ export class SearchProductPage {
         }
         this.auth.login(user).subscribe((user: User)=>{                   
           if (user) {
-            console.log('good');
+            // console.log('good');
             this.showToast('we have found 3 items');
           }
         },
         (error: StringifiedError) => {
-          console.log('error', error);
+          // console.log('error', error);
         })
       }
       

@@ -102,7 +102,7 @@ export class ModalComponentChooseCategory implements OnInit {
     
     renderPreviewImg(imagesReceived: Array<File>){  
       // this.arrayImagesFiles = [];
-      console.log(0, this.arrayImagesFiles);
+      // console.log(0, this.arrayImagesFiles);
       
       if(imagesReceived.length > 5){
         this.increaseImgWrapper();        
@@ -122,7 +122,7 @@ export class ModalComponentChooseCategory implements OnInit {
           } 
         }
       });
-      console.log(1, this.arrayImagesFiles);
+      // console.log(1, this.arrayImagesFiles);
       
     }
     
@@ -134,7 +134,7 @@ export class ModalComponentChooseCategory implements OnInit {
         // this.reference.put(file);
         this.storage.upload(`products/${this.productChosen.name}/${imageName}`, file).then((url)=>{
           let a = url.ref.getDownloadURL()
-          console.log(a); //DEVUELVE __zone_symbol__value ???
+          // console.log(a); //DEVUELVE __zone_symbol__value ???
           
         })
         

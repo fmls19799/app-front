@@ -1,14 +1,16 @@
 webpackJsonp([8],{
 
-/***/ 435:
+/***/ 810:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChatPageModule", function() { return ChatPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__chat__ = __webpack_require__(446);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ItemsPageModule", function() { return ItemsPageModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__items__ = __webpack_require__(823);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(421);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(83);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,33 +20,44 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ChatPageModule = /** @class */ (function () {
-    function ChatPageModule() {
+
+
+var ItemsPageModule = /** @class */ (function () {
+    function ItemsPageModule() {
     }
-    ChatPageModule = __decorate([
+    ItemsPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__chat__["a" /* ChatPage */],
+                __WEBPACK_IMPORTED_MODULE_2__items__["a" /* ItemsPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__chat__["a" /* ChatPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__items__["a" /* ItemsPage */]),
+                __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__["b" /* TranslateModule */].forChild(),
+                __WEBPACK_IMPORTED_MODULE_3__components_components_module__["a" /* CustomComponentsModule */],
             ],
         })
-    ], ChatPageModule);
-    return ChatPageModule;
+    ], ItemsPageModule);
+    return ItemsPageModule;
 }());
 
-//# sourceMappingURL=chat.module.js.map
+//# sourceMappingURL=items.module.js.map
 
 /***/ }),
 
-/***/ 446:
+/***/ 823:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(40);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ItemsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_products_products__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config_config_int__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common_http__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_modal_choose_category_modal_choose_category__ = __webpack_require__(200);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -56,30 +69,275 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-/**
- * Generated class for the ChatPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var ChatPage = /** @class */ (function () {
-    function ChatPage(navCtrl, navParams) {
+
+
+
+
+
+
+var ItemsPage = /** @class */ (function () {
+    function ItemsPage(navCtrl, navParams, productsProvider, alertCtrl, translate, toastCtrl, modalCntrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.productsProvider = productsProvider;
+        this.alertCtrl = alertCtrl;
+        this.translate = translate;
+        this.toastCtrl = toastCtrl;
+        this.modalCntrl = modalCntrl;
+        this.productsOfUser = [];
+        this.nameHeader = 'Your items';
+        this.checkBoxedsOpened = false;
+        this.arrayProductsToDelete = [];
+        this.trashEmptyOrFull = 'ios-trash-outline';
+        this.rentOrBuyOptions = [];
+        this.tabSelected = '';
+        this.subscriptions = new __WEBPACK_IMPORTED_MODULE_4_rxjs__["Subscription"]();
     }
-    ChatPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad ChatPage');
+    ItemsPage.prototype.ngOnInit = function () {
+        this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];
+        this.emptyEverything();
+        this.getAllProducts();
+        this.getSuscription();
     };
-    ChatPage = __decorate([
+    ItemsPage.prototype.getSuscription = function () {
+        var _this = this;
+        var subscription = this.productsProvider.productByUserChanges().subscribe(function (products) {
+            _this.productsOfUser = products;
+            _this.productsRemainAllTheTime = products; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???
+            // console.log(5, this.productsOfUser);
+        });
+        this.subscriptions.add(subscription);
+    };
+    ItemsPage.prototype.segmentSelected = function (event) {
+        this.tabSelected = event.target.innerHTML;
+        this.goToSelectedTab(this.tabSelected);
+    };
+    ItemsPage.prototype.goToSelectedTab = function (selectedTab) {
+        // console.log(3);
+        this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???
+        // console.log(6, this.productsOfUser);
+        if (selectedTab !== 'All') {
+            this.productsOfUser = this.productsOfUser.filter(function (product) { return product.rentOrBuy === selectedTab; });
+        }
+    };
+    ItemsPage.prototype.getAllProducts = function () {
+        var _this = this;
+        this.productsProvider.getProductsByUser().subscribe(function (products) {
+            _this.productsOfUser = products;
+            // console.log(2);
+        }, function (error) {
+            // PONER API ERRORS BIEN???
+            // console.log(error);
+        });
+    };
+    ItemsPage.prototype.emptyEverything = function () {
+        this.arrayProductsToDelete.forEach(function (product) {
+            product.selected = false;
+        });
+        this.arrayProductsToDelete = [];
+        this.trashEmptyOrFull = 'ios-trash-outline';
+        this.checkBoxedsOpened = false;
+    };
+    ItemsPage.prototype.selectAllProductsToDelete = function () {
+        var _this = this;
+        this.arrayProductsToDelete = this.productsOfUser;
+        this.translate.get(['DELETE_PRODUCTS', 'ARE_YOU_SURE_THAT_YOU_WANT_TO_DELETE', 'PRODUCTS', 'DONE_BUTTON', 'CANCEL_BUTTON'])
+            .subscribe(function (data) {
+            _this.alertCtrl.create({
+                title: data.DELETE_PRODUCTS,
+                message: data.ARE_YOU_SURE_THAT_YOU_WANT_TO_DELETE + " " + _this.arrayProductsToDelete.length + " " + data.PRODUCTS + "?",
+                buttons: [
+                    {
+                        text: data.DONE_BUTTON,
+                        handler: function () {
+                            _this.deleteManyProducts();
+                        }
+                    },
+                    {
+                        text: data.CANCEL_BUTTON,
+                        role: 'cancel',
+                        handler: function () {
+                            // console.log('cancel');
+                        }
+                    }
+                ]
+            }).present();
+        });
+    };
+    ItemsPage.prototype.closeFab = function () {
+        if (this.fab) {
+            this.fab.close();
+        }
+    };
+    ItemsPage.prototype.ionViewWillLeave = function () {
+        this.emptyEverything();
+        this.closeFab();
+    };
+    ItemsPage.prototype.fabOpenCheckboxes = function () {
+        this.checkBoxedsOpened = !this.checkBoxedsOpened;
+        if (!this.checkBoxedsOpened) {
+            this.emptyEverything();
+        }
+    };
+    ItemsPage.prototype.deleteProducts = function () {
+        if (this.arrayProductsToDelete.length === 0) {
+            this.translator('HAVE_TO_SELECT_PRODUCT_FIRST', false);
+        }
+        else if (this.arrayProductsToDelete.length === 1) {
+            this.translator(['DELETE_PRODUCT', 'ARE_YOU_SURE', 'DONE_BUTTON', 'CANCEL_BUTTON'], true);
+        }
+        else if (this.arrayProductsToDelete.length > 1) {
+            this.translator(['DELETE_PRODUCTS', 'ARE_YOU_SURE', 'DONE_BUTTON', 'CANCEL_BUTTON'], true);
+        }
+    };
+    ItemsPage.prototype.translator = function (messageToTranslate, withAlert, withNumberOfProductsDeleted) {
+        var _this = this;
+        this.translate.get(messageToTranslate).subscribe(function (data) {
+            if (withAlert) {
+                _this.showAlert(data);
+            }
+            else {
+                _this.showToast(data, withNumberOfProductsDeleted);
+            }
+        });
+    };
+    ItemsPage.prototype.showAlert = function (data) {
+        var _this = this;
+        var textToShow;
+        if (this.arrayProductsToDelete.length === 0) {
+            textToShow = data.HAVE_TO_SELECT_PRODUCT_FIRST;
+        }
+        else if (this.arrayProductsToDelete.length === 1) {
+            textToShow = data.DELETE_PRODUCT;
+        }
+        else {
+            textToShow = data.DELETE_PRODUCTS;
+        }
+        this.alertCtrl.create({
+            title: textToShow,
+            message: data.ARE_YOU_SURE,
+            buttons: [
+                {
+                    text: data.DONE_BUTTON,
+                    handler: function () {
+                        _this.deleteManyProducts();
+                    }
+                },
+                {
+                    text: data.CANCEL_BUTTON,
+                    role: 'cancel',
+                    handler: function () {
+                        // console.log('cancel');
+                    }
+                }
+            ]
+        }).present();
+    };
+    ItemsPage.prototype.showToast = function (data, withNumberOfProductsDeleted) {
+        var messageToShow;
+        if (withNumberOfProductsDeleted) {
+            messageToShow = this.arrayProductsToDelete.length + " " + data;
+        }
+        else {
+            messageToShow = data;
+        }
+        this.toastCtrl.create({
+            message: messageToShow,
+            duration: 2000,
+            position: 'top',
+        }).present();
+    };
+    ItemsPage.prototype.selectProductWithCheckbox = function (product) {
+        product.selected = !product.selected;
+        if (product.selected && this.arrayProductsToDelete.indexOf(product) == -1) {
+            this.arrayProductsToDelete.push(product);
+        }
+        else {
+            this.arrayProductsToDelete = this.arrayProductsToDelete.filter(function (elem) {
+                return elem !== product;
+            });
+        }
+        // this.arrayProductsToDelete.length === 1 ? this.showNumberOfProductsToDelete = `Delete ${this.arrayProductsToDelete.length} product` : this.showNumberOfProductsToDelete = `Delete ${this.arrayProductsToDelete.length} products`;
+        this.paintTrash();
+    };
+    ItemsPage.prototype.paintTrash = function () {
+        if (this.arrayProductsToDelete.length === 0) {
+            this.trashEmptyOrFull = 'ios-trash-outline';
+        }
+        else {
+            this.trashEmptyOrFull = 'ios-trash';
+        }
+    };
+    ItemsPage.prototype.goToProduct = function (product) {
+        // console.log(this.checkBoxedsOpened);
+        if (!this.checkBoxedsOpened) {
+            this.navCtrl.push('ProductDetailPage', product);
+        }
+    };
+    // EN BACK PONER MIDDLEWARES DE SI ES EL MISMO USER ID???
+    // LLAMAR A ESTA FUNCION MULTIPLES VECES???
+    ItemsPage.prototype.deleteManyProducts = function () {
+        var _this = this;
+        var errors = [];
+        // COMO AFECTARIA LOS ERRORES MULTIPLES AQUI????
+        return __WEBPACK_IMPORTED_MODULE_4_rxjs__["Observable"].forkJoin(this.arrayProductsToDelete.map(function (product) {
+            return _this.productsProvider.deleteProductByUser(product);
+        }), function () {
+            var results = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                results[_i] = arguments[_i];
+            }
+            return ({
+                failed: results.map(function (res) {
+                    return res instanceof __WEBPACK_IMPORTED_MODULE_6__angular_common_http__["d" /* HttpErrorResponse */] ? res : null;
+                }),
+                succeeded: results.map(function (res) {
+                    return res instanceof __WEBPACK_IMPORTED_MODULE_6__angular_common_http__["d" /* HttpErrorResponse */] ? null : res;
+                })
+            });
+        }).subscribe(function (data) {
+            if (errors.length === 0) {
+                _this.translator('PRODUCTS_DELETED', false, true);
+                _this.emptyEverything();
+                _this.closeFab();
+            }
+            else {
+                // console.log(errors); // PROBAR ERRORES DE BACK MULTIPLES AL DELETE???
+            }
+        });
+    };
+    ItemsPage.prototype.goToUploadProduct = function () {
+        // console.log('AQUI');
+        var _this = this;
+        this.modalCntrl.create(__WEBPACK_IMPORTED_MODULE_7__components_modal_choose_category_modal_choose_category__["a" /* ModalComponentChooseCategory */]).present();
+        setTimeout(function () {
+            _this.navCtrl.pop();
+        }, 400);
+    };
+    ItemsPage.prototype.ngOnDestroy = function () {
+        this.subscriptions.unsubscribe();
+    };
+    ItemsPage.ENDPOINT = __WEBPACK_IMPORTED_MODULE_5__config_config_int__["a" /* CONFIG */].API_ENDPOINT + "/products";
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* ViewChild */])("fab"),
+        __metadata("design:type", Object)
+    ], ItemsPage.prototype, "fab", void 0);
+    ItemsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-chat',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/chat/chat.html"*/'<!--\n  Generated template for the ChatPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>chat</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/chat/chat.html"*/,
+            selector: 'page-items',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/items/items.html"*/'<!--   \n  <ion-header>\n    \n    <ion-navbar>\n      <ion-title>aaa</ion-title>\n    </ion-navbar>\n    \n  </ion-header>\n-->\n\n<!-- <header [name]="nameHeader"></header> -->\n<ion-header>\n  <ion-navbar>\n    <ion-title>Your items</ion-title>\n  </ion-navbar>\n</ion-header>\n<ion-content padding>\n  \n  <!-- SI NO HAY PRODUCTOS -->\n  <div class="no-products" *ngIf="productsOfUser?.length === 0">\n    <h6 class="text-no-products">{{\'NO_PRODUCTS_IN_YOUR_LIST\' | translate}}</h6>\n  </div>\n  \n  <ion-segment (click)="segmentSelected($event)" class="segmentOptions" *ngIf="productsRemainAllTheTime?.length > 0">\n    <ion-segment-button *ngFor="let option of rentOrBuyOptions">\n      <ion-label>{{option}}</ion-label>\n    </ion-segment-button>\n  </ion-segment>\n  <ion-list>\n    <div class="product" *ngFor="let product of productsOfUser" (click)="goToProduct(product)">\n      <img [src]="product?.photos[0]" alt="image">\n      <div class="info">\n        <p>{{product.price}} €</p>\n        <span>{{product.name}}</span>\n      </div>\n      <ion-checkbox #checkBox *ngIf="checkBoxedsOpened" (click)="selectProductWithCheckbox(product)"></ion-checkbox>\n    </div>\n  </ion-list>\n  \n  \n  <ion-fab left bottom #fab *ngIf="productsOfUser?.length !== 0">\n    <button color=danger ion-fab mini (click)="fabOpenCheckboxes()">\n      <ion-icon [name]="trashEmptyOrFull"></ion-icon>\n    </button>\n    <ion-fab-list side="top">\n      <!-- <button color=primary ion-fab>\n        <ion-icon name="share-alt"></ion-icon> \n      </button> -->\n      <button color=primary ion-fab (click)="deleteProducts()">\n        <ion-icon [name]="trashEmptyOrFull"></ion-icon> \n      </button>\n    </ion-fab-list>\n  </ion-fab>\n  \n  \n  \n  <ion-fab class="fabUploadProduct" #fab *ngIf="productsOfUser?.length !== 0">\n    <button ion-fab (click)="goToUploadProduct()">\n      <ion-icon name="add-circle"></ion-icon>\n      <p>Upload product</p>\n    </button>\n  </ion-fab>\n  \n  \n  \n</ion-content>\n\n\n\n<div class="delete-all" *ngIf="checkBoxedsOpened" (click)="selectAllProductsToDelete()">\n  <p>{{\'DELETE_ALL\' | translate}}</p>\n</div>\n\n\n\n'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/items/items.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]])
-    ], ChatPage);
-    return ChatPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_2__providers_products_products__["a" /* ProductsProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__["c" /* TranslateService */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */]])
+    ], ItemsPage);
+    return ItemsPage;
 }());
 
-//# sourceMappingURL=chat.js.map
+//# sourceMappingURL=items.js.map
 
 /***/ })
 

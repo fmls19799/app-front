@@ -1,16 +1,16 @@
 webpackJsonp([2],{
 
-/***/ 438:
+/***/ 809:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HomePageModule", function() { return HomePageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home__ = __webpack_require__(449);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(264);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home__ = __webpack_require__(822);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_components_module__ = __webpack_require__(421);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngx_translate_core__ = __webpack_require__(83);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -44,7 +44,7 @@ var HomePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 444:
+/***/ 811:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -59,18 +59,21 @@ var User = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 449:
+/***/ 822:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_user__ = __webpack_require__(444);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_products_products__ = __webpack_require__(136);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_auth__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_user__ = __webpack_require__(811);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_products_products__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_favorites_favorites__ = __webpack_require__(422);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -87,8 +90,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var HomePage = /** @class */ (function () {
-    function HomePage(navCtrl, navParams, loadingCtrl, auth, modal, productsProvider, _sanitizer, toastCtrl, translate) {
+    function HomePage(navCtrl, navParams, loadingCtrl, auth, modal, productsProvider, _sanitizer, toastCtrl, translate, favoritesProvider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.loadingCtrl = loadingCtrl;
@@ -98,61 +103,128 @@ var HomePage = /** @class */ (function () {
         this._sanitizer = _sanitizer;
         this.toastCtrl = toastCtrl;
         this.translate = translate;
+        this.favoritesProvider = favoritesProvider;
         this.loader = null;
         this.user = new __WEBPACK_IMPORTED_MODULE_3__models_user__["a" /* User */]();
         this.products = [];
-        this.productColumn1 = [];
-        this.productColumn2 = [];
         this.newOnesAfterRefresh = [];
-        this.addedOnes = null;
-        this.categories = [
-            {
-                icon: 'ios-home-outline',
-                name: 'House',
-            },
-            {
-                icon: 'ios-car-outline',
-                name: 'Car',
-            },
-            {
-                icon: 'ios-game-controller-b-outline',
-                name: 'Gaming',
-            },
-            {
-                icon: 'bicycle',
-                name: 'Bicycle',
-            },
-            {
-                icon: 'ios-american-football-outline',
-                name: 'Sports',
-            },
-            {
-                icon: 'ios-phone-portrait-outline',
-                name: 'Phones',
-            }
-        ];
+        // productsRemainAllTheTime: Array<Product> = [];
+        this.rentOrBuyOptions = [];
+        this.categories = [{ icon: 'ios-home-outline', type: 'Real state' }, { icon: 'ios-car-outline', type: 'Cars' }, { icon: 'ios-game-controller-b-outline', type: 'Gaming' }, { icon: 'bicycle', type: 'Cycling' }, { icon: 'football-outline', type: 'Sports' }, { icon: 'phone-portrait', type: 'Phones' }, { icon: 'shirt-outline', type: 'Clothing' }, { icon: 'boat-outline', type: 'Boats' }];
+        this.wishList = [];
+        this.subscriptions = new __WEBPACK_IMPORTED_MODULE_7_rxjs__["Subscription"]();
+        this.pagination = 1;
+        this.rentOrBuyTabSelected = '';
+        this.typeSelected = '';
     }
-    HomePage.prototype.ionViewDidLoad = function () {
-    };
     HomePage.prototype.ngOnInit = function () {
-        this.getAllProducts();
+        this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];
+        if (this.auth.isLoggedIn()) {
+            this.getAllProducts();
+            this.getAllFavs();
+        }
     };
-    HomePage.prototype.getAllProducts = function (refresher) {
+    // getSuscription(){//ESTO??????
+    //   let subscription = this.productsProvider.allProductsHomeChanges().subscribe((products: Array<Product>)=>{
+    //     this.products = products; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???        
+    //   })      
+    //   this.subscriptions.add(subscription);
+    // }
+    HomePage.prototype.chooseProduct = function (category) {
+        // SI ES NUEVO O NO ES EL MISMO QUIERO VACIAR EL ARRAY LOCAL ASI ME DA EL TIPO QUE QUIERO
+        if (this.typeSelected === '' || this.typeSelected !== category.type) {
+            this.typeSelected = category.type;
+            this.products = [];
+            this.pagination = 1;
+            this.getAllProducts(null, { 'type': category.type });
+        }
+        this.inWhatTabIclickedLast({ 'type': category.type });
+    };
+    HomePage.prototype.segmentSelected = function (event) {
+        if (event.target.innerHTML === 'All') {
+            this.pagination = 1;
+            this.products = [];
+            this.lastTabClicked = undefined;
+            this.getAllProducts();
+        }
+        else if (this.rentOrBuyTabSelected === '' || this.rentOrBuyTabSelected !== event.target.innerHTML) {
+            this.rentOrBuyTabSelected = event.target.innerHTML;
+            this.products = [];
+            this.pagination = 1;
+            this.getAllProducts(null, { 'rentOrBuy': event.target.innerHTML });
+        }
+        // console.log(22222, this.rentOrBuyTabSelected);
+        this.inWhatTabIclickedLast({ 'rentOrBuy': event.target.innerHTML });
+    };
+    HomePage.prototype.inWhatTabIclickedLast = function (objectClicked) {
+        // REEEMPLAZA EL ULTIMO SITIO DONDE CLIQUEE ASI EL INFINITE PUEDE RECARGAR SOBRE ESO    
+        this.lastTabClicked = objectClicked;
+    };
+    // filterByType(filterByType: string){   //ESTO??????
+    //   this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???
+    //   if (filterByType !== 'All') {
+    //     this.products = this.products.filter(product => product.type === filterByType);
+    //   }
+    // }
+    // filterByRentOrBuy(rentOrBuy: string){   //ESTO??????         
+    //   this.getSuscription(); // si no pongo esto hace un filtro sobre lo ya filtrado previamente y no existe nada???
+    //   if (rentOrBuy !== 'All') {
+    //     this.products = this.products.filter(product => product.rentOrBuy === rentOrBuy);
+    //   }
+    // }
+    HomePage.prototype.getAllProducts = function (refresher, rentOrBuyOrType) {
         var _this = this;
-        this.closeOpenedOnes(); // close detail of opened ones
-        this.productsProvider.getAllProducts().subscribe(function (products) {
+        this.productsProvider.getAllProducts(this.pagination, rentOrBuyOrType)
+            .subscribe(function (products) {
             if (refresher) {
-                if (products.length > _this.products.length) {
-                    _this.showToast((Number(products.length) - Number(_this.products.length)).toString() + " products new");
-                }
-                else {
-                    _this.translator('NO_NEW_PRODUCTS_AFTER_REFRESH');
-                }
                 refresher.complete();
             }
-            _this.products = products;
-            _this.populateProductsList(); // split products in 3 columns
+            if (products.length > 0) {
+                products.forEach(function (product) {
+                    _this.products.push(product);
+                });
+            }
         });
+    };
+    // ESTO???????
+    // getaAllProducts(refresher?: any){      
+    //   this.productsProvider.getAllProducts().subscribe((products: Array<Product>)=>{        
+    //     if (refresher) { // stop refresher after i got results, if im doing refresher, only include new ones instead adding them all ???
+    //       if (products.length > this.products.length) {
+    //         this.showToast(`${(Number(products.length) - Number(this.products.length)).toString()} products new`);            
+    //       } else{
+    //         this.translator('NO_NEW_PRODUCTS_AFTER_REFRESH');            
+    //       }
+    //       refresher.complete();
+    //     } 
+    //   })
+    // }
+    HomePage.prototype.getAllFavs = function () {
+        var _this = this;
+        this.favoritesProvider.getFavoritesProductsOfUser().subscribe(function (wishList) {
+            _this.wishList = wishList;
+            _this.paintHeartIfLiked();
+        }, function (error) {
+            console.log(error);
+            // this.translator(error);
+        });
+    };
+    // ESTO???
+    HomePage.prototype.loadData = function (event) {
+        var _this = this;
+        setTimeout(function () {
+            _this.pagination++;
+            if (_this.lastTabClicked.rentOrBuy === 'All') {
+                _this.getAllProducts(null, undefined);
+            }
+            else {
+                _this.getAllProducts(null, _this.lastTabClicked);
+            }
+            event.complete();
+        }, 500);
+    };
+    // ESTO???
+    HomePage.prototype.paintHeartIfLiked = function () {
     };
     HomePage.prototype.translator = function (textToTranslate) {
         var _this = this;
@@ -167,62 +239,30 @@ var HomePage = /** @class */ (function () {
             position: 'top',
         }).present();
     };
-    HomePage.prototype.closeOpenedOnes = function () {
-        this.products.forEach(function (product) {
-            product.opacity = false;
-        });
-    };
-    HomePage.prototype.populateProductsList = function () {
-        var _this = this;
-        this.productColumn1 = [];
-        this.productColumn2 = [];
-        this.products.forEach(function (product, i) {
-            if (i <= _this.products.length / 2) {
-                _this.productColumn1.push(product);
-            }
-            else {
-                _this.productColumn2.push(product);
-            }
-        });
-    };
-    HomePage.prototype.randomStyleHeightDiv = function () {
-        return this._sanitizer.bypassSecurityTrustStyle("height:" + (Math.floor(Math.random() * 60) + 40));
-    };
     HomePage.prototype.searchingProduct = function (pattern) {
         // this.modal.create('SearchProductPage').present();
         this.navCtrl.push('SearchProductPage'); // mediante el push puedo pasar info a otra pagina o si no quiero pasar y pasar usar behaviour subject???
     };
     HomePage.prototype.doRefresh = function (refresher) {
-        this.getAllProducts(refresher);
-    };
-    HomePage.prototype.showSmallDetail = function (productClicked) {
-        var _this = this;
-        return this.products.forEach(function (product) {
-            if (product._id === productClicked._id) {
-                return _this.turnOpacity(product);
-            }
-        });
-    };
-    HomePage.prototype.turnOpacity = function (product) {
-        if (!product.opacity) {
-            product.opacity = true;
-        }
-        else {
-            product.opacity = false;
-        }
+        this.products = [];
+        this.pagination = 1;
+        this.lastTabClicked = undefined; // necesito no solo pasar a la funcion undefined para que no tenga en cuenta el filtro sino tambien esto, ya que el infinite recuerda la ultima clicada???
+        this.getAllProducts(refresher, undefined);
     };
     HomePage.prototype.goToProduct = function (product) {
         // PONER ESTO CON SUBJECT ASI APRENDO??? AUNQUE SOLO PRA ESTO NO HARIA FALTA
-        console.log(product);
         this.navCtrl.push('ProductDetailPage', product);
     };
     HomePage.prototype.menuClick = function (event) {
         // ESTO PARA QUE???
-        console.log(event);
+        // console.log(event); 
+    };
+    HomePage.prototype.ngOnDestroy = function () {
+        // this.subscriptions.unsubscribe();
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/home/home.html"*/'<!-- HEADER -->\n<ion-header>\n  <ion-navbar>\n    <!-- MENU TOGGLE -->\n    <ion-buttons start class="burger">\n      <!-- ESTE CLICK PARA QUE???? -->\n      <button ion-button icon-only menuToggle (click)="menuClick($event)"> \n        <ion-icon name="menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <!-- SEARCH BAR -->\n    <div class="flex">\n      <ion-searchbar (click)="searchingProduct(pattern)" [(ngModel)]="pattern"></ion-searchbar>\n    </div>\n  </ion-navbar>\n</ion-header>\n<!-- ION CONTENT -->\n<ion-content>\n  <!-- REFRESHER -->\n  <ion-refresher pullMin="100" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>\n  </ion-refresher>  \n  <!-- TOP PART -->\n  <div class="fixedTop">\n    <!-- SEARCH IN... -->\n    <div class="searchIn">\n      <div>\n        <h6>{{ \'SEARCH_IN\' | translate }}</h6>\n      </div>\n      <div>\n        <span>{{ \'SEE_ALL\' | translate }}\n          <!-- <ion-icon name="arrow-forward"></ion-icon> -->\n        </span>\n      </div>\n    </div>\n    <!-- SEARCH BY ICON -->\n    <div class="listOfProductsToChooseFrom">\n      <div *ngFor="let category of categories">\n        <ion-icon [name]="category.icon" (click)="chooseProduct(category)"></ion-icon>\n        <span>{{category.name | translate }}</span>\n      </div>\n    </div>\n  </div>\n  <!-- MAIN CONTENT -->\n  <div class="productsList">\n    <ion-row>\n      <!-- LEFT COLUMN -->\n      <ion-col>\n        <div class="product" *ngFor="let product of productColumn1">\n          <div class="container" [style]="product.randomHeight" [ngClass]="{\'increasesizeContainer\': product.opacity}">\n            <div class="relative">\n              <img [src]="product.photos[0]" (click)="showSmallDetail(product)" alt="image" [ngClass]="{\'opacity03\': product.opacity}">\n              <!-- if clicked -->\n              <h6 class="goToProduct" *ngIf="product.opacity" (click)="goToProduct($event)">{{\'SEE\' | translate}} {{ product.name }}</h6>\n              <!-- fin if clicked -->\n            </div>\n            <div class="infoWrapper">\n              <h6 class="price">{{ product.price }} €</h6>\n              <span class="name">{{ product.name | titlecase}}</span>\n            </div>\n            <!-- IF CLICKED -->\n            <div class="showHiddenContent" *ngIf="product.opacity">\n              <div class="imagesGallery">\n                <img [src]="image" alt="image" *ngFor="let image of product.photos">\n              </div>\n              <small class="description">{{product.description}}</small>\n              <ion-icon [name]="product.icon"></ion-icon>\n            </div>\n            <!-- FIN IF CLICKED -->\n          </div>\n        </div>\n      </ion-col>\n      <!-- RIGHT COLUMN -->\n      <ion-col>\n        <div class="product" *ngFor="let product of productColumn2">\n          <div class="container" [style]="product.randomHeight" [ngClass]="{\'increasesizeContainer\': product.opacity}">\n            <div class="relative">\n              <img [src]="product.photos[0]" (click)="showSmallDetail(product)" alt="image" [ngClass]="{\'opacity03\': product.opacity}">\n              <!-- if clicked -->\n              <h6 class="goToProduct" *ngIf="product.opacity" (click)="goToProduct(product)">{{\'SEE\' | translate}} {{ product.name }}</h6>\n              <!-- fin if clicked -->\n            </div>\n            <div class="infoWrapper">\n              <h6 class="price">{{ product.price }} €</h6>\n              <span class="name">{{ product.name | titlecase}}</span>\n            </div>\n            <!-- IF CLICKED -->\n            <div class="showHiddenContent" *ngIf="product.opacity">\n              <div class="imagesGallery">\n                <img [src]="image" alt="image" *ngFor="let image of product.photos">\n              </div>\n              <small class="description">{{product.description}}</small>\n              <ion-icon [name]="product.icon"></ion-icon>\n            </div>\n            <!-- FIN IF CLICKED -->\n          </div>\n        </div>\n      </ion-col>\n    </ion-row>\n    <!-- <ion-fab-button color="primary">Primary</ion-fab-button> -->\n  </div>\n</ion-content>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/home/home.html"*/,
+            selector: 'page-home',template:/*ion-inline-start:"/Users/franciscomanriquedelara/Desktop/front/src/pages/home/home.html"*/'<!-- HEADER -->\n<ion-header>\n  <ion-navbar>\n    <!-- MENU TOGGLE -->\n    <ion-buttons start class="burger">\n      <!-- ESTE CLICK PARA QUE???? -->\n      <button ion-button icon-only menuToggle (click)="menuClick($event)"> \n        <ion-icon name="menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <!-- SEARCH BAR -->\n    <div class="searchBar">\n      <ion-searchbar (click)="searchingProduct(pattern)" [(ngModel)]="pattern"></ion-searchbar>\n      <ion-icon name="md-funnel"></ion-icon>\n    </div>\n  </ion-navbar>\n</ion-header>\n<!-- ION CONTENT -->\n<ion-content padding>\n  <!-- REFRESHER -->\n  <ion-refresher pullMin="100" (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing..."></ion-refresher-content>\n  </ion-refresher>\n  <!-- TOP PART -->\n  <div class="fixedTop">\n    <!-- SEARCH IN... -->\n    <div class="searchIn">\n      <div>\n        <h6>{{ \'SEARCH_IN\' | translate }}</h6>\n      </div>\n      <div>\n        <span>{{ \'SEE_ALL\' | translate }}\n          <!-- <ion-icon name="arrow-forward"></ion-icon> -->\n        </span>\n      </div>\n    </div>\n    <!-- SEARCH BY ICON -->\n    <div class="listOfProductsToChooseFrom">\n      <div *ngFor="let category of categories">\n        <ion-icon [name]="category.icon" (click)="chooseProduct(category)">\n        </ion-icon>\n        <span>{{category.name | translate }}</span>\n      </div>\n    </div>\n    \n    <!-- SEGMENT TABS TOCHANGE CONTENT -->\n    <ion-segment (click)="segmentSelected($event)" class="segmentOptions" *ngIf="rentOrBuyOptions" color ="dark">\n      <ion-segment-button *ngFor="let option of rentOrBuyOptions">\n        <ion-label>{{option}}</ion-label>\n      </ion-segment-button>\n    </ion-segment>\n  </div>\n  <!-- MAIN CONTENT -->\n  <div class="productsList">\n    <div class="product" *ngFor="let product of products">\n      <div class="container" [style]="product.randomHeight">\n        <div class="relative" (click)="goToProduct(product)">\n          <img [src]="product.photos[0]" alt="image">\n          <div class="rentOrBuyTag">\n            <p>{{product.rentOrBuy}}</p>\n            <p>{{product.type}}</p>\n          </div>\n          <!-- <div class="typeTag">\n            <p>{{product.type}}</p>\n          </div> -->\n          <div class="imgUser">\n            <img [src]="product.owner.image" alt="">\n          </div>\n        </div>\n        <div class="infoWrapper">\n          <div class="flex">\n            <h6 class="price">{{ product.price }} €</h6>\n            <ion-icon name="heart-outline"></ion-icon>\n          </div>\n          <span class="name">{{ product.name | titlecase}}</span>\n        </div>\n      </div>\n    </div>\n  </div>\n  <!-- INFINITE SCROLL -->\n  <ion-infinite-scroll threshold="10px" (ionInfinite)="loadData($event)">\n    <ion-infinite-scroll-content\n    loadingSpinner="bubbles"\n    loadingText="Loading more data...">\n  </ion-infinite-scroll-content>\n</ion-infinite-scroll>\n</ion-content>'/*ion-inline-end:"/Users/franciscomanriquedelara/Desktop/front/src/pages/home/home.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
@@ -232,7 +272,8 @@ var HomePage = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_4__providers_products_products__["a" /* ProductsProvider */],
             __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__["c" /* DomSanitizer */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */],
-            __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__["c" /* TranslateService */]])
+            __WEBPACK_IMPORTED_MODULE_6__ngx_translate_core__["c" /* TranslateService */],
+            __WEBPACK_IMPORTED_MODULE_8__providers_favorites_favorites__["a" /* FavoritesProvider */]])
     ], HomePage);
     return HomePage;
 }());

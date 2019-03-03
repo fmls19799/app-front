@@ -20,7 +20,7 @@ export interface ProductSelected extends Product{
   selector: 'page-home',
   templateUrl: 'home.html',
 })
-export class HomePage implements OnInit, OnDestroy{
+export class HomePage implements OnDestroy{
   private loader: Loading = null;
   user: User = new User();
   products: any = [];
@@ -45,17 +45,18 @@ export class HomePage implements OnInit, OnDestroy{
     private _sanitizer: DomSanitizer,
     private toastCtrl: ToastController,
     private translate: TranslateService,
-    private favoritesProvider: FavoritesProvider,) {
+    private favoritesProvider: FavoritesProvider) {
       
     }
     
-    ngOnInit(){         
+    ngOnInit(){             
       this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];      
-      this.getAllProducts();
-      this.getAllFavs();
-      // this.getSuscription();//ESTO??????
+      if (this.auth.isLoggedIn()) { // HAGO ESTO PORQUE EL AUNQUE ME REDIRIJA AL LOGIN SI NO ESTOY LOGUEADO, HACE LA LLAMADA IGUAL Y EL IONVIEWDIDENTER TAMPOCO ME FUNCIONA EN ESTE CASO???
+        this.getAllProducts();
+        this.getAllFavs();
+      }
     }
-    
+
     // getSuscription(){//ESTO??????
     //   let subscription = this.productsProvider.allProductsHomeChanges().subscribe((products: Array<Product>)=>{
     //     this.products = products; // ya que cuando doy al tab va cambiando el  array original, hago que el array completo se mantenga para poder mantener los tabs en el html???        
@@ -119,9 +120,7 @@ export class HomePage implements OnInit, OnDestroy{
           products.forEach((product)=>{                        
             this.products.push(product);            
           })  
-        }
-        console.log(this.products);
-        
+        }        
       })
     }
     

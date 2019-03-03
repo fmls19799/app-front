@@ -56,7 +56,7 @@ export class RegisterPage implements OnInit{
           this.translator('USER_CREATED', true);
         },
         (error: any) =>{
-          console.log(error);
+          // console.log(error);
           
           this.translator(error);
         })

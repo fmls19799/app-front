@@ -26,9 +26,7 @@ export class FavoritesProvider extends HandlingErrorsProvider {
     return this.http.get<Array<WishProduct>>(`${FavoritesProvider.ENDPOINT}/wishlist/user/${this.auth.user.id}`)
     .pipe(
       map((wishlist: Array<WishProduct>)=>{
-        this.wishList = wishlist;
-        console.log(this.wishList);
-        
+        this.wishList = wishlist;        
         this.notifyChanges();
         return wishlist;
       }),

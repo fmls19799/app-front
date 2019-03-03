@@ -26,8 +26,8 @@ export class FileuploaderComponent implements OnInit{
   
   clickButtonToOpenFile(){
     this.file.nativeElement.click(); // desde un icono ejecuto apertura del file y se ejecuta en la funcion de abajo
-    console.log(this.file);
-    console.log(this.fileContainer);
+    // console.log(this.file);
+    // console.log(this.fileContainer);
     
   }
   

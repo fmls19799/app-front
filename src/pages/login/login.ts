@@ -44,10 +44,10 @@ export class LoginPage implements OnInit{
       this.isCordova = this.utils.isCordova();        
     }
     
-    doLogin(){
+    doLogin(){      
       if (this.myForm.valid) {        
         this.auth.login(this.user).subscribe((user: User)=>{  
-          this.userStorage = user;                                     
+          this.userStorage = user;                                               
           if (this.userStorage) {
             this.navCtrl.setRoot('HomePage')
           }

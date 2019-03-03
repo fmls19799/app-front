@@ -37,7 +37,7 @@ export class UserProvider extends HandlingErrorsProvider {
     }
     
     updateUser(user: User){
-      console.log(33, user);
+      // console.log(33, user);
       
       return this.http.put<User>(`${UserProvider.ENDPOINT}/users/${this.auth.user.id}/update`, this.asFormData(user), UserProvider.httpOptionsForFormData)
       .pipe(
