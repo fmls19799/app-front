@@ -120,7 +120,6 @@ constructor(private translate: TranslateService,
   
   ngOnInit() {
     console.log('INIT');
-    debugger;
     // set root page at first load, set environment and bring the user from localstorage
     this.auth.saveUserInAuthWhenAppLoads();
     this.rootPage = 'HomePage';

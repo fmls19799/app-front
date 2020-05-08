@@ -51,10 +51,10 @@ export class HomePage implements OnDestroy{
     
     ngOnInit(){             
       this.rentOrBuyOptions = ['All', 'Rent', 'Sell', 'Exchange', 'Gift'];      
-      if (this.auth.isLoggedIn()) { // HAGO ESTO PORQUE EL AUNQUE ME REDIRIJA AL LOGIN SI NO ESTOY LOGUEADO, HACE LA LLAMADA IGUAL Y EL IONVIEWDIDENTER TAMPOCO ME FUNCIONA EN ESTE CASO???
+      // if (this.auth.isLoggedIn()) { // HAGO ESTO PORQUE EL AUNQUE ME REDIRIJA AL LOGIN SI NO ESTOY LOGUEADO, HACE LA LLAMADA IGUAL Y EL IONVIEWDIDENTER TAMPOCO ME FUNCIONA EN ESTE CASO???
         this.getAllProducts();
         this.getAllFavs();
-      }
+      // }
     }
 
     // getSuscription(){//ESTO??????
